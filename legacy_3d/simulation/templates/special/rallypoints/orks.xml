@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por tools/civs/gen_civs.py: mude as tabelas lá e rode de novo. -->
+<Entity parent="special/rallypoint">
+  <Identity>
+    <Civ>orks</Civ>
+  </Identity>
+</Entity>

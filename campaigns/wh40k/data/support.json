@@ -1,0 +1,459 @@
+{
+	"Description": "Apoio na batalha 2D, estilo 'killstreak': cada poder enche com as baixas (homens) que o exército causa e, cheio, pode ser lançado num ponto do campo; depois volta a zero. type: drop_pod (reforço cai do céu), strategic_bomber (passagem de bombardeiros em linha), orbital_laser (lança em fases, atinge todos), orbital_saturation (salva sobre uma área, atinge todos). requires: 'orbit' = frota própria na órbita do planeta e sem frota inimiga; 'air' = aeronave no exército; '' = sempre. airDiscount: baixas a menos quando o exército tem aeronave.",
+	"imperial": [
+		{
+			"id": "drop_pod",
+			"type": "drop_pod",
+			"name": "Cápsula de Desembarque",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "imperial/r4c5.png",
+			"desc": "Um pelotão cai da órbita no ponto escolhido, esmagando quem estiver embaixo."
+		},
+		{
+			"id": "marauder",
+			"type": "strategic_bomber",
+			"name": "Bombardeio de Marauders",
+			"kills": 16,
+			"requires": "",
+			"icon": "imperial/r4c4.png",
+			"desc": "Bombardeiros da Marinha Imperial passam em linha soltando bombas sobre o alvo. Com aeronave no exército, a barra enche com menos baixas.",
+			"airDiscount": 6
+		},
+		{
+			"id": "lance",
+			"type": "orbital_laser",
+			"name": "Lança Orbital",
+			"kills": 18,
+			"requires": "orbit",
+			"icon": "imperial/r1c4.png",
+			"desc": "As baterias de lança da frota queimam o alvo em fases."
+		},
+		{
+			"id": "barrage",
+			"type": "orbital_saturation",
+			"name": "Bombardeio Orbital",
+			"kills": 30,
+			"requires": "orbit",
+			"icon": "imperial/r4c0.png",
+			"desc": "Uma salva de macro-canhões satura uma área enorme. Atinge também os seus!"
+		}
+	],
+	"orks": [
+		{
+			"id": "teleporta",
+			"type": "drop_pod",
+			"name": "Teleporta de Rapazes",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "orks/r2c0.png",
+			"desc": "O Kroozer teleporta um bando de rapazes (meio tontos) direto para a briga."
+		},
+		{
+			"id": "dakkajets",
+			"type": "strategic_bomber",
+			"name": "Bombardeio de Dakkajets",
+			"kills": 14,
+			"requires": "",
+			"icon": "orks/r3c5.png",
+			"desc": "Dakkajets mergulham soltando bombas (e algumas peças). Com aeronave no exército, a barra enche com menos baixas.",
+			"airDiscount": 6
+		},
+		{
+			"id": "rokks",
+			"type": "orbital_saturation",
+			"name": "Chuva de Rokks",
+			"kills": 25,
+			"requires": "orbit",
+			"icon": "orks/r4c2.png",
+			"desc": "Rokks cheios de rapazes e explosivos caem do espaço sobre a área."
+		}
+	],
+	"tyranids": [
+		{
+			"id": "mycetic",
+			"type": "drop_pod",
+			"name": "Esporo Mycetic",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "tyranids/r0c3.png",
+			"desc": "Um esporo cai do navio-colmeia e solta uma ninhada no ponto escolhido."
+		},
+		{
+			"id": "harpies",
+			"type": "strategic_bomber",
+			"name": "Revoada de Harpias",
+			"kills": 14,
+			"requires": "",
+			"icon": "tyranids/r0c2.png",
+			"desc": "Criaturas aladas mergulham soltando esporos explosivos em linha.",
+			"airDiscount": 6
+		},
+		{
+			"id": "spore_rain",
+			"type": "orbital_saturation",
+			"name": "Chuva de Esporos-Mina",
+			"kills": 25,
+			"requires": "orbit",
+			"icon": "tyranids/r3c3.png",
+			"desc": "Os navios-colmeia saturam a área com esporos ácidos. Atinge também o enxame!"
+		}
+	],
+	"chaos": [
+		{
+			"id": "dreadclaw",
+			"type": "drop_pod",
+			"name": "Assalto de Dreadclaw",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "chaos/r1c3.png",
+			"desc": "Uma cápsula de assalto do Caos cai sobre o ponto escolhido."
+		},
+		{
+			"id": "heldrakes",
+			"type": "strategic_bomber",
+			"name": "Garras Celestes",
+			"kills": 16,
+			"requires": "",
+			"icon": "chaos/r0c3.png",
+			"desc": "Máquinas-demônio voadoras varrem a linha com fogo infernal.",
+			"airDiscount": 6
+		},
+		{
+			"id": "planet_killer",
+			"type": "orbital_saturation",
+			"name": "Fúria do Planeta Assassino",
+			"kills": 30,
+			"requires": "orbit",
+			"icon": "chaos/r2c0.png",
+			"desc": "A nau de Abaddon bombardeia a área. Atinge todos."
+		},
+		{
+			"id": "dark_lance",
+			"type": "orbital_laser",
+			"name": "Lança da Barca Negra",
+			"kills": 18,
+			"requires": "orbit",
+			"icon": "chaos/r2c1.png",
+			"desc": "As lanças de uma barca negra queimam o alvo."
+		}
+	],
+	"eldar": [
+		{
+			"id": "webway",
+			"type": "drop_pod",
+			"name": "Portal da Teia",
+			"kills": 8,
+			"requires": "",
+			"icon": "eldar/r2c1.png",
+			"desc": "Guerreiros surgem de um portal da Teia no ponto escolhido."
+		},
+		{
+			"id": "nightwing",
+			"type": "strategic_bomber",
+			"name": "Ataque de Nightwings",
+			"kills": 15,
+			"requires": "",
+			"icon": "eldar/r3c2.png",
+			"desc": "Caças eldar passam em linha disparando.",
+			"airDiscount": 6
+		},
+		{
+			"id": "eldritch_storm",
+			"type": "orbital_laser",
+			"name": "Tempestade Eldritch",
+			"kills": 20,
+			"requires": "",
+			"icon": "eldar/r2c2.png",
+			"desc": "O vidente invoca uma tempestade psíquica sobre o alvo. Atinge todos."
+		}
+	],
+	"necrons": [
+		{
+			"id": "veil",
+			"type": "drop_pod",
+			"name": "Véu da Escuridão",
+			"kills": 8,
+			"requires": "",
+			"icon": "necrons/r3c3.png",
+			"desc": "Uma falange de guerreiros surge do portal no ponto escolhido."
+		},
+		{
+			"id": "night_scythe",
+			"type": "strategic_bomber",
+			"name": "Foices Noturnas",
+			"kills": 15,
+			"requires": "",
+			"icon": "necrons/r3c2.png",
+			"desc": "Naves necrons passam em linha disparando feixes tesla.",
+			"airDiscount": 6
+		},
+		{
+			"id": "storm",
+			"type": "orbital_laser",
+			"name": "Tempestade de Relâmpagos",
+			"kills": 20,
+			"requires": "",
+			"icon": "necrons/r1c3.png",
+			"desc": "Imotekh desce relâmpagos sobre o alvo. Atinge todos."
+		}
+	],
+	"tau": [
+		{
+			"id": "manta",
+			"type": "drop_pod",
+			"name": "Desembarque de Manta",
+			"kills": 9,
+			"requires": "orbit",
+			"icon": "tau/r2c1.png",
+			"desc": "Uma nave Manta solta trajes Crisis no ponto escolhido."
+		},
+		{
+			"id": "barracuda",
+			"type": "strategic_bomber",
+			"name": "Ataque de Barracudas",
+			"kills": 15,
+			"requires": "",
+			"icon": "tau/r3c0.png",
+			"desc": "Caças Barracuda varrem a linha com mísseis.",
+			"airDiscount": 6
+		},
+		{
+			"id": "seeker",
+			"type": "orbital_laser",
+			"name": "Mísseis Buscadores",
+			"kills": 16,
+			"requires": "",
+			"icon": "tau/r1c3.png",
+			"desc": "Drones marcadores guiam mísseis buscadores ao alvo."
+		},
+		{
+			"id": "kroor",
+			"type": "orbital_saturation",
+			"name": "Salva da Frota Kor'vattra",
+			"kills": 28,
+			"requires": "orbit",
+			"icon": "tau/r3c3.png",
+			"desc": "A frota tau satura a área com canhões ferroviários. Atinge todos."
+		}
+	],
+	"world_eaters": [
+		{
+			"id": "we_dreadclaw",
+			"type": "drop_pod",
+			"name": "Assalto de Dreadclaw",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "khorne/r0c1.png",
+			"desc": "Uma cápsula de assalto despeja Berzerkers no ponto escolhido."
+		},
+		{
+			"id": "we_heldrakes",
+			"type": "strategic_bomber",
+			"name": "Garras Celestes de Khorne",
+			"kills": 15,
+			"requires": "",
+			"icon": "khorne/r3c2.png",
+			"desc": "Máquinas-demônio voadoras varrem a linha com fogo.",
+			"airDiscount": 6
+		},
+		{
+			"id": "we_angron",
+			"type": "orbital_laser",
+			"name": "Fúria de Angron",
+			"kills": 20,
+			"requires": "orbit",
+			"icon": "khorne/r1c2.png",
+			"desc": "As lanças da frota dos Devoradores queimam o alvo."
+		}
+	],
+	"death_guard": [
+		{
+			"id": "dg_pod",
+			"type": "drop_pod",
+			"name": "Cápsula da Praga",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "nurgle/r0c1.png",
+			"desc": "Uma cápsula cheia de moscas cai e solta Marines da Peste."
+		},
+		{
+			"id": "dg_drones",
+			"type": "strategic_bomber",
+			"name": "Enxame de Drones Fétidos",
+			"kills": 14,
+			"requires": "",
+			"icon": "nurgle/r3c2.png",
+			"desc": "Drones da praga passam em linha soltando gás.",
+			"airDiscount": 6
+		},
+		{
+			"id": "dg_terminus",
+			"type": "orbital_saturation",
+			"name": "Chuva Pestilenta",
+			"kills": 26,
+			"requires": "orbit",
+			"icon": "nurgle/r3c3.png",
+			"desc": "A frota de Mortarion satura a área com bombas de praga. Atinge todos."
+		}
+	],
+	"thousand_sons": [
+		{
+			"id": "ts_portal",
+			"type": "drop_pod",
+			"name": "Portal de Tzeentch",
+			"kills": 8,
+			"requires": "",
+			"icon": "tzeentch/r2c2.png",
+			"desc": "Horrores surgem de um portal da disformidade no ponto escolhido."
+		},
+		{
+			"id": "ts_screamers",
+			"type": "strategic_bomber",
+			"name": "Revoada de Gritadores",
+			"kills": 15,
+			"requires": "",
+			"icon": "tzeentch/r2c3.png",
+			"desc": "Gritadores mergulham em linha cortando tudo.",
+			"airDiscount": 6
+		},
+		{
+			"id": "ts_firestorm",
+			"type": "orbital_laser",
+			"name": "Tempestade de Fogo Disforme",
+			"kills": 20,
+			"requires": "",
+			"icon": "tzeentch/r1c2.png",
+			"desc": "Ahriman invoca chamas de Tzeentch sobre o alvo. Atinge todos."
+		}
+	],
+	"emperors_children": [
+		{
+			"id": "ec_dreadclaw",
+			"type": "drop_pod",
+			"name": "Assalto de Dreadclaw",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "slaanesh/r0c1.png",
+			"desc": "Uma cápsula de assalto cai no ponto escolhido."
+		},
+		{
+			"id": "ec_heldrakes",
+			"type": "strategic_bomber",
+			"name": "Garras Celestes de Slaanesh",
+			"kills": 15,
+			"requires": "",
+			"icon": "slaanesh/r3c3.png",
+			"desc": "Máquinas-demônio voadoras passam em linha.",
+			"airDiscount": 6
+		},
+		{
+			"id": "ec_scream",
+			"type": "orbital_laser",
+			"name": "Grito Sônico",
+			"kills": 18,
+			"requires": "",
+			"icon": "slaanesh/r1c2.png",
+			"desc": "O Kakofonista solta uma nota que estilhaça o alvo. Atinge todos."
+		}
+	],
+	"ultramarines": [
+		{
+			"id": "um_pod",
+			"type": "drop_pod",
+			"name": "Cápsula de Desembarque",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "ultramarines/r0c0.png",
+			"desc": "Uma cápsula cai da barca de batalha com Intercessores."
+		},
+		{
+			"id": "um_stormtalon",
+			"type": "strategic_bomber",
+			"name": "Ataque de Stormhawks",
+			"kills": 15,
+			"requires": "",
+			"icon": "ultramarines/r3c2.png",
+			"desc": "Interceptadores Astartes passam em linha disparando.",
+			"airDiscount": 6
+		},
+		{
+			"id": "um_lance",
+			"type": "orbital_laser",
+			"name": "Lança da Barca de Batalha",
+			"kills": 18,
+			"requires": "orbit",
+			"icon": "ultramarines/r2c0.png",
+			"desc": "Calgar ordena um disparo de lança orbital."
+		},
+		{
+			"id": "um_bombard",
+			"type": "orbital_saturation",
+			"name": "Bombardeio Orbital",
+			"kills": 28,
+			"requires": "orbit",
+			"icon": "ultramarines/r3c3.png",
+			"desc": "A frota do capítulo satura a área. Atinge todos."
+		}
+	],
+	"blood_angels": [
+		{
+			"id": "ba_pod",
+			"type": "drop_pod",
+			"name": "Cápsula de Desembarque",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "blood_angels/r0c1.png",
+			"desc": "Uma cápsula cai com Veteranos de Assalto."
+		},
+		{
+			"id": "ba_stormraven",
+			"type": "strategic_bomber",
+			"name": "Revoada de Stormravens",
+			"kills": 15,
+			"requires": "",
+			"icon": "blood_angels/r3c3.png",
+			"desc": "Canhoneiras varrem a linha com mísseis.",
+			"airDiscount": 6
+		},
+		{
+			"id": "ba_lance",
+			"type": "orbital_laser",
+			"name": "Lança de Baal",
+			"kills": 18,
+			"requires": "orbit",
+			"icon": "blood_angels/r2c0.png",
+			"desc": "A barca de batalha de Dante queima o alvo."
+		}
+	],
+	"salamanders": [
+		{
+			"id": "sal_pod",
+			"type": "drop_pod",
+			"name": "Cápsula de Desembarque",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "salamanders/r0c0.png",
+			"desc": "Uma cápsula cai com Intercessores Salamandras."
+		},
+		{
+			"id": "sal_fireraptor",
+			"type": "strategic_bomber",
+			"name": "Ataque de Fire Raptors",
+			"kills": 15,
+			"requires": "",
+			"icon": "salamanders/r3c3.png",
+			"desc": "Canhoneiras passam em linha disparando.",
+			"airDiscount": 6
+		},
+		{
+			"id": "sal_promethium",
+			"type": "orbital_saturation",
+			"name": "Fogo de Prometeu",
+			"kills": 26,
+			"requires": "orbit",
+			"icon": "salamanders/r1c3.png",
+			"desc": "A frota de Nocturne satura a área com bombas incendiárias. Atinge todos."
+		}
+	]
+}

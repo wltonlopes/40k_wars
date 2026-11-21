@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por tools/art/gen_orks.py a partir de warhr/art/actors/units/chaos/chaos_daemon.xml (arte provisória dos Orks). -->
+<actor version="1">
+	<castshadow/>
+	<group>
+		<variant file="biped/terminator/brute/relax.xml">
+			<mesh>skeletal/chaos/chaos_daemon.dae</mesh>
+			<textures>
+				<texture file="skeletal/orks/ork_nob.png" name="baseTex"/>
+			</textures>
+		</variant>
+	</group>
+	<group>
+		<variant frequency="1" name="Idle"/>
+		<variant file="biped/terminator/brute/ready.xml" name="ready"/>
+		<variant file="biped/terminator/attack_capture.xml"/>
+		<variant file="biped/terminator/build.xml"/>
+		<variant file="biped/terminator/death_infantry.xml"/>
+		<variant file="biped/terminator/jump_infantry.xml"/>
+	</group>
+	<material>player_trans.xml</material>
+</actor>

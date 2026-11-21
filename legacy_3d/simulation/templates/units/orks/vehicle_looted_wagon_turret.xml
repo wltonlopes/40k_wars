@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="units/imperial/vehicle_leman_russ_turret">
+  <Identity>
+    <Civ>orks</Civ>
+    <GenericName>Kannon Grandão</GenericName>
+    <SpecificName>Kannon Grandão</SpecificName>
+  </Identity>
+  <VisualActor>
+    <Actor>vehicle/orks/looted_wagon_turret.xml</Actor>
+  </VisualActor>
+</Entity>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Gerado por tools/art/gen_orks.py a partir de warhr/art/actors/vehicle/imperial/leman_russ_turret.xml (arte provisória dos Orks). -->
+<actor version="1">
+	<castshadow/>
+	<group>
+		<variant frequency="1" name="Base">
+			<mesh>vehicle/imperial/leman_russ_turret.dae</mesh>
+			<textures>
+				<texture file="vehicle/orks/looted_wagon.png" name="baseTex"/>
+			</textures>
+		</variant>
+	</group>
+	<group>
+		<variant frequency="1" name="Idle"/>
+		<variant name="attack_ranged">
+			<props>
+				<prop actor="particle/muzzleflash_1.xml" attachpoint="projectile"/>
+			</props>
+		</variant>
+		<variant name="death">
+			<props>
+				<prop actor="particle/destruction_smoke_small.xml" attachpoint="root"/>
+				<prop actor="particle/destruction_dust_small.xml" attachpoint="root"/>
+				<prop actor="particle/flame_med.xml" attachpoint="root"/>
+			</props>
+		</variant>
+	</group>
+	<material>player_trans.xml</material>
+</actor>

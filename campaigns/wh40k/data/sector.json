@@ -1,0 +1,167 @@
+{
+	"Description": "Sistema estelar e corpos celestes. Cada corpo com 'provinces' tem mapa próprio, gerado por tools/art/gen_planets.py (imagens, máscaras das províncias, vizinhança em data/planets/<id>.json). x/y das províncias: centro aproximado (0..1) no mapa do corpo; terrain: hive, industrial, ash, jungle, mire, mountains, plains, ice, rok, station, sea (mar: não jogável, só separa). hive: 0 nada, 1 cidade, 2 cidade-colmeia. forts: 0-3. shipyard: estaleiro (constrói naves). garrison: batalhões (ids de units.json) da guarnição inicial; neutros usam 'neutralCiv'.",
+	"start": { "turn": 1, "year": "999.M41", "monthsPerTurn": 1 },
+	"system": {
+		"id": "armageddon",
+		"name": "Sistema Armageddon",
+		"star": { "name": "Armageddon", "color": [255, 196, 130] },
+		"desc": "Um sistema-colmeia vital do Segmentum Solar, centro industrial de forjas e colmeias, alvo da maior Waaagh! do milênio."
+	},
+	"bodies": [
+		{
+			"id": "armageddon",
+			"name": "Armageddon",
+			"kind": "planet",
+			"class": "Mundo-Colmeia",
+			"orbit": 0.30,
+			"angle": 205,
+			"size": 1.0,
+			"mapSize": [2048, 1280],
+			"seed": 41,
+			"palette": "hive",
+			"desc": "Duas massas continentais, Prime e Secundus, separadas pela selva equatorial. Colmeias de bilhões, desertos de cinzas e o pântano da Death Mire.",
+			"neutralCiv": "orks",
+			"provinces": [
+				{ "id": "infernus", "name": "Colmeia Infernus", "terrain": "hive", "x": 0.19, "y": 0.30, "owner": "orks", "hive": 2, "forts": 1, "garrison": ["boyz", "shoota_boyz"] },
+				{ "id": "volcanus", "name": "Colmeia Volcanus", "terrain": "hive", "x": 0.12, "y": 0.62, "owner": "orks", "hive": 2, "forts": 1, "garrison": ["boyz"] },
+				{ "id": "tartarus", "name": "Colmeia Tartarus", "terrain": "hive", "x": 0.32, "y": 0.40, "owner": "imperial", "hive": 2, "forts": 2, "garrison": ["guard_platoon", "guard_platoon"] },
+				{ "id": "prime_ash", "name": "Ermos de Cinzas de Prime", "terrain": "ash", "x": 0.06, "y": 0.42, "owner": "orks", "garrison": ["boyz"] },
+				{ "id": "diabolus", "name": "Montanhas Diabolus", "terrain": "mountains", "x": 0.29, "y": 0.18, "owner": "orks", "forts": 1, "garrison": ["shoota_boyz"] },
+				{ "id": "prime_plains", "name": "Planícies de Ferro", "terrain": "industrial", "x": 0.27, "y": 0.68, "owner": "orks", "hive": 1, "garrison": ["boyz"] },
+				{ "id": "death_mire", "name": "Death Mire", "terrain": "mire", "x": 0.40, "y": 0.60, "owner": null, "garrison": ["boyz"] },
+				{ "id": "jungle_north", "name": "Selva Equatorial Norte", "terrain": "jungle", "x": 0.47, "y": 0.32, "owner": null, "garrison": ["boyz", "shoota_boyz"] },
+				{ "id": "jungle_south", "name": "Selva Equatorial Sul", "terrain": "jungle", "x": 0.50, "y": 0.72, "owner": null, "garrison": ["boyz"] },
+				{ "id": "stygies", "name": "Vale do Rio Stygies", "terrain": "plains", "x": 0.58, "y": 0.50, "owner": "imperial", "garrison": ["guard_platoon"] },
+				{ "id": "hades", "name": "Colmeia Hades", "terrain": "hive", "x": 0.61, "y": 0.28, "owner": "imperial", "hive": 2, "forts": 2, "garrison": ["guard_platoon", "guard_grenadiers"] },
+				{ "id": "helsreach", "name": "Colmeia Helsreach", "terrain": "hive", "x": 0.80, "y": 0.22, "owner": "imperial", "hive": 2, "forts": 2, "shipyard": true, "garrison": ["guard_platoon", "guard_platoon"] },
+				{ "id": "acheron", "name": "Colmeia Acheron", "terrain": "hive", "x": 0.70, "y": 0.56, "owner": "imperial", "hive": 2, "forts": 1, "garrison": ["guard_platoon"] },
+				{ "id": "tempestora", "name": "Colmeia Tempestora", "terrain": "hive", "x": 0.89, "y": 0.62, "owner": "imperial", "hive": 2, "forts": 2, "garrison": ["guard_platoon", "chimera"] },
+				{ "id": "fire_wastes", "name": "Ermos de Fogo", "terrain": "ash", "x": 0.63, "y": 0.78, "owner": "imperial", "garrison": ["guard_platoon"] },
+				{ "id": "secundus_ash", "name": "Ermos de Cinzas de Secundus", "terrain": "ash", "x": 0.75, "y": 0.39, "owner": "imperial", "garrison": [] },
+				{ "id": "mannheim", "name": "Desfiladeiro de Mannheim", "terrain": "mountains", "x": 0.83, "y": 0.44, "owner": "imperial", "forts": 1, "garrison": ["guard_platoon"] },
+				{ "id": "palidus", "name": "Montanhas Palidus", "terrain": "mountains", "x": 0.94, "y": 0.34, "owner": "imperial", "garrison": [] },
+				{ "id": "polar_north", "name": "Calota Boreal", "terrain": "ice", "x": 0.52, "y": 0.09, "owner": null, "garrison": ["boyz"] },
+				{ "id": "sea_north", "name": "Mar Boreal", "terrain": "sea", "x": 0.14, "y": 0.08 },
+				{ "id": "sea_northeast", "name": "Mar de Helsreach", "terrain": "sea", "x": 0.92, "y": 0.08 },
+				{ "id": "sea_south", "name": "Mar das Cinzas", "terrain": "sea", "x": 0.30, "y": 0.93 },
+				{ "id": "sea_southeast", "name": "Oceano Tempestora", "terrain": "sea", "x": 0.82, "y": 0.92 }
+			]
+		},
+		{
+			"id": "st_jowen",
+			"name": "Doca de São Jowen",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "armageddon",
+			"orbit": 0.085,
+			"angle": 150,
+			"size": 0.32,
+			"mapSize": [1024, 640],
+			"seed": 7,
+			"palette": "station",
+			"desc": "O grande estaleiro orbital de Armageddon. Quem o controla repara e constrói naves.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{ "id": "jowen_yards", "name": "Estaleiros", "terrain": "station", "x": 0.25, "y": 0.5, "owner": "imperial", "hive": 1, "shipyard": true, "forts": 2, "garrison": ["guard_platoon"] },
+				{ "id": "jowen_ring", "name": "Anel de Atracação", "terrain": "station", "x": 0.55, "y": 0.35, "owner": "imperial", "garrison": ["guard_platoon"] },
+				{ "id": "jowen_battery", "name": "Bateria de Defesa", "terrain": "station", "x": 0.78, "y": 0.62, "owner": "imperial", "forts": 1, "garrison": [] }
+			]
+		},
+		{
+			"id": "caldera",
+			"name": "Caldera Tertius",
+			"kind": "planet",
+			"class": "Mundo Mineiro",
+			"orbit": 0.18,
+			"angle": 320,
+			"size": 0.7,
+			"mapSize": [1024, 640],
+			"seed": 13,
+			"palette": "volcanic",
+			"desc": "Mundo vulcânico de minas e refinarias que alimentam as forjas de Armageddon.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{ "id": "caldera_refinery", "name": "Refinaria Magma", "terrain": "industrial", "x": 0.18, "y": 0.35, "owner": "imperial", "hive": 1, "forts": 1, "garrison": ["guard_platoon"] },
+				{ "id": "caldera_mines", "name": "Minas Profundas", "terrain": "mountains", "x": 0.38, "y": 0.62, "owner": "imperial", "garrison": ["guard_platoon"] },
+				{ "id": "caldera_lava", "name": "Campos de Lava", "terrain": "ash", "x": 0.55, "y": 0.30, "owner": null, "garrison": ["guard_platoon"] },
+				{ "id": "caldera_spire", "name": "Torre do Governador", "terrain": "hive", "x": 0.72, "y": 0.55, "owner": "imperial", "hive": 2, "forts": 1, "shipyard": true, "garrison": ["guard_platoon", "chimera"] },
+				{ "id": "caldera_crags", "name": "Penhascos Rubros", "terrain": "mountains", "x": 0.88, "y": 0.28, "owner": "orks", "garrison": ["boyz"] },
+				{ "id": "caldera_wastes", "name": "Ermos Sulfurosos", "terrain": "ash", "x": 0.60, "y": 0.82, "owner": "orks", "garrison": ["boyz"] },
+				{ "id": "caldera_sea", "name": "Mar de Enxofre", "terrain": "sea", "x": 0.15, "y": 0.85 }
+			]
+		},
+		{
+			"id": "caldera_minor",
+			"name": "Caldera Minoris",
+			"kind": "moon",
+			"class": "Lua Gelada",
+			"parent": "caldera",
+			"orbit": 0.07,
+			"angle": 10,
+			"size": 0.3,
+			"mapSize": [1024, 640],
+			"seed": 21,
+			"palette": "ice",
+			"desc": "Lua de gelo com um posto de escuta abandonado. Cultistas se escondem nas fendas.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{ "id": "minor_outpost", "name": "Posto de Escuta", "terrain": "ice", "x": 0.3, "y": 0.45, "owner": null, "hive": 1, "garrison": ["guard_platoon"] },
+				{ "id": "minor_rifts", "name": "Fendas Geladas", "terrain": "ice", "x": 0.65, "y": 0.35, "owner": null, "garrison": ["guard_platoon"] },
+				{ "id": "minor_plain", "name": "Planície Branca", "terrain": "ice", "x": 0.55, "y": 0.75, "owner": null, "garrison": [] }
+			]
+		},
+		{
+			"id": "vesperia",
+			"name": "Vesperia",
+			"kind": "planet",
+			"class": "Mundo Agrícola",
+			"orbit": 0.43,
+			"angle": 95,
+			"size": 0.8,
+			"mapSize": [1024, 640],
+			"seed": 5,
+			"palette": "agri",
+			"desc": "Campos sem fim alimentam as colmeias. Sem Vesperia, Armageddon passa fome.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{ "id": "vesperia_capital", "name": "Cidadela de Vesper", "terrain": "hive", "x": 0.45, "y": 0.45, "owner": "imperial", "hive": 2, "forts": 1, "garrison": ["guard_platoon", "guard_platoon"] },
+				{ "id": "vesperia_fields_w", "name": "Campos do Oeste", "terrain": "plains", "x": 0.18, "y": 0.40, "owner": "imperial", "garrison": ["guard_platoon"] },
+				{ "id": "vesperia_fields_e", "name": "Campos do Leste", "terrain": "plains", "x": 0.75, "y": 0.38, "owner": "imperial", "garrison": [] },
+				{ "id": "vesperia_silos", "name": "Silos de Grãos", "terrain": "industrial", "x": 0.32, "y": 0.72, "owner": "imperial", "hive": 1, "garrison": ["guard_platoon"] },
+				{ "id": "vesperia_marsh", "name": "Pântano Verdejante", "terrain": "mire", "x": 0.62, "y": 0.75, "owner": null, "garrison": ["boyz"] },
+				{ "id": "vesperia_woods", "name": "Bosques Sagrados", "terrain": "jungle", "x": 0.86, "y": 0.68, "owner": null, "garrison": ["guard_platoon"] },
+				{ "id": "vesperia_lake", "name": "Lago Prateado", "terrain": "sea", "x": 0.55, "y": 0.12 }
+			]
+		},
+		{
+			"id": "grand_rok",
+			"name": "Rok de Gorkamorka",
+			"kind": "asteroid",
+			"class": "Rok Ork",
+			"orbit": 0.47,
+			"angle": 250,
+			"size": 0.55,
+			"mapSize": [1024, 640],
+			"seed": 99,
+			"palette": "rok",
+			"desc": "Um asteroide escavado e cheio de motores: a base da Waaagh! no sistema.",
+			"neutralCiv": "orks",
+			"provinces": [
+				{ "id": "rok_fort", "name": "Forte do Chefão", "terrain": "rok", "x": 0.42, "y": 0.45, "owner": "orks", "hive": 2, "forts": 2, "shipyard": true, "garrison": ["boyz", "boyz", "nobz"] },
+				{ "id": "rok_engines", "name": "Motores do Rok", "terrain": "industrial", "x": 0.15, "y": 0.55, "owner": "orks", "hive": 1, "garrison": ["boyz"] },
+				{ "id": "rok_teef", "name": "Minas de Dentes", "terrain": "rok", "x": 0.70, "y": 0.30, "owner": "orks", "garrison": ["shoota_boyz"] },
+				{ "id": "rok_pits", "name": "Fossos de Briga", "terrain": "rok", "x": 0.80, "y": 0.70, "owner": "orks", "garrison": ["boyz"] }
+			]
+		}
+	],
+	"startingArmies": [
+		{ "faction": "imperial", "general": "yarrick", "body": "armageddon", "province": "hades", "battalions": ["guard_platoon", "guard_platoon", "guard_grenadiers", "chimera", "leman_russ"] },
+		{ "faction": "orks", "general": "ghazghkull", "body": "armageddon", "province": "infernus", "battalions": ["boyz", "boyz", "shoota_boyz", "nobz", "trukk", "looted_wagon"] },
+		{ "faction": "orks", "general": "gorgutz", "body": "grand_rok", "province": "rok_fort", "battalions": ["boyz", "shoota_boyz", "trukk"] }
+	],
+	"startingFleets": [
+		{ "faction": "imperial", "body": "armageddon", "ships": 3 },
+		{ "faction": "imperial", "body": "caldera", "ships": 1 },
+		{ "faction": "orks", "body": "grand_rok", "ships": 3 }
+	]
+}

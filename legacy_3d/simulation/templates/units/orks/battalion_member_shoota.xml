@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soldado de units/orks/battalion_shoota_boyz (criado e reposto pelo líder). -->
+<Entity parent="battalion_member|units/orks/infantry_shoota">
+  <Identity>
+    <GenericName>Rapazes Atiradores</GenericName>
+    <Icon>units/orks/shoota.png</Icon>
+    <SelectionGroupName>units/orks/battalion_shoota_boyz</SelectionGroupName>
+  </Identity>
+</Entity>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bombardeiro Marauder da Marinha Imperial (provisório: casco da Valkyrie). -->
+<Entity parent="special/strategic_bomber">
+  <Identity>
+    <GenericName>Marauder</GenericName>
+  </Identity>
+  <VisualActor>
+    <Actor>vehicle/imperial/valkyrie.xml</Actor>
+  </VisualActor>
+</Entity>

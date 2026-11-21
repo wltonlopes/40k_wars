@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "Teleporta" dos Orks: usa a cápsula do warhr (falta arte própria). -->
+<Entity parent="special/drop_pod">
+  <Identity>
+    <Civ>orks</Civ>
+    <GenericName>Teleporta</GenericName>
+  </Identity>
+</Entity>

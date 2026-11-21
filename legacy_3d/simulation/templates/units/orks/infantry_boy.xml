@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Rapaz Ork: slugga de perto e choppa no corpo a corpo (troca para a choppa a 20 m). Arte provisória: tools/art/gen_orks.py. -->
+<Entity parent="ranged_combat|rifle_Infantry|template_unit_champion_infantry_archer">
+  <Ammo>
+    <SwitchToMeleeRange>20</SwitchToMeleeRange>
+  </Ammo>
+  <Attack>
+    <Melee>
+      <AttackName>Choppa</AttackName>
+      <Damage>
+        <Hack>17</Hack>
+        <Pierce>2</Pierce>
+        <Crush>0</Crush>
+      </Damage>
+      <MaxRange>4</MaxRange>
+      <RepeatTime>1000</RepeatTime>
+    </Melee>
+    <Ranged>
+      <AttackName>Slugga</AttackName>
+      <Damage>
+        <Pierce>8</Pierce>
+        <Crush>0</Crush>
+      </Damage>
+      <MaxRange>24</MaxRange>
+      <PrepareTime>300</PrepareTime>
+      <RepeatTime>1400</RepeatTime>
+      <Projectile>
+        <Speed>200</Speed>
+        <Spread>3.5</Spread>
+        <Gravity>9.81</Gravity>
+      </Projectile>
+    </Ranged>
+  </Attack>
+  <Cost>
+    <BuildTime>10</BuildTime>
+    <Resources replace="">
+      <requisition>50</requisition>
+      <energy>20</energy>
+    </Resources>
+  </Cost>
+  <Health>
+    <Max>170</Max>
+  </Health>
+  <Identity>
+    <Civ>orks</Civ>
+    <GenericName>Rapaz</GenericName>
+    <SpecificName>Ork Boy</SpecificName>
+    <Icon>units/orks/boy.png</Icon>
+    <Requirements disable=""/>
+  </Identity>
+  <Sound>
+    <SoundGroups>
+      <attack_ranged>attack/weapon/rifle_real.xml</attack_ranged>
+    </SoundGroups>
+  </Sound>
+  <UnitMotion>
+    <WalkSpeed op="mul">1.1</WalkSpeed>
+  </UnitMotion>
+  <VisualActor>
+    <Actor>units/orks/ork_boy.xml</Actor>
+  </VisualActor>
+</Entity>

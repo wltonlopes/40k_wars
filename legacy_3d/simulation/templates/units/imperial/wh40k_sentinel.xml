@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sentinela: andador da Guarda (malha do mech do warhr) com multilaser. -->
+<Entity parent="units/imperial/infantry_guardsman">
+  <Ammo disable=""/>
+  <Attack>
+    <Melee>
+      <AttackName>Pisão</AttackName>
+      <Damage>
+        <Crush>20</Crush>
+      </Damage>
+    </Melee>
+    <Ranged>
+      <AttackName>Multilaser</AttackName>
+      <Damage>
+        <Pierce>20</Pierce>
+        <Crush>4</Crush>
+      </Damage>
+      <MaxRange>70</MaxRange>
+      <RepeatTime>800</RepeatTime>
+    </Ranged>
+  </Attack>
+  <Cost>
+    <Population>3</Population>
+  </Cost>
+  <Health>
+    <Max>800</Max>
+  </Health>
+  <Identity>
+    <GenericName>Sentinela</GenericName>
+    <SpecificName>Sentinela de Exploração</SpecificName>
+    <Icon>units/imperial/wh40k_sentinel.png</Icon>
+  </Identity>
+  <Resistance>
+    <Entity>
+      <Damage>
+        <Hack op="add">6</Hack>
+        <Pierce op="add">6</Pierce>
+      </Damage>
+    </Entity>
+  </Resistance>
+  <UnitMotion>
+    <WalkSpeed op="mul">1.2</WalkSpeed>
+  </UnitMotion>
+  <VisualActor>
+    <Actor>units/imperial/imperial_battle_mech.xml</Actor>
+  </VisualActor>
+</Entity>

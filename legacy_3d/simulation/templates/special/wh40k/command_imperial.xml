@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Comando da batalha da campanha (40k Wars): entidade invisível na borda do
+     lado do jogador, de onde saem os poderes de apoio (estilo killstreak).
+     maps/scripts/WH40KBattle.js a cria; simulation/components/ZZ_WH40KSupport.js
+     só libera cada poder quando as baixas causadas enchem a barra dele.
+     A recarga é curta: quem controla é a barra de baixas. -->
+<Entity parent="special/actor">
+  <Identity>
+    <Civ>imperial</Civ>
+    <GenericName>Comando</GenericName>
+    <Icon>special/orbital.png</Icon>
+    <Undeletable>true</Undeletable>
+  </Identity>
+  <Ownership/>
+  <AirSupportProvider>
+    <drop_pod>
+      <Cooldown>3</Cooldown>
+      <Template>special/imperial/drop_pod</Template>
+      <Battalion datatype="tokens">units/imperial/battalion_infantry_guardsman</Battalion>
+      <Name>Cápsula de Desembarque</Name>
+    </drop_pod>
+    <strategic_bomber>
+      <Cooldown>3</Cooldown>
+      <Template>special/wh40k/marauder</Template>
+      <BombCount>10</BombCount>
+      <BombingLength>70</BombingLength>
+      <Name>Bombardeio de Marauders</Name>
+    </strategic_bomber>
+    <orbital_laser>
+      <Cooldown>3</Cooldown>
+      <Template>special/orbital_laser</Template>
+      <Name>Lança Orbital</Name>
+    </orbital_laser>
+    <orbital_saturation>
+      <Cooldown>3</Cooldown>
+      <Template>special/orbital_saturation</Template>
+      <Name>Bombardeio Orbital</Name>
+    </orbital_saturation>
+  </AirSupportProvider>
+  <VisualActor disable=""/>
+</Entity>

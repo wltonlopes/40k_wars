@@ -1,0 +1,101 @@
+{
+	"id": "mortis",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"mv_garden": {
+			"rect": [
+				0.35059,
+				0.0,
+				0.67188,
+				0.71719
+			],
+			"label": [
+				0.498,
+				0.4406
+			],
+			"area": 106082,
+			"neighbors": [
+				"mv_bog",
+				"mv_foundry",
+				"mv_rot",
+				"mv_swamp"
+			],
+			"coastal": true
+		},
+		"mv_bog": {
+			"rect": [
+				0.0,
+				0.0,
+				0.42285,
+				0.69531
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 150749,
+			"neighbors": [
+				"mv_garden",
+				"mv_swamp"
+			],
+			"coastal": false
+		},
+		"mv_foundry": {
+			"rect": [
+				0.56543,
+				0.0,
+				1.0,
+				0.60156
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 141603,
+			"neighbors": [
+				"mv_garden",
+				"mv_rot"
+			],
+			"coastal": false
+		},
+		"mv_swamp": {
+			"rect": [
+				0.0,
+				0.49844,
+				0.44141,
+				1.0
+			],
+			"label": [
+				0.1484,
+				0.9984
+			],
+			"area": 107642,
+			"neighbors": [
+				"mv_bog",
+				"mv_garden"
+			],
+			"coastal": true
+		},
+		"mv_rot": {
+			"rect": [
+				0.57422,
+				0.50313,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.9375,
+				0.9984
+			],
+			"area": 108056,
+			"neighbors": [
+				"mv_foundry",
+				"mv_garden"
+			],
+			"coastal": true
+		}
+	}
+}

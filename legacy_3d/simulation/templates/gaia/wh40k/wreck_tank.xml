@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Construção abandonada que bloqueia a passagem nos campos de batalha (maps/random/wh40k_battle.js). -->
+<Entity parent="template_gaia">
+  <Footprint>
+    <Square width="11.0" depth="19.0"/>
+    <Height>8.0</Height>
+  </Footprint>
+  <Identity>
+    <GenericName>Destroço de tanque</GenericName>
+    <Icon>gaia/geology_stone.png</Icon>
+  </Identity>
+  <Minimap>
+    <Color r="90" g="85" b="80"/>
+  </Minimap>
+  <Obstruction>
+    <Static width="11.0" depth="19.0"/>
+  </Obstruction>
+  <VisualActor>
+    <Actor>vehicle/imperial/leman_russ.xml</Actor>
+  </VisualActor>
+</Entity>

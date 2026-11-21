@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 40k Wars: jogador Ork (cópia do imperial do warhr). -->
+<!-- População como no mars_wars: sem casas; o limite vem das estruturas.
+     Trabalhadores: 5, ampliado por tecnologias do centro (worker_limit_01/02/03).
+     Economia: Requisição (centro, pontos de controle, espólio) e Energia
+     (geradores, categoria Field: 4 + 2 por centro); nada é coletado no mapa. -->
+<Entity parent="template_player">
+  <EntityLimits>
+    <Limits>
+      <Worker>5</Worker>
+      <Field>4</Field>
+    </Limits>
+    <LimitChangers>
+      <Field>
+        <CivCentre>2</CivCentre>
+      </Field>
+    </LimitChangers>
+  </EntityLimits>
+  <Player>
+    <BarterMultiplier>
+      <Buy>
+        <requisition>1.0</requisition>
+        <energy>1.0</energy>
+      </Buy>
+      <Sell>
+        <requisition>1.0</requisition>
+        <energy>1.0</energy>
+      </Sell>
+    </BarterMultiplier>
+  </Player>
+  <Identity>
+    <Civ>orks</Civ>
+    <GenericName>Orks</GenericName>
+    <History>A Waaagh! é uma maré verde: Orks nascem para a guerra e crescem lutando. Ghazghkull Mag Uruk Thraka, profeta de Gork e Mork, levou a maior Waaagh! do milênio até Armageddon.</History>
+    <Icon>emblems/emblem_orks.png</Icon>
+  </Identity>
+</Entity>

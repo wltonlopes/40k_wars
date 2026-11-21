@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Comandante imperial no campo de batalha (general da campanha): pistola de plasma e espada-serra. -->
+<Entity parent="units/imperial/infantry_guardsman">
+  <Attack>
+    <Melee>
+      <AttackName>Espada-serra</AttackName>
+      <Damage>
+        <Hack>35</Hack>
+      </Damage>
+    </Melee>
+    <Ranged>
+      <AttackName>Pistola de Plasma</AttackName>
+      <Damage>
+        <Pierce>30</Pierce>
+        <Crush>10</Crush>
+      </Damage>
+      <MaxRange>45</MaxRange>
+    </Ranged>
+  </Attack>
+  <Cost>
+    <Population>1</Population>
+  </Cost>
+  <Health>
+    <Max>1100</Max>
+  </Health>
+  <Identity>
+    <GenericName>Comandante</GenericName>
+    <SpecificName>Comandante Imperial</SpecificName>
+    <Classes datatype="tokens">Hero</Classes>
+    <Icon>units/imperial/wh40k_general.png</Icon>
+  </Identity>
+  <Resistance>
+    <Entity>
+      <Damage>
+        <Hack op="add">4</Hack>
+        <Pierce op="add">5</Pierce>
+      </Damage>
+    </Entity>
+  </Resistance>
+</Entity>

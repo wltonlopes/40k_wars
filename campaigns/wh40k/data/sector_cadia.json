@@ -1,0 +1,713 @@
+{
+	"Description": "Sistema estelar e corpos celestes (mesmo formato do sector.json). Gerado por tools/data/build_sectors.py; mapas por tools/art/gen_planets.py.",
+	"start": {
+		"turn": 1,
+		"year": "999.M41",
+		"monthsPerTurn": 1
+	},
+	"system": {
+		"id": "cadia",
+		"name": "Portão de Cadia",
+		"star": {
+			"name": "Cadia",
+			"color": [
+				255,
+				232,
+				205
+			]
+		},
+		"desc": "O único caminho estável para fora do Olho do Terror. Dez mil anos de vigília, e agora a 13ª Cruzada Negra."
+	},
+	"bodies": [
+		{
+			"id": "cadia",
+			"name": "Cadia",
+			"kind": "planet",
+			"class": "Mundo-Fortaleza",
+			"orbit": 0.2,
+			"angle": 210,
+			"size": 1.0,
+			"mapSize": [
+				2048,
+				1280
+			],
+			"seed": 99,
+			"palette": "fortress",
+			"desc": "Planeta-fortaleza de kasrs e trincheiras. Os pilones antigos que seguram o Olho ficam em campos proibidos.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "kasr_myrak",
+					"name": "Kasr Myrak",
+					"terrain": "hive",
+					"x": 0.28,
+					"y": 0.25,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 3,
+					"shipyard": true,
+					"garrison": [
+						"guard_platoon",
+						"guard_platoon",
+						"heavy_weapons"
+					]
+				},
+				{
+					"id": "kasr_partox",
+					"name": "Kasr Partox",
+					"terrain": "hive",
+					"x": 0.52,
+					"y": 0.19,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"guard_platoon",
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "kasr_kraf",
+					"name": "Kasr Kraf",
+					"terrain": "hive",
+					"x": 0.75,
+					"y": 0.3,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "kasr_sonnen",
+					"name": "Kasr Sonnen",
+					"terrain": "hive",
+					"x": 0.4,
+					"y": 0.5,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"guard_platoon",
+						"heavy_weapons"
+					]
+				},
+				{
+					"id": "kasr_gallan",
+					"name": "Kasr Gallan",
+					"terrain": "hive",
+					"x": 0.67,
+					"y": 0.56,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "caducades",
+					"name": "Planícies Caducades",
+					"terrain": "plains",
+					"x": 0.14,
+					"y": 0.5,
+					"owner": "imperial",
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "elysion",
+					"name": "Campos Elysion",
+					"terrain": "plains",
+					"x": 0.55,
+					"y": 0.38,
+					"owner": "imperial",
+					"garrison": []
+				},
+				{
+					"id": "cadian_peaks",
+					"name": "Montes Cadianos",
+					"terrain": "mountains",
+					"x": 0.09,
+					"y": 0.22,
+					"owner": "imperial",
+					"forts": 1,
+					"garrison": []
+				},
+				{
+					"id": "boreal_tundra",
+					"name": "Tundra Boreal",
+					"terrain": "ice",
+					"x": 0.44,
+					"y": 0.05,
+					"owner": "imperial",
+					"garrison": []
+				},
+				{
+					"id": "pylon_holn",
+					"name": "Pilones de Kasr Holn",
+					"terrain": "tomb",
+					"x": 0.89,
+					"y": 0.15,
+					"owner": "necrons",
+					"forts": 2,
+					"garrison": [
+						"necron_warriors",
+						"necron_warriors"
+					]
+				},
+				{
+					"id": "pylon_seroleum",
+					"name": "Pilones de Seroleum",
+					"terrain": "tomb",
+					"x": 0.86,
+					"y": 0.72,
+					"owner": "necrons",
+					"forts": 1,
+					"garrison": [
+						"necron_warriors"
+					]
+				},
+				{
+					"id": "tyrok_ruins",
+					"name": "Kasr Tyrok (profanado)",
+					"terrain": "warp",
+					"x": 0.25,
+					"y": 0.76,
+					"owner": "chaos",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"cultists",
+						"chaos_marines"
+					]
+				},
+				{
+					"id": "black_breach",
+					"name": "Brecha Negra",
+					"terrain": "warp",
+					"x": 0.46,
+					"y": 0.83,
+					"owner": "chaos",
+					"garrison": [
+						"cultists",
+						"cultists"
+					]
+				},
+				{
+					"id": "lorn_mire",
+					"name": "Pântano de Lorn",
+					"terrain": "mire",
+					"x": 0.64,
+					"y": 0.8,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "cd_sea_a",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.03,
+					"y": 0.92
+				},
+				{
+					"id": "cd_sea_b",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.98,
+					"y": 0.97
+				},
+				{
+					"id": "cd_sea_c",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.99,
+					"y": 0.44
+				}
+			]
+		},
+		{
+			"id": "ultima",
+			"name": "Bastião Ultima",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "cadia",
+			"orbit": 0.075,
+			"angle": 330,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 29,
+			"palette": "station",
+			"desc": "Estação-fortaleza da Frota de Batalha Cadiana.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "ultima_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "imperial",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "ultima_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "imperial",
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "ultima_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "imperial",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "agripinaa",
+			"name": "Agripinaa",
+			"kind": "planet",
+			"class": "Mundo-Forja",
+			"orbit": 0.31,
+			"angle": 330,
+			"size": 0.8,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 103,
+			"palette": "volcanic",
+			"desc": "Mundo-forja do Mechanicus que arma o Portão de Cadia.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "agri_forge",
+					"name": "Forja Primária",
+					"terrain": "industrial",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"skitarii_rangers",
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "agri_mines",
+					"name": "Minas de Adamantium",
+					"terrain": "mountains",
+					"x": 0.2,
+					"y": 0.3,
+					"owner": "imperial",
+					"garrison": []
+				},
+				{
+					"id": "agri_slag",
+					"name": "Ermos de Escória",
+					"terrain": "ash",
+					"x": 0.76,
+					"y": 0.3,
+					"owner": "imperial",
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "agri_vents",
+					"name": "Respiros Vulcânicos",
+					"terrain": "industrial",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "imperial",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "agri_soot",
+					"name": "Desertos de Fuligem",
+					"terrain": "ash",
+					"x": 0.76,
+					"y": 0.76,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "ap_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.97
+				}
+			]
+		},
+		{
+			"id": "vorkaas",
+			"name": "Vor'kaas",
+			"kind": "planet",
+			"class": "Mundo-Demônio",
+			"orbit": 0.47,
+			"angle": 120,
+			"size": 0.85,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 107,
+			"palette": "warp",
+			"desc": "Um mundo engolido pela disformidade, base avançada da Cruzada Negra na borda do Olho.",
+			"neutralCiv": "chaos",
+			"provinces": [
+				{
+					"id": "vork_citadel",
+					"name": "Cidadela da Cruzada",
+					"terrain": "warp",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "chaos",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"chaos_marines",
+						"cultists"
+					]
+				},
+				{
+					"id": "vork_altars",
+					"name": "Altares de Sangue",
+					"terrain": "warp",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "chaos",
+					"garrison": [
+						"cultists"
+					]
+				},
+				{
+					"id": "vork_spires",
+					"name": "Torres de Carne",
+					"terrain": "warp",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "chaos",
+					"garrison": [
+						"cultists"
+					]
+				},
+				{
+					"id": "vork_wastes",
+					"name": "Ermos Gritantes",
+					"terrain": "ash",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "chaos",
+					"garrison": []
+				},
+				{
+					"id": "vork_mire",
+					"name": "Lodo Profano",
+					"terrain": "mire",
+					"x": 0.72,
+					"y": 0.76,
+					"owner": "chaos",
+					"garrison": []
+				},
+				{
+					"id": "vk_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.03
+				}
+			]
+		},
+		{
+			"id": "ulthwe",
+			"name": "Mundo-Nave Ulthwé",
+			"kind": "station",
+			"class": "Mundo-Nave Eldar",
+			"orbit": 0.4,
+			"angle": 25,
+			"size": 0.45,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 109,
+			"palette": "station",
+			"desc": "O mundo-nave que vigia o Olho do Terror, guiado pelos videntes de Eldrad Ulthran.",
+			"neutralCiv": "eldar",
+			"provinces": [
+				{
+					"id": "ulthwe_dome",
+					"name": "Domo dos Videntes",
+					"terrain": "station",
+					"x": 0.45,
+					"y": 0.45,
+					"owner": "eldar",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"guardians",
+						"dire_avengers"
+					]
+				},
+				{
+					"id": "ulthwe_gardens",
+					"name": "Jardins do Domo",
+					"terrain": "jungle",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "eldar",
+					"garrison": []
+				},
+				{
+					"id": "ulthwe_shrines",
+					"name": "Santuários dos Aspectos",
+					"terrain": "station",
+					"x": 0.72,
+					"y": 0.38,
+					"owner": "eldar",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"guardians"
+					]
+				},
+				{
+					"id": "ulthwe_docks",
+					"name": "Portos da Teia",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.72,
+					"owner": "eldar",
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "thyrr",
+			"name": "Thyrr",
+			"kind": "planet",
+			"class": "Mundo-Tumba",
+			"orbit": 0.36,
+			"angle": 265,
+			"size": 0.7,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 113,
+			"palette": "tomb",
+			"desc": "Mundo-tumba da Dinastia Sautekh, desperto pelo tremor dos pilones de Cadia.",
+			"neutralCiv": "necrons",
+			"provinces": [
+				{
+					"id": "thyrr_pyramid",
+					"name": "Grande Pirâmide",
+					"terrain": "tomb",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "necrons",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"immortals",
+						"necron_warriors"
+					]
+				},
+				{
+					"id": "thyrr_halls",
+					"name": "Salões Silenciosos",
+					"terrain": "tomb",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "necrons",
+					"garrison": [
+						"necron_warriors"
+					]
+				},
+				{
+					"id": "thyrr_dunes",
+					"name": "Dunas Mortas",
+					"terrain": "ash",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "necrons",
+					"garrison": []
+				},
+				{
+					"id": "thyrr_vaults",
+					"name": "Cofres Estáticos",
+					"terrain": "tomb",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "necrons",
+					"hive": 1,
+					"garrison": [
+						"necron_warriors"
+					]
+				},
+				{
+					"id": "thyrr_ice",
+					"name": "Gelo Eterno",
+					"terrain": "ice",
+					"x": 0.75,
+					"y": 0.76,
+					"garrison": []
+				},
+				{
+					"id": "th_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.97
+				}
+			]
+		}
+	],
+	"startingArmies": [
+		{
+			"faction": "imperial",
+			"general": "creed",
+			"body": "cadia",
+			"province": "kasr_myrak",
+			"battalions": [
+				"guard_platoon",
+				"guard_platoon",
+				"special_weapons",
+				"chimera",
+				"leman_russ",
+				"sentinel"
+			]
+		},
+		{
+			"faction": "imperial",
+			"general": "cain",
+			"body": "cadia",
+			"province": "kasr_gallan",
+			"battalions": [
+				"guard_platoon",
+				"guard_grenadiers",
+				"chimera"
+			]
+		},
+		{
+			"faction": "chaos",
+			"general": "abaddon",
+			"body": "cadia",
+			"province": "tyrok_ruins",
+			"battalions": [
+				"chaos_marines",
+				"chaos_marines",
+				"cultists",
+				"cultists",
+				"raptors",
+				"chaos_terminators",
+				"predator"
+			]
+		},
+		{
+			"faction": "chaos",
+			"general": "haarken",
+			"body": "vorkaas",
+			"province": "vork_citadel",
+			"battalions": [
+				"cultists",
+				"chaos_marines",
+				"chaos_rhino"
+			]
+		},
+		{
+			"faction": "eldar",
+			"general": "eldrad",
+			"body": "ulthwe",
+			"province": "ulthwe_dome",
+			"battalions": [
+				"guardians",
+				"guardians",
+				"dire_avengers",
+				"fire_dragons",
+				"falcon"
+			]
+		},
+		{
+			"faction": "necrons",
+			"general": "imotekh",
+			"body": "thyrr",
+			"province": "thyrr_pyramid",
+			"battalions": [
+				"necron_warriors",
+				"necron_warriors",
+				"necron_warriors",
+				"immortals",
+				"destroyers"
+			]
+		},
+		{
+			"faction": "necrons",
+			"general": "anrakyr",
+			"body": "cadia",
+			"province": "pylon_holn",
+			"battalions": [
+				"necron_warriors",
+				"necron_warriors",
+				"scarabs"
+			]
+		}
+	],
+	"startingFleets": [
+		{
+			"faction": "imperial",
+			"body": "cadia",
+			"ships": 3
+		},
+		{
+			"faction": "imperial",
+			"body": "agripinaa",
+			"ships": 1
+		},
+		{
+			"faction": "chaos",
+			"body": "vorkaas",
+			"ships": 4
+		},
+		{
+			"faction": "eldar",
+			"body": "ulthwe",
+			"ships": 2
+		},
+		{
+			"faction": "necrons",
+			"body": "thyrr",
+			"ships": 2
+		}
+	]
+}

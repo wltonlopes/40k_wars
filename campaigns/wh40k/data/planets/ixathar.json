@@ -1,0 +1,103 @@
+{
+	"id": "ixathar",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"ix_tower": {
+			"rect": [
+				0.34473,
+				0.22344,
+				0.66992,
+				0.80625
+			],
+			"label": [
+				0.501,
+				0.4656
+			],
+			"area": 78650,
+			"neighbors": [
+				"ix_crystal",
+				"ix_ice",
+				"ix_library",
+				"ix_peaks"
+			],
+			"coastal": true
+		},
+		"ix_library": {
+			"rect": [
+				0.0,
+				0.0,
+				0.35254,
+				0.65469
+			],
+			"label": [
+				0.0,
+				0.1672
+			],
+			"area": 129035,
+			"neighbors": [
+				"ix_peaks",
+				"ix_tower"
+			],
+			"coastal": true
+		},
+		"ix_crystal": {
+			"rect": [
+				0.62988,
+				0.0,
+				1.0,
+				0.54688
+			],
+			"label": [
+				0.999,
+				0.0781
+			],
+			"area": 117516,
+			"neighbors": [
+				"ix_ice",
+				"ix_tower"
+			],
+			"coastal": true
+		},
+		"ix_peaks": {
+			"rect": [
+				0.0,
+				0.47344,
+				0.52344,
+				1.0
+			],
+			"label": [
+				0.2725,
+				0.9984
+			],
+			"area": 131487,
+			"neighbors": [
+				"ix_ice",
+				"ix_library",
+				"ix_tower"
+			],
+			"coastal": false
+		},
+		"ix_ice": {
+			"rect": [
+				0.5166,
+				0.51406,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.8145,
+				0.9984
+			],
+			"area": 138509,
+			"neighbors": [
+				"ix_crystal",
+				"ix_peaks",
+				"ix_tower"
+			],
+			"coastal": false
+		}
+	}
+}

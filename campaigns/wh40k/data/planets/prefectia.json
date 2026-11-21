@@ -1,0 +1,103 @@
+{
+	"id": "prefectia",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"prefectia_hive": {
+			"rect": [
+				0.30762,
+				0.0,
+				0.64941,
+				0.70781
+			],
+			"label": [
+				0.4551,
+				0.3438
+			],
+			"area": 108624,
+			"neighbors": [
+				"fields_n",
+				"fields_s",
+				"ice_mine",
+				"prefectia_jungle"
+			],
+			"coastal": false
+		},
+		"fields_n": {
+			"rect": [
+				0.0,
+				0.0,
+				0.36523,
+				0.63594
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 120402,
+			"neighbors": [
+				"fields_s",
+				"prefectia_hive"
+			],
+			"coastal": true
+		},
+		"fields_s": {
+			"rect": [
+				0.16406,
+				0.44531,
+				0.54199,
+				1.0
+			],
+			"label": [
+				0.3838,
+				0.8359
+			],
+			"area": 91581,
+			"neighbors": [
+				"fields_n",
+				"prefectia_hive",
+				"prefectia_jungle"
+			],
+			"coastal": true
+		},
+		"ice_mine": {
+			"rect": [
+				0.54199,
+				0.0,
+				1.0,
+				0.47969
+			],
+			"label": [
+				0.9766,
+				0.0
+			],
+			"area": 121627,
+			"neighbors": [
+				"prefectia_hive",
+				"prefectia_jungle"
+			],
+			"coastal": true
+		},
+		"prefectia_jungle": {
+			"rect": [
+				0.53223,
+				0.42031,
+				0.99414,
+				1.0
+			],
+			"label": [
+				0.7314,
+				0.6922
+			],
+			"area": 120882,
+			"neighbors": [
+				"fields_s",
+				"ice_mine",
+				"prefectia_hive"
+			],
+			"coastal": true
+		}
+	}
+}

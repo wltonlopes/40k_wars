@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chefão Ork no campo de batalha (general da campanha). -->
+<Entity parent="units/orks/infantry_nob">
+  <Cost>
+    <Population>1</Population>
+  </Cost>
+  <Health>
+    <Max>1500</Max>
+  </Health>
+  <Identity>
+    <GenericName>Chefão de Guerra</GenericName>
+    <SpecificName>Warboss</SpecificName>
+    <Classes datatype="tokens">Hero</Classes>
+    <Icon>units/orks/warboss.png</Icon>
+  </Identity>
+  <Resistance>
+    <Entity>
+      <Damage>
+        <Hack op="add">4</Hack>
+        <Pierce op="add">4</Pierce>
+        <Crush op="add">3</Crush>
+      </Damage>
+    </Entity>
+  </Resistance>
+</Entity>

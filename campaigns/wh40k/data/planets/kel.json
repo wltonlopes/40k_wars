@@ -1,0 +1,103 @@
+{
+	"id": "kel",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"kel_nest": {
+			"rect": [
+				0.31738,
+				0.24062,
+				0.68164,
+				0.83281
+			],
+			"label": [
+				0.4785,
+				0.4844
+			],
+			"area": 84513,
+			"neighbors": [
+				"kel_flesh",
+				"kel_ice",
+				"kel_ruins",
+				"kel_spires"
+			],
+			"coastal": true
+		},
+		"kel_flesh": {
+			"rect": [
+				0.0,
+				0.0,
+				0.36133,
+				0.675
+			],
+			"label": [
+				0.0,
+				0.2406
+			],
+			"area": 128002,
+			"neighbors": [
+				"kel_ice",
+				"kel_nest"
+			],
+			"coastal": true
+		},
+		"kel_spires": {
+			"rect": [
+				0.58008,
+				0.0,
+				1.0,
+				0.60156
+			],
+			"label": [
+				0.999,
+				0.0109
+			],
+			"area": 135631,
+			"neighbors": [
+				"kel_nest",
+				"kel_ruins"
+			],
+			"coastal": true
+		},
+		"kel_ruins": {
+			"rect": [
+				0.45996,
+				0.52969,
+				0.90527,
+				1.0
+			],
+			"label": [
+				0.6182,
+				0.9531
+			],
+			"area": 98038,
+			"neighbors": [
+				"kel_ice",
+				"kel_nest",
+				"kel_spires"
+			],
+			"coastal": true
+		},
+		"kel_ice": {
+			"rect": [
+				0.0,
+				0.58125,
+				0.4668,
+				1.0
+			],
+			"label": [
+				0.2148,
+				0.9984
+			],
+			"area": 110305,
+			"neighbors": [
+				"kel_flesh",
+				"kel_nest",
+				"kel_ruins"
+			],
+			"coastal": false
+		}
+	}
+}

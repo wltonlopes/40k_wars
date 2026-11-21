@@ -1,0 +1,125 @@
+{
+	"Description": "Campanhas (cenários). sector: arquivo do setor; factions: facções em jogo; playable: as que o jogador pode escolher; objective: corpo cujas cidades-colmeia (hive 2) decidem a vitória; intro: texto da escolha de lado; portraits: retratos da janela. teams: alianças {nome: [facções]} — aliados não se atacam e vencem juntos.",
+	"scenarios": [
+		{
+			"id": "armageddon",
+			"name": "Cruzada de Armageddon",
+			"sector": "sector.json",
+			"factions": [
+				"imperial",
+				"orks"
+			],
+			"playable": [
+				"imperial",
+				"orks"
+			],
+			"objective": {
+				"body": "armageddon",
+				"label": "Colmeias de Armageddon",
+				"text": "controlar todas as cidades-colmeia de Armageddon"
+			},
+			"portraits": [
+				"imperial/r0c6.png",
+				"orks/r0c5.png"
+			],
+			"intro": "999.M41. A Waaagh! de Ghazghkull Mag Uruk Thraka cai sobre o Sistema Armageddon.",
+			"summary": "Guarda Imperial contra a Waaagh! de Ghazghkull."
+		},
+		{
+			"id": "damocles",
+			"name": "Invasão Tirânida",
+			"sector": "sector_damocles.json",
+			"factions": [
+				"imperial",
+				"tau",
+				"tyranids"
+			],
+			"playable": [
+				"imperial",
+				"tau",
+				"tyranids"
+			],
+			"objective": {
+				"body": "agrellan",
+				"label": "Colmeias de Agrellan",
+				"text": "controlar todas as cidades de Agrellan"
+			},
+			"portraits": [
+				"tyranids/r2c3.png",
+				"tau/r1c2.png"
+			],
+			"intro": "999.M41. Enquanto Imperium e Tau disputam o Golfo de Damocles, uma lasca da Frota-Colmeia Gorgon desce das estrelas. Agrellan será o campo de batalha — ou o banquete.",
+			"summary": "Imperium, Império Tau e a Frota-Colmeia Gorgon no Golfo de Damocles."
+		},
+		{
+			"id": "cadia",
+			"name": "13ª Cruzada Negra",
+			"sector": "sector_cadia.json",
+			"factions": [
+				"imperial",
+				"chaos",
+				"eldar",
+				"necrons"
+			],
+			"playable": [
+				"imperial",
+				"chaos",
+				"eldar",
+				"necrons"
+			],
+			"objective": {
+				"body": "cadia",
+				"label": "Kasrs de Cadia",
+				"text": "controlar todos os kasrs de Cadia"
+			},
+			"portraits": [
+				"chaos/r2c0.png",
+				"imperial/r0c5.png"
+			],
+			"intro": "999.M41. Abaddon, o Saqueador, lança a 13ª Cruzada Negra contra Cadia. Os videntes de Ulthwé enxergam a ruína, e sob os pilones algo antigo desperta.",
+			"summary": "Cadia contra a Legião Negra, com Ulthwé e os Necrons dos pilones."
+		},
+		{
+			"id": "great_game",
+			"name": "O Grande Jogo dos Deuses",
+			"sector": "sector_great_game.json",
+			"factions": [
+				"world_eaters",
+				"death_guard",
+				"thousand_sons",
+				"emperors_children",
+				"ultramarines",
+				"blood_angels",
+				"salamanders"
+			],
+			"playable": [
+				"world_eaters",
+				"death_guard",
+				"thousand_sons",
+				"emperors_children",
+				"ultramarines",
+				"blood_angels",
+				"salamanders"
+			],
+			"teams": {
+				"astartes": [
+					"ultramarines",
+					"blood_angels",
+					"salamanders"
+				]
+			},
+			"neutralName": "Defesa Planetária",
+			"objective": {
+				"body": "aeternum",
+				"label": "Relicários de Aeternum",
+				"text": "controlar todas as cidades de Aeternum Sanctus, inclusive as quatro profanadas pelas legiões (os Astartes vencem juntos)"
+			},
+			"portraits": [
+				"khorne/r1c2.png",
+				"ultramarines/r2c0.png"
+			],
+			"intro": "012.M42. Khorne, Nurgle, Tzeentch e Slaanesh apostaram um mundo-santuário no Grande Jogo. Quatro legiões traidoras abrem brechas em Aeternum Sanctus — e cada uma quer o prêmio só para o seu deus. Ultramarines, Blood Angels e Salamandras juram defendê-lo juntos.",
+			"summary": "As quatro legiões dos Deuses do Caos, umas contra as outras, contra três capítulos Astartes aliados."
+		}
+	]
+}

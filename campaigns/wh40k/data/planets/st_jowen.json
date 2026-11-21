@@ -1,0 +1,63 @@
+{
+	"id": "st_jowen",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"jowen_yards": {
+			"rect": [
+				0.09375,
+				0.18906,
+				0.48535,
+				0.84375
+			],
+			"label": [
+				0.2549,
+				0.4984
+			],
+			"area": 100135,
+			"neighbors": [
+				"jowen_battery",
+				"jowen_ring"
+			],
+			"coastal": false
+		},
+		"jowen_ring": {
+			"rect": [
+				0.35156,
+				0.13125,
+				0.80957,
+				0.83281
+			],
+			"label": [
+				0.543,
+				0.3797
+			],
+			"area": 116247,
+			"neighbors": [
+				"jowen_battery",
+				"jowen_yards"
+			],
+			"coastal": false
+		},
+		"jowen_battery": {
+			"rect": [
+				0.50488,
+				0.23906,
+				0.88672,
+				0.86094
+			],
+			"label": [
+				0.7783,
+				0.4969
+			],
+			"area": 68109,
+			"neighbors": [
+				"jowen_ring",
+				"jowen_yards"
+			],
+			"coastal": false
+		}
+	}
+}

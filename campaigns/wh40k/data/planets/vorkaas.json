@@ -1,0 +1,103 @@
+{
+	"id": "vorkaas",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"vork_citadel": {
+			"rect": [
+				0.35156,
+				0.2625,
+				0.66602,
+				0.77812
+			],
+			"label": [
+				0.4971,
+				0.4719
+			],
+			"area": 69240,
+			"neighbors": [
+				"vork_altars",
+				"vork_mire",
+				"vork_spires",
+				"vork_wastes"
+			],
+			"coastal": true
+		},
+		"vork_altars": {
+			"rect": [
+				0.0,
+				0.0,
+				0.38867,
+				0.7
+			],
+			"label": [
+				0.0,
+				0.2234
+			],
+			"area": 137480,
+			"neighbors": [
+				"vork_citadel",
+				"vork_wastes"
+			],
+			"coastal": true
+		},
+		"vork_spires": {
+			"rect": [
+				0.63086,
+				0.0,
+				1.0,
+				0.63125
+			],
+			"label": [
+				0.999,
+				0.1234
+			],
+			"area": 122164,
+			"neighbors": [
+				"vork_citadel",
+				"vork_mire"
+			],
+			"coastal": true
+		},
+		"vork_wastes": {
+			"rect": [
+				0.0,
+				0.5125,
+				0.51172,
+				1.0
+			],
+			"label": [
+				0.2471,
+				0.9984
+			],
+			"area": 124159,
+			"neighbors": [
+				"vork_altars",
+				"vork_citadel",
+				"vork_mire"
+			],
+			"coastal": false
+		},
+		"vork_mire": {
+			"rect": [
+				0.49414,
+				0.49688,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.7646,
+				0.9984
+			],
+			"area": 134486,
+			"neighbors": [
+				"vork_citadel",
+				"vork_spires",
+				"vork_wastes"
+			],
+			"coastal": false
+		}
+	}
+}

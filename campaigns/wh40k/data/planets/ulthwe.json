@@ -1,0 +1,83 @@
+{
+	"id": "ulthwe",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"ulthwe_dome": {
+			"rect": [
+				0.28711,
+				0.1125,
+				0.58496,
+				0.77188
+			],
+			"label": [
+				0.4492,
+				0.3859
+			],
+			"area": 71162,
+			"neighbors": [
+				"ulthwe_docks",
+				"ulthwe_gardens",
+				"ulthwe_shrines"
+			],
+			"coastal": false
+		},
+		"ulthwe_gardens": {
+			"rect": [
+				0.14648,
+				0.2125,
+				0.33984,
+				0.75156
+			],
+			"label": [
+				0.2529,
+				0.4188
+			],
+			"area": 44632,
+			"neighbors": [
+				"ulthwe_docks",
+				"ulthwe_dome"
+			],
+			"coastal": false
+		},
+		"ulthwe_shrines": {
+			"rect": [
+				0.54785,
+				0.09375,
+				0.87891,
+				0.73438
+			],
+			"label": [
+				0.7422,
+				0.4328
+			],
+			"area": 73108,
+			"neighbors": [
+				"ulthwe_docks",
+				"ulthwe_dome"
+			],
+			"coastal": false
+		},
+		"ulthwe_docks": {
+			"rect": [
+				0.31445,
+				0.47344,
+				0.76465,
+				0.88281
+			],
+			"label": [
+				0.5762,
+				0.6875
+			],
+			"area": 70126,
+			"neighbors": [
+				"ulthwe_dome",
+				"ulthwe_gardens",
+				"ulthwe_shrines"
+			],
+			"coastal": false
+		}
+	}
+}

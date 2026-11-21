@@ -1,0 +1,15 @@
+{
+	"settings" : {
+		"Name" : "40k Wars: Campo de Batalha",
+		"Script" : "wh40k_battle.js",
+		"Description" : "Batalha da campanha 40k Wars: dois exércitos de batalhões, sem bases nem economia. Baixas inimigas enchem as barras de apoio (cápsulas, bombardeiros, ataques orbitais). Fora da campanha, cada lado recebe um exército de demonstração (Guarda Imperial ou Orks).",
+		"Preview" : "mainland.png",
+		"Keywords": ["multiplayer"],
+		"CircularMap" : false,
+		"PlayerPlacements": ["circle"],
+		"TriggerScripts": [
+			"scripts/TriggerHelper.js",
+			"scripts/WH40KBattle.js"
+		]
+	}
+}

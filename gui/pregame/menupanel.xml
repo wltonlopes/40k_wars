@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 40k Wars: painel gótico à direita (o comandante fica à esquerda do fundo). -->
+<object>
+
+	<object name="pgToolTip" style="TranslucentPanel" type="text" hidden="true" size="0 25 313 200" ghost="true"/>
+
+	<object name="mainMenu" type="image" style="MainMenuPanel" size="100%-400 -2 100%-40 100%+2" z="50">
+		<object name="productLogo" type="image" ghost="true" size="50%-170 24 50%+170 194"/>
+
+		<object name="mainMenuButtons" size="24 214 100%-24 100%-150" z="60">
+			<repeat count="10">
+				<object name="mainMenuButton[n]" type="button" style="WH40KMenuButton" tooltip_style="pgToolTip"/>
+			</repeat>
+		</object>
+
+		<object name="MainMenuPanelRightBorderTop" type="image" sprite="MainMenuPanelRightBorder" ghost="true" size="100%-2 0 100% 100%"/>
+		<object name="MainMenuPanelRightBorderBottom" type="image" sprite="MainMenuPanelRightBorder" ghost="true" size="100%-2 0 100% 100%"/>
+
+		<object type="image" sprite="WH40KInfoPanel" size="16 100%-128 100%-16 100%-52">
+			<object name="productDescription" font="sans-14" type="text" textcolor="236 214 160" size="10 6 100%-10 100%-6" ghost="true" text_align="center" text_valign="center"/>
+			<object name="communityButtons" hidden="true">
+				<repeat count="2">
+					<object type="button" hidden="true"/>
+				</repeat>
+			</object>
+		</object>
+		<object type="text" name="productBuild" font="sans-12" textcolor="160 150 130" ghost="true" size="16 100%-44 100%-16 100%-20" text_align="center"/>
+		<object name="organizationLogo" type="image" ghost="true" hidden="true"/>
+		<object name="organizationName" type="text" ghost="true" hidden="true"/>
+	</object>
+
+	<object name="submenu" type="image" style="SubmenuPanel" size="100%-400 0 100%-40 0%" hidden="true">
+		<object name="submenuButtons" type="image" size="0 4 100%-4 100%-4" tooltip_style="pgToolTip">
+			<repeat count="10">
+				<object type="button" style="WH40KMenuButton" tooltip_style="pgToolTip"/>
+			</repeat>
+		</object>
+	</object>
+
+	<object name="closeMenuButton" type="button" hotkey="cancel"/>
+
+</object>

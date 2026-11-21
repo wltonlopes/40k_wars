@@ -1,0 +1,26 @@
+Músicas do 40k Wars
+====================
+
+Todas as faixas são de Kevin MacLeod (incompetech.com), licenciadas sob
+Creative Commons: By Attribution 4.0 (CC-BY 4.0)
+http://creativecommons.org/licenses/by/4.0/
+
+Convertidas de MP3 para Ogg Vorbis, sem outras alterações.
+
+  wh40k_Crusade.ogg                 "Crusade"                  menu
+  wh40k_Gregorian_Chant.ogg         "Gregorian Chant"          menu, campanha
+  wh40k_Death_of_Kings.ogg          "Death of Kings"           menu, campanha
+  wh40k_Crusade_Heavy_Industry.ogg  "Crusade - Heavy Industry" campanha
+  wh40k_Dark_Times.ogg              "Dark Times"               campanha
+  wh40k_Five_Armies.ogg             "Five Armies"              batalha
+  wh40k_Black_Vortex.ogg            "Black Vortex"             batalha
+  wh40k_Volatile_Reaction.ogg       "Volatile Reaction"        batalha
+  wh40k_Clash_Defiant.ogg           "Clash Defiant"            batalha
+
+Atribuição pedida pelo autor, por faixa:
+  "<título>" Kevin MacLeod (incompetech.com)
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0/
+
+Efeitos sonoros (audio/interface/wh40k/): sintetizados por
+tools/audio/gen_sfx.py, parte do mod (mesma licença do mod).

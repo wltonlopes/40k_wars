@@ -1,0 +1,311 @@
+{
+	"id": "agrellan",
+	"mapSize": [
+		2048,
+		1280
+	],
+	"provinces": {
+		"mugulath": {
+			"rect": [
+				0.04492,
+				0.0,
+				0.28223,
+				0.45781
+			],
+			"label": [
+				0.1846,
+				0.2398
+			],
+			"area": 155547,
+			"neighbors": [
+				"arlarn",
+				"fort_damocles",
+				"pathos"
+			],
+			"coastal": true
+		},
+		"pathos": {
+			"rect": [
+				0.19824,
+				0.0,
+				0.50586,
+				0.35859
+			],
+			"label": [
+				0.3599,
+				0.0
+			],
+			"area": 182967,
+			"neighbors": [
+				"arlarn",
+				"gelbryn",
+				"kelshan",
+				"mugulath"
+			],
+			"coastal": false
+		},
+		"fort_damocles": {
+			"rect": [
+				0.0,
+				0.30938,
+				0.22021,
+				0.72188
+			],
+			"label": [
+				0.0352,
+				0.5102
+			],
+			"area": 158596,
+			"neighbors": [
+				"arlarn",
+				"grey_wastes",
+				"mugulath"
+			],
+			"coastal": true
+		},
+		"arlarn": {
+			"rect": [
+				0.19336,
+				0.28203,
+				0.41064,
+				0.61562
+			],
+			"label": [
+				0.3091,
+				0.4422
+			],
+			"area": 117301,
+			"neighbors": [
+				"devoured",
+				"fort_damocles",
+				"grey_wastes",
+				"kelshan",
+				"lorak",
+				"mugulath",
+				"pathos"
+			],
+			"coastal": false
+		},
+		"kelshan": {
+			"rect": [
+				0.3916,
+				0.09219,
+				0.61768,
+				0.44922
+			],
+			"label": [
+				0.5029,
+				0.3102
+			],
+			"area": 123684,
+			"neighbors": [
+				"arlarn",
+				"gelbryn",
+				"lorak",
+				"pathos",
+				"vashya"
+			],
+			"coastal": false
+		},
+		"gelbryn": {
+			"rect": [
+				0.49658,
+				0.0,
+				0.76807,
+				0.2625
+			],
+			"label": [
+				0.6245,
+				0.0
+			],
+			"area": 125281,
+			"neighbors": [
+				"katuo",
+				"kelshan",
+				"pathos",
+				"vashya"
+			],
+			"coastal": false
+		},
+		"katuo": {
+			"rect": [
+				0.68457,
+				0.0,
+				1.0,
+				0.46016
+			],
+			"label": [
+				0.9277,
+				0.0
+			],
+			"area": 255207,
+			"neighbors": [
+				"fiotaun",
+				"gelbryn",
+				"vashya"
+			],
+			"coastal": false
+		},
+		"vashya": {
+			"rect": [
+				0.57373,
+				0.20859,
+				0.79834,
+				0.59531
+			],
+			"label": [
+				0.6689,
+				0.4148
+			],
+			"area": 135666,
+			"neighbors": [
+				"fiotaun",
+				"gelbryn",
+				"gorgon_nest",
+				"katuo",
+				"kelshan",
+				"lorak",
+				"spore_chasm"
+			],
+			"coastal": false
+		},
+		"fiotaun": {
+			"rect": [
+				0.77539,
+				0.22891,
+				1.0,
+				0.67344
+			],
+			"label": [
+				0.999,
+				0.4344
+			],
+			"area": 156279,
+			"neighbors": [
+				"katuo",
+				"shadraig_jungle",
+				"spore_chasm",
+				"vashya"
+			],
+			"coastal": true
+		},
+		"lorak": {
+			"rect": [
+				0.36719,
+				0.42969,
+				0.61182,
+				0.70078
+			],
+			"label": [
+				0.4844,
+				0.5562
+			],
+			"area": 112737,
+			"neighbors": [
+				"arlarn",
+				"devoured",
+				"gorgon_nest",
+				"kelshan",
+				"vashya"
+			],
+			"coastal": false
+		},
+		"grey_wastes": {
+			"rect": [
+				0.06348,
+				0.55937,
+				0.28906,
+				1.0
+			],
+			"label": [
+				0.1807,
+				0.7562
+			],
+			"area": 155252,
+			"neighbors": [
+				"arlarn",
+				"devoured",
+				"fort_damocles"
+			],
+			"coastal": true
+		},
+		"devoured": {
+			"rect": [
+				0.24512,
+				0.54766,
+				0.4751,
+				1.0
+			],
+			"label": [
+				0.3721,
+				0.7594
+			],
+			"area": 191532,
+			"neighbors": [
+				"arlarn",
+				"gorgon_nest",
+				"grey_wastes",
+				"lorak"
+			],
+			"coastal": false
+		},
+		"gorgon_nest": {
+			"rect": [
+				0.41943,
+				0.57969,
+				0.69189,
+				1.0
+			],
+			"label": [
+				0.5562,
+				0.9992
+			],
+			"area": 192319,
+			"neighbors": [
+				"devoured",
+				"lorak",
+				"spore_chasm",
+				"vashya"
+			],
+			"coastal": false
+		},
+		"spore_chasm": {
+			"rect": [
+				0.62256,
+				0.50859,
+				0.85449,
+				1.0
+			],
+			"label": [
+				0.7251,
+				0.6984
+			],
+			"area": 168155,
+			"neighbors": [
+				"fiotaun",
+				"gorgon_nest",
+				"shadraig_jungle",
+				"vashya"
+			],
+			"coastal": false
+		},
+		"shadraig_jungle": {
+			"rect": [
+				0.70508,
+				0.66719,
+				0.98389,
+				1.0
+			],
+			"label": [
+				0.8564,
+				0.9992
+			],
+			"area": 143114,
+			"neighbors": [
+				"fiotaun",
+				"spore_chasm"
+			],
+			"coastal": true
+		}
+	}
+}

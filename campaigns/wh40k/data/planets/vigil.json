@@ -1,0 +1,63 @@
+{
+	"id": "vigil",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"vigil_yards": {
+			"rect": [
+				0.10645,
+				0.15781,
+				0.49219,
+				0.85625
+			],
+			"label": [
+				0.2764,
+				0.5047
+			],
+			"area": 107222,
+			"neighbors": [
+				"vigil_battery",
+				"vigil_ring"
+			],
+			"coastal": false
+		},
+		"vigil_ring": {
+			"rect": [
+				0.34668,
+				0.13281,
+				0.7666,
+				0.85781
+			],
+			"label": [
+				0.5479,
+				0.3844
+			],
+			"area": 100669,
+			"neighbors": [
+				"vigil_battery",
+				"vigil_yards"
+			],
+			"coastal": false
+		},
+		"vigil_battery": {
+			"rect": [
+				0.49609,
+				0.25469,
+				0.88184,
+				0.87812
+			],
+			"label": [
+				0.7627,
+				0.5734
+			],
+			"area": 74719,
+			"neighbors": [
+				"vigil_ring",
+				"vigil_yards"
+			],
+			"coastal": false
+		}
+	}
+}

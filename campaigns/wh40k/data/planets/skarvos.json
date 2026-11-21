@@ -1,0 +1,103 @@
+{
+	"id": "skarvos",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"sk_throne": {
+			"rect": [
+				0.34473,
+				0.22188,
+				0.67578,
+				0.80312
+			],
+			"label": [
+				0.5146,
+				0.4625
+			],
+			"area": 86445,
+			"neighbors": [
+				"sk_ash",
+				"sk_brass",
+				"sk_peaks",
+				"sk_pits"
+			],
+			"coastal": true
+		},
+		"sk_brass": {
+			"rect": [
+				0.0,
+				0.0,
+				0.36914,
+				0.7
+			],
+			"label": [
+				0.0,
+				0.2188
+			],
+			"area": 133140,
+			"neighbors": [
+				"sk_ash",
+				"sk_throne"
+			],
+			"coastal": true
+		},
+		"sk_pits": {
+			"rect": [
+				0.61133,
+				0.0,
+				1.0,
+				0.575
+			],
+			"label": [
+				0.999,
+				0.0875
+			],
+			"area": 123053,
+			"neighbors": [
+				"sk_peaks",
+				"sk_throne"
+			],
+			"coastal": true
+		},
+		"sk_ash": {
+			"rect": [
+				0.0,
+				0.49375,
+				0.53613,
+				1.0
+			],
+			"label": [
+				0.2275,
+				0.9984
+			],
+			"area": 127571,
+			"neighbors": [
+				"sk_brass",
+				"sk_peaks",
+				"sk_throne"
+			],
+			"coastal": false
+		},
+		"sk_peaks": {
+			"rect": [
+				0.48633,
+				0.52188,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.8262,
+				0.9984
+			],
+			"area": 130119,
+			"neighbors": [
+				"sk_ash",
+				"sk_pits",
+				"sk_throne"
+			],
+			"coastal": false
+		}
+	}
+}

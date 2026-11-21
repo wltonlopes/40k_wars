@@ -1,0 +1,63 @@
+{
+	"id": "valiant",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"valiant_yards": {
+			"rect": [
+				0.13574,
+				0.13125,
+				0.48438,
+				0.86562
+			],
+			"label": [
+				0.293,
+				0.5656
+			],
+			"area": 104796,
+			"neighbors": [
+				"valiant_battery",
+				"valiant_ring"
+			],
+			"coastal": false
+		},
+		"valiant_ring": {
+			"rect": [
+				0.34863,
+				0.10781,
+				0.75098,
+				0.8625
+			],
+			"label": [
+				0.5469,
+				0.3734
+			],
+			"area": 101943,
+			"neighbors": [
+				"valiant_battery",
+				"valiant_yards"
+			],
+			"coastal": false
+		},
+		"valiant_battery": {
+			"rect": [
+				0.48633,
+				0.21094,
+				0.88379,
+				0.89688
+			],
+			"label": [
+				0.7422,
+				0.5812
+			],
+			"area": 74366,
+			"neighbors": [
+				"valiant_ring",
+				"valiant_yards"
+			],
+			"coastal": false
+		}
+	}
+}

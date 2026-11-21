@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 40k Wars: painel gótico do warhr (ferro, filetes dourados e carmesim). -->
+<sprites>
+	<sprite name="MainMenuPanel">
+		<image texture="pregame/wh40k/panel.png" texture_size="0 0 256 256" size="0 0 100% 100%"/>
+		<image backcolor="0 0 0 120" size="0 0 100% 100%"/>
+		<image backcolor="120 14 12 200" size="100%-7 0 100%-5 100%"/>
+		<image backcolor="201 160 72" size="2 0 100%-2 2"/>
+		<image backcolor="201 160 72" size="2 100%-2 100%-2 100%"/>
+		<image backcolor="201 160 72" size="0 0 2 100%"/>
+		<image backcolor="201 160 72" size="100%-2 0 100% 100%"/>
+	</sprite>
+	<sprite name="MainMenuPanelRightBorder">
+		<image backcolor="201 160 72" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="SubmenuPanel">
+		<image texture="pregame/wh40k/panel.png" texture_size="0 0 256 256" size="0 0 100% 100%"/>
+		<image backcolor="20 4 4 150" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="WH40KLogo">
+		<image texture="pregame/wh40k/logo.png" real_texture_placement="0 0 512 256" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="WH40KInfoPanel">
+		<image backcolor="10 4 4 190" size="0 0 100% 100%"/>
+		<image backcolor="110 78 28" size="0 0 100% 1"/>
+		<image backcolor="110 78 28" size="0 100%-1 100% 100%"/>
+		<image backcolor="110 78 28" size="0 0 1 100%"/>
+		<image backcolor="110 78 28" size="100%-1 0 100% 100%"/>
+	</sprite>
+	<sprite name="WH40KButton">
+		<image texture="pregame/wh40k/button.png" real_texture_placement="0 0 256 32" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="WH40KButtonOver">
+		<image texture="pregame/wh40k/button_over.png" real_texture_placement="0 0 256 32" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="WH40KButtonPressed">
+		<image texture="pregame/wh40k/button_pressed.png" real_texture_placement="0 0 256 32" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="WH40KButtonDisabled">
+		<image texture="pregame/wh40k/button_disabled.png" real_texture_placement="0 0 256 32" size="0 0 100% 100%"/>
+	</sprite>
+</sprites>

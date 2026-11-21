@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soldado de units/orks/battalion_boyz (criado e reposto pelo líder). -->
+<Entity parent="battalion_member|units/orks/infantry_boy">
+  <Identity>
+    <GenericName>Bando de Rapazes</GenericName>
+    <Icon>units/orks/boy.png</Icon>
+    <SelectionGroupName>units/orks/battalion_boyz</SelectionGroupName>
+  </Identity>
+</Entity>

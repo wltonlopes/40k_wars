@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Nob: o maior do bando, garra de poder e big shoota. -->
+<Entity parent="units/orks/infantry_boy">
+  <Ammo>
+    <SwitchToMeleeRange>15</SwitchToMeleeRange>
+  </Ammo>
+  <Attack>
+    <Melee>
+      <AttackName>Garra de Poder</AttackName>
+      <Damage>
+        <Hack>42</Hack>
+        <Crush>14</Crush>
+      </Damage>
+      <RepeatTime>1500</RepeatTime>
+    </Melee>
+    <Ranged>
+      <AttackName>Big Shoota</AttackName>
+      <Damage>
+        <Pierce>14</Pierce>
+      </Damage>
+      <MaxRange>40</MaxRange>
+      <RepeatTime>900</RepeatTime>
+    </Ranged>
+  </Attack>
+  <Health>
+    <Max>420</Max>
+  </Health>
+  <Identity>
+    <GenericName>Nob</GenericName>
+    <SpecificName>Ork Nob</SpecificName>
+    <Icon>units/orks/nob.png</Icon>
+  </Identity>
+  <Resistance>
+    <Entity>
+      <Damage>
+        <Hack op="add">3</Hack>
+        <Pierce op="add">3</Pierce>
+      </Damage>
+    </Entity>
+  </Resistance>
+  <VisualActor>
+    <Actor>units/orks/ork_nob.xml</Actor>
+  </VisualActor>
+</Entity>

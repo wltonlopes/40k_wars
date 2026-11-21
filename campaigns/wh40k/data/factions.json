@@ -1,0 +1,962 @@
+{
+	"Description": "Facções da campanha. 'civ' é o nome interno da facção (reservado para a futura volta da batalha 3D). Facções com enabled=false já têm lugar reservado (generais, cores, recursos) e entram quando tiverem unidades. attackBonus: bônus de ataque de todos os exércitos (Waaagh!). incomeMult: multiplicador do rendimento das províncias. allies: forças aliadas (abas do recrutamento): nome, descrição, ícone e os títulos e nomes dos líderes. Campos das facções: portrait/winPortrait/losePortrait (retratos das janelas), emblemSource (retrato do emblema, tools/art/gen_planets.py), sackName/sackMult/aiSack/sackXp/sackNote (saque: nome, multiplicador, chance da IA, experiência), regen (reparo por segundo na batalha 2D), dropFx (cor do clarão do reforço; sem ele, cápsula), tips (dica do tutorial).",
+	"factions": {
+		"imperial": {
+			"name": "Guarda Imperial",
+			"short": "Imperium",
+			"civ": "imperial",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				190,
+				160,
+				70
+			],
+			"emblem": "wh40k/emblems/imperial.png",
+			"currency": "Requisição",
+			"currencyShort": "Req",
+			"startingFunds": 800,
+			"fleetName": "Frota de Batalha",
+			"shipNames": [
+				"Vingança de Terra",
+				"Fúria de Cadia",
+				"Lança do Imperador",
+				"Retribuição Dourada",
+				"Glória de Macragge",
+				"Martelo de Krieg",
+				"Indomável",
+				"Fé Inabalável"
+			],
+			"leaderTitles": [
+				"Sargento",
+				"Sargento-Veterano",
+				"Tenente",
+				"Sargento de Cor"
+			],
+			"leaderNames": [
+				"Kell",
+				"Harker",
+				"Varl",
+				"Mkoll",
+				"Rawne",
+				"Corbec",
+				"Larkin",
+				"Bragg",
+				"Dorden",
+				"Criid",
+				"Domor",
+				"Feygor",
+				"Haller",
+				"Sarn",
+				"Vostok",
+				"Ivanov",
+				"Mordecai",
+				"Thrane",
+				"Valerius",
+				"Orlok",
+				"Hessk",
+				"Brannigan"
+			],
+			"description": "Bilhões de soldados, blindados aos milhares e a Marinha Imperial em órbita. Fortes na defesa das colmeias e no apoio orbital. Aliados do Império: Space Marines, Irmãs de Batalha, Mechanicus e os agentes da Inquisição.",
+			"allies": {
+				"guard": {
+					"name": "Astra Militarum",
+					"desc": "A Guarda Imperial de Armageddon: numerosa e barata.",
+					"icon": "imperium/platoon_commander.png"
+				},
+				"astartes": {
+					"name": "Adeptus Astartes",
+					"desc": "Space Marines dos Capítulos que vieram defender Armageddon. Descem das naves: exigem frota própria na órbita.",
+					"icon": "imperium/sm_captain.png",
+					"leaderTitles": [
+						"Irmão-Sargento",
+						"Veterano-Sargento",
+						"Tenente"
+					],
+					"leaderNames": [
+						"Aethon",
+						"Brakus",
+						"Corvan",
+						"Darnath",
+						"Erasmus",
+						"Gallus",
+						"Iacton",
+						"Lucan",
+						"Marius",
+						"Octavian",
+						"Sevastus",
+						"Tauros",
+						"Vardan",
+						"Cyprian"
+					]
+				},
+				"sororitas": {
+					"name": "Adepta Sororitas",
+					"desc": "Irmãs de Batalha das catedrais das colmeias: exigem cidade-colmeia.",
+					"icon": "imperium/canoness.png",
+					"leaderTitles": [
+						"Irmã Superiora",
+						"Irmã Veterana",
+						"Palatina"
+					],
+					"leaderNames": [
+						"Agathe",
+						"Bethesda",
+						"Constantia",
+						"Dorothea",
+						"Elsabet",
+						"Honoria",
+						"Ignatia",
+						"Lucinda",
+						"Mercia",
+						"Sabine",
+						"Verena",
+						"Ysolde"
+					]
+				},
+				"mechanicus": {
+					"name": "Adeptus Mechanicus",
+					"desc": "Skitarii e máquinas sagradas das forjas: exigem estaleiro ou zona industrial.",
+					"icon": "imperium/dominus.png",
+					"leaderTitles": [
+						"Alfa",
+						"Manipulus",
+						"Magos"
+					],
+					"leaderNames": [
+						"Vex-7",
+						"Kardan Thol",
+						"Omicron-Theta",
+						"Sigma-Varn",
+						"Ixal-12",
+						"Corrin Dahl",
+						"Delta-Rho",
+						"Hexis-4"
+					]
+				},
+				"agents": {
+					"name": "Agentes do Imperium",
+					"desc": "Inquisição, Custódios, Cavaleiros Cinzentos, Assassinos e Deathwatch: únicos, caros e decisivos.",
+					"icon": "imperium/inquisitor.png",
+					"leaderNames": [
+						"Hargus Kraine",
+						"Ostorius Vane",
+						"Selene Mordaunt",
+						"Tiberius Kell",
+						"Valeria Strohm",
+						"Amadeus Crowe",
+						"Lysander Quill",
+						"Octavia Thorne"
+					]
+				}
+			},
+			"emblemSource": "imperial/r4c6.png",
+			"portrait": "imperial/r0c6.png",
+			"winPortrait": "astra_inf/r2c0.png",
+			"losePortrait": "astra_inf/r2c3.png",
+			"tips": "Aliados do Império: Space Marines (frota na órbita), Irmãs de Batalha (colmeias), Mechanicus (forjas) e agentes da Inquisição — escolha a força em 'Recrutar'."
+		},
+		"orks": {
+			"name": "Orks da Waaagh!",
+			"short": "Orks",
+			"civ": "orks",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				70,
+				150,
+				40
+			],
+			"emblem": "wh40k/emblems/orks.png",
+			"currency": "Dentes",
+			"currencyShort": "Dentes",
+			"startingFunds": 900,
+			"fleetName": "Frota da Waaagh!",
+			"shipNames": [
+				"Punho de Gork",
+				"Kroozer Grande Quebra-Tudo",
+				"Rok Vermelho",
+				"Sorriso de Mork",
+				"Dakka Dakka",
+				"Kill Kroozer Zogg",
+				"Barulhão",
+				"Pedrão Grande"
+			],
+			"leaderTitles": [
+				"Nob",
+				"Nob Grandão",
+				"Chefe de Bando",
+				"Kaptin"
+			],
+			"leaderNames": [
+				"Grimgob",
+				"Skarfang",
+				"Ugrak",
+				"Bogrot",
+				"Zogbrak",
+				"Gitsplitta",
+				"Snagga",
+				"Morgrub",
+				"Drogg",
+				"Krumpa",
+				"Urlakk",
+				"Badgob",
+				"Nazgrub",
+				"Rukk",
+				"Grotkilla",
+				"Wurrzag",
+				"Dakkagob",
+				"Spleenrippa"
+			],
+			"description": "Uma maré verde que cresce com a guerra. Rapazes baratos, Waaagh! que fortalece a investida e Rokks caindo do espaço.",
+			"attackBonus": 0.05,
+			"incomeMult": 1.1,
+			"allies": {
+				"guard": {
+					"name": "Waaagh!",
+					"desc": "Rapazes, Nobz e as máquinas dos Meks.",
+					"icon": "orks/r0c5.png"
+				}
+			},
+			"emblemSource": "orks/r0c6.png",
+			"sackName": "Saquear",
+			"sackMult": 1.5,
+			"aiSack": 0.6,
+			"sackXp": 1,
+			"sackNote": "Orks saqueiam melhor (+50%) e os rapazes ganham experiência.",
+			"dropFx": [
+				120,
+				255,
+				90
+			],
+			"portrait": "orks/r0c5.png",
+			"winPortrait": "orks/r0c5.png",
+			"losePortrait": "orks/r2c0.png",
+			"tips": "Orks: muitos rapazes baratos, Nobz e máquinas dos Meks; saquear rende mais e dá experiência."
+		},
+		"eldar": {
+			"name": "Eldar de Ulthwé",
+			"short": "Eldar",
+			"civ": "dark_eldar",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				80,
+				110,
+				190
+			],
+			"emblem": "wh40k/emblems/eldar.png",
+			"currency": "Influência",
+			"currencyShort": "Inf",
+			"startingFunds": 800,
+			"fleetName": "Frota do Mundo-Nave",
+			"shipNames": [
+				"Lança de Khaine",
+				"Sussurro da Teia",
+				"Estrela de Isha"
+			],
+			"leaderTitles": [
+				"Exarca",
+				"Guardião-Líder",
+				"Videira"
+			],
+			"leaderNames": [
+				"Aelindrach",
+				"Taldeer",
+				"Illic",
+				"Maugan",
+				"Faolchu",
+				"Anaris"
+			],
+			"description": "O mundo-nave Ulthwé vigia o Olho do Terror. Poucos guerreiros, mas de elite: Aspectos, construtos espectrais e tanques antigravitacionais, guiados pelas visões de Eldrad.",
+			"emblemSource": "eldar/r2c2.png",
+			"incomeMult": 1.6,
+			"dropFx": [
+				140,
+				200,
+				255
+			],
+			"portrait": "eldar/r2c2.png",
+			"winPortrait": "eldar/r1c0.png",
+			"losePortrait": "eldar/r0c0.png",
+			"tips": "Eldar: tropas caras e especializadas — Dragões de Fogo contra blindados, Banshees no corpo a corpo, Ceifadores de longe. O Portal da Teia e a Tempestade Eldritch não precisam de frota.",
+			"allies": {
+				"guard": {
+					"name": "Ulthwé",
+					"desc": "Guardiões, Aspectos e construtos.",
+					"icon": "eldar/r2c2.png"
+				}
+			}
+		},
+		"ultramarines": {
+			"name": "Ultramarines",
+			"short": "Ultramar",
+			"civ": "ultramarines",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				40,
+				70,
+				200
+			],
+			"emblem": "wh40k/emblems/ultramarines.png",
+			"emblemSource": "ultramarines/r2c0.png",
+			"currency": "Requisição",
+			"currencyShort": "Req",
+			"startingFunds": 900,
+			"fleetName": "Frota do Capítulo",
+			"leaderTitles": [
+				"Sargento",
+				"Tenente",
+				"Capitão"
+			],
+			"leaderNames": [
+				"Agemman",
+				"Galenus",
+				"Fennias",
+				"Atheus",
+				"Gaius",
+				"Antaro",
+				"Numitor",
+				"Severus"
+			],
+			"shipNames": [
+				"Honra de Macragge",
+				"Glória de Guilliman",
+				"Valor Eterno",
+				"Vingança de Calth"
+			],
+			"attackBonus": 0.05,
+			"incomeMult": 1.15,
+			"portrait": "ultramarines/r2c0.png",
+			"winPortrait": "ultramarines/r2c1.png",
+			"losePortrait": "ultramarines/r0c3.png",
+			"description": "Os filhos de Guilliman seguem o Codex Astartes: tropas equilibradas, logística impecável e apoio orbital da frota.",
+			"tips": "Ultramarines: tropas equilibradas e a melhor logística (mais Requisição). Lutam ao lado dos Blood Angels e dos Salamandras: não atacam os aliados e podem passar pelas províncias deles.",
+			"allies": {
+				"guard": {
+					"name": "Ultramarines",
+					"desc": "Os filhos de Guilliman seguem o Codex Astartes: tropas equilibradas, logística impecável e apoio orbital da frota.",
+					"icon": "ultramarines/r2c0.png"
+				}
+			}
+		},
+		"tyranids": {
+			"name": "Frota-Colmeia Gorgon",
+			"short": "Tiranídeos",
+			"civ": "tyranids",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				150,
+				60,
+				170
+			],
+			"emblem": "wh40k/emblems/tyranids.png",
+			"emblemSource": "tyranids/r2c3.png",
+			"currency": "Biomassa",
+			"currencyShort": "Bio",
+			"startingFunds": 900,
+			"fleetName": "Frota-Colmeia",
+			"leaderTitles": [
+				"Organismo Alfa",
+				"Nódulo Sináptico",
+				"Prole"
+			],
+			"leaderNames": [
+				"Gorgon-I",
+				"Gorgon-VII",
+				"Ômega",
+				"Sigma",
+				"Kappa",
+				"Delta",
+				"Épsilon",
+				"Teta",
+				"Lambda",
+				"Zeta"
+			],
+			"shipNames": [
+				"Navio-Colmeia Fome Eterna",
+				"Navio-Colmeia Abismo",
+				"Navio-Colmeia Devorador",
+				"Navio-Colmeia Sombra",
+				"Navio-Colmeia Gorgon"
+			],
+			"attackBonus": 0.05,
+			"incomeMult": 2.0,
+			"sackName": "Devorar",
+			"sackMult": 1.8,
+			"aiSack": 0.8,
+			"sackXp": 1,
+			"sackNote": "O enxame devora tudo: muita biomassa, província devastada.",
+			"dropFx": [
+				190,
+				90,
+				220
+			],
+			"portrait": "tyranids/r2c3.png",
+			"winPortrait": "tyranids/r2c1.png",
+			"losePortrait": "tyranids/r0c0.png",
+			"description": "A Mente da Colmeia só conhece a fome. Enxames baratos e numerosos, monstros colossais e esporos que caem dos navios-colmeia. Devoram as províncias que conquistam.",
+			"tips": "Tiranídeos: recrute enxames baratos e monstros nas colmeias; 'Devorar' arranca muita biomassa de uma província recém-tomada. Na biomassa, o enxame anda mais rápido e aguenta mais.",
+			"allies": {
+				"guard": {
+					"name": "Enxame",
+					"desc": "Organismos da Frota-Colmeia.",
+					"icon": "tyranids/r2c3.png"
+				}
+			}
+		},
+		"chaos": {
+			"name": "Legião Negra",
+			"short": "Caos",
+			"civ": "chaos",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				150,
+				25,
+				25
+			],
+			"emblem": "wh40k/emblems/chaos.png",
+			"emblemSource": "chaos/r2c0.png",
+			"currency": "Almas",
+			"currencyShort": "Almas",
+			"startingFunds": 900,
+			"fleetName": "Frota Negra",
+			"leaderTitles": [
+				"Campeão",
+				"Senhor",
+				"Aspirante",
+				"Profanador"
+			],
+			"leaderNames": [
+				"Kharn'ek",
+				"Vorlag",
+				"Draxus",
+				"Morghast",
+				"Ezrakh",
+				"Thulsa",
+				"Skarr",
+				"Vhorn",
+				"Malakai",
+				"Zorvash"
+			],
+			"shipNames": [
+				"Espírito Vingativo",
+				"Lâmina da Traição",
+				"Coroa Negra",
+				"Fúria Profana",
+				"Garra do Saqueador"
+			],
+			"attackBonus": 0.05,
+			"incomeMult": 1.8,
+			"sackName": "Profanar",
+			"sackMult": 1.4,
+			"aiSack": 0.6,
+			"sackXp": 1,
+			"sackNote": "Profanar: os Deuses recompensam a destruição.",
+			"dropFx": [
+				200,
+				40,
+				40
+			],
+			"portrait": "chaos/r2c0.png",
+			"winPortrait": "chaos/r1c1.png",
+			"losePortrait": "chaos/r0c0.png",
+			"description": "A 13ª Cruzada Negra de Abaddon. Marines traidores, cultistas fanáticos, máquinas-demônio e o Planeta Assassino em órbita. Na disformidade, ficam mais fortes.",
+			"tips": "Caos: cultistas baratos seguram a linha, Marines do Caos e Exterminadores quebram muralhas; 'Profanar' rende almas. No solo da disformidade, as suas tropas causam e aguentam mais.",
+			"allies": {
+				"guard": {
+					"name": "Legião Negra",
+					"desc": "Traidores, cultistas e máquinas-demônio.",
+					"icon": "chaos/r2c0.png"
+				}
+			}
+		},
+		"necrons": {
+			"name": "Dinastia Sautekh",
+			"short": "Necrons",
+			"civ": "necrons",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				80,
+				210,
+				120
+			],
+			"emblem": "wh40k/emblems/necrons.png",
+			"emblemSource": "necrons/r1c3.png",
+			"currency": "Energia",
+			"currencyShort": "Energia",
+			"startingFunds": 800,
+			"fleetName": "Frota Tumular",
+			"leaderTitles": [
+				"Lorde",
+				"Nemesor",
+				"Vargard",
+				"Criptek"
+			],
+			"leaderNames": [
+				"Zahndrekh",
+				"Amonhotek",
+				"Sethrak",
+				"Khemret",
+				"Anubrekh",
+				"Nefertekh",
+				"Rahmotek",
+				"Szerakh"
+			],
+			"shipNames": [
+				"Foice da Eternidade",
+				"Tumba Celeste",
+				"Silêncio Eterno",
+				"Arca de Sautekh"
+			],
+			"regen": 0.006,
+			"incomeMult": 1.5,
+			"dropFx": [
+				90,
+				255,
+				130
+			],
+			"portrait": "necrons/r1c3.png",
+			"winPortrait": "necrons/r1c3.png",
+			"losePortrait": "necrons/r0c3.png",
+			"description": "Os antigos senhores despertam sob os pilones de Cadia. Legiões de metal vivo que se levantam de novo: em batalha, os batalhões se reparam sozinhos.",
+			"tips": "Necrons: os batalhões se reparam durante a batalha (protocolos de reanimação). Nas tumbas, lutam melhor.",
+			"allies": {
+				"guard": {
+					"name": "Legiões",
+					"desc": "Guerreiros, construtos e destruidores.",
+					"icon": "necrons/r1c3.png"
+				}
+			}
+		},
+		"tau": {
+			"name": "Império Tau",
+			"short": "Tau",
+			"civ": "tau",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				235,
+				120,
+				30
+			],
+			"emblem": "wh40k/emblems/tau.png",
+			"emblemSource": "tau/r1c1.png",
+			"currency": "Créditos",
+			"currencyShort": "Cr",
+			"startingFunds": 850,
+			"fleetName": "Frota Kor'vattra",
+			"leaderTitles": [
+				"Shas'ui",
+				"Shas'vre",
+				"Shas'el"
+			],
+			"leaderNames": [
+				"Vior'la Kais",
+				"Sa'cea Teng",
+				"Dal'yth Ko",
+				"Bork'an Saal",
+				"Fal'shia Vral",
+				"T'au Mesme",
+				"Elsy'eir Ral"
+			],
+			"shipNames": [
+				"Lâmina do Alvorecer",
+				"Bem Maior",
+				"Kauyon",
+				"Mont'ka",
+				"Brisa Solar"
+			],
+			"incomeMult": 1.05,
+			"dropFx": [
+				255,
+				170,
+				80
+			],
+			"portrait": "tau/r1c2.png",
+			"winPortrait": "tau/r1c2.png",
+			"losePortrait": "tau/r0c0.png",
+			"description": "Pelo Bem Maior. Fogo de pulso de longo alcance, trajes de batalha saltadores, tanques antigravitacionais e auxiliares Kroot e Vespídeos.",
+			"tips": "Tau: mantenha distância — os Guerreiros de Fogo e Broadsides atiram muito longe, os Kroot seguram a selva. Os skimmers atravessam água e pântanos.",
+			"allies": {
+				"guard": {
+					"name": "Bem Maior",
+					"desc": "Casta do Fogo e auxiliares.",
+					"icon": "tau/r1c1.png"
+				}
+			}
+		},
+		"world_eaters": {
+			"name": "World Eaters",
+			"short": "Devoradores",
+			"civ": "world_eaters",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				225,
+				100,
+				30
+			],
+			"emblem": "wh40k/emblems/world_eaters.png",
+			"emblemSource": "khorne/r1c2.png",
+			"currency": "Crânios",
+			"currencyShort": "Crânios",
+			"startingFunds": 900,
+			"fleetName": "Frota dos Devoradores",
+			"leaderTitles": [
+				"Campeão",
+				"Senhor",
+				"Carniceiro"
+			],
+			"leaderNames": [
+				"Skarr",
+				"Gorrax",
+				"Vhorkul",
+				"Drakkan",
+				"Ulrakh",
+				"Brakka",
+				"Kordash",
+				"Zhorn"
+			],
+			"shipNames": [
+				"Conquistador",
+				"Trono de Sangue",
+				"Fúria Rubra",
+				"Uivo de Angron"
+			],
+			"attackBonus": 0.15,
+			"incomeMult": 1.7,
+			"sackName": "Colher Crânios",
+			"sackMult": 1.5,
+			"aiSack": 0.8,
+			"sackXp": 1,
+			"sackNote": "Crânios para o Trono: saque generoso e experiência.",
+			"dropFx": [
+				230,
+				60,
+				30
+			],
+			"portrait": "khorne/r1c2.png",
+			"winPortrait": "khorne/r1c0.png",
+			"losePortrait": "khorne/r0c0.png",
+			"description": "A legião de Angron só conhece a matança. Berzerkers com os Pregos do Açougueiro, Oito-Vinculados possuídos, demônios de Khorne e máquinas-demônio.",
+			"tips": "World Eaters: avance sempre — os Berzerkers e os Oito-Vinculados vencem no corpo a corpo; 'Colher Crânios' rende muito e dá experiência. Khorne despreza a defesa.",
+			"allies": {
+				"guard": {
+					"name": "Devoradores",
+					"desc": "A legião de Angron só conhece a matança.",
+					"icon": "khorne/r1c2.png"
+				}
+			}
+		},
+		"death_guard": {
+			"name": "Death Guard",
+			"short": "Guarda da Morte",
+			"civ": "death_guard",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				150,
+				165,
+				60
+			],
+			"emblem": "wh40k/emblems/death_guard.png",
+			"emblemSource": "nurgle/r1c2.png",
+			"currency": "Bênçãos",
+			"currencyShort": "Bênçãos",
+			"startingFunds": 900,
+			"fleetName": "Frota da Praga",
+			"leaderTitles": [
+				"Campeão da Peste",
+				"Lorde",
+				"Arauto"
+			],
+			"leaderNames": [
+				"Gulgus",
+				"Morbax",
+				"Fester",
+				"Rotigus",
+				"Slorvex",
+				"Putrax",
+				"Grulk",
+				"Vomitrax"
+			],
+			"shipNames": [
+				"Terminus Est",
+				"Jardim Flutuante",
+				"Cálice Podre",
+				"Mosca de Ferro"
+			],
+			"attackBonus": 0.0,
+			"incomeMult": 1.7,
+			"regen": 0.003,
+			"sackName": "Semear a Praga",
+			"sackMult": 1.3,
+			"aiSack": 0.7,
+			"sackXp": 0,
+			"sackNote": "A praga se espalha: bênçãos agora, província devastada.",
+			"dropFx": [
+				170,
+				200,
+				60
+			],
+			"portrait": "nurgle/r1c2.png",
+			"winPortrait": "nurgle/r1c0.png",
+			"losePortrait": "nurgle/r0c0.png",
+			"description": "A legião de Mortarion avança devagar e nunca para. Marines da Peste quase indestrutíveis, especialistas da praga e motores-demônio. Os batalhões se recuperam durante a batalha.",
+			"tips": "Death Guard: lentos e duríssimos; os batalhões se regeneram na batalha e lutam melhor nos pântanos. 'Semear a Praga' rende bênçãos e devasta a província.",
+			"allies": {
+				"guard": {
+					"name": "Guarda da Morte",
+					"desc": "A legião de Mortarion avança devagar e nunca para.",
+					"icon": "nurgle/r1c2.png"
+				}
+			}
+		},
+		"thousand_sons": {
+			"name": "Thousand Sons",
+			"short": "Mil Filhos",
+			"civ": "thousand_sons",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				50,
+				170,
+				200
+			],
+			"emblem": "wh40k/emblems/thousand_sons.png",
+			"emblemSource": "tzeentch/r1c2.png",
+			"currency": "Segredos",
+			"currencyShort": "Segr.",
+			"startingFunds": 900,
+			"fleetName": "Frota de Prospero",
+			"leaderTitles": [
+				"Feiticeiro",
+				"Aspirante",
+				"Mestre"
+			],
+			"leaderNames": [
+				"Hathor",
+				"Sekhmet",
+				"Imhotekh",
+				"Apophis",
+				"Khayon",
+				"Neferu",
+				"Tolbek",
+				"Ramessu"
+			],
+			"shipNames": [
+				"Pirâmide Errante",
+				"Olho de Magnus",
+				"Lâmina de Prospero",
+				"Biblioteca Ardente"
+			],
+			"attackBonus": 0.05,
+			"incomeMult": 1.7,
+			"sackName": "Pilhar Conhecimento",
+			"sackMult": 1.3,
+			"aiSack": 0.6,
+			"sackXp": 1,
+			"sackNote": "Bibliotecas e arquivos saqueados: segredos e experiência.",
+			"dropFx": [
+				90,
+				150,
+				255
+			],
+			"portrait": "tzeentch/r1c2.png",
+			"winPortrait": "tzeentch/r1c3.png",
+			"losePortrait": "tzeentch/r0c0.png",
+			"description": "Os feiticeiros de Magnus e seus Rubricae — marines reduzidos a pó em armaduras seladas. Fogo psíquico, homens-fera Tzaangor e demônios de Tzeentch.",
+			"tips": "Thousand Sons: os Rubricae são lentos mas duros e atiram longe; os feiticeiros dão cargas de apoio. No solo da disformidade, atiram ainda mais longe.",
+			"allies": {
+				"guard": {
+					"name": "Mil Filhos",
+					"desc": "Os feiticeiros de Magnus e seus Rubricae — marines reduzidos a pó em armaduras seladas.",
+					"icon": "tzeentch/r1c2.png"
+				}
+			}
+		},
+		"emperors_children": {
+			"name": "Emperor's Children",
+			"short": "Filhos do Imperador",
+			"civ": "emperors_children",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				210,
+				90,
+				210
+			],
+			"emblem": "wh40k/emblems/emperors_children.png",
+			"emblemSource": "slaanesh/r1c1.png",
+			"currency": "Excessos",
+			"currencyShort": "Exc.",
+			"startingFunds": 900,
+			"fleetName": "Frota do Excesso",
+			"leaderTitles": [
+				"Campeão",
+				"Lorde",
+				"Duelista"
+			],
+			"leaderNames": [
+				"Vhalen",
+				"Sorrow",
+				"Ilythea",
+				"Castellan",
+				"Exaltus",
+				"Narcisse",
+				"Velith",
+				"Aurex"
+			],
+			"shipNames": [
+				"Canção Perfeita",
+				"Êxtase Eterno",
+				"Orgulho de Chemos",
+				"Grito Sublime"
+			],
+			"attackBonus": 0.08,
+			"incomeMult": 1.75,
+			"sackName": "Banquete de Excessos",
+			"sackMult": 1.6,
+			"aiSack": 0.8,
+			"sackXp": 1,
+			"sackNote": "Excesso em tudo: o maior saque do Caos.",
+			"dropFx": [
+				230,
+				110,
+				230
+			],
+			"portrait": "slaanesh/r1c1.png",
+			"winPortrait": "slaanesh/r1c0.png",
+			"losePortrait": "slaanesh/r0c1.png",
+			"description": "A legião de Fulgrim busca a perfeição em cada excesso. Duelistas rápidos, Marines do Ruído com armas sônicas e demônios de Slaanesh.",
+			"tips": "Emperor's Children: os mais rápidos do Caos — Demonetes e Buscadoras chegam primeiro, Marines do Ruído atiram de longe. 'Banquete de Excessos' rende muito.",
+			"allies": {
+				"guard": {
+					"name": "Filhos do Imperador",
+					"desc": "A legião de Fulgrim busca a perfeição em cada excesso.",
+					"icon": "slaanesh/r1c1.png"
+				}
+			}
+		},
+		"blood_angels": {
+			"name": "Blood Angels",
+			"short": "Anjos Sangrentos",
+			"civ": "blood_angels",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				190,
+				20,
+				45
+			],
+			"emblem": "wh40k/emblems/blood_angels.png",
+			"emblemSource": "blood_angels/r2c0.png",
+			"currency": "Requisição",
+			"currencyShort": "Req",
+			"startingFunds": 900,
+			"fleetName": "Frota de Baal",
+			"leaderTitles": [
+				"Sargento",
+				"Veterano",
+				"Capitão"
+			],
+			"leaderNames": [
+				"Tycho",
+				"Erasmus",
+				"Raphael",
+				"Gabriel",
+				"Michael",
+				"Leonid",
+				"Castiel",
+				"Sariel"
+			],
+			"shipNames": [
+				"Lâmina Vermelha",
+				"Asas de Sanguinius",
+				"Cálice de Baal",
+				"Sangue Eterno"
+			],
+			"attackBonus": 0.12,
+			"incomeMult": 1.05,
+			"portrait": "blood_angels/r2c0.png",
+			"winPortrait": "blood_angels/r1c2.png",
+			"losePortrait": "blood_angels/r1c1.png",
+			"description": "Os filhos de Sanguinius: nobres, belos e assombrados pela Sede Vermelha. Assaltos com mochilas de salto e a Companhia da Morte.",
+			"tips": "Blood Angels: o melhor ataque dos Astartes (+12%) — mochilas de salto, Companhia da Morte e Guarda Sanguinária. Aliados dos Ultramarines e dos Salamandras.",
+			"allies": {
+				"guard": {
+					"name": "Anjos Sangrentos",
+					"desc": "Os filhos de Sanguinius: nobres, belos e assombrados pela Sede Vermelha.",
+					"icon": "blood_angels/r2c0.png"
+				}
+			}
+		},
+		"salamanders": {
+			"name": "Salamanders",
+			"short": "Salamandras",
+			"civ": "salamanders",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				30,
+				140,
+				60
+			],
+			"emblem": "wh40k/emblems/salamanders.png",
+			"emblemSource": "salamanders/r2c0.png",
+			"currency": "Requisição",
+			"currencyShort": "Req",
+			"startingFunds": 900,
+			"fleetName": "Frota de Nocturne",
+			"leaderTitles": [
+				"Sargento",
+				"Veterano",
+				"Capitão"
+			],
+			"leaderNames": [
+				"Dak'ir",
+				"Tsu'gan",
+				"Pyriel",
+				"Ba'ken",
+				"Agatone",
+				"Vargo",
+				"Zen'de",
+				"N'keln"
+			],
+			"shipNames": [
+				"Fogo de Vulkan",
+				"Bigorna de Nocturne",
+				"Chama Eterna",
+				"Martelo de Prometeu"
+			],
+			"attackBonus": 0.03,
+			"incomeMult": 1.1,
+			"portrait": "salamanders/r2c0.png",
+			"winPortrait": "salamanders/r2c1.png",
+			"losePortrait": "salamanders/r0c2.png",
+			"description": "Os filhos de Vulkan, forjados no fogo de Nocturne. Lança-chamas, fusões, armaduras pesadas e uma teimosia sem igual na defesa.",
+			"tips": "Salamanders: mestres do fogo — Infernus e Redeemers limpam a infantaria, Erradicadores derretem blindados; aguentam mais nos ermos de cinzas. Aliados dos Ultramarines e dos Blood Angels.",
+			"allies": {
+				"guard": {
+					"name": "Salamandras",
+					"desc": "Os filhos de Vulkan, forjados no fogo de Nocturne.",
+					"icon": "salamanders/r2c0.png"
+				}
+			}
+		}
+	},
+	"neutral": {
+		"name": "Rebeldes e Orks Selvagens",
+		"color": [
+			120,
+			110,
+			100
+		],
+		"description": "Províncias sem dono: cultistas, rebeldes das Forças de Defesa Planetária ou Orks selvagens."
+	}
+}

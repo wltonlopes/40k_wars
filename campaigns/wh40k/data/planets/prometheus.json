@@ -1,0 +1,101 @@
+{
+	"id": "prometheus",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"pm_forge": {
+			"rect": [
+				0.2959,
+				0.0,
+				0.64062,
+				0.69844
+			],
+			"label": [
+				0.4902,
+				0.4047
+			],
+			"area": 102671,
+			"neighbors": [
+				"pm_ash",
+				"pm_peaks",
+				"pm_vents",
+				"pm_wastes"
+			],
+			"coastal": true
+		},
+		"pm_peaks": {
+			"rect": [
+				0.0,
+				0.0,
+				0.43555,
+				0.71406
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 142271,
+			"neighbors": [
+				"pm_forge",
+				"pm_vents"
+			],
+			"coastal": false
+		},
+		"pm_ash": {
+			"rect": [
+				0.54102,
+				0.0,
+				1.0,
+				0.55
+			],
+			"label": [
+				0.9287,
+				0.0
+			],
+			"area": 134989,
+			"neighbors": [
+				"pm_forge",
+				"pm_wastes"
+			],
+			"coastal": false
+		},
+		"pm_vents": {
+			"rect": [
+				0.0,
+				0.47031,
+				0.43359,
+				1.0
+			],
+			"label": [
+				0.0977,
+				0.9984
+			],
+			"area": 106956,
+			"neighbors": [
+				"pm_forge",
+				"pm_peaks"
+			],
+			"coastal": true
+		},
+		"pm_wastes": {
+			"rect": [
+				0.58789,
+				0.50156,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.9984
+			],
+			"area": 118770,
+			"neighbors": [
+				"pm_ash",
+				"pm_forge"
+			],
+			"coastal": true
+		}
+	}
+}

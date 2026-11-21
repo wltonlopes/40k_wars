@@ -1,0 +1,287 @@
+{
+	"id": "cadia",
+	"mapSize": [
+		2048,
+		1280
+	],
+	"provinces": {
+		"kasr_myrak": {
+			"rect": [
+				0.17041,
+				0.0,
+				0.39014,
+				0.45312
+			],
+			"label": [
+				0.2642,
+				0.2008
+			],
+			"area": 158858,
+			"neighbors": [
+				"boreal_tundra",
+				"cadian_peaks",
+				"caducades",
+				"kasr_partox",
+				"kasr_sonnen"
+			],
+			"coastal": false
+		},
+		"kasr_partox": {
+			"rect": [
+				0.38184,
+				0.0,
+				0.6792,
+				0.31875
+			],
+			"label": [
+				0.5688,
+				0.1594
+			],
+			"area": 162637,
+			"neighbors": [
+				"boreal_tundra",
+				"elysion",
+				"kasr_kraf",
+				"kasr_myrak",
+				"kasr_sonnen"
+			],
+			"coastal": false
+		},
+		"kasr_kraf": {
+			"rect": [
+				0.64014,
+				0.0,
+				0.89258,
+				0.52344
+			],
+			"label": [
+				0.7334,
+				0.2789
+			],
+			"area": 192114,
+			"neighbors": [
+				"elysion",
+				"kasr_gallan",
+				"kasr_partox",
+				"pylon_holn",
+				"pylon_seroleum"
+			],
+			"coastal": true
+		},
+		"kasr_sonnen": {
+			"rect": [
+				0.25732,
+				0.25625,
+				0.53174,
+				0.70781
+			],
+			"label": [
+				0.3862,
+				0.4852
+			],
+			"area": 219597,
+			"neighbors": [
+				"black_breach",
+				"caducades",
+				"elysion",
+				"kasr_gallan",
+				"kasr_myrak",
+				"kasr_partox",
+				"tyrok_ruins"
+			],
+			"coastal": false
+		},
+		"kasr_gallan": {
+			"rect": [
+				0.52588,
+				0.39297,
+				0.81006,
+				0.72266
+			],
+			"label": [
+				0.6758,
+				0.5414
+			],
+			"area": 148083,
+			"neighbors": [
+				"black_breach",
+				"elysion",
+				"kasr_kraf",
+				"kasr_sonnen",
+				"lorn_mire",
+				"pylon_seroleum"
+			],
+			"coastal": false
+		},
+		"caducades": {
+			"rect": [
+				0.0,
+				0.33203,
+				0.26416,
+				0.73047
+			],
+			"label": [
+				0.1094,
+				0.5289
+			],
+			"area": 194599,
+			"neighbors": [
+				"cadian_peaks",
+				"kasr_myrak",
+				"kasr_sonnen",
+				"tyrok_ruins"
+			],
+			"coastal": true
+		},
+		"elysion": {
+			"rect": [
+				0.44922,
+				0.26875,
+				0.66113,
+				0.62031
+			],
+			"label": [
+				0.5586,
+				0.4008
+			],
+			"area": 90013,
+			"neighbors": [
+				"kasr_gallan",
+				"kasr_kraf",
+				"kasr_partox",
+				"kasr_sonnen"
+			],
+			"coastal": false
+		},
+		"cadian_peaks": {
+			"rect": [
+				0.0,
+				0.0,
+				0.19434,
+				0.41172
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 174857,
+			"neighbors": [
+				"caducades",
+				"kasr_myrak"
+			],
+			"coastal": false
+		},
+		"boreal_tundra": {
+			"rect": [
+				0.29834,
+				0.0,
+				0.55664,
+				0.21953
+			],
+			"label": [
+				0.4014,
+				0.0
+			],
+			"area": 76250,
+			"neighbors": [
+				"kasr_myrak",
+				"kasr_partox"
+			],
+			"coastal": false
+		},
+		"pylon_holn": {
+			"rect": [
+				0.69336,
+				0.0,
+				1.0,
+				0.30625
+			],
+			"label": [
+				0.9346,
+				0.0
+			],
+			"area": 157554,
+			"neighbors": [
+				"kasr_kraf"
+			],
+			"coastal": true
+		},
+		"pylon_seroleum": {
+			"rect": [
+				0.75,
+				0.49844,
+				1.0,
+				0.94844
+			],
+			"label": [
+				0.8755,
+				0.7156
+			],
+			"area": 173867,
+			"neighbors": [
+				"kasr_gallan",
+				"kasr_kraf",
+				"lorn_mire"
+			],
+			"coastal": true
+		},
+		"tyrok_ruins": {
+			"rect": [
+				0.1123,
+				0.54922,
+				0.36719,
+				1.0
+			],
+			"label": [
+				0.251,
+				0.7742
+			],
+			"area": 191475,
+			"neighbors": [
+				"black_breach",
+				"caducades",
+				"kasr_sonnen"
+			],
+			"coastal": true
+		},
+		"black_breach": {
+			"rect": [
+				0.33301,
+				0.63203,
+				0.55957,
+				1.0
+			],
+			"label": [
+				0.4512,
+				0.9992
+			],
+			"area": 164239,
+			"neighbors": [
+				"kasr_gallan",
+				"kasr_sonnen",
+				"lorn_mire",
+				"tyrok_ruins"
+			],
+			"coastal": false
+		},
+		"lorn_mire": {
+			"rect": [
+				0.52734,
+				0.66797,
+				0.77979,
+				1.0
+			],
+			"label": [
+				0.6582,
+				0.857
+			],
+			"area": 186925,
+			"neighbors": [
+				"black_breach",
+				"kasr_gallan",
+				"pylon_seroleum"
+			],
+			"coastal": true
+		}
+	}
+}

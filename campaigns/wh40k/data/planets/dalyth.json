@@ -1,0 +1,101 @@
+{
+	"id": "dalyth",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"dalyth_city": {
+			"rect": [
+				0.35645,
+				0.0,
+				0.67969,
+				0.70781
+			],
+			"label": [
+				0.5039,
+				0.4344
+			],
+			"area": 114142,
+			"neighbors": [
+				"dalyth_domes",
+				"korvesa",
+				"kroot_jungle",
+				"shas_mountains"
+			],
+			"coastal": true
+		},
+		"korvesa": {
+			"rect": [
+				0.0,
+				0.0,
+				0.39844,
+				0.65781
+			],
+			"label": [
+				0.2266,
+				0.3578
+			],
+			"area": 115074,
+			"neighbors": [
+				"dalyth_city",
+				"kroot_jungle"
+			],
+			"coastal": true
+		},
+		"dalyth_domes": {
+			"rect": [
+				0.61816,
+				0.0,
+				1.0,
+				0.65625
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 135667,
+			"neighbors": [
+				"dalyth_city",
+				"shas_mountains"
+			],
+			"coastal": false
+		},
+		"kroot_jungle": {
+			"rect": [
+				0.0,
+				0.51406,
+				0.4375,
+				1.0
+			],
+			"label": [
+				0.1338,
+				0.9984
+			],
+			"area": 106325,
+			"neighbors": [
+				"dalyth_city",
+				"korvesa"
+			],
+			"coastal": true
+		},
+		"shas_mountains": {
+			"rect": [
+				0.54395,
+				0.52188,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.8896,
+				0.9984
+			],
+			"area": 113027,
+			"neighbors": [
+				"dalyth_city",
+				"dalyth_domes"
+			],
+			"coastal": true
+		}
+	}
+}

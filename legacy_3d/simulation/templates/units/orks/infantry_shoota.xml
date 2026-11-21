@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Rapaz Atirador: shoota barulhenta (muitos tiros, pouca pontaria). -->
+<Entity parent="units/orks/infantry_boy">
+  <Ammo>
+    <SwitchToMeleeRange>8</SwitchToMeleeRange>
+  </Ammo>
+  <Attack>
+    <Melee>
+      <AttackName>Coronhada</AttackName>
+      <Damage>
+        <Hack>11</Hack>
+      </Damage>
+    </Melee>
+    <Ranged>
+      <AttackName>Shoota</AttackName>
+      <Damage>
+        <Pierce>9</Pierce>
+      </Damage>
+      <MaxRange>50</MaxRange>
+      <RepeatTime>750</RepeatTime>
+      <Projectile>
+        <Spread>4.5</Spread>
+      </Projectile>
+    </Ranged>
+  </Attack>
+  <Health>
+    <Max>155</Max>
+  </Health>
+  <Identity>
+    <GenericName>Rapaz Atirador</GenericName>
+    <SpecificName>Shoota Boy</SpecificName>
+    <Icon>units/orks/shoota.png</Icon>
+  </Identity>
+  <VisualActor>
+    <Actor>units/orks/ork_shoota.xml</Actor>
+  </VisualActor>
+</Entity>

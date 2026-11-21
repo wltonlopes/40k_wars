@@ -1,0 +1,123 @@
+{
+	"id": "vesperia",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"vesperia_capital": {
+			"rect": [
+				0.29199,
+				0.22656,
+				0.61816,
+				0.69062
+			],
+			"label": [
+				0.4414,
+				0.425
+			],
+			"area": 60377,
+			"neighbors": [
+				"vesperia_fields_e",
+				"vesperia_fields_w",
+				"vesperia_marsh",
+				"vesperia_silos"
+			],
+			"coastal": true
+		},
+		"vesperia_fields_w": {
+			"rect": [
+				0.0,
+				0.0,
+				0.33496,
+				0.8875
+			],
+			"label": [
+				0.0,
+				0.2375
+			],
+			"area": 138611,
+			"neighbors": [
+				"vesperia_capital",
+				"vesperia_silos"
+			],
+			"coastal": true
+		},
+		"vesperia_fields_e": {
+			"rect": [
+				0.59277,
+				0.0,
+				1.0,
+				0.63906
+			],
+			"label": [
+				0.999,
+				0.0719
+			],
+			"area": 106633,
+			"neighbors": [
+				"vesperia_capital",
+				"vesperia_marsh",
+				"vesperia_woods"
+			],
+			"coastal": true
+		},
+		"vesperia_silos": {
+			"rect": [
+				0.0,
+				0.50781,
+				0.46875,
+				1.0
+			],
+			"label": [
+				0.2441,
+				0.9984
+			],
+			"area": 104296,
+			"neighbors": [
+				"vesperia_capital",
+				"vesperia_fields_w",
+				"vesperia_marsh"
+			],
+			"coastal": false
+		},
+		"vesperia_marsh": {
+			"rect": [
+				0.45801,
+				0.47812,
+				0.79395,
+				1.0
+			],
+			"label": [
+				0.624,
+				0.9984
+			],
+			"area": 86407,
+			"neighbors": [
+				"vesperia_capital",
+				"vesperia_fields_e",
+				"vesperia_silos",
+				"vesperia_woods"
+			],
+			"coastal": false
+		},
+		"vesperia_woods": {
+			"rect": [
+				0.73242,
+				0.32812,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.7812
+			],
+			"area": 83997,
+			"neighbors": [
+				"vesperia_fields_e",
+				"vesperia_marsh"
+			],
+			"coastal": false
+		}
+	}
+}

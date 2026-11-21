@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vagão Saqueado: um Leman Russ tomado dos humies, com mais placas. -->
+<Entity parent="units/imperial/vehicle_leman_russ">
+  <Health>
+    <Max op="mul">1.1</Max>
+  </Health>
+  <Identity>
+    <Civ>orks</Civ>
+    <GenericName>Vagão Saqueado</GenericName>
+    <SpecificName>Looted Wagon</SpecificName>
+    <Tooltip>Tanque imperial saqueado: mais placas, kannon grandão.</Tooltip>
+    <Icon>units/orks/looted_wagon.png</Icon>
+    <Requirements disable=""/>
+  </Identity>
+  <TurretHolder>
+    <TurretPoints>
+      <Turret>
+        <Template>units/orks/vehicle_looted_wagon_turret</Template>
+      </Turret>
+    </TurretPoints>
+  </TurretHolder>
+  <VisualActor>
+    <Actor>vehicle/orks/looted_wagon.xml</Actor>
+  </VisualActor>
+</Entity>

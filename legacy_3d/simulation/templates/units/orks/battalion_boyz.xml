@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Bando de Rapazes: líder + 8 rapazes. Slugga de perto, choppa no corpo a corpo. -->
+<Entity parent="battalion_profile_assault|units/orks/infantry_boy">
+  <BattalionLeader>
+    <MemberTemplates>units/orks/battalion_member_boy:8</MemberTemplates>
+    <MemberRoles>units/orks/battalion_member_boy:8:front</MemberRoles>
+  </BattalionLeader>
+  <Trainer>
+    <Entities datatype="tokens">units/orks/battalion_member_boy</Entities>
+  </Trainer>
+  <Identity>
+    <GenericName>Bando de Rapazes</GenericName>
+    <SpecificName>Ork Boyz</SpecificName>
+    <Tooltip>Bando de Rapazes: líder + 8 rapazes. Slugga de perto, choppa no corpo a corpo.</Tooltip>
+    <Icon>units/orks/boy.png</Icon>
+    <SelectionGroupName/>
+  </Identity>
+</Entity>

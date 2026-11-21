@@ -1,0 +1,5544 @@
+{
+	"Description": "Batalhões recrutáveis na campanha. power = força de um batalhão completo (resolução automática e dano na batalha 2D). category: infantry, vehicle, air (fileira no desdobramento, velocidade e alcance na batalha; air também acelera o apoio aéreo). range/speed/armor (opcionais) mudam o padrão da categoria na batalha 2D (core/Combat.js). men = homens ou veículos (baixas do apoio killstreak). portrait = retrato do líder (art/textures/ui/wh40k/portraits/<arquivo>); icon = ícone do tipo de tropa. quotes = frases do líder. needsHive: só recruta numa cidade ou fortaleza. group: força aliada do Império (factions.json: allies) — títulos e nomes próprios dos líderes. requires: orbit (frota própria na órbita), hive (cidade-colmeia), forge (estaleiro ou zona industrial), unique (um só na cruzada). terrain: afinidades de terreno da unidade na batalha 2D, por terreno da província (hive, jungle, ash...) ou feição (ruins, forest, crater, rocks, hill, water): multiplicadores de speed, range, dmg (dano causado) e taken (dano recebido), somados aos efeitos padrão da categoria (core/Combat.js). allTerrain: ignora as penalidades de velocidade do terreno (mochilas de salto). vsVehicle/vsInfantry/vsAir: multiplicador do dano contra veículos, infantaria ou aeronaves.",
+	"imperial": [
+		{
+			"id": "guard_platoon",
+			"name": "Pelotão de Infantaria",
+			"category": "infantry",
+			"cost": 100,
+			"upkeep": 8,
+			"power": 10,
+			"men": 7,
+			"portrait": "astra_inf/r0c0.png",
+			"desc": "Guardas de Krieg com lasgun e granadas. Baratos e numerosos.",
+			"quotes": [
+				"Pelotão pronto. Aguardando ordens, senhor!",
+				"Pelo Imperador! Diga para onde marchar.",
+				"Só na morte termina o dever.",
+				"Lasguns carregados. Estamos prontos."
+			],
+			"group": "guard",
+			"icon": "astra_inf/r0c0.png",
+			"terrain": {
+				"ruins": {
+					"taken": 0.9
+				},
+				"hive": {
+					"dmg": 1.05
+				}
+			}
+		},
+		{
+			"id": "guard_grenadiers",
+			"name": "Granadeiros de Krieg",
+			"category": "infantry",
+			"cost": 150,
+			"upkeep": 12,
+			"power": 15,
+			"men": 7,
+			"portrait": "astra_inf/r1c3.png",
+			"desc": "Tropa de choque com armadura de carapaça. Avançam sob fogo.",
+			"quotes": [
+				"Granadeiros a postos. Apontem o alvo.",
+				"Nossas vidas pertencem ao Imperador.",
+				"Daremos o primeiro passo na brecha."
+			],
+			"group": "guard",
+			"icon": "astra_inf/r1c3.png",
+			"terrain": {
+				"crater": {
+					"taken": 0.75
+				},
+				"water": {
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "sentinel",
+			"name": "Sentinela",
+			"category": "vehicle",
+			"cost": 170,
+			"upkeep": 12,
+			"power": 15,
+			"men": 1,
+			"portrait": "astra_veh/r0c2.png",
+			"desc": "Andador de reconhecimento com multilaser. Rápido em terreno difícil.",
+			"quotes": [
+				"Sentinela on-line. Varrendo o perímetro.",
+				"Pernas firmes, multilaser quente.",
+				"Contato à vista. Aguardo ordens."
+			],
+			"group": "guard",
+			"icon": "astra_veh/r0c2.png",
+			"terrain": {
+				"forest": {
+					"speed": 2.0
+				},
+				"jungle": {
+					"speed": 1.35
+				},
+				"rocks": {
+					"speed": 1.5
+				}
+			}
+		},
+		{
+			"id": "chimera",
+			"name": "Chimera",
+			"category": "vehicle",
+			"cost": 180,
+			"upkeep": 14,
+			"power": 18,
+			"men": 1,
+			"portrait": "astra_veh/r0c0.png",
+			"desc": "Transporte blindado com multilaser. Rápido e resistente.",
+			"quotes": [
+				"Chimera em movimento. Destino, senhor?",
+				"Motores quentes, torre girando.",
+				"Blindagem pronta para o fogo inimigo."
+			],
+			"group": "guard",
+			"icon": "astra_veh/r0c0.png",
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "leman_russ",
+			"name": "Leman Russ",
+			"category": "vehicle",
+			"cost": 300,
+			"upkeep": 22,
+			"power": 32,
+			"men": 1,
+			"portrait": "astra_veh/r1c0.png",
+			"needsHive": true,
+			"desc": "Carro de combate principal. Canhão de batalha devastador.",
+			"quotes": [
+				"Leman Russ pronto. Que o inimigo sinta a ira do Imperador.",
+				"Canhão carregado. Mostre-me o alvo.",
+				"Aço de Armageddon, fé de Terra."
+			],
+			"group": "guard",
+			"icon": "astra_veh/r1c0.png",
+			"terrain": {
+				"plains": {
+					"dmg": 1.15
+				},
+				"ash": {
+					"dmg": 1.1
+				},
+				"hive": {
+					"range": 0.9
+				}
+			}
+		},
+		{
+			"id": "valkyrie",
+			"name": "Valkyrie",
+			"category": "air",
+			"cost": 260,
+			"upkeep": 20,
+			"power": 24,
+			"men": 1,
+			"portrait": "astra_veh/r3c0.png",
+			"needsHive": true,
+			"desc": "Aeronave de assalto. Libera o apoio aéreo dos Marauders na batalha.",
+			"quotes": [
+				"Valkyrie no ar. Coordenadas?",
+				"Céus limpos, armas quentes.",
+				"Pronta para o mergulho, comandante."
+			],
+			"group": "guard",
+			"icon": "astra_veh/r3c0.png"
+		},
+		{
+			"id": "heavy_weapons",
+			"name": "Equipe de Armas Pesadas",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 140,
+			"upkeep": 10,
+			"power": 14,
+			"men": 6,
+			"portrait": "astra_inf/r1c2.png",
+			"icon": "astra_inf/r1c2.png",
+			"range": 0.13,
+			"speed": 0.016,
+			"desc": "Autocanhões e bólteres pesados da Guarda. Lenta, mas atira de longe.",
+			"quotes": [
+				"Tripé montado. Alvo designado?",
+				"Fogo de supressão quando quiser, senhor.",
+				"Munição pesada pronta."
+			],
+			"terrain": {
+				"hill": {
+					"dmg": 1.2
+				},
+				"ruins": {
+					"dmg": 1.15
+				}
+			}
+		},
+		{
+			"id": "field_artillery",
+			"name": "Bateria de Artilharia",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 220,
+			"upkeep": 16,
+			"power": 20,
+			"men": 3,
+			"portrait": "astra_veh/r2c0.png",
+			"icon": "astra_veh/r2c0.png",
+			"range": 0.27,
+			"speed": 0.011,
+			"armor": 0.7,
+			"needsHive": true,
+			"desc": "Canhões de campo: alcance enorme, mas frágeis se o inimigo chegar perto.",
+			"quotes": [
+				"Bateria pronta. Coordenadas?",
+				"Peças carregadas. Fogo ao seu sinal.",
+				"O Imperador guia os nossos obuses."
+			],
+			"terrain": {
+				"hill": {
+					"range": 1.3
+				},
+				"hive": {
+					"range": 0.8
+				}
+			}
+		},
+		{
+			"id": "commissar",
+			"name": "Comissário e Esquadra de Comando",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 16,
+			"men": 5,
+			"portrait": "astra_inf/r2c0.png",
+			"icon": "astra_inf/r2c0.png",
+			"requires": [
+				"unique"
+			],
+			"desc": "Comissário com a esquadra de comando: a tropa por perto luta sem recuar.",
+			"quotes": [
+				"Covardia é traição. Avante!",
+				"Quem recuar responde a mim.",
+				"Pelo Imperador — e pela minha pistola."
+			],
+			"terrain": {
+				"hive": {
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "special_weapons",
+			"name": "Esquadra de Armas Especiais",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 170,
+			"upkeep": 12,
+			"power": 16,
+			"men": 6,
+			"portrait": "astra_inf/r0c2.png",
+			"icon": "astra_inf/r0c2.png",
+			"range": 0.09,
+			"vsVehicle": 1.3,
+			"desc": "Rifles de plasma e fuzis de fusão: fura blindagem de perto.",
+			"quotes": [
+				"Plasma carregado. Cuidado com o superaquecimento.",
+				"Mostre o blindado e ele derrete.",
+				"Arma especial, sorte especial."
+			]
+		},
+		{
+			"id": "flamers",
+			"name": "Esquadra de Lança-Chamas",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 150,
+			"upkeep": 10,
+			"power": 14,
+			"men": 6,
+			"portrait": "astra_inf/r0c3.png",
+			"icon": "astra_inf/r0c3.png",
+			"range": 0.04,
+			"vsInfantry": 1.3,
+			"terrain": {
+				"ruins": {
+					"dmg": 1.2
+				},
+				"forest": {
+					"dmg": 1.2
+				},
+				"jungle": {
+					"dmg": 1.15
+				}
+			},
+			"desc": "Purificação pelo fogo. Devastadora em ruínas e selvas.",
+			"quotes": [
+				"Queimem tudo!",
+				"O fogo purifica.",
+				"Prometio pronto, sargento."
+			]
+		},
+		{
+			"id": "ogryns",
+			"name": "Ogryns",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 220,
+			"upkeep": 16,
+			"power": 22,
+			"men": 3,
+			"portrait": "astra_inf/r3c0.png",
+			"icon": "astra_inf/r3c0.png",
+			"range": 0.04,
+			"armor": 1.3,
+			"speed": 0.024,
+			"desc": "Abomináveis leais: grandes, fortes e não muito espertos.",
+			"quotes": [
+				"Ogryn esmaga!",
+				"Senhor diz, Ogryn faz.",
+				"Cadê os inimigo pequeno?"
+			]
+		},
+		{
+			"id": "bullgryns",
+			"name": "Bullgryns",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 24,
+			"men": 3,
+			"portrait": "astra_inf/r3c1.png",
+			"icon": "astra_inf/r3c1.png",
+			"range": 0.04,
+			"armor": 1.7,
+			"speed": 0.018,
+			"desc": "Ogryns com escudos de laje: muralha viva.",
+			"quotes": [
+				"Escudo levantado!",
+				"Ninguém passa por Bullgryn.",
+				"Bate no escudo, bate de volta."
+			]
+		},
+		{
+			"id": "ratlings",
+			"name": "Atiradores Ratling",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 150,
+			"upkeep": 10,
+			"power": 12,
+			"men": 5,
+			"portrait": "astra_inf/r3c2.png",
+			"icon": "astra_inf/r3c2.png",
+			"range": 0.22,
+			"speed": 0.018,
+			"terrain": {
+				"ruins": {
+					"taken": 0.7
+				},
+				"forest": {
+					"taken": 0.7
+				},
+				"hill": {
+					"range": 1.15
+				}
+			},
+			"desc": "Abhumanos franco-atiradores, mestres da camuflagem.",
+			"quotes": [
+				"Um tiro, um herege.",
+				"Fica quieto que eu acerto.",
+				"Tem chá? Depois do tiro."
+			]
+		},
+		{
+			"id": "hellhound",
+			"name": "Hellhound",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 230,
+			"upkeep": 16,
+			"power": 22,
+			"men": 1,
+			"portrait": "astra_veh/r0c3.png",
+			"icon": "astra_veh/r0c3.png",
+			"range": 0.06,
+			"vsInfantry": 1.3,
+			"terrain": {
+				"forest": {
+					"dmg": 1.2
+				},
+				"jungle": {
+					"dmg": 1.15
+				}
+			},
+			"desc": "Tanque lança-chamas: limpa trincheiras e selvas.",
+			"quotes": [
+				"Tanque de prometio cheio.",
+				"Vamos acender essa selva.",
+				"Nada se esconde do fogo."
+			]
+		},
+		{
+			"id": "manticore",
+			"name": "Manticore",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 280,
+			"upkeep": 20,
+			"power": 24,
+			"men": 1,
+			"portrait": "astra_veh/r2c2.png",
+			"icon": "astra_veh/r2c2.png",
+			"range": 0.3,
+			"speed": 0.016,
+			"armor": 0.8,
+			"needsHive": true,
+			"desc": "Lança-foguetes Storm Eagle: saturação de longo alcance.",
+			"quotes": [
+				"Foguetes no trilho.",
+				"Coordenadas recebidas.",
+				"Salva completa pronta."
+			]
+		},
+		{
+			"id": "hydra",
+			"name": "Hydra",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 240,
+			"upkeep": 16,
+			"power": 20,
+			"men": 1,
+			"portrait": "astra_veh/r2c3.png",
+			"icon": "astra_veh/r2c3.png",
+			"range": 0.16,
+			"vsAir": 1.6,
+			"desc": "Autocanhões quádruplos antiaéreos.",
+			"quotes": [
+				"Céu limpo? Por pouco tempo.",
+				"Autocanhões rodando.",
+				"Nenhum caça passa."
+			]
+		},
+		{
+			"id": "vendetta",
+			"name": "Vendetta",
+			"group": "guard",
+			"category": "air",
+			"cost": 300,
+			"upkeep": 22,
+			"power": 28,
+			"men": 1,
+			"portrait": "astra_veh/r3c1.png",
+			"icon": "astra_veh/r3c1.png",
+			"needsHive": true,
+			"vsVehicle": 1.3,
+			"desc": "Caça-tanques com canhões laser gêmeos.",
+			"quotes": [
+				"Vendetta no ar.",
+				"Lasers carregados, caçando blindados.",
+				"Alvo travado."
+			]
+		},
+		{
+			"id": "baneblade",
+			"name": "Baneblade",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 900,
+			"upkeep": 60,
+			"power": 70,
+			"men": 1,
+			"portrait": "astra_veh/r3c2.png",
+			"icon": "astra_veh/r3c2.png",
+			"range": 0.18,
+			"speed": 0.014,
+			"armor": 1.3,
+			"requires": [
+				"hive",
+				"unique"
+			],
+			"desc": "Super-pesado: uma catedral de aço sobre lagartas.",
+			"quotes": [
+				"A Baneblade avança. Abram caminho.",
+				"Canhão principal pronto. Que o Imperador guie.",
+				"Somos a fortaleza que anda."
+			]
+		},
+		{
+			"id": "intercessors",
+			"name": "Esquadra de Intercessores",
+			"group": "astartes",
+			"category": "infantry",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 30,
+			"men": 5,
+			"portrait": "imperium/intercessor.png",
+			"icon": "imperium/intercessor.png",
+			"requires": [
+				"orbit"
+			],
+			"armor": 1.3,
+			"desc": "Primaris Space Marines com rifles bolter. Descem da Barca de Batalha.",
+			"quotes": [
+				"Esquadra pronta. Diga o alvo, e ele cai.",
+				"Somos a muralha do Imperador.",
+				"Bolters carregados. Sem misericórdia."
+			],
+			"terrain": {
+				"hive": {
+					"dmg": 1.1
+				},
+				"ruins": {
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "assault_marines",
+			"name": "Marines de Assalto",
+			"group": "astartes",
+			"category": "infantry",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 28,
+			"men": 5,
+			"portrait": "imperium/assault_marine.png",
+			"icon": "imperium/assault_marine.png",
+			"requires": [
+				"orbit"
+			],
+			"speed": 0.04,
+			"range": 0.05,
+			"armor": 1.2,
+			"desc": "Mochilas de salto e espadas-serra: caem sobre o inimigo como raios.",
+			"quotes": [
+				"Mochilas acesas! Morte vinda do céu!",
+				"Espadas-serra prontas.",
+				"Saltaremos sobre eles."
+			],
+			"allTerrain": true
+		},
+		{
+			"id": "devastators",
+			"name": "Esquadra Devastadora",
+			"group": "astartes",
+			"category": "infantry",
+			"cost": 400,
+			"upkeep": 28,
+			"power": 30,
+			"men": 5,
+			"portrait": "imperium/devastator.png",
+			"icon": "imperium/devastator.png",
+			"requires": [
+				"orbit"
+			],
+			"range": 0.15,
+			"speed": 0.016,
+			"armor": 1.3,
+			"desc": "Armas pesadas dos Astartes: canhões laser e lança-mísseis.",
+			"quotes": [
+				"Canhões apontados. Apenas indique.",
+				"Nenhum blindado passará.",
+				"Fogo pesado ao seu comando."
+			],
+			"terrain": {
+				"hill": {
+					"range": 1.2
+				}
+			}
+		},
+		{
+			"id": "terminators",
+			"name": "Exterminadores",
+			"group": "astartes",
+			"category": "infantry",
+			"cost": 560,
+			"upkeep": 38,
+			"power": 42,
+			"men": 5,
+			"portrait": "imperium/terminator.png",
+			"icon": "imperium/terminator.png",
+			"requires": [
+				"orbit"
+			],
+			"speed": 0.015,
+			"armor": 1.7,
+			"desc": "Armadura Tática Dreadnought: quase indestrutíveis.",
+			"quotes": [
+				"Teleporte concluído. Purgar.",
+				"Nenhum xenos resiste à armadura Terminator.",
+				"Avançamos. Sempre."
+			],
+			"terrain": {
+				"station": {
+					"dmg": 1.2,
+					"taken": 0.85
+				},
+				"ruins": {
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "dreadnought",
+			"name": "Dreadnought",
+			"group": "astartes",
+			"category": "vehicle",
+			"cost": 540,
+			"upkeep": 36,
+			"power": 44,
+			"men": 1,
+			"portrait": "imperium/dreadnought.png",
+			"icon": "imperium/dreadnought.png",
+			"requires": [
+				"orbit"
+			],
+			"speed": 0.02,
+			"armor": 1.1,
+			"desc": "Um herói antigo num sarcófago blindado. Lento e implacável.",
+			"quotes": [
+				"Desperto mais uma vez para a guerra.",
+				"Séculos de batalha... e ainda há xenos.",
+				"Meu punho é o martelo do Imperador."
+			],
+			"terrain": {
+				"rocks": {
+					"speed": 1.4
+				}
+			}
+		},
+		{
+			"id": "battle_sisters",
+			"name": "Esquadra de Irmãs de Batalha",
+			"group": "sororitas",
+			"category": "infantry",
+			"cost": 220,
+			"upkeep": 15,
+			"power": 18,
+			"men": 7,
+			"portrait": "imperium/battle_sister.png",
+			"icon": "imperium/battle_sister.png",
+			"requires": [
+				"hive"
+			],
+			"armor": 1.1,
+			"desc": "Adepta Sororitas com bolters e lança-chamas. A fé é a sua armadura.",
+			"quotes": [
+				"A fé é o nosso escudo!",
+				"Em nome do Imperador, purificaremos.",
+				"Hinos nos lábios, bolters nas mãos."
+			],
+			"terrain": {
+				"hive": {
+					"dmg": 1.15,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "retributors",
+			"name": "Retribuidoras",
+			"group": "sororitas",
+			"category": "infantry",
+			"cost": 270,
+			"upkeep": 18,
+			"power": 22,
+			"men": 5,
+			"portrait": "imperium/retributor.png",
+			"icon": "imperium/retributor.png",
+			"requires": [
+				"hive"
+			],
+			"range": 0.13,
+			"speed": 0.016,
+			"desc": "Armas pesadas das Irmãs: bólteres pesados e multifusões.",
+			"quotes": [
+				"Retribuição para os hereges!",
+				"Armas pesadas abençoadas e prontas.",
+				"Que caiam sob o fogo sagrado."
+			],
+			"terrain": {
+				"hill": {
+					"range": 1.15
+				},
+				"hive": {
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "seraphim",
+			"name": "Serafins",
+			"group": "sororitas",
+			"category": "infantry",
+			"cost": 280,
+			"upkeep": 19,
+			"power": 22,
+			"men": 5,
+			"portrait": "imperium/seraphim.png",
+			"icon": "imperium/seraphim.png",
+			"requires": [
+				"hive"
+			],
+			"speed": 0.04,
+			"range": 0.06,
+			"desc": "Irmãs com mochilas de salto e pistolas gêmeas. Rápidas e mortais.",
+			"quotes": [
+				"Asas da fé, abram-se!",
+				"Desceremos como anjos vingadores.",
+				"O Imperador nos dá asas."
+			],
+			"allTerrain": true
+		},
+		{
+			"id": "exorcist",
+			"name": "Exorcista",
+			"group": "sororitas",
+			"category": "vehicle",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 32,
+			"men": 1,
+			"portrait": "imperium/exorcist.png",
+			"icon": "imperium/exorcist.png",
+			"requires": [
+				"hive"
+			],
+			"range": 0.24,
+			"speed": 0.022,
+			"desc": "Órgão de mísseis num chassi Rhino: hinos e explosões de longe.",
+			"quotes": [
+				"O órgão canta a ira do Imperador.",
+				"Mísseis abençoados prontos.",
+				"Que a música da fé os destrua."
+			],
+			"terrain": {
+				"hill": {
+					"range": 1.2
+				}
+			}
+		},
+		{
+			"id": "skitarii_rangers",
+			"name": "Patrulheiros Skitarii",
+			"group": "mechanicus",
+			"category": "infantry",
+			"cost": 170,
+			"upkeep": 12,
+			"power": 15,
+			"men": 8,
+			"portrait": "imperium/skitarii_ranger.png",
+			"icon": "imperium/skitarii_ranger.png",
+			"requires": [
+				"forge"
+			],
+			"range": 0.12,
+			"desc": "Soldados ciborgues do Mechanicus com armas galvânicas de longo alcance.",
+			"quotes": [
+				"Parâmetros de combate carregados.",
+				"Alvo adquirido. Executando.",
+				"Pelo Omnissiah."
+			],
+			"terrain": {
+				"ash": {
+					"dmg": 1.15,
+					"taken": 0.9
+				},
+				"industrial": {
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "sicarians",
+			"name": "Sicários Infiltradores",
+			"group": "mechanicus",
+			"category": "infantry",
+			"cost": 240,
+			"upkeep": 16,
+			"power": 20,
+			"men": 5,
+			"portrait": "imperium/sicarian_infiltrator.png",
+			"icon": "imperium/sicarian_infiltrator.png",
+			"requires": [
+				"forge"
+			],
+			"speed": 0.034,
+			"range": 0.05,
+			"desc": "Caçadores silenciosos do Mechanicus. Confundem o inimigo e atacam de perto.",
+			"quotes": [
+				"Infiltração iniciada.",
+				"Ruído neural ativo.",
+				"O alvo não nos verá chegar."
+			],
+			"terrain": {
+				"ruins": {
+					"taken": 0.75
+				},
+				"forest": {
+					"taken": 0.75
+				},
+				"industrial": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "kataphron",
+			"name": "Destruidores Kataphron",
+			"group": "mechanicus",
+			"category": "infantry",
+			"cost": 330,
+			"upkeep": 22,
+			"power": 28,
+			"men": 4,
+			"portrait": "imperium/kataphron_destroyer.png",
+			"icon": "imperium/kataphron_destroyer.png",
+			"requires": [
+				"forge"
+			],
+			"speed": 0.015,
+			"armor": 1.4,
+			"range": 0.1,
+			"desc": "Servidores de combate sobre lagartas, com canhões de plasma.",
+			"quotes": [
+				"Plasma em temperatura de culto.",
+				"Protocolo de destruição.",
+				"Rodando para a frente. Sempre."
+			],
+			"terrain": {
+				"industrial": {
+					"dmg": 1.15
+				},
+				"station": {
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "onager",
+			"name": "Onager Dunecrawler",
+			"group": "mechanicus",
+			"category": "vehicle",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 32,
+			"men": 1,
+			"portrait": "imperium/onager.png",
+			"icon": "imperium/onager.png",
+			"requires": [
+				"forge"
+			],
+			"range": 0.17,
+			"desc": "Andador de quatro pernas com canhão de erradicação.",
+			"quotes": [
+				"Pernas firmes. Canhão aquecido.",
+				"Dunas ou ruínas: tanto faz.",
+				"Varredura completa. Alvos marcados."
+			],
+			"terrain": {
+				"ash": {
+					"speed": 1.2
+				},
+				"rocks": {
+					"speed": 1.6
+				},
+				"mountains": {
+					"speed": 1.25
+				}
+			}
+		},
+		{
+			"id": "skorpius",
+			"name": "Skorpius Desintegrador",
+			"group": "mechanicus",
+			"category": "vehicle",
+			"cost": 400,
+			"upkeep": 28,
+			"power": 34,
+			"men": 1,
+			"portrait": "imperium/skorpius_disintegrator.png",
+			"icon": "imperium/skorpius_disintegrator.png",
+			"requires": [
+				"forge"
+			],
+			"speed": 0.036,
+			"desc": "Tanque antigravitacional com canhão desintegrador.",
+			"quotes": [
+				"Desintegrador pronto.",
+				"Flutuando sobre o campo, Omnissiah conosco.",
+				"Matéria será desfeita."
+			],
+			"terrain": {
+				"water": {
+					"speed": 2.8
+				},
+				"mire": {
+					"speed": 1.4
+				}
+			}
+		},
+		{
+			"id": "inquisitor",
+			"name": "Inquisidor e Séquito",
+			"group": "agents",
+			"category": "infantry",
+			"cost": 400,
+			"upkeep": 24,
+			"power": 26,
+			"men": 4,
+			"portrait": "imperium/inquisitor.png",
+			"icon": "imperium/inquisitor.png",
+			"requires": [
+				"hive",
+				"unique"
+			],
+			"leaderTitles": [
+				"Inquisidor"
+			],
+			"desc": "Um Inquisidor do Ordo Xenos com acólitos. Ninguém escapa à Inquisição.",
+			"quotes": [
+				"A Inquisição tem olhos em toda parte.",
+				"Inocência não prova nada.",
+				"Queimem o xenos."
+			]
+		},
+		{
+			"id": "custodes",
+			"name": "Destacamento de Custódios",
+			"group": "agents",
+			"category": "infantry",
+			"cost": 700,
+			"upkeep": 40,
+			"power": 50,
+			"men": 3,
+			"portrait": "imperium/custodes.png",
+			"icon": "imperium/custodes.png",
+			"requires": [
+				"hive",
+				"unique"
+			],
+			"armor": 1.8,
+			"leaderTitles": [
+				"Capitão-Escudo"
+			],
+			"desc": "Guardiões dourados do Imperador. Raramente deixam Terra.",
+			"quotes": [
+				"Viemos de Terra. Isso basta.",
+				"O Imperador nos enviou.",
+				"Lâminas de guarda prontas."
+			]
+		},
+		{
+			"id": "grey_knights",
+			"name": "Cavaleiros Cinzentos",
+			"group": "agents",
+			"category": "infantry",
+			"cost": 600,
+			"upkeep": 36,
+			"power": 40,
+			"men": 5,
+			"portrait": "imperium/grey_knight.png",
+			"icon": "imperium/grey_knight.png",
+			"requires": [
+				"orbit",
+				"unique"
+			],
+			"armor": 1.5,
+			"leaderTitles": [
+				"Justicar",
+				"Irmão-Cavaleiro"
+			],
+			"desc": "Caçadores de demônios psíquicos. Teleportam para a batalha.",
+			"quotes": [
+				"Eu sou o martelo.",
+				"A escuridão não resiste à nossa luz.",
+				"Nemesis pronta."
+			]
+		},
+		{
+			"id": "eversor",
+			"name": "Assassino Eversor",
+			"group": "agents",
+			"category": "infantry",
+			"cost": 450,
+			"upkeep": 20,
+			"power": 30,
+			"men": 1,
+			"portrait": "imperium/eversor.png",
+			"icon": "imperium/eversor.png",
+			"requires": [
+				"hive",
+				"unique"
+			],
+			"speed": 0.045,
+			"range": 0.04,
+			"armor": 2.2,
+			"leaderTitles": [
+				"Agente"
+			],
+			"desc": "Assassino do Officio Assassinorum, cheio de drogas de combate.",
+			"quotes": [
+				"Alvo marcado.",
+				"...",
+				"Ninguém sobrevive ao Eversor."
+			],
+			"terrain": {
+				"ruins": {
+					"dmg": 1.3
+				},
+				"hive": {
+					"dmg": 1.2
+				}
+			}
+		},
+		{
+			"id": "deathwatch",
+			"name": "Equipe de Matança Deathwatch",
+			"group": "agents",
+			"category": "infantry",
+			"cost": 520,
+			"upkeep": 32,
+			"power": 36,
+			"men": 5,
+			"portrait": "imperium/deathwatch.png",
+			"icon": "imperium/deathwatch.png",
+			"requires": [
+				"orbit",
+				"unique"
+			],
+			"armor": 1.4,
+			"range": 0.1,
+			"leaderTitles": [
+				"Vigia-Sargento"
+			],
+			"desc": "Veteranos de vários Capítulos, especialistas em caçar xenos.",
+			"quotes": [
+				"Proteger. Purgar. Destruir xenos.",
+				"Munição especial carregada.",
+				"Sufoque o xenos."
+			],
+			"terrain": {
+				"jungle": {
+					"dmg": 1.15
+				}
+			}
+		}
+	],
+	"orks": [
+		{
+			"id": "boyz",
+			"name": "Bando de Rapazes",
+			"category": "infantry",
+			"cost": 80,
+			"upkeep": 6,
+			"power": 10,
+			"men": 9,
+			"portrait": "orks_inf/r0c0.png",
+			"desc": "Rapazes com choppa e slugga. Muitos, verdes e loucos por briga.",
+			"quotes": [
+				"WAAAGH! Onde é a briga, chefe?",
+				"Os rapazes tão coçando pra bater em alguém!",
+				"Mais dakka, menos papo!",
+				"Aponta pros humies e sai da frente!"
+			],
+			"group": "guard",
+			"terrain": {
+				"jungle": {
+					"dmg": 1.15,
+					"taken": 0.9
+				},
+				"forest": {
+					"dmg": 1.1
+				}
+			},
+			"icon": "orks_inf/r0c0.png"
+		},
+		{
+			"id": "shoota_boyz",
+			"name": "Rapazes Atiradores",
+			"category": "infantry",
+			"cost": 100,
+			"upkeep": 8,
+			"power": 11,
+			"men": 8,
+			"portrait": "orks_inf/r0c1.png",
+			"desc": "Shootas barulhentas: nem sempre acertam, mas atiram muito.",
+			"quotes": [
+				"Dakka dakka dakka!",
+				"Se fizer barulho, a gente acerta!",
+				"Chefe, cadê os alvos? As shootas tão com fome!"
+			],
+			"group": "guard",
+			"terrain": {
+				"ruins": {
+					"dmg": 1.1
+				}
+			},
+			"icon": "orks_inf/r0c1.png"
+		},
+		{
+			"id": "nobz",
+			"name": "Nobz",
+			"category": "infantry",
+			"cost": 170,
+			"upkeep": 14,
+			"power": 19,
+			"men": 5,
+			"portrait": "orks_inf/r1c0.png",
+			"desc": "Os maiores e mais brutos do bando, com garras de poder.",
+			"quotes": [
+				"Nobz prontos. Quem é o próximo a levar?",
+				"Grandes, verdes e de mau humor!",
+				"A gente arranca as latinha dos humies!"
+			],
+			"group": "guard",
+			"terrain": {
+				"hive": {
+					"dmg": 1.15
+				}
+			},
+			"icon": "orks_inf/r1c0.png"
+		},
+		{
+			"id": "trukk",
+			"name": "Trukk",
+			"category": "vehicle",
+			"cost": 150,
+			"upkeep": 10,
+			"power": 15,
+			"men": 1,
+			"portrait": "orks_veh/r1c0.png",
+			"desc": "Caminhão saqueado e pintado de vermelho: vermelho vai mais rápido!",
+			"quotes": [
+				"Vruum vruum! Pisa fundo!",
+				"Os vermelho vão mais rápido, chefe!",
+				"Trukk pronto pra atropelar!"
+			],
+			"group": "guard",
+			"terrain": {
+				"plains": {
+					"speed": 1.3
+				},
+				"ash": {
+					"speed": 1.3
+				}
+			},
+			"icon": "orks_veh/r1c0.png"
+		},
+		{
+			"id": "looted_wagon",
+			"name": "Vagão Saqueado",
+			"category": "vehicle",
+			"cost": 280,
+			"upkeep": 20,
+			"power": 30,
+			"men": 1,
+			"portrait": "orks_veh/r1c2.png",
+			"needsHive": true,
+			"desc": "Tanque dos humies, agora muito melhor: mais placas, mais dentes, mais kannon.",
+			"quotes": [
+				"A lata dos humies agora é nossa!",
+				"Kannon grandão carregado!",
+				"Bota mais placa e vai que vai!"
+			],
+			"group": "guard",
+			"terrain": {
+				"ash": {
+					"dmg": 1.1
+				},
+				"rok": {
+					"dmg": 1.1
+				}
+			},
+			"icon": "orks_veh/r1c2.png"
+		},
+		{
+			"id": "dakkajet",
+			"name": "Dakkajet",
+			"category": "air",
+			"cost": 220,
+			"upkeep": 16,
+			"power": 22,
+			"men": 1,
+			"portrait": "orks_veh/r2c1.png",
+			"needsHive": true,
+			"desc": "Caça barulhento. Libera o bombardeio dos Dakkajets na batalha.",
+			"quotes": [
+				"Dakkajet no ar! Ninguém é mais rápido!",
+				"Vou mergulhar e dar dakka!",
+				"Bombas soltas, chefe!"
+			],
+			"group": "guard",
+			"icon": "orks_veh/r2c1.png"
+		},
+		{
+			"id": "gretchin",
+			"name": "Bando de Grots",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 40,
+			"upkeep": 3,
+			"power": 5,
+			"men": 12,
+			"portrait": "orks_inf/r0c2.png",
+			"icon": "orks_inf/r0c2.png",
+			"range": 0.06,
+			"armor": 0.8,
+			"desc": "Grots baratos e covardes. Servem para absorver tiros.",
+			"quotes": [
+				"Precisa mesmo, chefe?",
+				"A gente vai... depois de vocês.",
+				"Grot também briga! Um pouquinho."
+			]
+		},
+		{
+			"id": "kommandos",
+			"name": "Kommandos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 150,
+			"upkeep": 10,
+			"power": 14,
+			"men": 6,
+			"portrait": "orks_inf/r1c2.png",
+			"icon": "orks_inf/r1c2.png",
+			"range": 0.04,
+			"terrain": {
+				"forest": {
+					"taken": 0.7
+				},
+				"jungle": {
+					"taken": 0.75,
+					"dmg": 1.15
+				},
+				"ruins": {
+					"taken": 0.75
+				}
+			},
+			"desc": "Orks furtivos (pra um Ork). Atacam de onde ninguém espera.",
+			"quotes": [
+				"Shhh... os humies não viu a gente.",
+				"Pega pelas costas!",
+				"Sorrateiro é o nosso nome."
+			]
+		},
+		{
+			"id": "stormboyz",
+			"name": "Rapazes Foguete",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 170,
+			"upkeep": 12,
+			"power": 16,
+			"men": 6,
+			"portrait": "orks_inf/r1c3.png",
+			"icon": "orks_inf/r1c3.png",
+			"range": 0.04,
+			"speed": 0.042,
+			"allTerrain": true,
+			"desc": "Mochilas-foguete que às vezes explodem. Às vezes no inimigo.",
+			"quotes": [
+				"FOGUETE LIGADO!",
+				"Lá vem nóis do céu!",
+				"Se cair, cai em cima deles!"
+			]
+		},
+		{
+			"id": "burna_boyz",
+			"name": "Rapazes Lança-Chamas",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 160,
+			"upkeep": 11,
+			"power": 16,
+			"men": 5,
+			"portrait": "orks_inf/r2c0.png",
+			"icon": "orks_inf/r2c0.png",
+			"range": 0.045,
+			"vsInfantry": 1.3,
+			"terrain": {
+				"ruins": {
+					"dmg": 1.25
+				},
+				"hive": {
+					"dmg": 1.15
+				}
+			},
+			"desc": "Queimadores: fogo e cortes de maçarico.",
+			"quotes": [
+				"Esquenta eles!",
+				"Fogo bonito, chefe!",
+				"Queima, queima, QUEIMA!"
+			]
+		},
+		{
+			"id": "lootas",
+			"name": "Saqueadores (Lootas)",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 18,
+			"men": 5,
+			"portrait": "orks_inf/r2c1.png",
+			"icon": "orks_inf/r2c1.png",
+			"range": 0.15,
+			"speed": 0.017,
+			"desc": "Deffguns montadas com peças saqueadas: muito dakka de longe.",
+			"quotes": [
+				"Deffgun cheia de dakka!",
+				"Mais dente pra nóis!",
+				"Mira? Pra que mira?"
+			]
+		},
+		{
+			"id": "tankbustas",
+			"name": "Caça-Tanques",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 190,
+			"upkeep": 13,
+			"power": 18,
+			"men": 5,
+			"portrait": "orks_inf/r2c2.png",
+			"icon": "orks_inf/r2c2.png",
+			"range": 0.1,
+			"vsVehicle": 1.6,
+			"desc": "Orks obcecados por explodir blindados com foguetes.",
+			"quotes": [
+				"Cadê os tanque?",
+				"Bum na lata!",
+				"Foguete grande pra lata grande!"
+			]
+		},
+		{
+			"id": "meganobz",
+			"name": "Meganobz",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 320,
+			"upkeep": 22,
+			"power": 30,
+			"men": 3,
+			"portrait": "orks_inf/r1c1.png",
+			"icon": "orks_inf/r1c1.png",
+			"range": 0.04,
+			"armor": 1.6,
+			"speed": 0.015,
+			"needsHive": true,
+			"desc": "Nobz em mega-armadura: lentos e quase inquebráveis.",
+			"quotes": [
+				"Mega-armadura no talo!",
+				"Pode atirar, num faz cosquinha!",
+				"A gente é os mais grandão!"
+			]
+		},
+		{
+			"id": "warbikers",
+			"name": "Motoqueiros da Guerra",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 18,
+			"men": 3,
+			"portrait": "orks_veh/r0c3.png",
+			"icon": "orks_veh/r0c3.png",
+			"speed": 0.055,
+			"range": 0.08,
+			"terrain": {
+				"plains": {
+					"speed": 1.2
+				},
+				"ash": {
+					"speed": 1.2
+				}
+			},
+			"desc": "Motos barulhentas com dakka. Velocidade é tudo.",
+			"quotes": [
+				"Acelera!",
+				"Vruuum dakka dakka!",
+				"Ninguém pega nóis!"
+			]
+		},
+		{
+			"id": "battlewagon",
+			"name": "Vagão de Batalha",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 40,
+			"men": 1,
+			"portrait": "orks_veh/r1c1.png",
+			"icon": "orks_veh/r1c1.png",
+			"armor": 1.2,
+			"needsHive": true,
+			"desc": "Fortaleza sobre lagartas, cheia de rapazes e dentes.",
+			"quotes": [
+				"Todo mundo a bordo!",
+				"Mais placas, mais dentes!",
+				"Atropela que é mais rápido!"
+			]
+		},
+		{
+			"id": "deffkoptas",
+			"name": "Deffkoptas",
+			"group": "guard",
+			"category": "air",
+			"cost": 180,
+			"upkeep": 12,
+			"power": 16,
+			"men": 2,
+			"portrait": "orks_veh/r2c0.png",
+			"icon": "orks_veh/r2c0.png",
+			"desc": "Helicópteros de sucata com serras e foguetes.",
+			"quotes": [
+				"Hélice girando, chefe!",
+				"Mergulho de dakka!",
+				"Voa que nem doido!"
+			]
+		},
+		{
+			"id": "burna_bommer",
+			"name": "Burna-Bommer",
+			"group": "guard",
+			"category": "air",
+			"cost": 280,
+			"upkeep": 20,
+			"power": 26,
+			"men": 1,
+			"portrait": "orks_veh/r2c2.png",
+			"icon": "orks_veh/r2c2.png",
+			"needsHive": true,
+			"vsInfantry": 1.2,
+			"desc": "Bombardeiro de bombas incendiárias.",
+			"quotes": [
+				"Bombas de fogo prontas!",
+				"Vai cair fogo do céu!",
+				"Queima geral!"
+			]
+		},
+		{
+			"id": "big_gunz",
+			"name": "Grandes Kanhões",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 180,
+			"upkeep": 12,
+			"power": 18,
+			"men": 3,
+			"portrait": "orks_veh/r2c3.png",
+			"icon": "orks_veh/r2c3.png",
+			"range": 0.26,
+			"speed": 0.01,
+			"armor": 0.7,
+			"desc": "Kanhões enormes operados por grots apavorados.",
+			"quotes": [
+				"Kanhão carregado... eu acho.",
+				"Tampa os ouvido!",
+				"Fogo! FOGO!"
+			]
+		},
+		{
+			"id": "killa_kans",
+			"name": "Killa Kans",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 210,
+			"upkeep": 14,
+			"power": 22,
+			"men": 3,
+			"portrait": "orks_veh/r3c0.png",
+			"icon": "orks_veh/r3c0.png",
+			"desc": "Latas-andantes pilotadas por grots com raiva.",
+			"quotes": [
+				"Agora o grot é grandão!",
+				"Esmaga!",
+				"Lata de matar pronta!"
+			]
+		},
+		{
+			"id": "deff_dread",
+			"name": "Deff Dread",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 300,
+			"upkeep": 20,
+			"power": 32,
+			"men": 1,
+			"portrait": "orks_veh/r3c1.png",
+			"icon": "orks_veh/r3c1.png",
+			"needsHive": true,
+			"range": 0.06,
+			"desc": "Andador de garras e kanhões: um Mek muito orgulhoso.",
+			"quotes": [
+				"Garras afiadas!",
+				"Corta e atira!",
+				"Dread de Ork é o melhor!"
+			]
+		},
+		{
+			"id": "gorkanaut",
+			"name": "Gorkanaut",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 700,
+			"upkeep": 46,
+			"power": 60,
+			"men": 1,
+			"portrait": "orks_veh/r3c2.png",
+			"icon": "orks_veh/r3c2.png",
+			"armor": 1.3,
+			"speed": 0.015,
+			"requires": [
+				"hive",
+				"unique"
+			],
+			"desc": "Andador gigante à imagem de Gork (ou Mork).",
+			"quotes": [
+				"Pisa neles!",
+				"Gork tá aqui!",
+				"Maior é melhor!"
+			]
+		},
+		{
+			"id": "stompa",
+			"name": "Stompa",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 1100,
+			"upkeep": 70,
+			"power": 85,
+			"men": 1,
+			"portrait": "orks_veh/r3c3.png",
+			"icon": "orks_veh/r3c3.png",
+			"armor": 1.4,
+			"speed": 0.011,
+			"range": 0.18,
+			"requires": [
+				"hive",
+				"unique"
+			],
+			"desc": "Uma catedral de sucata que anda. A maior lata da Waaagh!",
+			"quotes": [
+				"STOMPA PISA!",
+				"Pequenino tudo lá embaixo!",
+				"WAAAAAGH!"
+			]
+		}
+	],
+	"tyranids": [
+		{
+			"id": "termagants",
+			"name": "Ninhada de Termagantes",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 50,
+			"upkeep": 4,
+			"power": 7,
+			"men": 12,
+			"portrait": "tyranids/r0c0.png",
+			"icon": "tyranids/r0c0.png",
+			"range": 0.06,
+			"desc": "Criaturas de enxame com armas vivas. Muitas e descartáveis.",
+			"quotes": [
+				"(chiado do enxame)",
+				"...fome...",
+				"(sibilos em uníssono)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "hormagaunts",
+			"name": "Ninhada de Hormagantes",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 55,
+			"upkeep": 4,
+			"power": 8,
+			"men": 12,
+			"portrait": "tyranids/r0c1.png",
+			"icon": "tyranids/r0c1.png",
+			"speed": 0.032,
+			"range": 0.03,
+			"vsInfantry": 1.1,
+			"desc": "Garras-foice e saltos: avançam rápido para o corpo a corpo.",
+			"quotes": [
+				"(guinchos famintos)",
+				"...rasgar...",
+				"(estalar de garras)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "gargoyles",
+			"name": "Revoada de Gárgulas",
+			"group": "guard",
+			"category": "air",
+			"cost": 90,
+			"upkeep": 6,
+			"power": 10,
+			"men": 10,
+			"portrait": "tyranids/r0c2.png",
+			"icon": "tyranids/r0c2.png",
+			"desc": "Enxame alado que escurece o céu.",
+			"quotes": [
+				"(bater de asas)",
+				"...caçar do alto...",
+				"(gritos estridentes)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "genestealers",
+			"name": "Genestealers",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 170,
+			"upkeep": 12,
+			"power": 18,
+			"men": 6,
+			"portrait": "tyranids/r0c3.png",
+			"icon": "tyranids/r0c3.png",
+			"speed": 0.032,
+			"range": 0.03,
+			"terrain": {
+				"hive": {
+					"dmg": 1.2,
+					"taken": 0.85
+				},
+				"ruins": {
+					"dmg": 1.15
+				},
+				"station": {
+					"dmg": 1.2
+				},
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			},
+			"desc": "Predadores infiltradores com garras que rasgam ceramita.",
+			"quotes": [
+				"...a prole cresce...",
+				"(silêncio mortal)",
+				"...o Patriarca chama..."
+			]
+		},
+		{
+			"id": "warriors",
+			"name": "Guerreiros Tiranídeos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 190,
+			"upkeep": 13,
+			"power": 20,
+			"men": 3,
+			"portrait": "tyranids/r1c0.png",
+			"icon": "tyranids/r1c0.png",
+			"armor": 1.3,
+			"range": 0.08,
+			"desc": "Criaturas sinápticas: conduzem o enxame menor.",
+			"quotes": [
+				"A Mente da Colmeia ordena.",
+				"...consumir...",
+				"(rugido sináptico)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "raveners",
+			"name": "Raveners",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 180,
+			"upkeep": 12,
+			"power": 18,
+			"men": 3,
+			"portrait": "tyranids/r1c1.png",
+			"icon": "tyranids/r1c1.png",
+			"speed": 0.04,
+			"range": 0.03,
+			"allTerrain": true,
+			"desc": "Serpentes escavadoras que surgem do chão.",
+			"quotes": [
+				"(tremor no solo)",
+				"...por baixo...",
+				"(silvo)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "lictor",
+			"name": "Lictor",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 150,
+			"upkeep": 10,
+			"power": 14,
+			"men": 1,
+			"portrait": "tyranids/r1c2.png",
+			"icon": "tyranids/r1c2.png",
+			"range": 0.03,
+			"terrain": {
+				"forest": {
+					"taken": 0.6,
+					"dmg": 1.2
+				},
+				"jungle": {
+					"taken": 0.6,
+					"dmg": 1.2
+				},
+				"ruins": {
+					"taken": 0.65
+				},
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			},
+			"desc": "Caçador camaleônico que marca as presas para o enxame.",
+			"quotes": [
+				"...observando...",
+				"(nada se ouve)",
+				"...presa marcada..."
+			]
+		},
+		{
+			"id": "zoanthropes",
+			"name": "Zoantropos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 240,
+			"upkeep": 16,
+			"power": 22,
+			"men": 3,
+			"portrait": "tyranids/r1c3.png",
+			"icon": "tyranids/r1c3.png",
+			"range": 0.14,
+			"armor": 1.3,
+			"needsHive": true,
+			"desc": "Cérebros flutuantes que disparam raios psíquicos.",
+			"quotes": [
+				"(zumbido psíquico)",
+				"...a sombra na disformidade...",
+				"(pressão na mente)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "hive_guard",
+			"name": "Guarda da Colmeia",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 24,
+			"men": 3,
+			"portrait": "tyranids/r2c0.png",
+			"icon": "tyranids/r2c0.png",
+			"range": 0.16,
+			"vsVehicle": 1.4,
+			"desc": "Armas impaladoras que caçam blindados.",
+			"quotes": [
+				"...proteger a sinapse...",
+				"(estalos de quitina)",
+				"...perfurar..."
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "tyrant_guard",
+			"name": "Guarda do Tirano",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 280,
+			"upkeep": 18,
+			"power": 26,
+			"men": 3,
+			"portrait": "tyranids/r3c0.png",
+			"icon": "tyranids/r3c0.png",
+			"armor": 1.6,
+			"range": 0.03,
+			"desc": "Escudos vivos com lâminas de osso.",
+			"quotes": [
+				"(passos pesados)",
+				"...guardar...",
+				"(rosnado)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "carnifex",
+			"name": "Carnifex",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 320,
+			"upkeep": 22,
+			"power": 36,
+			"men": 1,
+			"portrait": "tyranids/r2c1.png",
+			"icon": "tyranids/r2c1.png",
+			"armor": 1.2,
+			"range": 0.05,
+			"vsVehicle": 1.3,
+			"desc": "Monstro-aríete que derruba muralhas e tanques.",
+			"quotes": [
+				"(rugido ensurdecedor)",
+				"...esmagar...",
+				"(carga)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "haruspex",
+			"name": "Haruspex",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 40,
+			"men": 1,
+			"portrait": "tyranids/r3c1.png",
+			"icon": "tyranids/r3c1.png",
+			"range": 0.03,
+			"needsHive": true,
+			"desc": "Devorador colossal que engole as presas inteiras.",
+			"quotes": [
+				"(mandíbulas)",
+				"...devorar...",
+				"(fome sem fim)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "mawloc",
+			"name": "Mawloc",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 420,
+			"upkeep": 28,
+			"power": 44,
+			"men": 1,
+			"portrait": "tyranids/r3c2.png",
+			"icon": "tyranids/r3c2.png",
+			"range": 0.04,
+			"allTerrain": true,
+			"needsHive": true,
+			"desc": "Verme gigante que emerge sob o inimigo.",
+			"quotes": [
+				"(o chão se abre)",
+				"...por baixo...",
+				"(estrondo)"
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		},
+		{
+			"id": "tervigon",
+			"name": "Tervigon",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 520,
+			"upkeep": 34,
+			"power": 50,
+			"men": 1,
+			"portrait": "tyranids/r3c3.png",
+			"icon": "tyranids/r3c3.png",
+			"armor": 1.3,
+			"needsHive": true,
+			"desc": "Ninhada viva que gera termagantes sem parar.",
+			"quotes": [
+				"...a prole nasce...",
+				"(pulsar dos sacos)",
+				"...mais..."
+			],
+			"terrain": {
+				"biomass": {
+					"speed": 1.25,
+					"taken": 0.9
+				}
+			}
+		}
+	],
+	"chaos": [
+		{
+			"id": "cultists",
+			"name": "Cultistas",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 45,
+			"upkeep": 3,
+			"power": 6,
+			"men": 12,
+			"portrait": "chaos/r0c0.png",
+			"icon": "chaos/r0c0.png",
+			"range": 0.06,
+			"armor": 0.8,
+			"desc": "Fanáticos armados com o que encontram.",
+			"quotes": [
+				"Sangue para os Deuses!",
+				"O Saqueador nos guia!",
+				"Morte ao Falso Imperador!"
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "chaos_marines",
+			"name": "Marines do Caos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 300,
+			"upkeep": 22,
+			"power": 26,
+			"men": 5,
+			"portrait": "chaos/r0c1.png",
+			"icon": "chaos/r0c1.png",
+			"armor": 1.3,
+			"desc": "Traidores da Legião Negra, dez mil anos de ódio.",
+			"quotes": [
+				"Pela Legião Negra!",
+				"Lembramos da traição.",
+				"Nossas armas têm fome."
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "havocs",
+			"name": "Havocs",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 28,
+			"men": 5,
+			"portrait": "chaos/r0c2.png",
+			"icon": "chaos/r0c2.png",
+			"range": 0.15,
+			"speed": 0.016,
+			"armor": 1.3,
+			"vsVehicle": 1.3,
+			"desc": "Armas pesadas dos traidores.",
+			"quotes": [
+				"Fogo pesado!",
+				"Destruam as muralhas.",
+				"Que nada fique de pé."
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "raptors",
+			"name": "Raptores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 320,
+			"upkeep": 22,
+			"power": 24,
+			"men": 5,
+			"portrait": "chaos/r0c3.png",
+			"icon": "chaos/r0c3.png",
+			"speed": 0.04,
+			"range": 0.05,
+			"armor": 1.2,
+			"allTerrain": true,
+			"desc": "Mochilas de salto e gritos de terror.",
+			"quotes": [
+				"Do céu, o terror!",
+				"Caçamos os fracos.",
+				"Ouçam nossos gritos!"
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "warp_talons",
+			"name": "Garras da Disformidade",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 28,
+			"men": 5,
+			"portrait": "chaos/r1c0.png",
+			"icon": "chaos/r1c0.png",
+			"speed": 0.042,
+			"range": 0.03,
+			"armor": 1.2,
+			"allTerrain": true,
+			"desc": "Raptores mutados que saltam pela disformidade.",
+			"quotes": [
+				"A disformidade nos leva.",
+				"Garras famintas.",
+				"Rasgar a carne!"
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "chosen",
+			"name": "Escolhidos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 400,
+			"upkeep": 26,
+			"power": 32,
+			"men": 5,
+			"portrait": "chaos/r1c1.png",
+			"icon": "chaos/r1c1.png",
+			"armor": 1.4,
+			"needsHive": true,
+			"desc": "Os veteranos favoritos dos Deuses.",
+			"quotes": [
+				"Os Deuses nos olham.",
+				"Provaremos nosso valor.",
+				"Glória ao Caos!"
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "chaos_terminators",
+			"name": "Exterminadores do Caos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 560,
+			"upkeep": 38,
+			"power": 42,
+			"men": 5,
+			"portrait": "chaos/r1c2.png",
+			"icon": "chaos/r1c2.png",
+			"speed": 0.015,
+			"armor": 1.7,
+			"needsHive": true,
+			"desc": "Armadura Tática Dreadnought profanada.",
+			"quotes": [
+				"Teleporte concluído. Matem todos.",
+				"Somos imortais.",
+				"A Legião Negra marcha."
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "possessed",
+			"name": "Possuídos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 30,
+			"men": 5,
+			"portrait": "chaos/r1c3.png",
+			"icon": "chaos/r1c3.png",
+			"speed": 0.03,
+			"range": 0.03,
+			"armor": 1.3,
+			"desc": "Marines com demônios na carne.",
+			"quotes": [
+				"(risos que não são humanos)",
+				"A carne é nossa.",
+				"Libertem-nos!"
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "chaos_rhino",
+			"name": "Rhino do Caos",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 20,
+			"men": 1,
+			"portrait": "chaos/r3c0.png",
+			"icon": "chaos/r3c0.png",
+			"desc": "Transporte blindado coberto de espinhos.",
+			"quotes": [
+				"Motores do ódio.",
+				"Todos a bordo, irmãos.",
+				"Atropelem os fracos."
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "predator",
+			"name": "Predator",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 340,
+			"upkeep": 24,
+			"power": 34,
+			"men": 1,
+			"portrait": "chaos/r3c1.png",
+			"icon": "chaos/r3c1.png",
+			"range": 0.14,
+			"needsHive": true,
+			"vsVehicle": 1.2,
+			"desc": "Tanque de apoio dos traidores.",
+			"quotes": [
+				"Canhões prontos.",
+				"Caçamos blindados.",
+				"Nada sobrevive."
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "obliterators",
+			"name": "Obliteradores",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 420,
+			"upkeep": 28,
+			"power": 40,
+			"men": 1,
+			"portrait": "chaos/r3c2.png",
+			"icon": "chaos/r3c2.png",
+			"range": 0.12,
+			"speed": 0.015,
+			"needsHive": true,
+			"desc": "Marines fundidos às armas pelo vírus da obliteração.",
+			"quotes": [
+				"(metal e carne rangem)",
+				"Armas... de carne...",
+				"OBLITERAR!"
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "defiler",
+			"name": "Profanador",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 480,
+			"upkeep": 32,
+			"power": 46,
+			"men": 1,
+			"portrait": "chaos/r3c3.png",
+			"icon": "chaos/r3c3.png",
+			"range": 0.2,
+			"needsHive": true,
+			"desc": "Máquina-demônio aracnídea com canhão de batalha.",
+			"quotes": [
+				"(o demônio ruge na máquina)",
+				"Profanar tudo.",
+				"Esmagar os fiéis."
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			}
+		}
+	],
+	"eldar": [
+		{
+			"id": "guardians",
+			"name": "Guardiões",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 80,
+			"upkeep": 6,
+			"power": 9,
+			"men": 10,
+			"portrait": "eldar/r0c0.png",
+			"icon": "eldar/r0c0.png",
+			"range": 0.08,
+			"armor": 0.9,
+			"desc": "Civis do mundo-nave chamados às armas, com catapultas shuriken.",
+			"quotes": [
+				"Por Ulthwé.",
+				"O caminho nos guia.",
+				"Que o futuro seja nosso."
+			]
+		},
+		{
+			"id": "dire_avengers",
+			"name": "Vingadores Implacáveis",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 180,
+			"upkeep": 12,
+			"power": 18,
+			"men": 5,
+			"portrait": "eldar/r0c3.png",
+			"icon": "eldar/r0c3.png",
+			"range": 0.09,
+			"desc": "Guerreiros de Aspecto: disciplina e catapultas.",
+			"quotes": [
+				"Vingança para os caídos.",
+				"O Aspecto nos fortalece.",
+				"Nenhum passo atrás."
+			]
+		},
+		{
+			"id": "rangers",
+			"name": "Patrulheiros",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 160,
+			"upkeep": 11,
+			"power": 12,
+			"men": 5,
+			"portrait": "eldar/r0c2.png",
+			"icon": "eldar/r0c2.png",
+			"range": 0.22,
+			"speed": 0.02,
+			"terrain": {
+				"forest": {
+					"taken": 0.65
+				},
+				"ruins": {
+					"taken": 0.65
+				}
+			},
+			"desc": "Exilados do caminho com rifles longos e mantos camaleônicos.",
+			"quotes": [
+				"Já vi seu destino.",
+				"Um tiro, uma alma.",
+				"As sombras são minhas."
+			]
+		},
+		{
+			"id": "howling_banshees",
+			"name": "Banshees Uivantes",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 190,
+			"upkeep": 13,
+			"power": 18,
+			"men": 5,
+			"portrait": "eldar/r1c0.png",
+			"icon": "eldar/r1c0.png",
+			"speed": 0.034,
+			"range": 0.03,
+			"vsInfantry": 1.2,
+			"desc": "O grito delas paralisa; as espadas terminam o trabalho.",
+			"quotes": [
+				"Ouçam nosso lamento!",
+				"A morte é rápida.",
+				"Silêncio, depois o grito."
+			]
+		},
+		{
+			"id": "striking_scorpions",
+			"name": "Escorpiões Golpeadores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 20,
+			"men": 5,
+			"portrait": "eldar/r1c1.png",
+			"icon": "eldar/r1c1.png",
+			"range": 0.03,
+			"terrain": {
+				"forest": {
+					"taken": 0.75,
+					"dmg": 1.15
+				},
+				"jungle": {
+					"taken": 0.75,
+					"dmg": 1.15
+				}
+			},
+			"desc": "Emboscadores das selvas, ferrão nas máscaras.",
+			"quotes": [
+				"O escorpião espera.",
+				"Da selva, a morte.",
+				"Ferrão pronto."
+			]
+		},
+		{
+			"id": "fire_dragons",
+			"name": "Dragões de Fogo",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 230,
+			"upkeep": 16,
+			"power": 22,
+			"men": 5,
+			"portrait": "eldar/r1c2.png",
+			"icon": "eldar/r1c2.png",
+			"range": 0.05,
+			"vsVehicle": 1.8,
+			"desc": "Armas de fusão: derretem qualquer blindado.",
+			"quotes": [
+				"Cinzas a cinzas.",
+				"O dragão desperta.",
+				"Nenhuma armadura resiste."
+			]
+		},
+		{
+			"id": "dark_reapers",
+			"name": "Ceifadores Sombrios",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 240,
+			"upkeep": 16,
+			"power": 22,
+			"men": 5,
+			"portrait": "eldar/r1c3.png",
+			"icon": "eldar/r1c3.png",
+			"range": 0.17,
+			"speed": 0.016,
+			"desc": "Lança-mísseis precisos: ceifam de longe.",
+			"quotes": [
+				"A morte tem muitos nomes.",
+				"Ceifamos.",
+				"Alvos à vista."
+			]
+		},
+		{
+			"id": "swooping_hawks",
+			"name": "Falcões Mergulhadores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 16,
+			"men": 5,
+			"portrait": "eldar/r2c0.png",
+			"icon": "eldar/r2c0.png",
+			"speed": 0.045,
+			"allTerrain": true,
+			"desc": "Asas e granadas: caem de qualquer lugar.",
+			"quotes": [
+				"Do céu!",
+				"As asas nos levam.",
+				"Mergulho!"
+			]
+		},
+		{
+			"id": "warp_spiders",
+			"name": "Aranhas da Disformidade",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 220,
+			"upkeep": 15,
+			"power": 20,
+			"men": 5,
+			"portrait": "eldar/r2c1.png",
+			"icon": "eldar/r2c1.png",
+			"speed": 0.045,
+			"range": 0.07,
+			"allTerrain": true,
+			"desc": "Saltam curtas distâncias pela disformidade.",
+			"quotes": [
+				"Salto.",
+				"Estamos em toda parte.",
+				"A teia nos guarda."
+			]
+		},
+		{
+			"id": "wraithguard",
+			"name": "Guarda Espectral",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 34,
+			"men": 3,
+			"portrait": "eldar/r3c1.png",
+			"icon": "eldar/r3c1.png",
+			"armor": 1.6,
+			"speed": 0.014,
+			"needsHive": true,
+			"desc": "Construtos de osso-espectral animados por almas.",
+			"quotes": [
+				"(eco das almas)",
+				"Nós lembramos.",
+				"Os mortos guardam os vivos."
+			]
+		},
+		{
+			"id": "jetbikes",
+			"name": "Jetbikes",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 220,
+			"upkeep": 15,
+			"power": 18,
+			"men": 3,
+			"portrait": "eldar/r3c2.png",
+			"icon": "eldar/r3c2.png",
+			"speed": 0.06,
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			},
+			"desc": "Motos antigravitacionais velozes.",
+			"quotes": [
+				"Mais rápido que o pensamento.",
+				"Ventos de Ulthwé!",
+				"Ataque e sumiço."
+			]
+		},
+		{
+			"id": "falcon",
+			"name": "Falcão",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 34,
+			"men": 1,
+			"portrait": "eldar/r3c3.png",
+			"icon": "eldar/r3c3.png",
+			"range": 0.15,
+			"speed": 0.04,
+			"needsHive": true,
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			},
+			"desc": "Tanque antigravitacional gracioso e mortal.",
+			"quotes": [
+				"Graça e fúria.",
+				"Canhões de pulso prontos.",
+				"Flutuando sobre a ruína."
+			]
+		}
+	],
+	"necrons": [
+		{
+			"id": "necron_warriors",
+			"name": "Guerreiros Necrons",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 120,
+			"upkeep": 8,
+			"power": 12,
+			"men": 10,
+			"portrait": "necrons/r0c0.png",
+			"icon": "necrons/r0c0.png",
+			"armor": 1.2,
+			"desc": "Legiões de metal vivo com esfoladores gauss. Levantam-se de novo.",
+			"quotes": [
+				"(estalos metálicos)",
+				"...protocolos ativos...",
+				"Obedecemos."
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "immortals",
+			"name": "Imortais",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 240,
+			"upkeep": 16,
+			"power": 22,
+			"men": 5,
+			"portrait": "necrons/r0c1.png",
+			"icon": "necrons/r0c1.png",
+			"armor": 1.4,
+			"desc": "Veteranos de elite das dinastias.",
+			"quotes": [
+				"Somos eternos.",
+				"A galáxia é nossa por direito.",
+				"Ordens recebidas."
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "deathmarks",
+			"name": "Marcadores da Morte",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 16,
+			"men": 5,
+			"portrait": "necrons/r0c2.png",
+			"icon": "necrons/r0c2.png",
+			"range": 0.22,
+			"speed": 0.018,
+			"desc": "Assassinos que caçam de dimensões paralelas.",
+			"quotes": [
+				"Alvo marcado.",
+				"Caçamos entre dimensões.",
+				"Ninguém escapa."
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "flayed_ones",
+			"name": "Esfolados",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 170,
+			"upkeep": 11,
+			"power": 18,
+			"men": 6,
+			"portrait": "necrons/r0c3.png",
+			"icon": "necrons/r0c3.png",
+			"speed": 0.028,
+			"range": 0.03,
+			"terrain": {
+				"ruins": {
+					"dmg": 1.2
+				},
+				"hive": {
+					"dmg": 1.2
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			},
+			"desc": "Necrons amaldiçoados que vestem a pele das vítimas.",
+			"quotes": [
+				"(raspar de garras)",
+				"...carne...",
+				"(sussurros loucos)"
+			]
+		},
+		{
+			"id": "lychguard",
+			"name": "Guarda-Lych",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 340,
+			"upkeep": 22,
+			"power": 30,
+			"men": 5,
+			"portrait": "necrons/r1c0.png",
+			"icon": "necrons/r1c0.png",
+			"armor": 1.6,
+			"needsHive": true,
+			"desc": "Guarda pessoal dos nobres, com escudos dispersores.",
+			"quotes": [
+				"Protegemos o Senhor.",
+				"Nenhum passo.",
+				"Lealdade eterna."
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "praetorians",
+			"name": "Pretorianos Triarcas",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 320,
+			"upkeep": 22,
+			"power": 26,
+			"men": 5,
+			"portrait": "necrons/r1c1.png",
+			"icon": "necrons/r1c1.png",
+			"allTerrain": true,
+			"speed": 0.032,
+			"armor": 1.3,
+			"desc": "Juízes antigos que voam com motores antigravitacionais.",
+			"quotes": [
+				"As leis antigas valem.",
+				"Julgamento.",
+				"Desonrados morrerão."
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "scarabs",
+			"name": "Enxame de Escaravelhos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 100,
+			"upkeep": 7,
+			"power": 10,
+			"men": 12,
+			"portrait": "necrons/r2c0.png",
+			"icon": "necrons/r2c0.png",
+			"speed": 0.035,
+			"range": 0.02,
+			"vsVehicle": 1.3,
+			"desc": "Construtos que devoram matéria — e blindagem.",
+			"quotes": [
+				"(zumbido metálico)",
+				"(enxame)",
+				"(estalidos)"
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "canoptek_wraiths",
+			"name": "Espectros Canoptek",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 320,
+			"upkeep": 22,
+			"power": 26,
+			"men": 3,
+			"portrait": "necrons/r2c1.png",
+			"icon": "necrons/r2c1.png",
+			"speed": 0.04,
+			"range": 0.03,
+			"allTerrain": true,
+			"desc": "Construtos que atravessam paredes.",
+			"quotes": [
+				"(fase)",
+				"(atravessando)",
+				"(garras)"
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "skorpekh",
+			"name": "Destruidores Skorpekh",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 340,
+			"upkeep": 22,
+			"power": 30,
+			"men": 3,
+			"portrait": "necrons/r2c3.png",
+			"icon": "necrons/r2c3.png",
+			"speed": 0.03,
+			"range": 0.03,
+			"armor": 1.3,
+			"desc": "Niilistas com lâminas hiperfásicas.",
+			"quotes": [
+				"Exterminar.",
+				"Toda vida acabará.",
+				"Lâminas famintas."
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "spyder",
+			"name": "Aranha Canoptek",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 24,
+			"men": 1,
+			"portrait": "necrons/r2c2.png",
+			"icon": "necrons/r2c2.png",
+			"desc": "Construto que repara a legião e solta escaravelhos.",
+			"quotes": [
+				"(reparo em andamento)",
+				"(zumbido)",
+				"(escaravelhos liberados)"
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "destroyers",
+			"name": "Destruidores",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 340,
+			"upkeep": 22,
+			"power": 28,
+			"men": 3,
+			"portrait": "necrons/r3c0.png",
+			"icon": "necrons/r3c0.png",
+			"range": 0.16,
+			"speed": 0.035,
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			},
+			"desc": "Necrons fundidos a plataformas flutuantes de canhões.",
+			"quotes": [
+				"Purgar a vida.",
+				"Disparo.",
+				"Nenhum sobrevivente."
+			]
+		},
+		{
+			"id": "doomsday_ark",
+			"name": "Arca do Juízo Final",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 480,
+			"upkeep": 32,
+			"power": 44,
+			"men": 1,
+			"portrait": "necrons/r3c2.png",
+			"icon": "necrons/r3c2.png",
+			"range": 0.26,
+			"speed": 0.02,
+			"needsHive": true,
+			"desc": "Barca com canhão do juízo final.",
+			"quotes": [
+				"Carregando o juízo.",
+				"Fim.",
+				"Disparo apocalíptico."
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		},
+		{
+			"id": "monolith",
+			"name": "Monólito",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 1100,
+			"upkeep": 70,
+			"power": 80,
+			"men": 1,
+			"portrait": "necrons/r3c3.png",
+			"icon": "necrons/r3c3.png",
+			"armor": 1.6,
+			"speed": 0.01,
+			"range": 0.16,
+			"requires": [
+				"hive",
+				"unique"
+			],
+			"desc": "Pirâmide flutuante e portal da eternidade.",
+			"quotes": [
+				"(o portal se abre)",
+				"A eternidade chegou.",
+				"(ressonância)"
+			],
+			"terrain": {
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			}
+		}
+	],
+	"tau": [
+		{
+			"id": "fire_warriors",
+			"name": "Guerreiros de Fogo",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 120,
+			"upkeep": 8,
+			"power": 12,
+			"men": 8,
+			"portrait": "tau/r0c0.png",
+			"icon": "tau/r0c0.png",
+			"range": 0.14,
+			"armor": 0.9,
+			"desc": "Rifles de pulso de longo alcance: fogo constante.",
+			"quotes": [
+				"Pelo Bem Maior!",
+				"Fogo de pulso pronto.",
+				"Mantenham a distância."
+			]
+		},
+		{
+			"id": "breachers",
+			"name": "Equipe de Rompedores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 130,
+			"upkeep": 9,
+			"power": 14,
+			"men": 8,
+			"portrait": "tau/r0c1.png",
+			"icon": "tau/r0c1.png",
+			"range": 0.06,
+			"desc": "Carabinas de pulso para combate a curta distância.",
+			"quotes": [
+				"Rompendo.",
+				"Curta distância, alto impacto.",
+				"Avancem com cautela."
+			]
+		},
+		{
+			"id": "pathfinders",
+			"name": "Batedores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 120,
+			"upkeep": 8,
+			"power": 10,
+			"men": 6,
+			"portrait": "tau/r0c2.png",
+			"icon": "tau/r0c2.png",
+			"range": 0.16,
+			"terrain": {
+				"forest": {
+					"taken": 0.75
+				},
+				"ruins": {
+					"taken": 0.75
+				}
+			},
+			"desc": "Marcadores laser: guiam o fogo do resto do exército.",
+			"quotes": [
+				"Alvo marcado.",
+				"Batedores em posição.",
+				"Vemos tudo."
+			]
+		},
+		{
+			"id": "kroot",
+			"name": "Kroot",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 80,
+			"upkeep": 6,
+			"power": 10,
+			"men": 10,
+			"portrait": "tau/r0c3.png",
+			"icon": "tau/r0c3.png",
+			"range": 0.05,
+			"terrain": {
+				"jungle": {
+					"dmg": 1.2,
+					"taken": 0.75
+				},
+				"forest": {
+					"dmg": 1.2,
+					"taken": 0.75
+				}
+			},
+			"desc": "Mercenários caçadores, mestres da selva.",
+			"quotes": [
+				"A caça começa.",
+				"Carne fresca.",
+				"Os Kroot seguem a trilha."
+			]
+		},
+		{
+			"id": "vespid",
+			"name": "Vespídeos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 130,
+			"upkeep": 9,
+			"power": 12,
+			"men": 6,
+			"portrait": "tau/r1c0.png",
+			"icon": "tau/r1c0.png",
+			"speed": 0.042,
+			"allTerrain": true,
+			"desc": "Insetoides alados com armas de neutrões.",
+			"quotes": [
+				"(zumbido)",
+				"A colmeia serve ao Bem Maior.",
+				"Voar e atacar."
+			]
+		},
+		{
+			"id": "drones",
+			"name": "Esquadrilha de Drones",
+			"group": "guard",
+			"category": "air",
+			"cost": 70,
+			"upkeep": 5,
+			"power": 8,
+			"men": 6,
+			"portrait": "tau/r1c3.png",
+			"icon": "tau/r1c3.png",
+			"desc": "Drones de combate autônomos.",
+			"quotes": [
+				"(bip)",
+				"Protocolo de combate.",
+				"(zumbido)"
+			]
+		},
+		{
+			"id": "stealth_suits",
+			"name": "Trajes Furtivos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 220,
+			"upkeep": 15,
+			"power": 18,
+			"men": 3,
+			"portrait": "tau/r2c0.png",
+			"icon": "tau/r2c0.png",
+			"allTerrain": true,
+			"terrain": {
+				"ruins": {
+					"taken": 0.7
+				},
+				"forest": {
+					"taken": 0.7
+				}
+			},
+			"desc": "Trajes com camuflagem: atacam sem ser vistos.",
+			"quotes": [
+				"Invisíveis.",
+				"Atacamos das sombras.",
+				"Ninguém nos viu."
+			]
+		},
+		{
+			"id": "crisis_suits",
+			"name": "Trajes de Batalha Crisis",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 300,
+			"upkeep": 20,
+			"power": 26,
+			"men": 3,
+			"portrait": "tau/r2c1.png",
+			"icon": "tau/r2c1.png",
+			"armor": 1.3,
+			"allTerrain": true,
+			"speed": 0.03,
+			"range": 0.1,
+			"desc": "Armaduras saltadoras com armas pesadas: a elite.",
+			"quotes": [
+				"Propulsores prontos.",
+				"Mont'ka: o golpe mortal.",
+				"Pelo Bem Maior."
+			]
+		},
+		{
+			"id": "broadsides",
+			"name": "Trajes Broadside",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 30,
+			"men": 3,
+			"portrait": "tau/r2c2.png",
+			"icon": "tau/r2c2.png",
+			"range": 0.2,
+			"speed": 0.014,
+			"armor": 1.4,
+			"vsVehicle": 1.4,
+			"needsHive": true,
+			"desc": "Canhões ferroviários: destroem tanques de longe.",
+			"quotes": [
+				"Canhões ferroviários carregados.",
+				"Alvo blindado à vista.",
+				"Firmes."
+			]
+		},
+		{
+			"id": "riptide",
+			"name": "Riptide",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 600,
+			"upkeep": 40,
+			"power": 52,
+			"men": 1,
+			"portrait": "tau/r2c3.png",
+			"icon": "tau/r2c3.png",
+			"armor": 1.3,
+			"needsHive": true,
+			"desc": "Traje gigante com canhão de íons e reator nova.",
+			"quotes": [
+				"Reator nova pronto.",
+				"Riptide em campo.",
+				"Sobrecarga autorizada."
+			]
+		},
+		{
+			"id": "piranha",
+			"name": "Piranha",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 180,
+			"upkeep": 12,
+			"power": 16,
+			"men": 1,
+			"portrait": "tau/r3c0.png",
+			"icon": "tau/r3c0.png",
+			"speed": 0.055,
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			},
+			"desc": "Skimmer leve e veloz.",
+			"quotes": [
+				"Velocidade máxima.",
+				"Ataque rápido.",
+				"Já estamos longe."
+			]
+		},
+		{
+			"id": "devilfish",
+			"name": "Devilfish",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 220,
+			"upkeep": 15,
+			"power": 22,
+			"men": 1,
+			"portrait": "tau/r3c1.png",
+			"icon": "tau/r3c1.png",
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			},
+			"desc": "Transporte antigravitacional.",
+			"quotes": [
+				"Embarquem.",
+				"Flutuando para a linha.",
+				"Blindagem pronta."
+			]
+		},
+		{
+			"id": "hammerhead",
+			"name": "Hammerhead",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 400,
+			"upkeep": 27,
+			"power": 38,
+			"men": 1,
+			"portrait": "tau/r3c2.png",
+			"icon": "tau/r3c2.png",
+			"range": 0.2,
+			"vsVehicle": 1.4,
+			"needsHive": true,
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			},
+			"desc": "Tanque antigravitacional com canhão ferroviário.",
+			"quotes": [
+				"Canhão ferroviário pronto.",
+				"Nenhum tanque resiste.",
+				"Alvo destruído."
+			]
+		},
+		{
+			"id": "sky_ray",
+			"name": "Sky Ray",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 30,
+			"men": 1,
+			"portrait": "tau/r3c3.png",
+			"icon": "tau/r3c3.png",
+			"range": 0.22,
+			"needsHive": true,
+			"vsAir": 1.5,
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			},
+			"desc": "Lançador de mísseis buscadores guiados.",
+			"quotes": [
+				"Mísseis buscadores armados.",
+				"Céu limpo.",
+				"Disparo guiado."
+			]
+		}
+	],
+	"world_eaters": [
+		{
+			"id": "we_jakhals",
+			"name": "Jakhals",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 50,
+			"upkeep": 3,
+			"power": 7,
+			"men": 10,
+			"portrait": "khorne/r0c0.png",
+			"icon": "khorne/r0c0.png",
+			"range": 0.03,
+			"speed": 0.032,
+			"armor": 0.8,
+			"desc": "Escravos e cultistas que correm à frente dos Berzerkers, com cutelos e serras.",
+			"quotes": [
+				"Sangue! Sangue!",
+				"Crânios para o Trono!",
+				"Corram, matem, morram!"
+			]
+		},
+		{
+			"id": "we_berzerkers",
+			"name": "Berzerkers de Khorne",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 280,
+			"upkeep": 20,
+			"power": 28,
+			"men": 5,
+			"portrait": "khorne/r0c1.png",
+			"icon": "khorne/r0c1.png",
+			"range": 0.03,
+			"speed": 0.034,
+			"armor": 1.25,
+			"vsInfantry": 1.2,
+			"desc": "Os Pregos do Açougueiro queimam o que restou da mente: só existe a matança.",
+			"quotes": [
+				"SANGUE PARA O DEUS DO SANGUE!",
+				"Crânios! Mais crânios!",
+				"Matar... matar... MATAR!"
+			]
+		},
+		{
+			"id": "we_eightbound",
+			"name": "Oito-Vinculados",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 34,
+			"men": 3,
+			"portrait": "khorne/r0c2.png",
+			"icon": "khorne/r0c2.png",
+			"range": 0.03,
+			"speed": 0.038,
+			"armor": 1.4,
+			"desc": "Marines que aceitaram demônios de Khorne na carne. Garras-serra e fúria sem fim.",
+			"quotes": [
+				"(rugido de demônio)",
+				"A fome não acaba.",
+				"Rasgar!"
+			]
+		},
+		{
+			"id": "we_exalted",
+			"name": "Oito-Vinculados Exaltados",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 460,
+			"upkeep": 30,
+			"power": 40,
+			"men": 3,
+			"portrait": "khorne/r0c3.png",
+			"icon": "khorne/r0c3.png",
+			"range": 0.03,
+			"speed": 0.036,
+			"armor": 1.5,
+			"needsHive": true,
+			"desc": "Os mais antigos possuídos, quase demônios por inteiro.",
+			"quotes": [
+				"Khorne nos olha.",
+				"(risos borbulhantes)",
+				"Tudo será sangue."
+			]
+		},
+		{
+			"id": "we_terminators",
+			"name": "Exterminadores de Khorne",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 540,
+			"upkeep": 36,
+			"power": 42,
+			"men": 5,
+			"portrait": "khorne/r1c3.png",
+			"icon": "khorne/r1c3.png",
+			"range": 0.04,
+			"speed": 0.016,
+			"armor": 1.7,
+			"needsHive": true,
+			"desc": "Armadura Tática Dreadnought coberta de crânios e correntes.",
+			"quotes": [
+				"Teleporte! Ao massacre!",
+				"Nada nos para.",
+				"O Trono de Crânios espera."
+			]
+		},
+		{
+			"id": "we_bloodletters",
+			"name": "Sanguinários (Bloodletters)",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 26,
+			"men": 6,
+			"portrait": "khorne/r2c0.png",
+			"icon": "khorne/r2c0.png",
+			"range": 0.03,
+			"speed": 0.036,
+			"vsInfantry": 1.2,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			},
+			"desc": "Demônios menores de Khorne, com lâminas infernais.",
+			"quotes": [
+				"(sibilo de lâmina)",
+				"Sangue...",
+				"Pelo Deus do Sangue!"
+			]
+		},
+		{
+			"id": "we_bloodcrushers",
+			"name": "Esmagadores de Sangue",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 420,
+			"upkeep": 28,
+			"power": 40,
+			"men": 3,
+			"portrait": "khorne/r2c1.png",
+			"icon": "khorne/r2c1.png",
+			"range": 0.03,
+			"speed": 0.04,
+			"armor": 1.1,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			},
+			"desc": "Sanguinários montados em Juggernauts de bronze e carne.",
+			"quotes": [
+				"(trovão de cascos)",
+				"Atropelar!",
+				"Esmagar os fracos!"
+			]
+		},
+		{
+			"id": "we_flesh_hounds",
+			"name": "Cães de Carne",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 18,
+			"men": 5,
+			"portrait": "khorne/r2c2.png",
+			"icon": "khorne/r2c2.png",
+			"range": 0.03,
+			"speed": 0.055,
+			"allTerrain": true,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			},
+			"desc": "Matilha demoníaca que caça psíquicos e covardes.",
+			"quotes": [
+				"(uivos)",
+				"...o cheiro do medo...",
+				"(rosnado)"
+			]
+		},
+		{
+			"id": "we_skull_cannon",
+			"name": "Canhão de Crânios",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 320,
+			"upkeep": 22,
+			"power": 30,
+			"men": 1,
+			"portrait": "khorne/r2c3.png",
+			"icon": "khorne/r2c3.png",
+			"range": 0.18,
+			"speed": 0.022,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			},
+			"desc": "Carro de guerra demoníaco que dispara crânios em chamas.",
+			"quotes": [
+				"Fogo de crânios!",
+				"Mais munição... das cabeças deles.",
+				"Khorne aprova."
+			]
+		},
+		{
+			"id": "we_rhino",
+			"name": "Rhino dos Devoradores",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 20,
+			"men": 1,
+			"portrait": "khorne/r3c0.png",
+			"icon": "khorne/r3c0.png",
+			"desc": "Transporte cheio de espinhos que leva os Berzerkers à matança.",
+			"quotes": [
+				"Motores rugindo!",
+				"Abram as portas: hora de matar!",
+				"Mais rápido!"
+			]
+		},
+		{
+			"id": "we_helbrute",
+			"name": "Helbrute",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 36,
+			"men": 1,
+			"portrait": "khorne/r3c1.png",
+			"icon": "khorne/r3c1.png",
+			"range": 0.05,
+			"armor": 1.2,
+			"needsHive": true,
+			"desc": "Um marine enlouquecido preso num sarcófago de guerra.",
+			"quotes": [
+				"(gritos de dentro do metal)",
+				"SOLTEM-ME!",
+				"Esmagar... tudo..."
+			]
+		},
+		{
+			"id": "we_forgefiend",
+			"name": "Demônio-Forja",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 460,
+			"upkeep": 30,
+			"power": 44,
+			"men": 1,
+			"portrait": "khorne/r3c2.png",
+			"icon": "khorne/r3c2.png",
+			"range": 0.16,
+			"speed": 0.02,
+			"vsVehicle": 1.25,
+			"needsHive": true,
+			"desc": "Máquina-demônio com canhões ectoplásmicos e autocanhões.",
+			"quotes": [
+				"(metal rangendo)",
+				"Fogo... fome...",
+				"Disparar!"
+			]
+		},
+		{
+			"id": "we_maulerfiend",
+			"name": "Demônio-Triturador",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 440,
+			"upkeep": 30,
+			"power": 42,
+			"men": 1,
+			"portrait": "khorne/r3c3.png",
+			"icon": "khorne/r3c3.png",
+			"range": 0.03,
+			"speed": 0.034,
+			"vsVehicle": 1.4,
+			"armor": 1.2,
+			"needsHive": true,
+			"desc": "Máquina-demônio de assalto com garras-cortadoras.",
+			"quotes": [
+				"(rugido metálico)",
+				"Rasgar a blindagem!",
+				"Caçar!"
+			]
+		}
+	],
+	"death_guard": [
+		{
+			"id": "dg_poxwalkers",
+			"name": "Andarilhos da Peste",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 40,
+			"upkeep": 2,
+			"power": 6,
+			"men": 12,
+			"portrait": "nurgle/r0c0.png",
+			"icon": "nurgle/r0c0.png",
+			"range": 0.03,
+			"speed": 0.015,
+			"armor": 1.0,
+			"desc": "Vítimas da Praga Andarilha. Lentos e incansáveis.",
+			"quotes": [
+				"(gemido)",
+				"...vovô... ama...",
+				"(arrastar de pés)"
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_plague_marines",
+			"name": "Marines da Peste",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 320,
+			"upkeep": 22,
+			"power": 26,
+			"men": 5,
+			"portrait": "nurgle/r0c1.png",
+			"icon": "nurgle/r0c1.png",
+			"range": 0.06,
+			"speed": 0.017,
+			"armor": 1.55,
+			"desc": "Inchados de doença, quase impossíveis de derrubar.",
+			"quotes": [
+				"Pelos presentes do Avô!",
+				"Não sentimos dor.",
+				"A podridão é eterna."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_blight_launchers",
+			"name": "Marines da Peste com Lança-Pragas",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 340,
+			"upkeep": 24,
+			"power": 26,
+			"men": 5,
+			"portrait": "nurgle/r0c2.png",
+			"icon": "nurgle/r0c2.png",
+			"range": 0.12,
+			"speed": 0.016,
+			"armor": 1.5,
+			"vsInfantry": 1.15,
+			"desc": "Disparam granadas de praga que corroem carne e blindagem.",
+			"quotes": [
+				"Cartuchos de praga!",
+				"Deixem apodrecer.",
+				"Abençoem-nos com a ferrugem."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_blightlords",
+			"name": "Exterminadores Blightlord",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 560,
+			"upkeep": 38,
+			"power": 40,
+			"men": 5,
+			"portrait": "nurgle/r1c0.png",
+			"icon": "nurgle/r1c0.png",
+			"range": 0.06,
+			"speed": 0.014,
+			"armor": 1.85,
+			"needsHive": true,
+			"desc": "Os primeiros da legião, fundidos à armadura Tática Dreadnought.",
+			"quotes": [
+				"O Avô nos guarda.",
+				"Avancem devagar. Sempre.",
+				"Nada nos derruba."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_deathshroud",
+			"name": "Exterminadores Mortalha",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 600,
+			"upkeep": 40,
+			"power": 44,
+			"men": 3,
+			"portrait": "nurgle/r1c1.png",
+			"icon": "nurgle/r1c1.png",
+			"range": 0.035,
+			"speed": 0.015,
+			"armor": 1.85,
+			"vsInfantry": 1.2,
+			"requires": [
+				"hive"
+			],
+			"desc": "Guarda silenciosa de Mortarion, com foices-de-manifestação.",
+			"quotes": [
+				"...",
+				"(respiração úmida)",
+				"A colheita chegou."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_tallyman",
+			"name": "Contador",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 160,
+			"upkeep": 10,
+			"power": 12,
+			"men": 1,
+			"portrait": "nurgle/r2c0.png",
+			"icon": "nurgle/r2c0.png",
+			"range": 0.08,
+			"speed": 0.016,
+			"armor": 1.4,
+			"desc": "Conta as bênçãos de Nurgle e dá ritmo à marcha da legião.",
+			"quotes": [
+				"Sete... sete... sete.",
+				"A conta está certa.",
+				"Mais uma bênção registrada."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_blightspawn",
+			"name": "Prole Fétida",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 16,
+			"men": 1,
+			"portrait": "nurgle/r2c1.png",
+			"icon": "nurgle/r2c1.png",
+			"range": 0.04,
+			"speed": 0.016,
+			"armor": 1.4,
+			"vsInfantry": 1.4,
+			"desc": "Lança-pragas que borrifa ácido por trincheiras e ruínas.",
+			"quotes": [
+				"Respirem fundo!",
+				"O hálito do Avô.",
+				"(borbulhar)"
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_putrifier",
+			"name": "Biologus Putrificador",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 16,
+			"men": 1,
+			"portrait": "nurgle/r2c2.png",
+			"icon": "nurgle/r2c2.png",
+			"range": 0.09,
+			"speed": 0.016,
+			"armor": 1.4,
+			"vsInfantry": 1.25,
+			"desc": "Mestre das granadas de doença. Pequenas, mas que presentes!",
+			"quotes": [
+				"Novas cepas, novos presentes.",
+				"Uma pitada de praga.",
+				"Estudem o resultado."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_blightbringer",
+			"name": "Portador da Peste",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 180,
+			"upkeep": 12,
+			"power": 14,
+			"men": 1,
+			"portrait": "nurgle/r2c3.png",
+			"icon": "nurgle/r2c3.png",
+			"range": 0.05,
+			"speed": 0.018,
+			"armor": 1.5,
+			"desc": "O sino de Nurgle derruba o moral dos inimigos.",
+			"quotes": [
+				"(o sino toca)",
+				"Ouçam o chamado!",
+				"Todos virão ao jardim."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_rhino",
+			"name": "Rhino da Guarda da Morte",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 210,
+			"upkeep": 14,
+			"power": 20,
+			"men": 1,
+			"portrait": "nurgle/r3c0.png",
+			"icon": "nurgle/r3c0.png",
+			"armor": 1.1,
+			"desc": "Transporte enferrujado e coberto de moscas.",
+			"quotes": [
+				"Motor engasgando... mas vai.",
+				"Todos a bordo.",
+				"Avançar."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_blight_hauler",
+			"name": "Blight-hauler Mifítico",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 32,
+			"men": 1,
+			"portrait": "nurgle/r3c1.png",
+			"icon": "nurgle/r3c1.png",
+			"range": 0.11,
+			"speed": 0.022,
+			"vsVehicle": 1.3,
+			"armor": 1.2,
+			"needsHive": true,
+			"desc": "Motor-demônio aracnídeo com canhão de fusão e lança-bílis.",
+			"quotes": [
+				"(zumbido)",
+				"Derreter a blindagem.",
+				"Fome de metal."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_bloat_drone",
+			"name": "Drone Fétido",
+			"group": "guard",
+			"category": "air",
+			"cost": 300,
+			"upkeep": 20,
+			"power": 26,
+			"men": 1,
+			"portrait": "nurgle/r3c2.png",
+			"icon": "nurgle/r3c2.png",
+			"vsInfantry": 1.25,
+			"desc": "Motor-demônio voador que espalha gás pestilento.",
+			"quotes": [
+				"(zumbido de moscas)",
+				"Do céu, a peste.",
+				"Respirem!"
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		},
+		{
+			"id": "dg_plagueburst",
+			"name": "Rastejador Plagueburst",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 480,
+			"upkeep": 32,
+			"power": 46,
+			"men": 1,
+			"portrait": "nurgle/r3c3.png",
+			"icon": "nurgle/r3c3.png",
+			"range": 0.24,
+			"speed": 0.014,
+			"armor": 1.4,
+			"needsHive": true,
+			"desc": "Morteiro de praga sobre lagartas. Artilharia lenta e inabalável.",
+			"quotes": [
+				"Morteiro pronto.",
+				"Que chovam bênçãos.",
+				"Mais longe... mais podre."
+			],
+			"terrain": {
+				"mire": {
+					"taken": 0.8,
+					"speed": 1.3
+				}
+			}
+		}
+	],
+	"thousand_sons": [
+		{
+			"id": "ts_cultists",
+			"name": "Cultistas de Tzeentch",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 45,
+			"upkeep": 3,
+			"power": 6,
+			"men": 12,
+			"portrait": "tzeentch/r0c0.png",
+			"icon": "tzeentch/r0c0.png",
+			"range": 0.07,
+			"armor": 0.8,
+			"desc": "Adoradores do Mudador de Caminhos, armados com fuzis velhos.",
+			"quotes": [
+				"Tudo muda!",
+				"O plano é perfeito.",
+				"Pelo Deus de Muitas Faces!"
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		},
+		{
+			"id": "ts_tzaangors",
+			"name": "Tzaangors",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 140,
+			"upkeep": 9,
+			"power": 14,
+			"men": 8,
+			"portrait": "tzeentch/r0c1.png",
+			"icon": "tzeentch/r0c1.png",
+			"range": 0.03,
+			"speed": 0.034,
+			"desc": "Homens-fera de Tzeentch, ágeis e cruéis.",
+			"quotes": [
+				"(balido estridente)",
+				"Pelos feiticeiros!",
+				"Lâminas prontas."
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		},
+		{
+			"id": "ts_rubrics",
+			"name": "Marines Rubricae",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 340,
+			"upkeep": 24,
+			"power": 26,
+			"men": 5,
+			"portrait": "tzeentch/r0c2.png",
+			"icon": "tzeentch/r0c2.png",
+			"range": 0.11,
+			"speed": 0.016,
+			"armor": 1.55,
+			"vsInfantry": 1.1,
+			"desc": "Pó animado em armaduras seladas. Disparam bolters de fogo-infernal.",
+			"quotes": [
+				"...",
+				"(eco metálico)",
+				"Obedecemos."
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		},
+		{
+			"id": "ts_warpflamers",
+			"name": "Rubricae com Chama Disforme",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 340,
+			"upkeep": 24,
+			"power": 26,
+			"men": 5,
+			"portrait": "tzeentch/r0c3.png",
+			"icon": "tzeentch/r0c3.png",
+			"range": 0.045,
+			"speed": 0.016,
+			"armor": 1.55,
+			"vsInfantry": 1.35,
+			"desc": "Chamas que queimam a alma, não só o corpo.",
+			"quotes": [
+				"...",
+				"(fogo azul)",
+				"Arder."
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		},
+		{
+			"id": "ts_scarab_occult",
+			"name": "Exterminadores Escaravelho Oculto",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 580,
+			"upkeep": 38,
+			"power": 42,
+			"men": 5,
+			"portrait": "tzeentch/r1c1.png",
+			"icon": "tzeentch/r1c1.png",
+			"range": 0.11,
+			"speed": 0.015,
+			"armor": 1.8,
+			"needsHive": true,
+			"desc": "A elite dos Rubricae em armadura Tática Dreadnought.",
+			"quotes": [
+				"...",
+				"(o feitiço ressoa)",
+				"Guardamos o Rei Carmesim."
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		},
+		{
+			"id": "ts_shaman",
+			"name": "Xamã Tzaangor",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 220,
+			"upkeep": 14,
+			"power": 18,
+			"men": 1,
+			"portrait": "tzeentch/r2c0.png",
+			"icon": "tzeentch/r2c0.png",
+			"range": 0.14,
+			"speed": 0.04,
+			"allTerrain": true,
+			"desc": "Psíquico homem-fera sobre um disco de Tzeentch.",
+			"quotes": [
+				"Vejo os fios do destino.",
+				"(cântico)",
+				"Mudem!"
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		},
+		{
+			"id": "ts_enlightened",
+			"name": "Tzaangors Iluminados",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 240,
+			"upkeep": 16,
+			"power": 20,
+			"men": 3,
+			"portrait": "tzeentch/r2c1.png",
+			"icon": "tzeentch/r2c1.png",
+			"range": 0.12,
+			"speed": 0.05,
+			"allTerrain": true,
+			"desc": "Tzaangors sobre discos, com arcos de destino.",
+			"quotes": [
+				"O destino guia a flecha.",
+				"Do céu!",
+				"(guinchos)"
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		},
+		{
+			"id": "ts_horrors",
+			"name": "Horrores Rosados",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 220,
+			"upkeep": 14,
+			"power": 20,
+			"men": 8,
+			"portrait": "tzeentch/r2c2.png",
+			"icon": "tzeentch/r2c2.png",
+			"range": 0.1,
+			"speed": 0.022,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85,
+					"range": 1.1
+				}
+			},
+			"desc": "Demônios que riem e disparam fogo mutante.",
+			"quotes": [
+				"Hihihihi!",
+				"Muda, muda, muda!",
+				"(gargalhadas)"
+			]
+		},
+		{
+			"id": "ts_screamers",
+			"name": "Gritadores",
+			"group": "guard",
+			"category": "air",
+			"cost": 220,
+			"upkeep": 14,
+			"power": 18,
+			"men": 3,
+			"portrait": "tzeentch/r2c3.png",
+			"icon": "tzeentch/r2c3.png",
+			"vsVehicle": 1.3,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85,
+					"range": 1.1
+				}
+			},
+			"desc": "Arraias demoníacas que cortam blindados em voo rasante.",
+			"quotes": [
+				"(guincho)",
+				"...cortar...",
+				"(zumbido)"
+			]
+		},
+		{
+			"id": "ts_rhino",
+			"name": "Rhino dos Mil Filhos",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 210,
+			"upkeep": 14,
+			"power": 20,
+			"men": 1,
+			"portrait": "tzeentch/r3c0.png",
+			"icon": "tzeentch/r3c0.png",
+			"desc": "Transporte azul e ouro coberto de runas de Prospero.",
+			"quotes": [
+				"Para Prospero!",
+				"Embarquem, irmãos.",
+				"Avançar."
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		},
+		{
+			"id": "ts_helbrute",
+			"name": "Helbrute de Tzeentch",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 36,
+			"men": 1,
+			"portrait": "tzeentch/r3c1.png",
+			"icon": "tzeentch/r3c1.png",
+			"range": 0.08,
+			"armor": 1.2,
+			"needsHive": true,
+			"desc": "Sarcófago de guerra de um feiticeiro louco.",
+			"quotes": [
+				"(sussurros)",
+				"O que eu era...",
+				"MUDEM!"
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		},
+		{
+			"id": "ts_mutalith",
+			"name": "Besta-Vórtice Mutalith",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 480,
+			"upkeep": 32,
+			"power": 44,
+			"men": 1,
+			"portrait": "tzeentch/r3c2.png",
+			"icon": "tzeentch/r3c2.png",
+			"range": 0.1,
+			"speed": 0.022,
+			"armor": 1.2,
+			"needsHive": true,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85,
+					"range": 1.1
+				}
+			},
+			"desc": "Monstro de carne mutante com um vórtice de disformidade nas costas.",
+			"quotes": [
+				"(rugido de muitas bocas)",
+				"...mudar...",
+				"(o vórtice gira)"
+			]
+		},
+		{
+			"id": "ts_defiler",
+			"name": "Profanador de Tzeentch",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 480,
+			"upkeep": 32,
+			"power": 46,
+			"men": 1,
+			"portrait": "tzeentch/r3c3.png",
+			"icon": "tzeentch/r3c3.png",
+			"range": 0.2,
+			"needsHive": true,
+			"desc": "Máquina-demônio aracnídea com canhão de batalha.",
+			"quotes": [
+				"(o demônio ri)",
+				"Profanar.",
+				"O destino ordena."
+			],
+			"terrain": {
+				"warp": {
+					"range": 1.1
+				}
+			}
+		}
+	],
+	"emperors_children": [
+		{
+			"id": "ec_tormentors",
+			"name": "Atormentadores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 300,
+			"upkeep": 20,
+			"power": 26,
+			"men": 5,
+			"portrait": "slaanesh/r0c0.png",
+			"icon": "slaanesh/r0c0.png",
+			"range": 0.08,
+			"speed": 0.032,
+			"armor": 1.3,
+			"desc": "Duelistas com bolters, sempre em busca do tiro perfeito.",
+			"quotes": [
+				"Perfeição!",
+				"Mais rápido. Mais belo.",
+				"Sintam!"
+			]
+		},
+		{
+			"id": "ec_infractors",
+			"name": "Infratores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 300,
+			"upkeep": 20,
+			"power": 26,
+			"men": 5,
+			"portrait": "slaanesh/r0c1.png",
+			"icon": "slaanesh/r0c1.png",
+			"range": 0.03,
+			"speed": 0.038,
+			"armor": 1.25,
+			"vsInfantry": 1.15,
+			"desc": "Espadachins vaidosos, rápidos como o desejo.",
+			"quotes": [
+				"Uma dança!",
+				"Dor e prazer são um só.",
+				"Pela perfeição!"
+			]
+		},
+		{
+			"id": "ec_noise_marines",
+			"name": "Marines do Ruído",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 330,
+			"upkeep": 22,
+			"power": 26,
+			"men": 5,
+			"portrait": "slaanesh/r0c2.png",
+			"icon": "slaanesh/r0c2.png",
+			"range": 0.12,
+			"speed": 0.026,
+			"armor": 1.3,
+			"vsInfantry": 1.2,
+			"desc": "Armas sônicas que despedaçam corpos com notas impossíveis.",
+			"quotes": [
+				"(acorde estridente)",
+				"Ouçam a sinfonia!",
+				"Mais alto!"
+			]
+		},
+		{
+			"id": "ec_blastmaster",
+			"name": "Marines do Ruído com Blastmaster",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 28,
+			"men": 5,
+			"portrait": "slaanesh/r0c3.png",
+			"icon": "slaanesh/r0c3.png",
+			"range": 0.16,
+			"speed": 0.022,
+			"armor": 1.3,
+			"vsVehicle": 1.25,
+			"desc": "Ondas de choque sônico que racham blindados.",
+			"quotes": [
+				"(nota grave)",
+				"O crescendo final!",
+				"Que tudo vibre!"
+			]
+		},
+		{
+			"id": "ec_terminators",
+			"name": "Exterminadores de Slaanesh",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 540,
+			"upkeep": 36,
+			"power": 42,
+			"men": 5,
+			"portrait": "slaanesh/r1c3.png",
+			"icon": "slaanesh/r1c3.png",
+			"range": 0.06,
+			"speed": 0.017,
+			"armor": 1.7,
+			"needsHive": true,
+			"desc": "Veteranos excessivos em armadura Tática Dreadnought.",
+			"quotes": [
+				"Excesso!",
+				"Ninguém nos toca.",
+				"Gloriosos!"
+			]
+		},
+		{
+			"id": "ec_daemonettes",
+			"name": "Demonetes",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 220,
+			"upkeep": 14,
+			"power": 20,
+			"men": 6,
+			"portrait": "slaanesh/r2c0.png",
+			"icon": "slaanesh/r2c0.png",
+			"range": 0.03,
+			"speed": 0.048,
+			"vsInfantry": 1.2,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			},
+			"desc": "Demônios graciosos de garras afiadas.",
+			"quotes": [
+				"(risos)",
+				"Venha brincar.",
+				"Que doce sofrimento."
+			]
+		},
+		{
+			"id": "ec_seekers",
+			"name": "Buscadoras",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 22,
+			"men": 5,
+			"portrait": "slaanesh/r2c1.png",
+			"icon": "slaanesh/r2c1.png",
+			"range": 0.03,
+			"speed": 0.065,
+			"allTerrain": true,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			},
+			"desc": "Demonetes montadas em corcéis de Slaanesh, as mais rápidas do Caos.",
+			"quotes": [
+				"(galope)",
+				"Mais rápido!",
+				"Alcançamos todos."
+			]
+		},
+		{
+			"id": "ec_fiends",
+			"name": "Demônios de Slaanesh",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 32,
+			"men": 3,
+			"portrait": "slaanesh/r2c2.png",
+			"icon": "slaanesh/r2c2.png",
+			"range": 0.03,
+			"speed": 0.045,
+			"armor": 1.1,
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			},
+			"desc": "Bestas-escorpião que entorpecem as vítimas.",
+			"quotes": [
+				"(silvo hipnótico)",
+				"...doce...",
+				"(garras)"
+			]
+		},
+		{
+			"id": "ec_keeper",
+			"name": "Guardiã dos Segredos",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 900,
+			"upkeep": 60,
+			"power": 70,
+			"men": 1,
+			"portrait": "slaanesh/r2c3.png",
+			"icon": "slaanesh/r2c3.png",
+			"range": 0.05,
+			"speed": 0.03,
+			"armor": 1.4,
+			"requires": [
+				"hive",
+				"unique"
+			],
+			"terrain": {
+				"warp": {
+					"dmg": 1.15,
+					"taken": 0.85
+				}
+			},
+			"desc": "Demônio Maior de Slaanesh: beleza que mata. Uma só por cruzada.",
+			"quotes": [
+				"Ajoelhem-se diante da perfeição.",
+				"Seus desejos são meus.",
+				"Que delícia de guerra."
+			]
+		},
+		{
+			"id": "ec_rhino",
+			"name": "Rhino dos Filhos do Imperador",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 200,
+			"upkeep": 14,
+			"power": 20,
+			"men": 1,
+			"portrait": "slaanesh/r3c0.png",
+			"icon": "slaanesh/r3c0.png",
+			"desc": "Transporte púrpura e ouro, decorado em excesso.",
+			"quotes": [
+				"Mais rápido!",
+				"Que entrada gloriosa.",
+				"Embarquem."
+			]
+		},
+		{
+			"id": "ec_predator",
+			"name": "Predator de Slaanesh",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 340,
+			"upkeep": 24,
+			"power": 34,
+			"men": 1,
+			"portrait": "slaanesh/r3c1.png",
+			"icon": "slaanesh/r3c1.png",
+			"range": 0.14,
+			"vsVehicle": 1.2,
+			"needsHive": true,
+			"desc": "Tanque de apoio com canhões gêmeos.",
+			"quotes": [
+				"Mira perfeita.",
+				"Fogo!",
+				"Um tiro elegante."
+			]
+		},
+		{
+			"id": "ec_land_raider",
+			"name": "Land Raider de Slaanesh",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 600,
+			"upkeep": 40,
+			"power": 52,
+			"men": 1,
+			"portrait": "slaanesh/r3c2.png",
+			"icon": "slaanesh/r3c2.png",
+			"range": 0.14,
+			"speed": 0.018,
+			"armor": 1.5,
+			"needsHive": true,
+			"vsVehicle": 1.2,
+			"desc": "Tanque pesado e transporte de assalto. Quase indestrutível.",
+			"quotes": [
+				"Avançar com estilo.",
+				"Nada nos arranha.",
+				"Abram caminho!"
+			]
+		},
+		{
+			"id": "ec_maulerfiend",
+			"name": "Demônio-Triturador de Slaanesh",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 440,
+			"upkeep": 30,
+			"power": 42,
+			"men": 1,
+			"portrait": "slaanesh/r3c3.png",
+			"icon": "slaanesh/r3c3.png",
+			"range": 0.03,
+			"speed": 0.036,
+			"vsVehicle": 1.4,
+			"armor": 1.2,
+			"needsHive": true,
+			"desc": "Máquina-demônio veloz que dilacera blindados.",
+			"quotes": [
+				"(rugido)",
+				"Rasgar!",
+				"Que gritos lindos."
+			]
+		}
+	],
+	"ultramarines": [
+		{
+			"id": "um_intercessors",
+			"name": "Intercessores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 24,
+			"men": 5,
+			"portrait": "ultramarines/r0c0.png",
+			"icon": "ultramarines/r0c0.png",
+			"range": 0.1,
+			"armor": 1.35,
+			"desc": "A linha de frente dos Primaris, com fuzis bolt.",
+			"quotes": [
+				"Por Macragge!",
+				"Coragem e honra!",
+				"Conforme o Codex."
+			]
+		},
+		{
+			"id": "um_assault_intercessors",
+			"name": "Intercessores de Assalto",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 24,
+			"men": 5,
+			"portrait": "ultramarines/r0c1.png",
+			"icon": "ultramarines/r0c1.png",
+			"range": 0.03,
+			"speed": 0.03,
+			"armor": 1.35,
+			"vsInfantry": 1.15,
+			"desc": "Pistolas e espadas-serra para o corpo a corpo.",
+			"quotes": [
+				"Ao combate!",
+				"Por Guilliman!",
+				"Sem recuar!"
+			]
+		},
+		{
+			"id": "um_sternguard",
+			"name": "Veteranos Sternguard",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 30,
+			"men": 5,
+			"portrait": "ultramarines/r0c2.png",
+			"icon": "ultramarines/r0c2.png",
+			"range": 0.13,
+			"armor": 1.4,
+			"needsHive": true,
+			"desc": "Veteranos com munição especial: cada tiro conta.",
+			"quotes": [
+				"Munição especial carregada.",
+				"Um tiro, um traidor.",
+				"Já vimos coisa pior."
+			]
+		},
+		{
+			"id": "um_scouts",
+			"name": "Batedores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 140,
+			"upkeep": 9,
+			"power": 12,
+			"men": 5,
+			"portrait": "ultramarines/r0c3.png",
+			"icon": "ultramarines/r0c3.png",
+			"range": 0.09,
+			"speed": 0.03,
+			"terrain": {
+				"forest": {
+					"taken": 0.7
+				},
+				"jungle": {
+					"taken": 0.7
+				},
+				"ruins": {
+					"taken": 0.75
+				}
+			},
+			"desc": "Neófitos que se infiltram à frente da linha.",
+			"quotes": [
+				"Posição tomada.",
+				"Ninguém nos viu.",
+				"Inimigo à vista."
+			]
+		},
+		{
+			"id": "um_hellblasters",
+			"name": "Hellblasters",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 340,
+			"upkeep": 24,
+			"power": 28,
+			"men": 5,
+			"portrait": "ultramarines/r1c0.png",
+			"icon": "ultramarines/r1c0.png",
+			"range": 0.12,
+			"speed": 0.02,
+			"armor": 1.35,
+			"vsVehicle": 1.3,
+			"desc": "Fuzis de plasma: derretem blindagem e armaduras pesadas.",
+			"quotes": [
+				"Plasma carregado!",
+				"Purguem o inimigo.",
+				"Cuidado com o superaquecimento."
+			]
+		},
+		{
+			"id": "um_aggressors",
+			"name": "Agressores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 30,
+			"men": 3,
+			"portrait": "ultramarines/r1c1.png",
+			"icon": "ultramarines/r1c1.png",
+			"range": 0.05,
+			"speed": 0.016,
+			"armor": 1.65,
+			"vsInfantry": 1.3,
+			"desc": "Armadura Gravis com punhos de força e lança-chamas.",
+			"quotes": [
+				"Avancem sob fogo.",
+				"Esmagar a linha!",
+				"Nada nos para."
+			]
+		},
+		{
+			"id": "um_inceptors",
+			"name": "Inceptores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 340,
+			"upkeep": 24,
+			"power": 26,
+			"men": 3,
+			"portrait": "ultramarines/r1c2.png",
+			"icon": "ultramarines/r1c2.png",
+			"range": 0.08,
+			"speed": 0.045,
+			"armor": 1.35,
+			"allTerrain": true,
+			"desc": "Mochilas de salto e bolters pesados: caem como meteoros.",
+			"quotes": [
+				"Descendo!",
+				"Do céu, a ira do Imperador!",
+				"Impacto!"
+			]
+		},
+		{
+			"id": "um_snipers",
+			"name": "Batedores Atiradores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 180,
+			"upkeep": 12,
+			"power": 14,
+			"men": 5,
+			"portrait": "ultramarines/r1c3.png",
+			"icon": "ultramarines/r1c3.png",
+			"range": 0.22,
+			"speed": 0.018,
+			"terrain": {
+				"forest": {
+					"taken": 0.7
+				},
+				"ruins": {
+					"taken": 0.7
+				},
+				"mountains": {
+					"range": 1.15
+				}
+			},
+			"desc": "Capas camufladas e fuzis de precisão.",
+			"quotes": [
+				"Alvo na mira.",
+				"Respire... dispare.",
+				"Um oficial a menos."
+			]
+		},
+		{
+			"id": "um_apothecary",
+			"name": "Apotecário",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 180,
+			"upkeep": 12,
+			"power": 12,
+			"men": 1,
+			"portrait": "ultramarines/r2c3.png",
+			"icon": "ultramarines/r2c3.png",
+			"range": 0.06,
+			"armor": 1.45,
+			"desc": "Salva os feridos e recolhe a semente genética dos caídos.",
+			"quotes": [
+				"Aguente, irmão.",
+				"A semente genética está segura.",
+				"Ainda não é sua hora."
+			]
+		},
+		{
+			"id": "um_eradicators",
+			"name": "Erradicadores",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 30,
+			"men": 3,
+			"portrait": "ultramarines/r3c0.png",
+			"icon": "ultramarines/r3c0.png",
+			"range": 0.07,
+			"speed": 0.017,
+			"armor": 1.6,
+			"vsVehicle": 1.6,
+			"desc": "Armadura Gravis com fuzis de fusão: caçadores de tanques.",
+			"quotes": [
+				"Alvo blindado à frente.",
+				"Derreter.",
+				"Nada sobrevive à fusão."
+			]
+		},
+		{
+			"id": "um_redemptor",
+			"name": "Dreadnought Redemptor",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 520,
+			"upkeep": 34,
+			"power": 48,
+			"men": 1,
+			"portrait": "ultramarines/r3c1.png",
+			"icon": "ultramarines/r3c1.png",
+			"range": 0.12,
+			"armor": 1.35,
+			"needsHive": true,
+			"desc": "Herói caído que luta além da morte num sarcófago de guerra.",
+			"quotes": [
+				"Na morte, ainda sirvo.",
+				"Por Macragge!",
+				"Minha guerra não acabou."
+			]
+		},
+		{
+			"id": "um_repulsor",
+			"name": "Repulsor",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 560,
+			"upkeep": 38,
+			"power": 50,
+			"men": 1,
+			"portrait": "ultramarines/r3c2.png",
+			"icon": "ultramarines/r3c2.png",
+			"range": 0.14,
+			"speed": 0.024,
+			"armor": 1.4,
+			"needsHive": true,
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				}
+			},
+			"desc": "Tanque antigravitacional de transporte, coberto de armas.",
+			"quotes": [
+				"Repulsor em movimento.",
+				"Escudos no máximo.",
+				"Atravessamos tudo."
+			]
+		},
+		{
+			"id": "um_predator",
+			"name": "Predator",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 36,
+			"men": 1,
+			"portrait": "ultramarines/r3c3.png",
+			"icon": "ultramarines/r3c3.png",
+			"range": 0.15,
+			"vsVehicle": 1.2,
+			"needsHive": true,
+			"desc": "Tanque de apoio com canhão e lasers laterais.",
+			"quotes": [
+				"Canhão pronto.",
+				"Caçando blindados.",
+				"Fogo à vontade."
+			]
+		}
+	],
+	"blood_angels": [
+		{
+			"id": "ba_intercessors",
+			"name": "Intercessores Anjos Sangrentos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 24,
+			"men": 5,
+			"portrait": "blood_angels/r0c0.png",
+			"icon": "blood_angels/r0c0.png",
+			"range": 0.1,
+			"armor": 1.35,
+			"desc": "Primaris de Baal, com a Sede Vermelha sob controle.",
+			"quotes": [
+				"Por Sanguinius!",
+				"O Anjo nos guia.",
+				"Ao ataque!"
+			]
+		},
+		{
+			"id": "ba_assault",
+			"name": "Veteranos de Assalto",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 300,
+			"upkeep": 20,
+			"power": 28,
+			"men": 5,
+			"portrait": "blood_angels/r0c1.png",
+			"icon": "blood_angels/r0c1.png",
+			"range": 0.03,
+			"speed": 0.034,
+			"armor": 1.35,
+			"vsInfantry": 1.2,
+			"desc": "Espadas-serra e furor: a especialidade dos Anjos.",
+			"quotes": [
+				"Pelo sangue de Sanguinius!",
+				"Ao corpo a corpo!",
+				"Sintam a fúria!"
+			]
+		},
+		{
+			"id": "ba_scouts",
+			"name": "Batedores de Baal",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 140,
+			"upkeep": 9,
+			"power": 12,
+			"men": 5,
+			"portrait": "blood_angels/r0c2.png",
+			"icon": "blood_angels/r0c2.png",
+			"range": 0.09,
+			"speed": 0.03,
+			"terrain": {
+				"ash": {
+					"taken": 0.75
+				},
+				"ruins": {
+					"taken": 0.75
+				}
+			},
+			"desc": "Neófitos dos desertos radioativos de Baal.",
+			"quotes": [
+				"Posição.",
+				"Silêncio.",
+				"Vamos."
+			]
+		},
+		{
+			"id": "ba_bladeguard",
+			"name": "Veteranos Lâmina-Guarda",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 32,
+			"men": 5,
+			"portrait": "blood_angels/r0c3.png",
+			"icon": "blood_angels/r0c3.png",
+			"range": 0.03,
+			"speed": 0.022,
+			"armor": 1.6,
+			"needsHive": true,
+			"desc": "Escudos de tempestade e espadas de força.",
+			"quotes": [
+				"Escudos à frente!",
+				"Nenhum passa.",
+				"Pela honra do capítulo."
+			]
+		},
+		{
+			"id": "ba_inceptors",
+			"name": "Inceptores Anjos Sangrentos",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 340,
+			"upkeep": 24,
+			"power": 26,
+			"men": 3,
+			"portrait": "blood_angels/r1c0.png",
+			"icon": "blood_angels/r1c0.png",
+			"range": 0.08,
+			"speed": 0.048,
+			"armor": 1.35,
+			"allTerrain": true,
+			"desc": "Mochilas de salto e plasma: anjos que caem do céu.",
+			"quotes": [
+				"Asas de Sanguinius!",
+				"Descendo!",
+				"Impacto!"
+			]
+		},
+		{
+			"id": "ba_death_company",
+			"name": "Companhia da Morte",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 320,
+			"upkeep": 22,
+			"power": 32,
+			"men": 5,
+			"portrait": "blood_angels/r1c1.png",
+			"icon": "blood_angels/r1c1.png",
+			"range": 0.03,
+			"speed": 0.038,
+			"armor": 1.2,
+			"vsInfantry": 1.3,
+			"desc": "Irmãos perdidos para a Fúria Negra: lutam até a morte, sem medo.",
+			"quotes": [
+				"(gritos de Horus! HORUS!)",
+				"Pelo Pai!",
+				"MORRAM, TRAIDORES!"
+			]
+		},
+		{
+			"id": "ba_sanguinary_guard",
+			"name": "Guarda Sanguinária",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 480,
+			"upkeep": 32,
+			"power": 38,
+			"men": 5,
+			"portrait": "blood_angels/r1c2.png",
+			"icon": "blood_angels/r1c2.png",
+			"range": 0.03,
+			"speed": 0.045,
+			"armor": 1.5,
+			"allTerrain": true,
+			"requires": [
+				"hive"
+			],
+			"desc": "Guerreiros de armadura dourada e asas, guarda de Dante.",
+			"quotes": [
+				"Pela glória de Baal!",
+				"Asas abertas, lâminas prontas.",
+				"O Anjo vive em nós."
+			]
+		},
+		{
+			"id": "ba_assault_terminators",
+			"name": "Exterminadores de Assalto",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 560,
+			"upkeep": 38,
+			"power": 44,
+			"men": 5,
+			"portrait": "blood_angels/r1c3.png",
+			"icon": "blood_angels/r1c3.png",
+			"range": 0.03,
+			"speed": 0.016,
+			"armor": 1.85,
+			"needsHive": true,
+			"desc": "Martelos-trovão e escudos de tempestade.",
+			"quotes": [
+				"Teleporte concluído.",
+				"Martelos ao alto!",
+				"Pela Arca do Sangue!"
+			]
+		},
+		{
+			"id": "ba_baal_predator",
+			"name": "Baal Predator",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 34,
+			"men": 1,
+			"portrait": "blood_angels/r3c0.png",
+			"icon": "blood_angels/r3c0.png",
+			"range": 0.1,
+			"speed": 0.034,
+			"vsInfantry": 1.2,
+			"needsHive": true,
+			"desc": "Predator veloz com canhão de assalto rotativo.",
+			"quotes": [
+				"Motores no máximo!",
+				"Canhão rotativo girando.",
+				"Pela velocidade!"
+			]
+		},
+		{
+			"id": "ba_furioso",
+			"name": "Dreadnought Furioso",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 480,
+			"upkeep": 32,
+			"power": 44,
+			"men": 1,
+			"portrait": "blood_angels/r3c1.png",
+			"icon": "blood_angels/r3c1.png",
+			"range": 0.04,
+			"speed": 0.024,
+			"armor": 1.35,
+			"needsHive": true,
+			"desc": "Dreadnought de assalto com punhos de força.",
+			"quotes": [
+				"A guerra me chama.",
+				"Ainda luto pelo Anjo!",
+				"Esmagar!"
+			]
+		},
+		{
+			"id": "ba_dc_dreadnought",
+			"name": "Dreadnought da Companhia da Morte",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 520,
+			"upkeep": 34,
+			"power": 48,
+			"men": 1,
+			"portrait": "blood_angels/r3c2.png",
+			"icon": "blood_angels/r3c2.png",
+			"range": 0.03,
+			"speed": 0.03,
+			"armor": 1.3,
+			"vsVehicle": 1.3,
+			"needsHive": true,
+			"desc": "Um irmão da Fúria Negra preso para sempre num sarcófago.",
+			"quotes": [
+				"(rugido)",
+				"HORUS!",
+				"Sangue... sangue..."
+			]
+		},
+		{
+			"id": "ba_stormraven",
+			"name": "Stormraven",
+			"group": "guard",
+			"category": "air",
+			"cost": 420,
+			"upkeep": 28,
+			"power": 36,
+			"men": 1,
+			"portrait": "blood_angels/r3c3.png",
+			"icon": "blood_angels/r3c3.png",
+			"needsHive": true,
+			"vsVehicle": 1.2,
+			"desc": "Canhoneira de assalto com mísseis e canhões.",
+			"quotes": [
+				"Stormraven no ar.",
+				"Soltando os irmãos.",
+				"Fogo de cobertura!"
+			]
+		}
+	],
+	"salamanders": [
+		{
+			"id": "sal_intercessors",
+			"name": "Intercessores Salamandras",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 24,
+			"men": 5,
+			"portrait": "salamanders/r0c0.png",
+			"icon": "salamanders/r0c0.png",
+			"range": 0.1,
+			"armor": 1.4,
+			"desc": "Os filhos de Vulkan: firmes como a rocha de Nocturne.",
+			"quotes": [
+				"Para o fogo da batalha!",
+				"Vulkan vive!",
+				"Firmes!"
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_assault",
+			"name": "Intercessores de Assalto Salamandras",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 260,
+			"upkeep": 18,
+			"power": 24,
+			"men": 5,
+			"portrait": "salamanders/r0c1.png",
+			"icon": "salamanders/r0c1.png",
+			"range": 0.03,
+			"speed": 0.03,
+			"armor": 1.4,
+			"vsInfantry": 1.15,
+			"desc": "Espadas-serra marcadas a fogo.",
+			"quotes": [
+				"Ao combate!",
+				"Pelo Pai das Forjas!",
+				"Queimem!"
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_scouts",
+			"name": "Batedores de Nocturne",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 140,
+			"upkeep": 9,
+			"power": 12,
+			"men": 5,
+			"portrait": "salamanders/r0c2.png",
+			"icon": "salamanders/r0c2.png",
+			"range": 0.09,
+			"speed": 0.03,
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				},
+				"mountains": {
+					"taken": 0.8
+				}
+			},
+			"desc": "Neófitos acostumados ao calor das montanhas de fogo.",
+			"quotes": [
+				"Posição.",
+				"O calor não me incomoda.",
+				"Inimigo à vista."
+			]
+		},
+		{
+			"id": "sal_bladeguard",
+			"name": "Veteranos Lâmina-Guarda Salamandras",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 32,
+			"men": 5,
+			"portrait": "salamanders/r0c3.png",
+			"icon": "salamanders/r0c3.png",
+			"range": 0.03,
+			"speed": 0.022,
+			"armor": 1.65,
+			"needsHive": true,
+			"desc": "Escudos de tempestade forjados em Nocturne.",
+			"quotes": [
+				"Escudos!",
+				"Ninguém passa por nós.",
+				"Forjados no fogo."
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_infernus",
+			"name": "Marines Infernus",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 300,
+			"upkeep": 20,
+			"power": 26,
+			"men": 5,
+			"portrait": "salamanders/r1c0.png",
+			"icon": "salamanders/r1c0.png",
+			"range": 0.045,
+			"armor": 1.4,
+			"vsInfantry": 1.4,
+			"terrain": {
+				"ruins": {
+					"dmg": 1.2
+				},
+				"forest": {
+					"dmg": 1.2
+				},
+				"jungle": {
+					"dmg": 1.2
+				},
+				"ash": {
+					"taken": 0.85
+				}
+			},
+			"desc": "Lança-chamas pirolíticos: a arma preferida de Vulkan.",
+			"quotes": [
+				"Que o fogo purifique!",
+				"Queimar!",
+				"Nada resiste à chama."
+			]
+		},
+		{
+			"id": "sal_eradicators",
+			"name": "Erradicadores Salamandras",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 380,
+			"upkeep": 26,
+			"power": 30,
+			"men": 3,
+			"portrait": "salamanders/r1c1.png",
+			"icon": "salamanders/r1c1.png",
+			"range": 0.07,
+			"speed": 0.017,
+			"armor": 1.6,
+			"vsVehicle": 1.65,
+			"desc": "Multi-fusões: blindados viram escória.",
+			"quotes": [
+				"Alvo blindado.",
+				"Derreter!",
+				"Fusão pronta."
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_vanguard",
+			"name": "Vanguarda de Salto",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 320,
+			"upkeep": 22,
+			"power": 26,
+			"men": 5,
+			"portrait": "salamanders/r1c2.png",
+			"icon": "salamanders/r1c2.png",
+			"range": 0.04,
+			"speed": 0.045,
+			"armor": 1.35,
+			"allTerrain": true,
+			"vsInfantry": 1.25,
+			"desc": "Mochilas de salto e lança-chamas de mão: fogo que cai do céu.",
+			"quotes": [
+				"Descendo em chamas!",
+				"Por Nocturne!",
+				"Impacto!"
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_terminators",
+			"name": "Exterminadores de Prometeu",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 560,
+			"upkeep": 38,
+			"power": 42,
+			"men": 5,
+			"portrait": "salamanders/r1c3.png",
+			"icon": "salamanders/r1c3.png",
+			"range": 0.05,
+			"speed": 0.016,
+			"armor": 1.85,
+			"vsInfantry": 1.3,
+			"needsHive": true,
+			"desc": "Armadura Tática Dreadnought com lança-chamas pesados.",
+			"quotes": [
+				"Teleporte concluído.",
+				"Fogo pesado!",
+				"O credo de Prometeu nos guia."
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_techmarine",
+			"name": "Tecnomarine",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 220,
+			"upkeep": 14,
+			"power": 16,
+			"men": 1,
+			"portrait": "salamanders/r2c2.png",
+			"icon": "salamanders/r2c2.png",
+			"range": 0.08,
+			"armor": 1.5,
+			"vsVehicle": 1.2,
+			"desc": "Servo do Deus-Máquina e da forja: braços servo e fogo.",
+			"quotes": [
+				"O espírito da máquina está calmo.",
+				"Reparos em andamento.",
+				"Forjado e abençoado."
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_apothecary",
+			"name": "Apotecário Salamandra",
+			"group": "guard",
+			"category": "infantry",
+			"cost": 180,
+			"upkeep": 12,
+			"power": 12,
+			"men": 1,
+			"portrait": "salamanders/r2c3.png",
+			"icon": "salamanders/r2c3.png",
+			"range": 0.06,
+			"armor": 1.45,
+			"desc": "Cura os irmãos e protege os civis — o orgulho dos Salamandras.",
+			"quotes": [
+				"Aguente, irmão.",
+				"Ninguém fica para trás.",
+				"Os inocentes primeiro."
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_invictor",
+			"name": "Traje de Guerra Invictor",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 360,
+			"upkeep": 24,
+			"power": 34,
+			"men": 1,
+			"portrait": "salamanders/r3c0.png",
+			"icon": "salamanders/r3c0.png",
+			"range": 0.1,
+			"speed": 0.03,
+			"armor": 1.2,
+			"desc": "Traje de batalha leve, rápido para um dreadnought.",
+			"quotes": [
+				"Invictor pronto.",
+				"Avançando.",
+				"Fogo pesado na linha!"
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_redemptor",
+			"name": "Dreadnought Redemptor Salamandra",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 520,
+			"upkeep": 34,
+			"power": 48,
+			"men": 1,
+			"portrait": "salamanders/r3c1.png",
+			"icon": "salamanders/r3c1.png",
+			"range": 0.12,
+			"armor": 1.4,
+			"needsHive": true,
+			"desc": "Herói de Nocturne num sarcófago de ceramite.",
+			"quotes": [
+				"Ainda sirvo a Vulkan.",
+				"Meu fogo não se apaga.",
+				"Avançar!"
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_redeemer",
+			"name": "Land Raider Redeemer",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 600,
+			"upkeep": 40,
+			"power": 52,
+			"men": 1,
+			"portrait": "salamanders/r3c2.png",
+			"icon": "salamanders/r3c2.png",
+			"range": 0.06,
+			"speed": 0.018,
+			"armor": 1.55,
+			"vsInfantry": 1.35,
+			"needsHive": true,
+			"desc": "Tanque pesado com lança-chamas-furacão: limpa trincheiras.",
+			"quotes": [
+				"Os lança-chamas estão quentes.",
+				"Abram as rampas!",
+				"Purificação pelo fogo."
+			],
+			"terrain": {
+				"ash": {
+					"taken": 0.85
+				}
+			}
+		},
+		{
+			"id": "sal_gladiator",
+			"name": "Gladiator Lancer",
+			"group": "guard",
+			"category": "vehicle",
+			"cost": 480,
+			"upkeep": 32,
+			"power": 42,
+			"men": 1,
+			"portrait": "salamanders/r3c3.png",
+			"icon": "salamanders/r3c3.png",
+			"range": 0.16,
+			"speed": 0.026,
+			"vsVehicle": 1.35,
+			"needsHive": true,
+			"terrain": {
+				"water": {
+					"speed": 2.5
+				},
+				"mire": {
+					"speed": 1.3
+				},
+				"tomb": {
+					"taken": 0.85,
+					"dmg": 1.1
+				},
+				"ash": {
+					"taken": 0.85
+				}
+			},
+			"desc": "Tanque antigravitacional com canhão laser pesado.",
+			"quotes": [
+				"Lancer pronto.",
+				"Alvo blindado travado.",
+				"Fogo!"
+			]
+		}
+	]
+}

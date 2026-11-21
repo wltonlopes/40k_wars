@@ -1,0 +1,123 @@
+{
+	"id": "caldera",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"caldera_refinery": {
+			"rect": [
+				0.0,
+				0.0,
+				0.37402,
+				0.6125
+			],
+			"label": [
+				0.0,
+				0.0406
+			],
+			"area": 128808,
+			"neighbors": [
+				"caldera_lava",
+				"caldera_mines"
+			],
+			"coastal": true
+		},
+		"caldera_mines": {
+			"rect": [
+				0.21191,
+				0.2875,
+				0.55859,
+				0.99375
+			],
+			"label": [
+				0.3701,
+				0.6062
+			],
+			"area": 70480,
+			"neighbors": [
+				"caldera_lava",
+				"caldera_refinery",
+				"caldera_wastes"
+			],
+			"coastal": true
+		},
+		"caldera_lava": {
+			"rect": [
+				0.33984,
+				0.0,
+				0.70898,
+				0.54062
+			],
+			"label": [
+				0.5127,
+				0.0031
+			],
+			"area": 96855,
+			"neighbors": [
+				"caldera_crags",
+				"caldera_mines",
+				"caldera_refinery",
+				"caldera_spire",
+				"caldera_wastes"
+			],
+			"coastal": false
+		},
+		"caldera_spire": {
+			"rect": [
+				0.56641,
+				0.31094,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.9281
+			],
+			"area": 94518,
+			"neighbors": [
+				"caldera_crags",
+				"caldera_lava",
+				"caldera_wastes"
+			],
+			"coastal": false
+		},
+		"caldera_crags": {
+			"rect": [
+				0.67773,
+				0.0,
+				1.0,
+				0.76406
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 101729,
+			"neighbors": [
+				"caldera_lava",
+				"caldera_spire"
+			],
+			"coastal": false
+		},
+		"caldera_wastes": {
+			"rect": [
+				0.42188,
+				0.53906,
+				0.90625,
+				1.0
+			],
+			"label": [
+				0.6201,
+				0.9984
+			],
+			"area": 80633,
+			"neighbors": [
+				"caldera_lava",
+				"caldera_mines",
+				"caldera_spire"
+			],
+			"coastal": true
+		}
+	}
+}

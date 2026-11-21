@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Soldado de units/orks/battalion_nobz (criado e reposto pelo líder). -->
+<Entity parent="battalion_member|units/orks/infantry_nob">
+  <Identity>
+    <GenericName>Nobz</GenericName>
+    <Icon>units/orks/nob.png</Icon>
+    <SelectionGroupName>units/orks/battalion_nobz</SelectionGroupName>
+  </Identity>
+</Entity>

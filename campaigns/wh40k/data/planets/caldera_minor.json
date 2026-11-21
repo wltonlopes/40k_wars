@@ -1,0 +1,63 @@
+{
+	"id": "caldera_minor",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"minor_outpost": {
+			"rect": [
+				0.0,
+				0.0,
+				0.49121,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.1609
+			],
+			"area": 264455,
+			"neighbors": [
+				"minor_plain",
+				"minor_rifts"
+			],
+			"coastal": false
+		},
+		"minor_rifts": {
+			"rect": [
+				0.4502,
+				0.0,
+				1.0,
+				0.78438
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 221483,
+			"neighbors": [
+				"minor_outpost",
+				"minor_plain"
+			],
+			"coastal": false
+		},
+		"minor_plain": {
+			"rect": [
+				0.24609,
+				0.45625,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.5654,
+				0.9984
+			],
+			"area": 169422,
+			"neighbors": [
+				"minor_outpost",
+				"minor_rifts"
+			],
+			"coastal": false
+		}
+	}
+}

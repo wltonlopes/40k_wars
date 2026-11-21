@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	40k Wars: menu principal enxuto no estilo gótico do warhr.
+	Fundo: a batalha de Armageddon (tools/source/menu_background.png) com
+	zoom e pan lentos. Painel à direita com o logotipo e só os botões
+	essenciais (gui/pregame/MainMenuItems.js).
+-->
+<objects>
+
+	<script directory="gui/common/"/>
+	<script directory="gui/common/campaigns/"/>
+	<script module="gui/pregame/mainmenu.js"/>
+
+	<object name="mainMenuPage">
+		<include file="gui/pregame/backgrounds.xml"/>
+		<include file="gui/pregame/menupanel.xml"/>
+	</object>
+
+</objects>

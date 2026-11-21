@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Botões góticos do menu (texturas do warhr copiadas em art/textures/ui/pregame/wh40k/). -->
+<styles>
+	<style name="wh40kButton"
+		sprite="wh40kBtn"
+		sprite_over="wh40kBtnOver"
+		sprite_pressed="wh40kBtnPressed"
+		sprite_disabled="wh40kBtnDisabled"
+		font="sans-bold-stroke-13"
+		textcolor="236 214 160"
+		textcolor_over="255 240 200"
+		textcolor_disabled="150 140 120 160"
+		text_align="center"
+		text_valign="center"
+		sound_pressed="audio/interface/ui/ui_button_click.ogg"
+	/>
+</styles>

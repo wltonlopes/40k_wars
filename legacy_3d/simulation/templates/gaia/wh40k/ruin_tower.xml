@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Construção abandonada que bloqueia a passagem nos campos de batalha (maps/random/wh40k_battle.js). -->
+<Entity parent="template_gaia">
+  <Footprint>
+    <Square width="9.0" depth="6.7"/>
+    <Height>8.0</Height>
+  </Footprint>
+  <Identity>
+    <GenericName>Torre em ruínas</GenericName>
+    <Icon>gaia/geology_stone.png</Icon>
+  </Identity>
+  <Minimap>
+    <Color r="90" g="85" b="80"/>
+  </Minimap>
+  <Obstruction>
+    <Static width="9.0" depth="6.7"/>
+  </Obstruction>
+  <VisualActor>
+    <Actor>structures/imperial/sentry_tower.xml</Actor>
+  </VisualActor>
+</Entity>

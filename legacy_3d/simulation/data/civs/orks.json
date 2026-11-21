@@ -1,0 +1,74 @@
+{
+	"Code": "orks",
+	"Culture": "orks",
+	"Music": [
+		{
+			"File": "Juno_Protect_You.ogg",
+			"Type": "peace"
+		},
+		{
+			"File": "Elysian_Fields.ogg",
+			"Type": "peace"
+		}
+	],
+	"CivBonuses": [
+		{
+			"Name": "WAAAGH!",
+			"History": "Quanto mais os Orks brigam, mais fortes ficam.",
+			"Description": "Rapazes baratos e numerosos; Nobz e Chefão no corpo a corpo."
+		},
+		{
+			"Name": "Rokks e Teleportas",
+			"History": "Os Meks lançam rapazes do espaço de todo jeito.",
+			"Description": "Apoio: Teleporta de Rapazes, Dakkajets e Chuva de Rokks."
+		}
+	],
+	"WallSets": [
+		"structures/wallset_palisade"
+	],
+	"StartEntities": [
+		{
+			"Template": "units/orks/battalion_boyz",
+			"Count": 2
+		},
+		{
+			"Template": "units/orks/battalion_shoota_boyz"
+		},
+		{
+			"Template": "units/orks/vehicle_trukk"
+		}
+	],
+	"AINames": [
+		"Goffs",
+		"Bad Moons",
+		"Evil Sunz",
+		"Deathskulls",
+		"Blood Axes",
+		"Snakebites",
+		"Freebooterz"
+	],
+	"SkirmishReplacements": {
+		"skirmish/units/default_support_female_citizen": "",
+		"skirmish/units/default_support_civilian": "",
+		"skirmish/units/default_infantry_melee_b": "units/orks/battalion_boyz",
+		"skirmish/units/default_infantry_ranged_b": "units/orks/battalion_shoota_boyz",
+		"skirmish/units/default_cavalry": "units/orks/vehicle_trukk",
+		"skirmish/units/default_siege_ram": "",
+		"skirmish/units/default_ship_arrow": "",
+		"skirmish/units/default_ship_scout": "",
+		"skirmish/structures/default_house_10": "",
+		"skirmish/structures/default_house_5": "",
+		"skirmish/structures/default_corral": "",
+		"skirmish/structures/default_fortress": "",
+		"skirmish/structures/default_market": "",
+		"skirmish/structures/default_temple": "",
+		"skirmish/structures/default_wall_gate": "",
+		"skirmish/structures/default_wall_long": "",
+		"skirmish/structures/default_wall_medium": "",
+		"skirmish/structures/default_wall_short": "",
+		"skirmish/structures/default_wall_tower": "",
+		"skirmish/structures/default_wonder": "",
+		"skirmish/structures/default_farmstead": ""
+	},
+	"SelectableInGameSetup": true
+}

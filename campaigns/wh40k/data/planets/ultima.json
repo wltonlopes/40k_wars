@@ -1,0 +1,63 @@
+{
+	"id": "ultima",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"ultima_yards": {
+			"rect": [
+				0.07715,
+				0.18438,
+				0.48438,
+				0.89531
+			],
+			"label": [
+				0.2617,
+				0.5688
+			],
+			"area": 112608,
+			"neighbors": [
+				"ultima_battery",
+				"ultima_ring"
+			],
+			"coastal": false
+		},
+		"ultima_ring": {
+			"rect": [
+				0.3457,
+				0.1125,
+				0.76172,
+				0.85781
+			],
+			"label": [
+				0.5303,
+				0.3828
+			],
+			"area": 108685,
+			"neighbors": [
+				"ultima_battery",
+				"ultima_yards"
+			],
+			"coastal": false
+		},
+		"ultima_battery": {
+			"rect": [
+				0.46973,
+				0.2625,
+				0.87988,
+				0.88906
+			],
+			"label": [
+				0.7285,
+				0.6141
+			],
+			"area": 71355,
+			"neighbors": [
+				"ultima_ring",
+				"ultima_yards"
+			],
+			"coastal": false
+		}
+	}
+}

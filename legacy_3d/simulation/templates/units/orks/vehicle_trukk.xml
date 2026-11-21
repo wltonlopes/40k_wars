@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Trukk: o Chimera "melhorado" pelos Meks. Vermelho vai mais rápido. -->
+<Entity parent="units/imperial/vehicle_chimera">
+  <Health>
+    <Max op="mul">0.85</Max>
+  </Health>
+  <Identity>
+    <Civ>orks</Civ>
+    <GenericName>Trukk</GenericName>
+    <SpecificName>Trukk</SpecificName>
+    <Tooltip>Caminhão saqueado com big shoota. Rápido e frágil.</Tooltip>
+    <Icon>units/orks/trukk.png</Icon>
+    <Requirements disable=""/>
+  </Identity>
+  <TurretHolder>
+    <TurretPoints>
+      <Turret>
+        <Template>units/orks/vehicle_trukk_turret</Template>
+      </Turret>
+    </TurretPoints>
+  </TurretHolder>
+  <UnitMotion>
+    <WalkSpeed op="mul">1.25</WalkSpeed>
+  </UnitMotion>
+  <VisualActor>
+    <Actor>vehicle/orks/trukk.xml</Actor>
+  </VisualActor>
+</Entity>

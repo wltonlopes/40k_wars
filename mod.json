@@ -1,0 +1,11 @@
+{
+	"name": "40k_wars",
+	"version": "0.5.0",
+	"label": "40k Wars",
+	"url": "",
+	"description": "Grande estratégia gótica no universo Warhammer 40.000, em quatro campanhas: Cruzada de Armageddon (Imperium × Orks), Invasão Tirânida (Imperium × Tau × Tiranídeos), 13ª Cruzada Negra (Imperium × Caos × Eldar × Necrons) e O Grande Jogo dos Deuses (as legiões de Khorne, Nurgle, Tzeentch e Slaanesh contra Ultramarines, Blood Angels e Salamandras). Sistemas com frotas, mapas dos planetas, saque e bombardeio orbital, desdobramento tático e batalhas 2D em tempo real com apoio aéreo e orbital, som e música. Não depende de outros mods.",
+	"dependencies": [
+		"0ad>=0.27.0"
+	],
+	"type": "Game type"
+}

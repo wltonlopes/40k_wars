@@ -1,0 +1,63 @@
+{
+	"id": "koro",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"koro_yards": {
+			"rect": [
+				0.12598,
+				0.13281,
+				0.48633,
+				0.82812
+			],
+			"label": [
+				0.2598,
+				0.4906
+			],
+			"area": 99711,
+			"neighbors": [
+				"koro_battery",
+				"koro_ring"
+			],
+			"coastal": false
+		},
+		"koro_ring": {
+			"rect": [
+				0.37012,
+				0.13594,
+				0.78223,
+				0.82656
+			],
+			"label": [
+				0.5322,
+				0.3844
+			],
+			"area": 106435,
+			"neighbors": [
+				"koro_battery",
+				"koro_yards"
+			],
+			"coastal": false
+		},
+		"koro_battery": {
+			"rect": [
+				0.52148,
+				0.24219,
+				0.90332,
+				0.85469
+			],
+			"label": [
+				0.7656,
+				0.5312
+			],
+			"area": 69480,
+			"neighbors": [
+				"koro_ring",
+				"koro_yards"
+			],
+			"coastal": false
+		}
+	}
+}

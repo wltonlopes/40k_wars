@@ -1,0 +1,81 @@
+{
+	"id": "grand_rok",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"rok_fort": {
+			"rect": [
+				0.24609,
+				0.13906,
+				0.6084,
+				0.85625
+			],
+			"label": [
+				0.4404,
+				0.5906
+			],
+			"area": 129498,
+			"neighbors": [
+				"rok_engines",
+				"rok_pits",
+				"rok_teef"
+			],
+			"coastal": false
+		},
+		"rok_engines": {
+			"rect": [
+				0.14258,
+				0.25938,
+				0.34082,
+				0.8375
+			],
+			"label": [
+				0.2139,
+				0.5156
+			],
+			"area": 34461,
+			"neighbors": [
+				"rok_fort"
+			],
+			"coastal": false
+		},
+		"rok_teef": {
+			"rect": [
+				0.50781,
+				0.13281,
+				0.87305,
+				0.60156
+			],
+			"label": [
+				0.707,
+				0.3453
+			],
+			"area": 62754,
+			"neighbors": [
+				"rok_fort",
+				"rok_pits"
+			],
+			"coastal": false
+		},
+		"rok_pits": {
+			"rect": [
+				0.52539,
+				0.38594,
+				0.89062,
+				0.85156
+			],
+			"label": [
+				0.6885,
+				0.65
+			],
+			"area": 50262,
+			"neighbors": [
+				"rok_fort",
+				"rok_teef"
+			],
+			"coastal": false
+		}
+	}
+}

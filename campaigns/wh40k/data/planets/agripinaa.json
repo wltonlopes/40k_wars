@@ -1,0 +1,101 @@
+{
+	"id": "agripinaa",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"agri_forge": {
+			"rect": [
+				0.31348,
+				0.0,
+				0.70312,
+				0.69531
+			],
+			"label": [
+				0.4795,
+				0.4281
+			],
+			"area": 108493,
+			"neighbors": [
+				"agri_mines",
+				"agri_slag",
+				"agri_soot",
+				"agri_vents"
+			],
+			"coastal": true
+		},
+		"agri_mines": {
+			"rect": [
+				0.0,
+				0.0,
+				0.40625,
+				0.68125
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 136016,
+			"neighbors": [
+				"agri_forge",
+				"agri_vents"
+			],
+			"coastal": false
+		},
+		"agri_slag": {
+			"rect": [
+				0.51074,
+				0.0,
+				1.0,
+				0.57656
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 135906,
+			"neighbors": [
+				"agri_forge",
+				"agri_soot"
+			],
+			"coastal": false
+		},
+		"agri_vents": {
+			"rect": [
+				0.0,
+				0.43281,
+				0.47754,
+				1.0
+			],
+			"label": [
+				0.1182,
+				0.9984
+			],
+			"area": 115732,
+			"neighbors": [
+				"agri_forge",
+				"agri_mines"
+			],
+			"coastal": true
+		},
+		"agri_soot": {
+			"rect": [
+				0.60645,
+				0.48438,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.9297,
+				0.9984
+			],
+			"area": 112356,
+			"neighbors": [
+				"agri_forge",
+				"agri_slag"
+			],
+			"coastal": true
+		}
+	}
+}

@@ -1,0 +1,395 @@
+{
+	"id": "armageddon",
+	"mapSize": [
+		2048,
+		1280
+	],
+	"provinces": {
+		"infernus": {
+			"rect": [
+				0.07959,
+				0.17812,
+				0.25635,
+				0.525
+			],
+			"label": [
+				0.1831,
+				0.3188
+			],
+			"area": 90466,
+			"neighbors": [
+				"diabolus",
+				"prime_ash",
+				"tartarus",
+				"volcanus"
+			],
+			"coastal": true
+		},
+		"volcanus": {
+			"rect": [
+				0.0,
+				0.50078,
+				0.2251,
+				0.96016
+			],
+			"label": [
+				0.0,
+				0.7617
+			],
+			"area": 171162,
+			"neighbors": [
+				"infernus",
+				"prime_ash",
+				"prime_plains",
+				"tartarus"
+			],
+			"coastal": true
+		},
+		"tartarus": {
+			"rect": [
+				0.22119,
+				0.26172,
+				0.43164,
+				0.56094
+			],
+			"label": [
+				0.3105,
+				0.4148
+			],
+			"area": 98082,
+			"neighbors": [
+				"death_mire",
+				"diabolus",
+				"infernus",
+				"jungle_north",
+				"prime_plains",
+				"volcanus"
+			],
+			"coastal": false
+		},
+		"prime_ash": {
+			"rect": [
+				0.0,
+				0.20859,
+				0.18018,
+				0.59375
+			],
+			"label": [
+				0.0,
+				0.4
+			],
+			"area": 113425,
+			"neighbors": [
+				"infernus",
+				"volcanus"
+			],
+			"coastal": true
+		},
+		"diabolus": {
+			"rect": [
+				0.20557,
+				0.0,
+				0.40039,
+				0.29688
+			],
+			"label": [
+				0.3066,
+				0.1352
+			],
+			"area": 119742,
+			"neighbors": [
+				"infernus",
+				"jungle_north",
+				"polar_north",
+				"tartarus"
+			],
+			"coastal": true
+		},
+		"prime_plains": {
+			"rect": [
+				0.14941,
+				0.53438,
+				0.35303,
+				0.82734
+			],
+			"label": [
+				0.2622,
+				0.6844
+			],
+			"area": 85411,
+			"neighbors": [
+				"death_mire",
+				"tartarus",
+				"volcanus"
+			],
+			"coastal": true
+		},
+		"death_mire": {
+			"rect": [
+				0.2915,
+				0.48516,
+				0.50488,
+				0.76094
+			],
+			"label": [
+				0.376,
+				0.5922
+			],
+			"area": 83192,
+			"neighbors": [
+				"jungle_north",
+				"jungle_south",
+				"prime_plains",
+				"stygies",
+				"tartarus"
+			],
+			"coastal": true
+		},
+		"jungle_north": {
+			"rect": [
+				0.3623,
+				0.14453,
+				0.56152,
+				0.51016
+			],
+			"label": [
+				0.457,
+				0.3352
+			],
+			"area": 121159,
+			"neighbors": [
+				"death_mire",
+				"diabolus",
+				"hades",
+				"polar_north",
+				"stygies",
+				"tartarus"
+			],
+			"coastal": false
+		},
+		"jungle_south": {
+			"rect": [
+				0.37451,
+				0.58047,
+				0.59717,
+				1.0
+			],
+			"label": [
+				0.4873,
+				0.7633
+			],
+			"area": 142603,
+			"neighbors": [
+				"death_mire",
+				"fire_wastes",
+				"stygies"
+			],
+			"coastal": true
+		},
+		"stygies": {
+			"rect": [
+				0.49365,
+				0.38125,
+				0.65527,
+				0.67031
+			],
+			"label": [
+				0.5703,
+				0.525
+			],
+			"area": 83959,
+			"neighbors": [
+				"acheron",
+				"death_mire",
+				"fire_wastes",
+				"hades",
+				"jungle_north",
+				"jungle_south",
+				"secundus_ash"
+			],
+			"coastal": false
+		},
+		"hades": {
+			"rect": [
+				0.52051,
+				0.08047,
+				0.71729,
+				0.41484
+			],
+			"label": [
+				0.624,
+				0.2789
+			],
+			"area": 97462,
+			"neighbors": [
+				"helsreach",
+				"jungle_north",
+				"polar_north",
+				"secundus_ash",
+				"stygies"
+			],
+			"coastal": false
+		},
+		"helsreach": {
+			"rect": [
+				0.68701,
+				0.0,
+				0.87402,
+				0.31562
+			],
+			"label": [
+				0.7686,
+				0.168
+			],
+			"area": 101411,
+			"neighbors": [
+				"hades",
+				"mannheim",
+				"palidus",
+				"polar_north",
+				"secundus_ash"
+			],
+			"coastal": true
+		},
+		"acheron": {
+			"rect": [
+				0.63135,
+				0.42812,
+				0.78125,
+				0.73828
+			],
+			"label": [
+				0.7217,
+				0.5562
+			],
+			"area": 75047,
+			"neighbors": [
+				"fire_wastes",
+				"mannheim",
+				"secundus_ash",
+				"stygies",
+				"tempestora"
+			],
+			"coastal": true
+		},
+		"tempestora": {
+			"rect": [
+				0.76514,
+				0.45,
+				1.0,
+				0.80625
+			],
+			"label": [
+				0.9995,
+				0.6406
+			],
+			"area": 164894,
+			"neighbors": [
+				"acheron",
+				"mannheim",
+				"palidus"
+			],
+			"coastal": true
+		},
+		"fire_wastes": {
+			"rect": [
+				0.52979,
+				0.61953,
+				0.74072,
+				1.0
+			],
+			"label": [
+				0.6602,
+				0.7688
+			],
+			"area": 141740,
+			"neighbors": [
+				"acheron",
+				"jungle_south",
+				"stygies"
+			],
+			"coastal": true
+		},
+		"secundus_ash": {
+			"rect": [
+				0.65479,
+				0.24609,
+				0.80908,
+				0.48047
+			],
+			"label": [
+				0.7251,
+				0.3805
+			],
+			"area": 54016,
+			"neighbors": [
+				"acheron",
+				"hades",
+				"helsreach",
+				"mannheim",
+				"stygies"
+			],
+			"coastal": false
+		},
+		"mannheim": {
+			"rect": [
+				0.76465,
+				0.30703,
+				0.91992,
+				0.56875
+			],
+			"label": [
+				0.8276,
+				0.4258
+			],
+			"area": 59172,
+			"neighbors": [
+				"acheron",
+				"helsreach",
+				"palidus",
+				"secundus_ash",
+				"tempestora"
+			],
+			"coastal": false
+		},
+		"palidus": {
+			"rect": [
+				0.84717,
+				0.21641,
+				1.0,
+				0.48203
+			],
+			"label": [
+				0.9995,
+				0.3484
+			],
+			"area": 78133,
+			"neighbors": [
+				"helsreach",
+				"mannheim",
+				"tempestora"
+			],
+			"coastal": true
+		},
+		"polar_north": {
+			"rect": [
+				0.38037,
+				0.0,
+				0.70557,
+				0.23672
+			],
+			"label": [
+				0.5127,
+				0.0
+			],
+			"area": 134024,
+			"neighbors": [
+				"diabolus",
+				"hades",
+				"helsreach",
+				"jungle_north"
+			],
+			"coastal": false
+		}
+	}
+}

@@ -1,0 +1,101 @@
+{
+	"id": "lysandrae",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"ly_palace": {
+			"rect": [
+				0.33789,
+				0.0,
+				0.67578,
+				0.73281
+			],
+			"label": [
+				0.5,
+				0.3953
+			],
+			"area": 105572,
+			"neighbors": [
+				"ly_arena",
+				"ly_gardens",
+				"ly_marsh",
+				"ly_plains"
+			],
+			"coastal": true
+		},
+		"ly_gardens": {
+			"rect": [
+				0.0,
+				0.0,
+				0.42285,
+				0.675
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 142683,
+			"neighbors": [
+				"ly_palace",
+				"ly_plains"
+			],
+			"coastal": false
+		},
+		"ly_arena": {
+			"rect": [
+				0.55176,
+				0.0,
+				1.0,
+				0.59375
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 137635,
+			"neighbors": [
+				"ly_marsh",
+				"ly_palace"
+			],
+			"coastal": false
+		},
+		"ly_plains": {
+			"rect": [
+				0.0,
+				0.48906,
+				0.46289,
+				1.0
+			],
+			"label": [
+				0.1035,
+				0.9984
+			],
+			"area": 112797,
+			"neighbors": [
+				"ly_gardens",
+				"ly_palace"
+			],
+			"coastal": true
+		},
+		"ly_marsh": {
+			"rect": [
+				0.55566,
+				0.50469,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.9482,
+				0.9984
+			],
+			"area": 112899,
+			"neighbors": [
+				"ly_arena",
+				"ly_palace"
+			],
+			"coastal": true
+		}
+	}
+}

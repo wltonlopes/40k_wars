@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	40k Wars: painéis da batalha da campanha (gui/session/z_wh40k_battle.js).
+	Só aparecem nas batalhas do mod (quando a simulação tem o estado WH40K).
+-->
+<object name="wh40kBattle" hidden="true" size="0 0 100% 100%" ghost="true">
+
+	<!-- Placar: força dos dois lados e baixas -->
+	<object name="wh40kStatus" type="image" sprite="BackgroundTranslucent" size="50%-230 44 50%+230 74">
+		<object name="wh40kBarOwnBg" type="image" sprite="color:40 40 40 200" size="8 8 50%-40 22" ghost="true"/>
+		<object name="wh40kBarOwn" type="image" sprite="color:90 200 90 255" size="8 8 50%-40 22" ghost="true"/>
+		<object name="wh40kBarEnemyBg" type="image" sprite="color:40 40 40 200" size="50%+40 8 100%-8 22" ghost="true"/>
+		<object name="wh40kBarEnemy" type="image" sprite="color:220 80 60 255" size="50%+40 8 100%-8 22" ghost="true"/>
+		<object name="wh40kStatusText" type="text" size="50%-40 0 50%+40 100%" font="sans-bold-stroke-14" textcolor="255 230 160" text_align="center" text_valign="center" tooltip_style="sessionToolTip"/>
+	</object>
+
+	<!-- Apoio (killstreak): até 4 poderes -->
+	<object name="wh40kSupport" type="image" sprite="BackgroundTranslucent" size="8 44 300 116">
+		<object type="text" size="6 2 100% 20" font="sans-bold-stroke-13" textcolor="255 220 140" ghost="true">Apoio — baixas causadas</object>
+		<repeat count="4" var="n">
+			<object name="wh40kPower[n]" type="button" hidden="true" tooltip_style="sessionToolTip" size="6 22 66 82">
+				<object name="wh40kPowerIcon[n]" type="image" ghost="true" size="0 0 100% 100%"/>
+				<object name="wh40kPowerFillBg[n]" type="image" ghost="true" sprite="color:20 20 20 220" size="0 100%-8 100% 100%"/>
+				<object name="wh40kPowerFill[n]" type="image" ghost="true" sprite="color:240 190 60 255" size="0 100%-8 0% 100%"/>
+				<object name="wh40kPowerReady[n]" type="text" ghost="true" size="0 0 100% 100%-8" font="sans-bold-stroke-14" textcolor="255 255 140" text_align="center" text_valign="center"/>
+			</object>
+			<object name="wh40kPowerName[n]" type="text" hidden="true" ghost="true" font="sans-stroke-12" textcolor="230 220 200" text_align="center"/>
+		</repeat>
+	</object>
+
+	<!-- Líder do batalhão selecionado: retrato e frase -->
+	<object name="wh40kLeader" type="image" sprite="BackgroundTranslucent" hidden="true" size="8 100%-404 392 100%-214">
+		<object name="wh40kLeaderPortrait" type="image" size="8 8 120 120"/>
+		<object name="wh40kLeaderName" type="text" size="128 6 100%-8 30" font="sans-bold-stroke-16" textcolor="255 215 130"/>
+		<object name="wh40kLeaderUnit" type="text" size="128 30 100%-8 50" font="sans-stroke-13" textcolor="215 205 185"/>
+		<object name="wh40kLeaderQuote" type="text" size="128 52 100%-8 120" font="sans-bold-stroke-14" textcolor="255 240 190"/>
+		<object name="wh40kLeaderOrder" type="text" size="8 124 100%-8 146" font="sans-bold-stroke-13" textcolor="160 230 140"/>
+		<object name="wh40kLeaderStatus" type="text" size="8 146 100%-8 184" font="sans-stroke-12" textcolor="200 195 180"/>
+	</object>
+
+	<!-- Ordens: batalhões selecionados e plano geral -->
+	<object name="wh40kOrders" type="image" sprite="BackgroundTranslucent" size="100%-336 100%-404 100%-8 100%-214">
+		<object type="text" size="8 2 100%-8 22" font="sans-bold-stroke-13" textcolor="255 220 140" ghost="true">Ordens dos selecionados</object>
+		<repeat count="6" var="n">
+			<object name="wh40kOrder[n]" type="button" style="ModernButtonRed" font="sans-bold-12" tooltip_style="sessionToolTip"/>
+		</repeat>
+		<object type="text" size="8 100 100%-8 120" font="sans-bold-stroke-13" textcolor="255 220 140" ghost="true">Plano geral (todo o exército)</object>
+		<repeat count="3" var="n">
+			<object name="wh40kPlan[n]" type="button" style="ModernButtonRed" font="sans-bold-12" tooltip_style="sessionToolTip"/>
+		</repeat>
+	</object>
+</object>

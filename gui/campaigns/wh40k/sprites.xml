@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sprites>
+	<!-- Painéis góticos: fundo escuro com borda dourada. -->
+	<sprite name="wh40kPanel">
+		<image texture="pregame/wh40k/panel.png" texture_size="0 0 256 256" size="0 0 100% 100%"/>
+		<image backcolor="8 6 5 185" size="0 0 100% 100%"/>
+		<image texture="campaigns/wh40k/icons/frame.png" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kBar">
+		<image texture="pregame/wh40k/panel.png" texture_size="0 0 256 256" size="0 0 100% 100%"/>
+		<image backcolor="10 8 6 200" size="0 0 100% 100%"/>
+		<image backcolor="150 120 60 255" size="0 100%-2 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kRow">
+		<image backcolor="35 30 24 200" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kRowOver">
+		<image backcolor="70 58 36 230" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kRowSelected">
+		<image backcolor="95 75 35 240" size="0 0 100% 100%"/>
+		<image backcolor="200 160 70 255" size="0 0 3 100%"/>
+	</sprite>
+	<sprite name="wh40kDim">
+		<image backcolor="0 0 0 170" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kBlack">
+		<image backcolor="4 4 6 255" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kPortraitFrame">
+		<image texture="campaigns/wh40k/icons/frame.png" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kDeployZone">
+		<image backcolor="60 140 60 45" size="0 0 100% 100%"/>
+		<image backcolor="90 200 90 160" size="0 0 100% 2"/>
+	</sprite>
+	<sprite name="wh40kEnemyZone">
+		<image backcolor="150 40 30 45" size="0 0 100% 100%"/>
+		<image backcolor="220 70 50 160" size="0 100%-2 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kBtn">
+		<image texture="pregame/wh40k/button.png" real_texture_placement="0 0 256 32" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kBtnOver">
+		<image texture="pregame/wh40k/button_over.png" real_texture_placement="0 0 256 32" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kBtnPressed">
+		<image texture="pregame/wh40k/button_pressed.png" real_texture_placement="0 0 256 32" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kBtnDisabled">
+		<image texture="pregame/wh40k/button_disabled.png" real_texture_placement="0 0 256 32" size="0 0 100% 100%"/>
+	</sprite>
+	<sprite name="wh40kLabelPlate">
+		<image backcolor="8 6 4 150" size="0 0 100% 100%"/>
+	</sprite>
+</sprites>

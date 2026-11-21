@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chuva de Rokks: salva orbital menos precisa e mais espalhada. -->
+<Entity parent="special/orbital_saturation">
+  <Identity>
+    <Civ>orks</Civ>
+    <GenericName>Chuva de Rokks</GenericName>
+  </Identity>
+  <OrbitalSaturation>
+    <ShellCount>28</ShellCount>
+    <Radius>85</Radius>
+  </OrbitalSaturation>
+</Entity>

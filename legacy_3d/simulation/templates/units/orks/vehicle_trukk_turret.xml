@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity parent="units/imperial/vehicle_chimera_turret">
+  <Attack>
+    <Ranged>
+      <AttackName>Big Shoota</AttackName>
+      <Projectile>
+        <Spread>3.0</Spread>
+      </Projectile>
+    </Ranged>
+  </Attack>
+  <Identity>
+    <Civ>orks</Civ>
+    <GenericName>Torre do Trukk</GenericName>
+    <SpecificName>Torre do Trukk</SpecificName>
+  </Identity>
+  <VisualActor>
+    <Actor>vehicle/orks/trukk_turret.xml</Actor>
+  </VisualActor>
+</Entity>

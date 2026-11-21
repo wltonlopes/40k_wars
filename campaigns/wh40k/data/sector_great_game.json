@@ -1,0 +1,1006 @@
+{
+	"Description": "Sistema estelar e corpos celestes (mesmo formato do sector.json). Gerado por tools/data/build_great_game.py; mapas por tools/art/gen_planets.py.",
+	"start": {
+		"turn": 1,
+		"year": "012.M42",
+		"monthsPerTurn": 1
+	},
+	"system": {
+		"id": "vigil",
+		"name": "Sistema Vigil Aeterna",
+		"star": {
+			"name": "Lágrima do Imperador",
+			"color": [
+				255,
+				238,
+				210
+			]
+		},
+		"desc": "Um mundo-santuário guarda as relíquias da Cruzada Indomitus. Do outro lado da Grande Fenda, os quatro Deuses do Caos fizeram uma aposta: quem o tomar primeiro."
+	},
+	"bodies": [
+		{
+			"id": "aeternum",
+			"name": "Aeternum Sanctus",
+			"kind": "planet",
+			"class": "Mundo-Santuário",
+			"orbit": 0.2,
+			"angle": 200,
+			"size": 1.0,
+			"mapSize": [
+				2048,
+				1280
+			],
+			"seed": 131,
+			"palette": "fortress",
+			"desc": "Mundo-santuário de catedrais e relicários, defendido por três capítulos Astartes. Nas bordas, as legiões dos Deuses já abriram brechas.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "lumen",
+					"name": "Cidade-Catedral Lumen",
+					"terrain": "hive",
+					"x": 0.4,
+					"y": 0.22,
+					"owner": "ultramarines",
+					"hive": 2,
+					"forts": 3,
+					"shipyard": true,
+					"garrison": [
+						"um_intercessors",
+						"um_intercessors"
+					]
+				},
+				{
+					"id": "relicary",
+					"name": "Grande Relicário",
+					"terrain": "hive",
+					"x": 0.58,
+					"y": 0.4,
+					"owner": "ultramarines",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"um_intercessors"
+					]
+				},
+				{
+					"id": "sanguis",
+					"name": "Cidadela Sanguínea",
+					"terrain": "hive",
+					"x": 0.66,
+					"y": 0.18,
+					"owner": "blood_angels",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"ba_intercessors",
+						"ba_intercessors"
+					]
+				},
+				{
+					"id": "crimson_spire",
+					"name": "Torre Carmesim",
+					"terrain": "hive",
+					"x": 0.76,
+					"y": 0.42,
+					"owner": "blood_angels",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"ba_intercessors"
+					]
+				},
+				{
+					"id": "forge_prometheia",
+					"name": "Forja-Colmeia Prometeia",
+					"terrain": "hive",
+					"x": 0.34,
+					"y": 0.56,
+					"owner": "salamanders",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"sal_intercessors",
+						"sal_intercessors"
+					]
+				},
+				{
+					"id": "nocturna",
+					"name": "Colmeia Nocturna",
+					"terrain": "hive",
+					"x": 0.52,
+					"y": 0.68,
+					"owner": "salamanders",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"sal_intercessors"
+					]
+				},
+				{
+					"id": "pilgrim_road",
+					"name": "Estrada dos Peregrinos",
+					"terrain": "plains",
+					"x": 0.48,
+					"y": 0.47,
+					"owner": "ultramarines",
+					"garrison": []
+				},
+				{
+					"id": "saints_peaks",
+					"name": "Picos dos Santos",
+					"terrain": "mountains",
+					"x": 0.22,
+					"y": 0.34,
+					"forts": 1,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "cloister_fields",
+					"name": "Campos do Claustro",
+					"terrain": "plains",
+					"x": 0.86,
+					"y": 0.62,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "manufactorum",
+					"name": "Manufactorum Votivo",
+					"terrain": "industrial",
+					"x": 0.24,
+					"y": 0.78,
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "glacier",
+					"name": "Glaciar do Silêncio",
+					"terrain": "ice",
+					"x": 0.52,
+					"y": 0.06,
+					"garrison": []
+				},
+				{
+					"id": "ossuary",
+					"name": "Ermos do Ossário",
+					"terrain": "ash",
+					"x": 0.68,
+					"y": 0.84,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "skull_field",
+					"name": "Basílica dos Crânios (profanada)",
+					"terrain": "warp",
+					"x": 0.09,
+					"y": 0.22,
+					"owner": "world_eaters",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"we_jakhals",
+						"we_jakhals"
+					]
+				},
+				{
+					"id": "plague_marsh",
+					"name": "Colmeia Pestilenta (profanada)",
+					"terrain": "mire",
+					"x": 0.08,
+					"y": 0.86,
+					"owner": "death_guard",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"dg_poxwalkers",
+						"dg_poxwalkers"
+					]
+				},
+				{
+					"id": "crystal_tower",
+					"name": "Scriptorium Cristalino (profanado)",
+					"terrain": "warp",
+					"x": 0.92,
+					"y": 0.22,
+					"owner": "thousand_sons",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"ts_cultists",
+						"ts_cultists"
+					]
+				},
+				{
+					"id": "rapture_gardens",
+					"name": "Claustro do Êxtase (profanado)",
+					"terrain": "jungle",
+					"x": 0.92,
+					"y": 0.88,
+					"owner": "emperors_children",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"ec_daemonettes",
+						"ec_daemonettes"
+					]
+				},
+				{
+					"id": "ae_sea_w",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.03,
+					"y": 0.5
+				},
+				{
+					"id": "ae_sea_s",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.4,
+					"y": 0.97
+				},
+				{
+					"id": "ae_sea_e",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.995,
+					"y": 0.4
+				}
+			]
+		},
+		{
+			"id": "vigil",
+			"name": "Fortaleza-Estelar Vigil",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "aeternum",
+			"orbit": 0.075,
+			"angle": 20,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 37,
+			"palette": "station",
+			"desc": "Fortaleza orbital dos Ultramarines sobre o mundo-santuário.",
+			"neutralCiv": "ultramarines",
+			"provinces": [
+				{
+					"id": "vigil_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "ultramarines",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"um_intercessors"
+					]
+				},
+				{
+					"id": "vigil_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "ultramarines",
+					"garrison": [
+						"um_intercessors"
+					]
+				},
+				{
+					"id": "vigil_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "ultramarines",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "sangue_eterno",
+			"name": "Barca Sangue Eterno",
+			"kind": "station",
+			"class": "Barca de Batalha",
+			"orbit": 0.3,
+			"angle": 120,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 139,
+			"palette": "station",
+			"desc": "A barca de batalha da força-tarefa dos Blood Angels, ancorada como uma fortaleza no espaço.",
+			"neutralCiv": "blood_angels",
+			"provinces": [
+				{
+					"id": "se_bridge",
+					"name": "Ponte de Comando",
+					"terrain": "station",
+					"x": 0.45,
+					"y": 0.45,
+					"owner": "blood_angels",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"ba_intercessors",
+						"ba_assault"
+					]
+				},
+				{
+					"id": "se_chapel",
+					"name": "Capela do Anjo",
+					"terrain": "station",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "blood_angels",
+					"garrison": []
+				},
+				{
+					"id": "se_hangars",
+					"name": "Hangares",
+					"terrain": "station",
+					"x": 0.72,
+					"y": 0.38,
+					"owner": "blood_angels",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"ba_scouts"
+					]
+				},
+				{
+					"id": "se_reclusiam",
+					"name": "Reclusiam",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.72,
+					"owner": "blood_angels",
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "prometheus",
+			"name": "Prometeu Menor",
+			"kind": "planet",
+			"class": "Mundo-Forja Vulcânico",
+			"orbit": 0.3,
+			"angle": 290,
+			"size": 0.65,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 141,
+			"palette": "volcanic",
+			"desc": "Lua vulcânica onde os Salamandras forjaram um posto avançado.",
+			"neutralCiv": "salamanders",
+			"provinces": [
+				{
+					"id": "pm_forge",
+					"name": "Forja do Pai",
+					"terrain": "industrial",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "salamanders",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"sal_intercessors",
+						"sal_scouts"
+					]
+				},
+				{
+					"id": "pm_peaks",
+					"name": "Montes de Fogo",
+					"terrain": "mountains",
+					"x": 0.2,
+					"y": 0.3,
+					"owner": "salamanders",
+					"garrison": []
+				},
+				{
+					"id": "pm_ash",
+					"name": "Planícies de Cinza",
+					"terrain": "ash",
+					"x": 0.76,
+					"y": 0.3,
+					"owner": "salamanders",
+					"garrison": [
+						"sal_scouts"
+					]
+				},
+				{
+					"id": "pm_vents",
+					"name": "Respiros de Lava",
+					"terrain": "industrial",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "salamanders",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "pm_wastes",
+					"name": "Ermos Calcinados",
+					"terrain": "ash",
+					"x": 0.75,
+					"y": 0.76,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "pm_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.97
+				}
+			]
+		},
+		{
+			"id": "skarvos",
+			"name": "Skarvos",
+			"kind": "planet",
+			"class": "Mundo-Demônio de Khorne",
+			"orbit": 0.46,
+			"angle": 155,
+			"size": 0.75,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 151,
+			"palette": "khorne",
+			"desc": "Um mar de sangue sob um céu de bronze. Torres de crânios marcam cada vitória dos Devoradores.",
+			"neutralCiv": "world_eaters",
+			"provinces": [
+				{
+					"id": "sk_throne",
+					"name": "Torre de Crânios",
+					"terrain": "warp",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "world_eaters",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"we_berzerkers",
+						"we_jakhals"
+					]
+				},
+				{
+					"id": "sk_brass",
+					"name": "Fortaleza de Bronze",
+					"terrain": "industrial",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "world_eaters",
+					"hive": 1,
+					"garrison": [
+						"we_jakhals"
+					]
+				},
+				{
+					"id": "sk_pits",
+					"name": "Arenas de Sangue",
+					"terrain": "warp",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "world_eaters",
+					"garrison": []
+				},
+				{
+					"id": "sk_ash",
+					"name": "Ermos Rubros",
+					"terrain": "ash",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "world_eaters",
+					"garrison": []
+				},
+				{
+					"id": "sk_peaks",
+					"name": "Montes de Ossos",
+					"terrain": "mountains",
+					"x": 0.74,
+					"y": 0.76,
+					"owner": "world_eaters",
+					"garrison": []
+				},
+				{
+					"id": "sk_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.03
+				}
+			]
+		},
+		{
+			"id": "mortis",
+			"name": "Mortis Vel",
+			"kind": "planet",
+			"class": "Mundo-Pestilento de Nurgle",
+			"orbit": 0.46,
+			"angle": 245,
+			"size": 0.75,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 157,
+			"palette": "nurgle",
+			"desc": "Pântanos fervilhando de moscas e jardins de podridão. A Death Guard trata o planeta como um presente.",
+			"neutralCiv": "death_guard",
+			"provinces": [
+				{
+					"id": "mv_garden",
+					"name": "Jardim do Avô",
+					"terrain": "warp",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "death_guard",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"dg_plague_marines",
+						"dg_poxwalkers"
+					]
+				},
+				{
+					"id": "mv_bog",
+					"name": "Lodaçal Fervente",
+					"terrain": "mire",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "death_guard",
+					"garrison": [
+						"dg_poxwalkers"
+					]
+				},
+				{
+					"id": "mv_foundry",
+					"name": "Fundição Enferrujada",
+					"terrain": "industrial",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "death_guard",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "mv_swamp",
+					"name": "Pântano das Moscas",
+					"terrain": "mire",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "death_guard",
+					"garrison": []
+				},
+				{
+					"id": "mv_rot",
+					"name": "Florestas Podres",
+					"terrain": "jungle",
+					"x": 0.74,
+					"y": 0.76,
+					"owner": "death_guard",
+					"garrison": []
+				},
+				{
+					"id": "mv_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.97
+				}
+			]
+		},
+		{
+			"id": "ixathar",
+			"name": "Ixathar",
+			"kind": "planet",
+			"class": "Mundo-Demônio de Tzeentch",
+			"orbit": 0.46,
+			"angle": 335,
+			"size": 0.75,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 163,
+			"palette": "tzeentch",
+			"desc": "Torres de cristal que mudam de forma a cada hora. Os Mil Filhos guardam aqui bibliotecas roubadas de mil mundos.",
+			"neutralCiv": "thousand_sons",
+			"provinces": [
+				{
+					"id": "ix_tower",
+					"name": "Torre do Destino",
+					"terrain": "warp",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "thousand_sons",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"ts_rubrics",
+						"ts_cultists"
+					]
+				},
+				{
+					"id": "ix_library",
+					"name": "Biblioteca Infinita",
+					"terrain": "warp",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "thousand_sons",
+					"hive": 1,
+					"garrison": [
+						"ts_tzaangors"
+					]
+				},
+				{
+					"id": "ix_crystal",
+					"name": "Planícies de Cristal",
+					"terrain": "plains",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "thousand_sons",
+					"garrison": []
+				},
+				{
+					"id": "ix_peaks",
+					"name": "Picos Mutantes",
+					"terrain": "mountains",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "thousand_sons",
+					"garrison": []
+				},
+				{
+					"id": "ix_ice",
+					"name": "Gelo Azul",
+					"terrain": "ice",
+					"x": 0.74,
+					"y": 0.76,
+					"owner": "thousand_sons",
+					"garrison": []
+				},
+				{
+					"id": "ix_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.03
+				}
+			]
+		},
+		{
+			"id": "lysandrae",
+			"name": "Lysandrae",
+			"kind": "planet",
+			"class": "Mundo-Prazer de Slaanesh",
+			"orbit": 0.46,
+			"angle": 65,
+			"size": 0.75,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 167,
+			"palette": "slaanesh",
+			"desc": "Palácios de excesso entre selvas perfumadas. Cada prazer custa uma alma.",
+			"neutralCiv": "emperors_children",
+			"provinces": [
+				{
+					"id": "ly_palace",
+					"name": "Palácio do Êxtase",
+					"terrain": "warp",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "emperors_children",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"ec_tormentors",
+						"ec_daemonettes"
+					]
+				},
+				{
+					"id": "ly_gardens",
+					"name": "Jardins Perfumados",
+					"terrain": "jungle",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "emperors_children",
+					"garrison": [
+						"ec_daemonettes"
+					]
+				},
+				{
+					"id": "ly_arena",
+					"name": "Arena das Mil Dores",
+					"terrain": "warp",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "emperors_children",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "ly_plains",
+					"name": "Campos Dourados",
+					"terrain": "plains",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "emperors_children",
+					"garrison": []
+				},
+				{
+					"id": "ly_marsh",
+					"name": "Lagos de Almíscar",
+					"terrain": "mire",
+					"x": 0.74,
+					"y": 0.76,
+					"owner": "emperors_children",
+					"garrison": []
+				},
+				{
+					"id": "ly_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.97
+				}
+			]
+		}
+	],
+	"startingArmies": [
+		{
+			"faction": "ultramarines",
+			"general": "calgar",
+			"body": "aeternum",
+			"province": "lumen",
+			"battalions": [
+				"um_intercessors",
+				"um_intercessors",
+				"um_hellblasters",
+				"um_aggressors",
+				"um_redemptor"
+			]
+		},
+		{
+			"faction": "ultramarines",
+			"general": "tigurius",
+			"body": "vigil",
+			"province": "vigil_yards",
+			"battalions": [
+				"um_intercessors",
+				"um_inceptors",
+				"um_scouts"
+			]
+		},
+		{
+			"faction": "blood_angels",
+			"general": "dante",
+			"body": "aeternum",
+			"province": "sanguis",
+			"battalions": [
+				"ba_intercessors",
+				"ba_assault",
+				"ba_death_company",
+				"ba_inceptors",
+				"ba_baal_predator"
+			]
+		},
+		{
+			"faction": "blood_angels",
+			"general": "mephiston",
+			"body": "sangue_eterno",
+			"province": "se_bridge",
+			"battalions": [
+				"ba_intercessors",
+				"ba_assault",
+				"ba_scouts"
+			]
+		},
+		{
+			"faction": "salamanders",
+			"general": "tushan",
+			"body": "aeternum",
+			"province": "forge_prometheia",
+			"battalions": [
+				"sal_intercessors",
+				"sal_intercessors",
+				"sal_infernus",
+				"sal_eradicators",
+				"sal_invictor"
+			]
+		},
+		{
+			"faction": "salamanders",
+			"general": "hestan",
+			"body": "prometheus",
+			"province": "pm_forge",
+			"battalions": [
+				"sal_intercessors",
+				"sal_assault",
+				"sal_scouts"
+			]
+		},
+		{
+			"faction": "world_eaters",
+			"general": "kharn",
+			"body": "aeternum",
+			"province": "skull_field",
+			"battalions": [
+				"we_jakhals",
+				"we_jakhals",
+				"we_berzerkers",
+				"we_berzerkers",
+				"we_berzerkers",
+				"we_eightbound",
+				"we_bloodletters",
+				"we_maulerfiend",
+				"we_rhino"
+			]
+		},
+		{
+			"faction": "world_eaters",
+			"general": "invocatus",
+			"body": "skarvos",
+			"province": "sk_throne",
+			"battalions": [
+				"we_jakhals",
+				"we_berzerkers",
+				"we_bloodletters",
+				"we_maulerfiend"
+			]
+		},
+		{
+			"faction": "death_guard",
+			"general": "typhus",
+			"body": "aeternum",
+			"province": "plague_marsh",
+			"battalions": [
+				"dg_poxwalkers",
+				"dg_poxwalkers",
+				"dg_poxwalkers",
+				"dg_plague_marines",
+				"dg_plague_marines",
+				"dg_plague_marines",
+				"dg_blight_launchers",
+				"dg_blightspawn",
+				"dg_plagueburst"
+			]
+		},
+		{
+			"faction": "death_guard",
+			"general": "felthius",
+			"body": "mortis",
+			"province": "mv_garden",
+			"battalions": [
+				"dg_poxwalkers",
+				"dg_plague_marines",
+				"dg_blight_hauler"
+			]
+		},
+		{
+			"faction": "thousand_sons",
+			"general": "ahriman",
+			"body": "aeternum",
+			"province": "crystal_tower",
+			"battalions": [
+				"ts_cultists",
+				"ts_tzaangors",
+				"ts_tzaangors",
+				"ts_rubrics",
+				"ts_rubrics",
+				"ts_rubrics",
+				"ts_horrors",
+				"ts_enlightened",
+				"ts_defiler"
+			]
+		},
+		{
+			"faction": "thousand_sons",
+			"general": "amon",
+			"body": "ixathar",
+			"province": "ix_tower",
+			"battalions": [
+				"ts_cultists",
+				"ts_rubrics",
+				"ts_enlightened"
+			]
+		},
+		{
+			"faction": "emperors_children",
+			"general": "lucius",
+			"body": "aeternum",
+			"province": "rapture_gardens",
+			"battalions": [
+				"ec_daemonettes",
+				"ec_daemonettes",
+				"ec_infractors",
+				"ec_infractors",
+				"ec_tormentors",
+				"ec_noise_marines",
+				"ec_blastmaster",
+				"ec_seekers",
+				"ec_maulerfiend"
+			]
+		},
+		{
+			"faction": "emperors_children",
+			"general": "xantine",
+			"body": "lysandrae",
+			"province": "ly_palace",
+			"battalions": [
+				"ec_daemonettes",
+				"ec_noise_marines",
+				"ec_seekers"
+			]
+		}
+	],
+	"startingFleets": [
+		{
+			"faction": "ultramarines",
+			"body": "aeternum",
+			"ships": 3
+		},
+		{
+			"faction": "blood_angels",
+			"body": "sangue_eterno",
+			"ships": 2
+		},
+		{
+			"faction": "salamanders",
+			"body": "prometheus",
+			"ships": 2
+		},
+		{
+			"faction": "world_eaters",
+			"body": "skarvos",
+			"ships": 3
+		},
+		{
+			"faction": "death_guard",
+			"body": "mortis",
+			"ships": 3
+		},
+		{
+			"faction": "thousand_sons",
+			"body": "ixathar",
+			"ships": 3
+		},
+		{
+			"faction": "emperors_children",
+			"body": "lysandrae",
+			"ships": 3
+		}
+	]
+}

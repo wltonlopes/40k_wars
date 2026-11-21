@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Rapazes Atiradores: líder + 7 com shootas. Muito dakka, pouca pontaria. -->
+<Entity parent="battalion_profile_assault|units/orks/infantry_shoota">
+  <BattalionLeader>
+    <MemberTemplates>units/orks/battalion_member_shoota:7</MemberTemplates>
+    <MemberRoles>units/orks/battalion_member_shoota:7:front</MemberRoles>
+  </BattalionLeader>
+  <Trainer>
+    <Entities datatype="tokens">units/orks/battalion_member_shoota</Entities>
+  </Trainer>
+  <Identity>
+    <GenericName>Rapazes Atiradores</GenericName>
+    <SpecificName>Shoota Boyz</SpecificName>
+    <Tooltip>Rapazes Atiradores: líder + 7 com shootas. Muito dakka, pouca pontaria.</Tooltip>
+    <Icon>units/orks/shoota.png</Icon>
+    <SelectionGroupName/>
+  </Identity>
+</Entity>

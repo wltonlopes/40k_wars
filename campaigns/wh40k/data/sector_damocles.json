@@ -1,0 +1,692 @@
+{
+	"Description": "Sistema estelar e corpos celestes (mesmo formato do sector.json). Gerado por tools/data/build_sectors.py; mapas por tools/art/gen_planets.py.",
+	"start": {
+		"turn": 1,
+		"year": "999.M41",
+		"monthsPerTurn": 1
+	},
+	"system": {
+		"id": "damocles",
+		"name": "Golfo de Damocles",
+		"star": {
+			"name": "Sha'draig",
+			"color": [
+				255,
+				222,
+				170
+			]
+		},
+		"desc": "Fronteira entre o Imperium e o Império Tau, agora no caminho de uma lasca da Frota-Colmeia Gorgon."
+	},
+	"bodies": [
+		{
+			"id": "agrellan",
+			"name": "Agrellan",
+			"kind": "planet",
+			"class": "Mundo Contestado",
+			"orbit": 0.28,
+			"angle": 200,
+			"size": 1.0,
+			"mapSize": [
+				2048,
+				1280
+			],
+			"seed": 63,
+			"palette": "hive",
+			"desc": "Mundo-colmeia disputado por Imperium e Tau. Ao sul, os esporos tiranídeos já transformaram selvas em biomassa.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "mugulath",
+					"name": "Baía de Mu'gulath",
+					"terrain": "hive",
+					"x": 0.18,
+					"y": 0.28,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"guard_platoon",
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "pathos",
+					"name": "Colmeia Pathos",
+					"terrain": "hive",
+					"x": 0.37,
+					"y": 0.17,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "fort_damocles",
+					"name": "Fortaleza Damocles",
+					"terrain": "industrial",
+					"x": 0.09,
+					"y": 0.52,
+					"owner": "imperial",
+					"hive": 1,
+					"forts": 3,
+					"garrison": [
+						"heavy_weapons"
+					]
+				},
+				{
+					"id": "arlarn",
+					"name": "Planícies de Ar'larn",
+					"terrain": "plains",
+					"x": 0.3,
+					"y": 0.43,
+					"owner": "imperial",
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "kelshan",
+					"name": "Picos de Kel'shan",
+					"terrain": "mountains",
+					"x": 0.5,
+					"y": 0.33,
+					"forts": 1,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "gelbryn",
+					"name": "Calota de Gel'bryn",
+					"terrain": "ice",
+					"x": 0.62,
+					"y": 0.08,
+					"garrison": []
+				},
+				{
+					"id": "katuo",
+					"name": "Cidade Ka'tuo",
+					"terrain": "hive",
+					"x": 0.8,
+					"y": 0.25,
+					"owner": "tau",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"fire_warriors",
+						"fire_warriors"
+					]
+				},
+				{
+					"id": "vashya",
+					"name": "Vale de Vash'ya",
+					"terrain": "plains",
+					"x": 0.66,
+					"y": 0.42,
+					"owner": "tau",
+					"garrison": [
+						"kroot"
+					]
+				},
+				{
+					"id": "fiotaun",
+					"name": "Domos de Fio'taun",
+					"terrain": "industrial",
+					"x": 0.91,
+					"y": 0.52,
+					"owner": "tau",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"fire_warriors"
+					]
+				},
+				{
+					"id": "lorak",
+					"name": "Pântanos de Lorak",
+					"terrain": "mire",
+					"x": 0.48,
+					"y": 0.56,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "grey_wastes",
+					"name": "Ermos Cinzentos",
+					"terrain": "ash",
+					"x": 0.19,
+					"y": 0.77,
+					"garrison": []
+				},
+				{
+					"id": "devoured",
+					"name": "Selva Devorada",
+					"terrain": "biomass",
+					"x": 0.36,
+					"y": 0.71,
+					"owner": "tyranids",
+					"garrison": [
+						"hormagaunts"
+					]
+				},
+				{
+					"id": "gorgon_nest",
+					"name": "Ninho Gorgon",
+					"terrain": "biomass",
+					"x": 0.56,
+					"y": 0.81,
+					"owner": "tyranids",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"termagants",
+						"termagants",
+						"warriors"
+					]
+				},
+				{
+					"id": "spore_chasm",
+					"name": "Abismo de Esporos",
+					"terrain": "biomass",
+					"x": 0.75,
+					"y": 0.7,
+					"owner": "tyranids",
+					"garrison": [
+						"termagants"
+					]
+				},
+				{
+					"id": "shadraig_jungle",
+					"name": "Selva de Sha'draig",
+					"terrain": "jungle",
+					"x": 0.88,
+					"y": 0.86,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "ag_sea_nw",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.02,
+					"y": 0.06
+				},
+				{
+					"id": "ag_sea_sw",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.05,
+					"y": 0.97
+				},
+				{
+					"id": "ag_sea_e",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.995,
+					"y": 0.75
+				}
+			]
+		},
+		{
+			"id": "valiant",
+			"name": "Doca Valiant",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "prefectia",
+			"orbit": 0.075,
+			"angle": 130,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 17,
+			"palette": "station",
+			"desc": "Estaleiro da Marinha Imperial em órbita de Prefectia.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "valiant_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "imperial",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "valiant_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "imperial",
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "valiant_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "imperial",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "prefectia",
+			"name": "Prefectia",
+			"kind": "planet",
+			"class": "Mundo Agrícola",
+			"orbit": 0.16,
+			"angle": 60,
+			"size": 0.7,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 81,
+			"palette": "agri",
+			"desc": "Celeiro imperial do Golfo, defendido por regimentos locais.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "prefectia_hive",
+					"name": "Colmeia Prefectia",
+					"terrain": "hive",
+					"x": 0.45,
+					"y": 0.4,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"guard_platoon",
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "fields_n",
+					"name": "Campos do Norte",
+					"terrain": "plains",
+					"x": 0.2,
+					"y": 0.3,
+					"owner": "imperial",
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "fields_s",
+					"name": "Campos do Sul",
+					"terrain": "plains",
+					"x": 0.35,
+					"y": 0.74,
+					"owner": "imperial",
+					"garrison": []
+				},
+				{
+					"id": "ice_mine",
+					"name": "Minas de Gelo",
+					"terrain": "ice",
+					"x": 0.76,
+					"y": 0.2,
+					"owner": "imperial",
+					"garrison": []
+				},
+				{
+					"id": "prefectia_jungle",
+					"name": "Selva Oriental",
+					"terrain": "jungle",
+					"x": 0.76,
+					"y": 0.7,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "pf_sea_a",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.96,
+					"y": 0.96
+				},
+				{
+					"id": "pf_sea_b",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.04,
+					"y": 0.96
+				}
+			]
+		},
+		{
+			"id": "dalyth",
+			"name": "Dal'yth",
+			"kind": "planet",
+			"class": "Mundo-Seita Tau",
+			"orbit": 0.38,
+			"angle": 330,
+			"size": 0.8,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 71,
+			"palette": "tau",
+			"desc": "Mundo-seita tau, todo planejado em domos e cidades brancas.",
+			"neutralCiv": "tau",
+			"provinces": [
+				{
+					"id": "dalyth_city",
+					"name": "Cidade-Seita Dal'yth",
+					"terrain": "hive",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "tau",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"fire_warriors",
+						"breachers"
+					]
+				},
+				{
+					"id": "korvesa",
+					"name": "Planícies Kor'vesa",
+					"terrain": "plains",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "tau",
+					"garrison": [
+						"fire_warriors"
+					]
+				},
+				{
+					"id": "dalyth_domes",
+					"name": "Domos de Fio",
+					"terrain": "industrial",
+					"x": 0.78,
+					"y": 0.35,
+					"owner": "tau",
+					"hive": 1,
+					"garrison": [
+						"fire_warriors"
+					]
+				},
+				{
+					"id": "kroot_jungle",
+					"name": "Selva Kroot",
+					"terrain": "jungle",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "tau",
+					"garrison": [
+						"kroot"
+					]
+				},
+				{
+					"id": "shas_mountains",
+					"name": "Montes Shas",
+					"terrain": "mountains",
+					"x": 0.72,
+					"y": 0.76,
+					"owner": "tau",
+					"garrison": []
+				},
+				{
+					"id": "dl_sea_a",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.97
+				},
+				{
+					"id": "dl_sea_b",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.03,
+					"y": 0.04
+				}
+			]
+		},
+		{
+			"id": "koro",
+			"name": "Estação Kor'O",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "dalyth",
+			"orbit": 0.075,
+			"angle": 200,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 23,
+			"palette": "station",
+			"desc": "Estaleiro orbital da casta do ar tau.",
+			"neutralCiv": "tau",
+			"provinces": [
+				{
+					"id": "koro_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "tau",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"fire_warriors"
+					]
+				},
+				{
+					"id": "koro_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "tau",
+					"garrison": [
+						"fire_warriors"
+					]
+				},
+				{
+					"id": "koro_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "tau",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "kel",
+			"name": "Kel-Morai",
+			"kind": "planet",
+			"class": "Mundo Devorado",
+			"orbit": 0.47,
+			"angle": 140,
+			"size": 0.75,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 91,
+			"palette": "bio",
+			"desc": "Um mundo já consumido: oceanos de ácido, florestas de carne e torres capilares que sugam a biomassa para os navios-colmeia.",
+			"neutralCiv": "tyranids",
+			"provinces": [
+				{
+					"id": "kel_nest",
+					"name": "Ninho Primordial",
+					"terrain": "biomass",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "tyranids",
+					"hive": 2,
+					"forts": 1,
+					"shipyard": true,
+					"garrison": [
+						"warriors",
+						"termagants"
+					]
+				},
+				{
+					"id": "kel_flesh",
+					"name": "Planícies de Carne",
+					"terrain": "biomass",
+					"x": 0.2,
+					"y": 0.4,
+					"owner": "tyranids",
+					"garrison": [
+						"termagants"
+					]
+				},
+				{
+					"id": "kel_spires",
+					"name": "Torres Capilares",
+					"terrain": "biomass",
+					"x": 0.76,
+					"y": 0.3,
+					"owner": "tyranids",
+					"garrison": [
+						"hormagaunts"
+					]
+				},
+				{
+					"id": "kel_ruins",
+					"name": "Ruínas da Colônia",
+					"terrain": "ash",
+					"x": 0.7,
+					"y": 0.76,
+					"garrison": []
+				},
+				{
+					"id": "kel_ice",
+					"name": "Gelo Morto",
+					"terrain": "ice",
+					"x": 0.25,
+					"y": 0.8,
+					"owner": "tyranids",
+					"garrison": []
+				},
+				{
+					"id": "kl_sea_a",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.03
+				},
+				{
+					"id": "kl_sea_b",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.97,
+					"y": 0.97
+				}
+			]
+		}
+	],
+	"startingArmies": [
+		{
+			"faction": "imperial",
+			"general": "straken",
+			"body": "agrellan",
+			"province": "mugulath",
+			"battalions": [
+				"guard_platoon",
+				"guard_platoon",
+				"flamers",
+				"sentinel",
+				"chimera",
+				"leman_russ"
+			]
+		},
+		{
+			"faction": "tau",
+			"general": "farsight",
+			"body": "agrellan",
+			"province": "katuo",
+			"battalions": [
+				"fire_warriors",
+				"fire_warriors",
+				"kroot",
+				"pathfinders",
+				"crisis_suits",
+				"devilfish"
+			]
+		},
+		{
+			"faction": "tyranids",
+			"general": "hive_tyrant",
+			"body": "agrellan",
+			"province": "gorgon_nest",
+			"battalions": [
+				"termagants",
+				"termagants",
+				"termagants",
+				"hormagaunts",
+				"hormagaunts",
+				"warriors",
+				"carnifex"
+			]
+		},
+		{
+			"faction": "tyranids",
+			"general": "old_one_eye",
+			"body": "kel",
+			"province": "kel_nest",
+			"battalions": [
+				"termagants",
+				"termagants",
+				"hormagaunts",
+				"carnifex"
+			]
+		}
+	],
+	"startingFleets": [
+		{
+			"faction": "imperial",
+			"body": "agrellan",
+			"ships": 2
+		},
+		{
+			"faction": "imperial",
+			"body": "prefectia",
+			"ships": 2
+		},
+		{
+			"faction": "tau",
+			"body": "dalyth",
+			"ships": 3
+		},
+		{
+			"faction": "tyranids",
+			"body": "kel",
+			"ships": 4
+		}
+	]
+}

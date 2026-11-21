@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Página da campanha 40k Wars. Três vistas no mesmo lugar (mapArea):
+	  systemView  sistema estelar: estrela, órbitas, planetas, luas, frotas
+	  planetView  mapa do corpo: províncias, colmeias, exércitos, órbita
+	  deployView  desdobramento tático e, depois, a batalha 2D em tempo real
+	Efeitos animados (ui/Fx.js): planetFx, sysFx e battleFx.
+	Painel lateral (side*) mostra o que está selecionado; dialog é a janela
+	modal (batalha, relatórios, escolha da facção, fim de jogo).
+	Os scripts: core/ (regras, sem interface) e ui/ (vistas e painéis).
+-->
+<objects>
+	<script directory="gui/campaigns/wh40k/core/"/>
+	<script directory="gui/campaigns/wh40k/ui/"/>
+
+	<object name="wh40kRoot" type="image" sprite="wh40kBlack" size="0 0 100% 100%">
+		<action on="Tick">if (g_WH40KPage) g_WH40KPage.tick();</action>
+		<object hotkey="cancel">
+			<action on="Press">if (g_WH40KPage &amp;&amp; g_WH40KPage.card.isOpen()) g_WH40KPage.card.close();</action>
+		</object>
+
+		<!-- ============================================== vistas -->
+		<object name="mapArea" size="0 44 100%-370 100%-62">
+
+			<!-- Sistema estelar -->
+			<object name="systemView" type="image" sprite="stretched:campaigns/wh40k/system/background.png" size="0 0 100% 100%">
+				<object name="sysStar" type="image" sprite="stretched:campaigns/wh40k/system/star.png" ghost="true"/>
+				<repeat count="12" var="n">
+					<object name="sysOrbit[n]" type="image" ghost="true" hidden="true"/>
+				</repeat>
+				<repeat count="12" var="n">
+					<object name="sysRoute[n]" type="image" ghost="true" hidden="true"/>
+				</repeat>
+				<object name="sysHalo" type="image" ghost="true" hidden="true" sprite="color:230 190 90 255:textureAsMask:campaigns/wh40k/system/halo.png"/>
+				<repeat count="12" var="n">
+					<object name="sysBody[n]" type="button" hidden="true">
+						<object name="sysBodyOwner[n]" type="image" ghost="true" size="10% 100%-6 90% 100%-2"/>
+					</object>
+					<object name="sysBodyLabel[n]" type="text" ghost="true" hidden="true" font="sans-bold-stroke-14" textcolor="230 215 180" text_align="center"/>
+				</repeat>
+				<repeat count="24" var="n">
+					<object name="sysFleet[n]" type="button" hidden="true">
+						<object name="sysFleetLabel[n]" type="text" ghost="true" size="0 100% 100% 100%+16" font="sans-bold-stroke-13" textcolor="255 255 255" text_align="center"/>
+					</object>
+				</repeat>
+				<repeat count="16" var="n">
+					<object name="sysFx[n]" type="image" ghost="true" hidden="true"/>
+				</repeat>
+				<object name="sysTitle" type="text" ghost="true" size="16 8 60% 40" font="sans-bold-stroke-20" textcolor="230 200 120"/>
+				<object name="sysHint" type="text" ghost="true" size="16 40 70% 64" font="sans-stroke-14" textcolor="200 190 170"/>
+			</object>
+
+			<!-- Mapa do planeta -->
+			<object name="planetView" hidden="true" size="0 0 100% 100%">
+				<object type="image" sprite="stretched:campaigns/wh40k/system/background.png" size="0 0 100% 100%" ghost="true"/>
+				<object name="planetMap" type="image" ghost="true"/>
+				<repeat count="24" var="n">
+					<object name="prov[n]" type="button" hidden="true"/>
+				</repeat>
+				<repeat count="24" var="n">
+					<object name="provPlate[n]" type="image" ghost="true" hidden="true" sprite="wh40kLabelPlate"/>
+					<object name="provLabel[n]" type="text" ghost="true" hidden="true" font="sans-bold-stroke-13" textcolor="240 230 200" text_align="center" text_valign="center"/>
+					<object name="provHive[n]" type="image" ghost="true" hidden="true"/>
+					<object name="provFort[n]" type="image" ghost="true" hidden="true"/>
+					<object name="provYard[n]" type="image" ghost="true" hidden="true"/>
+					<object name="provGarrison[n]" type="text" ghost="true" hidden="true" font="sans-bold-stroke-12" textcolor="255 255 255" text_align="left" text_valign="center"/>
+					<object name="provTarget[n]" type="image" ghost="true" hidden="true"/>
+				</repeat>
+				<repeat count="16" var="n">
+					<object name="armyRing[n]" type="image" ghost="true" hidden="true"/>
+					<object name="army[n]" type="button" hidden="true">
+						<object name="armyCount[n]" type="text" ghost="true" size="0 100%-14 100% 100%+2" font="sans-bold-stroke-12" textcolor="255 255 255" text_align="center"/>
+					</object>
+				</repeat>
+				<repeat count="32" var="n">
+					<object name="planetFx[n]" type="image" ghost="true" hidden="true"/>
+				</repeat>
+				<object name="orbitBar" type="image" sprite="wh40kBar" size="0 0 100% 34">
+					<object name="orbitText" type="text" ghost="true" size="10 0 100%-420 100%" font="sans-bold-stroke-14" textcolor="230 210 160" text_valign="center"/>
+					<repeat count="4" var="n">
+						<object name="orbitFleet[n]" type="button" style="wh40kButton" hidden="true" font="sans-bold-13"/>
+					</repeat>
+				</object>
+				<object name="planetHint" type="text" ghost="true" size="12 100%-22 100%-12 100%-2" font="sans-stroke-13" textcolor="210 200 180"/>
+			</object>
+
+			<!-- Desdobramento tático -->
+			<object name="deployView" hidden="true" size="0 0 100% 100%">
+				<object type="image" sprite="wh40kBlack" size="0 0 100% 100%" ghost="true"/>
+				<object name="deployField" type="button">
+					<object name="deployGround" type="image" ghost="true" size="0 0 100% 100%"/>
+					<repeat count="48" var="n">
+						<object name="deployFeature[n]" type="image" ghost="true" hidden="true"/>
+					</repeat>
+					<object name="deployEnemyZone" type="image" sprite="wh40kEnemyZone" ghost="true" size="0 4% 100% 24%"/>
+					<object name="deployOwnZone" type="image" sprite="wh40kDeployZone" ghost="true" size="0 76% 100% 96%"/>
+					<object name="deploySelRing" type="image" ghost="true" hidden="true"/>
+					<repeat count="24" var="n">
+						<object name="deployEnemy[n]" type="button" hidden="true">
+							<object name="deployEnemyHit[n]" type="image" ghost="true" hidden="true" size="0 0 100% 100%" sprite="color:255 40 20 110"/>
+							<object name="deployEnemyBar[n]" type="image" ghost="true" hidden="true" sprite="color:230 80 60 255"/>
+						</object>
+					</repeat>
+					<repeat count="24" var="n">
+						<object name="deployToken[n]" type="button" hidden="true">
+							<object name="deployTokenHit[n]" type="image" ghost="true" hidden="true" size="0 0 100% 100%" sprite="color:255 40 20 110"/>
+							<object name="deployTokenBar[n]" type="image" ghost="true" hidden="true" sprite="color:90 200 90 255"/>
+							<object name="deployTokenOrder[n]" type="text" ghost="true" size="-20 100% 100%+20 100%+16" font="sans-bold-stroke-12" textcolor="255 230 150" text_align="center"/>
+						</object>
+					</repeat>
+					<repeat count="40" var="n">
+						<object name="battleFx[n]" type="image" ghost="true" hidden="true"/>
+					</repeat>
+					<object name="battleCursor" type="image" ghost="true" hidden="true"/>
+					<repeat count="20" var="n">
+						<object name="deployArrow[n]" type="image" ghost="true" hidden="true"/>
+					</repeat>
+				</object>
+				<object name="deployTitle" type="text" ghost="true" size="12 6 100%-12 34" font="sans-bold-stroke-20" textcolor="230 200 120"/>
+				<object name="battleHud" hidden="true" ghost="true" size="100%-432 8 100%-12 34">
+					<object type="image" sprite="color:20 16 12 220" ghost="true" size="0 0 100% 100%"/>
+					<object name="battleBar1" type="image" ghost="true" sprite="color:90 200 90 255" size="4 4 50% 100%-4"/>
+					<object name="battleBar2" type="image" ghost="true" sprite="color:220 70 50 255" size="50% 4 100%-4 100%-4"/>
+					<object name="battleHudText" type="text" ghost="true" size="0 0 100% 100%" font="sans-bold-stroke-14" textcolor="255 255 255" text_align="center" text_valign="center"/>
+				</object>
+				<object name="battleMsg" type="text" ghost="true" hidden="true" size="12 40 360 200" font="sans-bold-stroke-14" textcolor="240 230 200"/>
+				<object name="deployHint" type="text" ghost="true" size="12 100%-28 100%-12 100%-4" font="sans-stroke-14" textcolor="210 200 180"/>
+			</object>
+		</object>
+
+		<!-- ============================================== barra superior -->
+		<object name="topBar" type="image" sprite="wh40kBar" size="0 0 100% 44">
+			<object name="topEmblem" type="image" size="6 4 42 40"/>
+			<object name="topFaction" type="text" size="50 0 300 100%" font="sans-bold-stroke-18" textcolor="230 200 120" text_valign="center"/>
+			<object name="topFunds" type="text" size="300 0 560 100%" font="sans-bold-stroke-16" textcolor="240 230 200" text_valign="center"/>
+			<object name="topTurn" type="text" size="560 0 760 100%" font="sans-bold-stroke-16" textcolor="240 230 200" text_valign="center"/>
+			<object name="topObjective" type="text" size="760 0 100%-640 100%" font="sans-stroke-14" textcolor="210 190 150" text_valign="center"/>
+			<object name="btnSystem" type="button" style="wh40kButton" size="100%-636 6 100%-526 38">Sistema</object>
+			<object name="btnPlanet" type="button" style="wh40kButton" size="100%-522 6 100%-412 38">Planeta</object>
+			<object name="btnLog" type="button" style="wh40kButton" size="100%-408 6 100%-298 38">Registro</object>
+			<object name="btnEndTurn" type="button" style="wh40kButton" size="100%-294 6 100%-120 38">Encerrar Turno</object>
+			<object name="btnMenu" type="button" style="wh40kButton" size="100%-116 6 100%-6 38">Sair</object>
+		</object>
+
+		<!-- ============================================== painel lateral -->
+		<object name="side" type="image" sprite="wh40kPanel" size="100%-370 44 100% 100%">
+			<object name="sidePortrait" type="image" size="12 12 108 108" hidden="true"/>
+			<object name="sidePortraitFrame" type="image" sprite="wh40kPortraitFrame" ghost="true" size="10 10 110 110" hidden="true"/>
+			<object name="sidePortraitBtn" type="button" size="10 10 110 110" hidden="true" tooltip="Clique: ficha completa"/>
+			<object name="sideTitle" type="text" size="118 10 100%-10 40" font="sans-bold-stroke-16" textcolor="235 205 125"/>
+			<object name="sideSubtitle" type="text" size="118 40 100%-10 64" font="sans-14" textcolor="200 190 170"/>
+			<object name="sideQuote" type="text" size="118 64 100%-10 116" font="sans-bold-13" textcolor="250 225 150" hidden="true"/>
+			<object name="sideText" type="text" size="12 118 100%-12 230" font="sans-14" textcolor="220 215 200" scrollbar="true" scrollbar_style="ModernScrollBar"/>
+			<repeat count="14" var="n">
+				<object name="sideRow[n]" type="button" sprite="wh40kRow" sprite_over="wh40kRowOver" hidden="true">
+					<object name="sideRowIcon[n]" type="image" ghost="true" size="2 2 36 36"/>
+					<object name="sideRowBar[n]" type="image" ghost="true" size="2 36 36 39" sprite="color:90 200 90 255"/>
+					<object name="sideRowText[n]" type="text" ghost="true" size="42 0 100%-92 100%" font="sans-13" textcolor="230 225 210" text_valign="center"/>
+					<object name="sideRowBtn[n]" type="button" style="wh40kButton" size="100%-88 5 100%-4 100%-5" font="sans-bold-12" hidden="true"/>
+				</object>
+			</repeat>
+			<repeat count="12" var="n">
+				<object name="sideAction[n]" type="button" style="wh40kButton" hidden="true" font="sans-bold-13"/>
+			</repeat>
+		</object>
+
+		<!-- ============================================== registro -->
+		<object name="bottomBar" type="image" sprite="wh40kPanel" size="0 100%-62 100%-370 100%">
+			<object name="logText" type="text" size="10 5 100%-10 100%-5" font="sans-13" textcolor="215 205 185"/>
+		</object>
+
+		<!-- ============================================== diálogo -->
+		<object name="dialogDim" type="image" sprite="wh40kDim" size="0 0 100% 100%" hidden="true" z="200">
+			<object name="dialog" type="image" sprite="wh40kPanel" size="50%-330 50%-230 50%+330 50%+230">
+				<object name="dlgPortrait" type="image" size="16 16 144 144" hidden="true"/>
+				<object name="dlgPortraitB" type="image" size="100%-144 16 100%-16 144" hidden="true"/>
+				<object name="dlgTitle" type="text" size="16 16 100%-16 52" font="sans-bold-stroke-20" textcolor="235 205 125" text_align="center"/>
+				<object name="dlgText" type="text" size="20 150 100%-20 100%-64" font="sans-14" textcolor="225 220 205" scrollbar="true" scrollbar_style="ModernScrollBar"/>
+				<repeat count="10" var="n">
+					<object name="dlgBtn[n]" type="button" style="wh40kButton" hidden="true"/>
+				</repeat>
+			</object>
+		</object>
+
+		<!-- ============================================== ficha grande da unidade (ui/UnitCard.js) -->
+		<object name="cardDim" type="button" sprite="wh40kDim" size="0 0 100% 100%" hidden="true" z="220">
+			<object name="cardPanel" type="image" sprite="wh40kPanel" size="50%-450 50%-270 50%+450 50%+270">
+				<object name="cardBand" type="image" ghost="true" size="20 20 500 26"/>
+				<object name="cardPortrait" type="image" ghost="true" size="24 34 496 506"/>
+				<object type="image" sprite="wh40kPortraitFrame" ghost="true" size="18 28 502 512"/>
+				<object name="cardTitle" type="text" ghost="true" size="520 22 100%-56 82" text_valign="center" font="sans-bold-stroke-20" textcolor="235 205 125"/>
+				<object name="cardSubtitle" type="text" ghost="true" size="520 84 100%-20 108" font="sans-bold-14" textcolor="200 190 170"/>
+				<object name="cardStats" type="text" ghost="true" size="520 116 100%-20 310" font="sans-14" textcolor="225 220 205"/>
+				<object name="cardDesc" type="text" ghost="true" size="520 316 100%-20 424" font="sans-14" textcolor="210 205 190"/>
+				<object name="cardQuote" type="text" ghost="true" size="520 424 100%-20 100%-20" font="sans-bold-stroke-14" textcolor="250 225 150"/>
+				<object name="cardClose" type="button" style="wh40kButton" size="100%-50 18 100%-18 50" tooltip="Fechar (Esc ou clique fora)">X</object>
+			</object>
+		</object>
+	</object>
+</objects>
