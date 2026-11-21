@@ -1,0 +1,61 @@
+{
+	"id": "nocturne_fleet",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"nf_bridge": {
+			"rect": [
+				0.25,
+				0.14219,
+				0.63672,
+				0.9
+			],
+			"label": [
+				0.4717,
+				0.6188
+			],
+			"area": 130606,
+			"neighbors": [
+				"nf_forge",
+				"nf_hangars"
+			],
+			"coastal": false
+		},
+		"nf_forge": {
+			"rect": [
+				0.10059,
+				0.15937,
+				0.37207,
+				0.74844
+			],
+			"label": [
+				0.2197,
+				0.5141
+			],
+			"area": 56596,
+			"neighbors": [
+				"nf_bridge"
+			],
+			"coastal": false
+		},
+		"nf_hangars": {
+			"rect": [
+				0.54688,
+				0.14531,
+				0.9043,
+				0.81094
+			],
+			"label": [
+				0.7354,
+				0.4859
+			],
+			"area": 87617,
+			"neighbors": [
+				"nf_bridge"
+			],
+			"coastal": false
+		}
+	}
+}

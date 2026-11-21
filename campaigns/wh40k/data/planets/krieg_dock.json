@@ -1,0 +1,63 @@
+{
+	"id": "krieg_dock",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"krieg_dock_yards": {
+			"rect": [
+				0.10547,
+				0.18594,
+				0.48047,
+				0.89844
+			],
+			"label": [
+				0.2529,
+				0.5359
+			],
+			"area": 96367,
+			"neighbors": [
+				"krieg_dock_battery",
+				"krieg_dock_ring"
+			],
+			"coastal": false
+		},
+		"krieg_dock_ring": {
+			"rect": [
+				0.3457,
+				0.11562,
+				0.80273,
+				0.86562
+			],
+			"label": [
+				0.5459,
+				0.3812
+			],
+			"area": 115939,
+			"neighbors": [
+				"krieg_dock_battery",
+				"krieg_dock_yards"
+			],
+			"coastal": false
+		},
+		"krieg_dock_battery": {
+			"rect": [
+				0.48633,
+				0.22969,
+				0.88477,
+				0.86719
+			],
+			"label": [
+				0.7812,
+				0.4812
+			],
+			"area": 63486,
+			"neighbors": [
+				"krieg_dock_ring",
+				"krieg_dock_yards"
+			],
+			"coastal": false
+		}
+	}
+}

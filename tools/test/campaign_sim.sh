@@ -10,13 +10,14 @@ var MOD = "$MOD";
 var TURNS = ${1:-40};
 var PLAYER = "${2:-imperial}";
 var SCENARIO = "${3:-${SCENARIO:-armageddon}}";
+var GREP = /Trégua|TRAI|Príncipe|Cria do Caos|relíquia|traço|nível|EXTERMINATUS|rebela/;
 const ByteArray = imports.byteArray;
 function readText(path) { return ByteArray.toString(imports.gi.GLib.file_get_contents(path)[1]); }
 var Engine = { "ReadJSONFile": p => JSON.parse(readText(MOD + "/" + p)) };
 function warn(t) { print("WARN " + t); }
 function error(t) { print("ERROR " + t); }
 JS
-	cat "$MOD/gui/campaigns/wh40k/core/Data.js" "$MOD/gui/campaigns/wh40k/core/Game.js" "$MOD/gui/campaigns/wh40k/core/AI.js"
+	cat "$MOD/gui/campaigns/wh40k/core/Data.js" "$MOD/gui/campaigns/wh40k/core/Events.js" "$MOD/gui/campaigns/wh40k/core/Game.js" "$MOD/gui/campaigns/wh40k/core/Mechanics.js" "$MOD/gui/campaigns/wh40k/core/AI.js"
 	cat "$MOD/tools/test/campaign_sim_main.js"
 } > "$OUT/sim.js"
 gjs "$OUT/sim.js"

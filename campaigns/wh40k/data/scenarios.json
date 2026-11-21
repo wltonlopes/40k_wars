@@ -90,7 +90,8 @@
 				"emperors_children",
 				"ultramarines",
 				"blood_angels",
-				"salamanders"
+				"salamanders",
+				"grey_knights"
 			],
 			"playable": [
 				"world_eaters",
@@ -99,13 +100,15 @@
 				"emperors_children",
 				"ultramarines",
 				"blood_angels",
-				"salamanders"
+				"salamanders",
+				"grey_knights"
 			],
 			"teams": {
 				"astartes": [
 					"ultramarines",
 					"blood_angels",
-					"salamanders"
+					"salamanders",
+					"grey_knights"
 				]
 			},
 			"neutralName": "Defesa Planetária",
@@ -119,7 +122,125 @@
 				"ultramarines/r2c0.png"
 			],
 			"intro": "012.M42. Khorne, Nurgle, Tzeentch e Slaanesh apostaram um mundo-santuário no Grande Jogo. Quatro legiões traidoras abrem brechas em Aeternum Sanctus — e cada uma quer o prêmio só para o seu deus. Ultramarines, Blood Angels e Salamandras juram defendê-lo juntos.",
-			"summary": "As quatro legiões dos Deuses do Caos, umas contra as outras, contra três capítulos Astartes aliados."
+			"summary": "As quatro legiões dos Deuses do Caos, umas contra as outras, contra os capítulos Astartes e os Cavaleiros Cinzentos aliados."
+		},
+		{
+			"id": "thaurus",
+			"name": "A Profanação de Thaurus",
+			"sector": "sector_thaurus.json",
+			"factions": [
+				"mechanicus",
+				"sororitas",
+				"custodes",
+				"grey_knights",
+				"drukhari",
+				"death_guard",
+				"thousand_sons"
+			],
+			"playable": [
+				"mechanicus",
+				"sororitas",
+				"custodes",
+				"grey_knights",
+				"drukhari",
+				"death_guard",
+				"thousand_sons"
+			],
+			"teams": {
+				"imperium": [
+					"mechanicus",
+					"sororitas",
+					"custodes",
+					"grey_knights"
+				]
+			},
+			"neutralName": "Defesa Planetária",
+			"objective": {
+				"body": "thaurus",
+				"label": "Forjas de Thaurus",
+				"text": "controlar todas as cidades de Thaurus Prime, inclusive as três tomadas pelos invasores (o Imperium vence junto)"
+			},
+			"portraits": [
+				"mechanicus/r2c0.png",
+				"drukhari/r2c0.png"
+			],
+			"intro": "015.M42. O mundo-forja Thaurus Prime guarda um arquivo STC intacto. A Death Guard quer infectar as forjas, os Thousand Sons querem o arquivo para Magnus e os Drukhari querem milhões de escravos. O Mechanicus resiste, e o Imperium responde: Irmãs de Batalha, Custódios e Cavaleiros Cinzentos.",
+			"summary": "Mechanicus, Sororitas, Custódios e Grey Knights aliados contra os Drukhari, a Death Guard e os Thousand Sons."
+		},
+		{
+			"id": "badab",
+			"name": "A Guerra de Badab",
+			"sector": "sector_badab.json",
+			"factions": [
+				"astral_claws",
+				"salamanders",
+				"ultramarines",
+				"imperial"
+			],
+			"playable": [
+				"astral_claws",
+				"salamanders",
+				"ultramarines",
+				"imperial"
+			],
+			"teams": {
+				"loyalists": [
+					"salamanders",
+					"ultramarines",
+					"imperial"
+				]
+			},
+			"neutralName": "Forças de Defesa de Badab",
+			"objective": {
+				"body": "badab_primaris",
+				"label": "Colmeias de Badab",
+				"text": "controlar todas as cidades de Badab Primaris (os lealistas vencem juntos)"
+			},
+			"portraits": [
+				"badab_claws/r1c0.png",
+				"salamanders/r2c0.png"
+			],
+			"intro": "904.M41. Lugft Huron, Mestre dos Astral Claws, recusou o dízimo de semente genética e se declarou Tirano de Badab. Lamenters, Mantis Warriors e Executioners o seguiram. Agora a cruzada lealista — Salamandras, Ultramarines e a Armada — chega para esmagar a secessão.",
+			"summary": "Huron e os capítulos secessionistas contra a cruzada lealista: Salamandras, Ultramarines e a Guarda Imperial."
+		},
+		{
+			"id": "vraks",
+			"name": "O Cerco de Vraks",
+			"sector": "sector_vraks.json",
+			"factions": [
+				"krieg",
+				"vraks",
+				"grey_knights",
+				"world_eaters"
+			],
+			"playable": [
+				"krieg",
+				"vraks",
+				"grey_knights",
+				"world_eaters"
+			],
+			"teams": {
+				"imperium": [
+					"krieg",
+					"grey_knights"
+				],
+				"traitors": [
+					"vraks",
+					"world_eaters"
+				]
+			},
+			"neutralName": "Terra de Ninguém",
+			"objective": {
+				"body": "vraks_prime",
+				"label": "Cidadelas de Vraks",
+				"text": "controlar todas as cidades e arsenais de Vraks Prime (cada aliança vence junta)"
+			},
+			"portraits": [
+				"krieg/r2c0.png",
+				"vraks/r2c0.png"
+			],
+			"intro": "813.M41. O Cardeal Xaphan proclamou Vraks livre do Imperador e entregou o arsenal ao Caos. Os Death Korps of Krieg cavam trincheiras ao redor da Cidadela: o cerco vai durar anos. Nas sombras, a Alpha Legion arma os rebeldes, uma fenda de sangue se abre para Khorne — e os Cavaleiros Cinzentos vigiam.",
+			"summary": "Krieg e os Grey Knights contra os rebeldes de Xaphan e os demônios de Khorne, numa guerra de trincheiras."
 		}
 	]
 }

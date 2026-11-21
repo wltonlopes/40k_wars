@@ -1,15 +1,19 @@
 // Roteiro do teste da interface (tools/test/gui_sim.sh).
 let closed = null;
+var g_SpaceBattles = 0;
 const page = new WH40KPage({}, req => { closed = req; });
 g_WH40KPage = page;
 const press = name => { const o = gui(name); if (!o.onPress) throw new Error("sem onPress: " + name); o.onPress(); };
 const dlgButtons = () => [...Array(10).keys()].filter(i => !gui("dlgBtn[" + i + "]").hidden).map(i => gui("dlgBtn[" + i + "]").caption);
+const firstEnabled = () => [...Array(10).keys()].find(i => !gui("dlgBtn[" + i + "]").hidden && gui("dlgBtn[" + i + "]").enabled !== false) || 0;
 print("diálogo inicial: " + gui("dlgTitle").caption + " | botões: " + dlgButtons().join(", "));
 const sidx = WH40KData.scenarios.findIndex(sc => sc.id == SCENARIO);
 press("dlgBtn[" + sidx + "]");
 print("campanha: " + gui("dlgTitle").caption + " | botões: " + dlgButtons().join(", "));
 const idx = WH40KData.playableFactions().indexOf(FACTION);
 press("dlgBtn[" + idx + "]");
+print("dificuldade: " + gui("dlgTitle").caption + " | botões: " + dlgButtons().join(", "));
+press("dlgBtn[1]");
 print("tutorial: " + gui("dlgTitle").caption);
 press("dlgBtn[0]");
 const g = page.game;
@@ -135,15 +139,22 @@ for (let t = 0; t < 15; ++t)
 {
 	page.endTurn();
 	let guard = 0;
-	while (page.dialog.isOpen() && guard++ < 30)
+	while ((page.dialog.isOpen() || page.view == "space") && guard++ < 30)
 	{
+		if (page.view == "space")
+		{
+			++g_SpaceBattles;
+			page.space.finish();
+			continue;
+		}
 		const buttons = dlgButtons();
 		const auto = buttons.indexOf("Resolver Automaticamente");
-		press("dlgBtn[" + (auto != -1 ? auto : 0) + "]");
+		press("dlgBtn[" + (auto != -1 ? auto : firstEnabled()) + "]");
 	}
 	page.showSystem();
 	page.showPlanet("armageddon");
 }
+print("batalhas espaciais encenadas nos turnos: " + g_SpaceBattles);
 print("após turnos: " + gui("topTurn").caption + " | " + gui("topFunds").caption + " | " + gui("topObjective").caption);
 print("log (topo): " + gui("logText").caption.split("\n").slice(0, 3).join(" || ").replace(/\[[^\]]*\]/g, ""));
 // Frota: mover e embarcar
@@ -156,6 +167,112 @@ if (fleet)
 	const target = Object.keys(page.D.bodies).find(b => b != fleet.body);
 	gui("sysBody[" + page.system.bodyIndex[target] + "]").onPressRight();
 	print("frota rumo a " + fleet.dest + " eta " + fleet.eta);
+}
+// v0.6: recurso especial, rituais, diplomacia, eventos, códex e estatísticas.
+{
+	const me = page.game.player;
+	page.dialog.close();
+	print("recurso: " + gui("topSpecialText").caption.replace(/\[[^\]]*\]/g, "") + " | oculto " + gui("topSpecial").hidden);
+	page.game.s.factions[me].special = 250;
+	const army = page.game.armiesOf(me).find(a => a.province);
+	if (army)
+	{
+		page.select({ "type": "army", "id": army.id });
+		page.openRituals();
+		const rows = [...Array(14).keys()].filter(i => !gui("sideRow[" + i + "]").hidden);
+		print("rituais: " + gui("sideTitle").caption + " | " + rows.map(i => gui("sideRowText[" + i + "]").caption.split("\n")[0]).join(", "));
+		const ok = rows.find(i => gui("sideRowIcon[" + i + "]").sprite.indexOf("grayscale") == -1);
+		if (ok !== undefined)
+		{
+			gui("sideRow[" + ok + "]").onPress();
+			print("ritual feito: " + page.game.s.log[page.game.s.log.length - 1].text.slice(0, 140) + " | resta " + page.game.specialAmount(me));
+		}
+		page.side.mode = null;
+		page.select({ "type": "army", "id": army.id });
+		print("exército: " + gui("sideText").caption.replace(/\[[^\]]*\]/g, "").split("\n").slice(0, 3).join(" / "));
+		if (army.general)
+		{
+			page.card.open({ "general": army.general });
+			print("ficha general: " + gui("cardStats").caption.replace(/\[[^\]]*\]/g, "").split("\n").join(" / "));
+			page.card.close();
+		}
+	}
+	page.showDiplomacy();
+	print("diplomacia: " + dlgButtons().join(", "));
+	print("  " + gui("dlgText").caption.replace(/\[[^\]]*\]/g, "").split("\n").slice(0, 4).join(" / "));
+	page.dialog.close();
+	for (const ev of WH40K_EVENTS)
+	{
+		if (ev.factions && !ev.factions(page.game, me))
+			continue;
+		const ctx = ev.when(page.game, me);
+		if (!ctx)
+			continue;
+		page.game.s.pendingChoices.push({ "kind": "event", "event": ev.id, "faction": me, "ctx": ctx, "turn": page.game.s.turn });
+		page.processQueue();
+		print("evento " + ev.id + ": " + gui("dlgTitle").caption + " | " + dlgButtons().join(", "));
+		press("dlgBtn[" + firstEnabled() + "]");
+		page.dialog.close();
+	}
+	page.codex.open(me);
+	print("códex: " + gui("codexTitle").caption.replace(/\[[^\]]*\]/g, "") + " | ícones " + [...Array(48).keys()].filter(i => !gui("codexIcon[" + i + "]").hidden).length +
+		" | facções " + [...Array(26).keys()].filter(i => !gui("codexFac[" + i + "]").hidden).length);
+	gui("codexIcon[0]").onPress();
+	print("  ficha do códex: " + gui("cardTitle").caption);
+	page.card.close();
+	page.codex.close();
+	page.stats.open();
+	print("estatísticas: barras " + [...Array(320).keys()].filter(i => !gui("statsBar[" + i + "]").hidden).length + " | " + gui("statsText").caption.replace(/\[[^\]]*\]/g, "").split("\n")[0]);
+	page.stats.close();
+	// Ataque a frotas inimigas: na mesma órbita (batalha agora) e em outro corpo (viagem).
+	{
+		const G = page.game;
+		const home = G.provincesOf(me).length ? G.pdef(G.provincesOf(me)[0]).body : Object.keys(G.D.bodies)[0];
+		const foe = Object.keys(G.s.factions).find(f => G.hostile(f, me));
+		const mineF = Object.values(G.s.fleets).find(f => f.faction == me && f.body && !f.dest) || G.createFleet(me, home, 3);
+		const other = Object.keys(G.D.bodies).find(b => b != mineF.body);
+		const enemyF = Object.values(G.s.fleets).find(f => G.hostile(f.faction, me) && f.body && f.body != mineF.body) || G.createFleet(foe, other, 2);
+		if (mineF && enemyF)
+		{
+			mineF.acted = 0;
+			G.s.storms = {};
+			const far = enemyF.body && enemyF.body != mineF.body ? enemyF.body : null;
+			page.select({ "type": "fleet", "id": mineF.id });
+			if (far)
+			{
+				page.attackFleet(enemyF);
+				print("atacar frota longe: destino " + mineF.dest + " eta " + mineF.eta + " | " + G.s.log[G.s.log.length - 1].text.slice(0, 120));
+				G.moveFleet(mineF.id, mineF.body);
+			}
+			enemyF.body = mineF.body;
+			enemyF.dest = null;
+			mineF.ships = 4;
+			page.select({ "type": "fleet", "id": mineF.id });
+			const btnRow = [...Array(14).keys()].find(i => !gui("sideRowBtn[" + i + "]").hidden && gui("sideRowBtn[" + i + "]").caption == "Atacar");
+			print("painel da frota: botão Atacar " + (btnRow !== undefined));
+			if (btnRow !== undefined)
+				gui("sideRowBtn[" + btnRow + "]").onPress();
+			print("atacar frota na órbita: vista " + page.view + " | " + gui("spaceHud").caption.replace(/\[[^\]]*\]/g, ""));
+			if (page.view == "space")
+				page.space.finish();
+			print("  relatório: " + gui("dlgTitle").caption + " | " + gui("dlgText").caption.replace(/\[[^\]]*\]/g, "").split("\n").slice(2, 4).join(" / "));
+			page.dialog.close();
+		}
+	}
+	page.debug("space");
+	print("batalha espacial: vista " + page.view + " | naves " + [...Array(32).keys()].filter(i => !gui("spaceShip[" + i + "]").hidden).length + " | " + gui("spaceHud").caption.replace(/\[[^\]]*\]/g, ""));
+	const t0 = Date.now();
+	for (let k = 0; k < 400 && page.view == "space"; ++k)
+	{
+		page.space.last -= 100;
+		page.tick();
+	}
+	print("  fim: vista " + page.view + " | relatório " + gui("dlgTitle").caption + " | " + gui("spaceHud").caption.replace(/\[[^\]]*\]/g, ""));
+	page.dialog.close();
+	// Códex do menu principal (sem campanha).
+	const cpage = new WH40KPage({ "codex": true }, req => { closed = req; });
+	print("códex do menu: " + gui("codexTitle").caption.replace(/\[[^\]]*\]/g, ""));
+	g_WH40KPage = page;
 }
 print("OK");
 print("sons tocados: " + g_Sounds.length + " (" + [...new Set(g_Sounds.map(p => p.replace(/^.*\//, "").replace(/(_\d)?\.ogg$/, "")))].join(", ") + ")");

@@ -16,6 +16,11 @@ audio/interface/wh40k/<nome>.ogg (mono, 44.1 kHz, Vorbis via ffmpeg).
   warp           poder psíquico / disformidade
   horn           início da batalha
   ui_card, ui_click
+  panic          batalhão em pânico (apito e gritos abafados)
+  warcry_<f>     grito de guerra: imperial, astartes, ork, tyranid, necron, tau,
+                 eldar, mechanicus, chaos, khorne
+  amb_<p>        ambiente do planeta (~20 s): hive, jungle, wind, station, lava,
+                 tomb, warp
 """
 import os
 import subprocess
@@ -231,6 +236,94 @@ def ui_click():
     return norm(hp(noise(d), 1500) * env(d, 0.0005, 0.01) + np.sin(2 * np.pi * 700 * t_(d)) * env(d, 0.001, 0.02), 0.45)
 
 
+# ------------------------------------------------------------ v0.6: pânico, gritos de guerra e ambientes
+def panic():
+    d = 1.2
+    t = t_(d)
+    whistle = np.sin(2 * np.pi * np.cumsum(2400 + 300 * np.sin(2 * np.pi * 14 * t)) / SR) * np.minimum(1, (d - t) / 0.4) * 0.3
+    crowd = bp(noise(d), 300, 1500) * (0.5 + 0.5 * np.sin(2 * np.pi * 5 * t)) * 0.6
+    return norm(soft(whistle + crowd, 1.4), 0.55)
+
+
+def choir(freqs, d, vib=5.0, bright=2500):
+    t = t_(d)
+    x = np.zeros(len(t))
+    for i, f in enumerate(freqs):
+        ph = np.cumsum(f * (1 + 0.006 * np.sin(2 * np.pi * (vib + 0.3 * i) * t + i))) / SR
+        x += signal.sawtooth(2 * np.pi * ph) / (1 + i * 0.3)
+    return lp(x, bright)
+
+
+def env_ad(d, a, r):
+    t = t_(d)
+    return np.minimum(1, t / a) * np.minimum(1, np.maximum(0, (d - t) / r))
+
+
+def drums(d, bpm, pitch=70):
+    t = t_(d)
+    out = np.zeros(len(t))
+    step = 60 / bpm
+    for k in range(int(d / step)):
+        i = int(k * step * SR)
+        hit = sweep(pitch * 1.6, pitch * 0.6, 0.35, 0.5) * env(0.35, 0.002, 0.12) + lp(noise(0.35), 500) * env(0.35, 0.001, 0.05)
+        m = min(len(hit), len(out) - i)
+        out[i:i + m] += hit[:m] * (1.0 if k % 2 == 0 else 0.7)
+    return out
+
+
+def warcry(kind):
+    d = 2.6
+    t = t_(d)
+    e = env_ad(d, 0.15, 0.8)
+    if kind == "imperial":      # coro solene em quinta
+        x = choir([146.8, 220, 293.7, 440], d) * e
+    elif kind == "astartes":    # coro grave e trompa
+        x = (choir([73.4, 110, 146.8], d, bright=1800) * 1.2 + choir([220], d) * 0.4) * e + drums(d, 100, 60) * 0.5
+    elif kind == "ork":         # bramido rouco e tambores rápidos
+        f = 110 + 60 * np.sin(np.pi * t / d)
+        x = soft(signal.sawtooth(2 * np.pi * np.cumsum(f) / SR) * 2 + bp(noise(d), 200, 1500), 3) * e + drums(d, 180, 80) * 0.8
+    elif kind == "tyranid":     # guinchos do enxame
+        x = sum(np.sin(2 * np.pi * np.cumsum(1800 + 900 * np.sin(2 * np.pi * (3 + k) * t + k)) / SR) * rng.uniform(0.2, 0.5) for k in range(5))
+        x = (x + bp(noise(d), 2000, 6000) * 0.5) * e
+    elif kind == "necron":      # zumbido metálico e pulsos
+        x = (signal.square(2 * np.pi * 55 * t) * 0.3 + np.sin(2 * np.pi * 880 * t) * (np.sin(2 * np.pi * 6 * t) > 0) * 0.3 + sweep(200, 60, d) * 0.4) * e
+        x = lp(x, 3000)
+    elif kind == "tau":         # sintetizador limpo, acorde
+        x = sum(np.sin(2 * np.pi * f * t) * w for f, w in ((261.6, 1), (392, 0.6), (523.3, 0.4))) * e + np.sin(2 * np.pi * 1046 * t) * env(d, 0.01, 0.3) * 0.3
+    elif kind == "eldar":       # sinos etéreos
+        x = sum(np.sin(2 * np.pi * f * t) * np.exp(-((t - o) % d) / 1.2) * (t >= o) for f, o in ((659, 0), (880, 0.3), (987.8, 0.6), (1318, 0.9))) * 0.5
+        x = x + choir([329.6, 493.9], d, bright=4000) * 0.2 * e
+    elif kind == "mechanicus":  # cântico binário
+        bits = (np.floor(t * 12) % 3 == 0)
+        x = (np.sin(2 * np.pi * 1200 * t) * bits * 0.4 + np.sin(2 * np.pi * 600 * t) * (~bits) * 0.3) * e + choir([98, 147], d, bright=900) * 0.5 * e
+    elif kind == "khorne":      # rugido e tambores de guerra
+        x = soft(sweep(90, 60, d) * 2 + bp(noise(d), 100, 900) * 1.5, 3) * e + drums(d, 140, 55)
+    else:                       # chaos: coro dissonante
+        x = choir([73.4, 77.8, 110, 155.6], d, vib=3, bright=1500) * e + bp(noise(d), 300, 2000) * 0.3 * e
+    return norm(soft(x, 1.3), 0.75)
+
+
+def ambient(kind):
+    d = 20.0
+    t = t_(d)
+    fade = np.minimum(1, t / 2.5) * np.minimum(1, (d - t) / 2.5)
+    if kind == "hive":       # zumbido de máquinas e sirenes distantes
+        x = lp(noise(d), 300) * 0.8 + np.sin(2 * np.pi * 50 * t) * 0.2 + np.sin(2 * np.pi * np.cumsum(500 + 120 * np.sin(2 * np.pi * 0.25 * t)) / SR) * 0.05 * (np.sin(2 * np.pi * t / 10) > 0.6)
+    elif kind == "jungle":   # insetos e vento nas folhas
+        x = bp(noise(d), 300, 2000) * 0.3 * (0.6 + 0.4 * np.sin(2 * np.pi * 0.1 * t)) + np.sin(2 * np.pi * 4200 * t) * (np.sin(2 * np.pi * 9 * t) > 0.7) * 0.05
+    elif kind == "wind":     # vento gelado
+        x = bp(noise(d), 300, 1500) * (0.5 + 0.5 * np.sin(2 * np.pi * 0.07 * t) ** 2)
+    elif kind == "station":  # zumbido do casco
+        x = np.sin(2 * np.pi * 60 * t) * 0.3 + np.sin(2 * np.pi * 120 * t) * 0.15 + lp(noise(d), 200) * 0.4
+    elif kind == "lava":     # borbulhar e ronco
+        x = lp(noise(d), 120) * 1.2 + lp(noise(d), 900) * (rng.random(len(t)) > 0.9993) * 4
+    elif kind == "tomb":     # ressonância antiga
+        x = (np.sin(2 * np.pi * 41 * t) + np.sin(2 * np.pi * 61.5 * t) * 0.5) * (0.6 + 0.4 * np.sin(2 * np.pi * 0.2 * t)) * 0.5 + lp(noise(d), 150) * 0.2
+    else:                    # warp: sussurros e coro distante
+        x = bp(noise(d), 800, 3000) * (0.4 + 0.6 * np.abs(np.sin(2 * np.pi * 0.6 * t))) * 0.3 + choir([55, 58.3, 82.4], d, vib=0.5, bright=600) * 0.25
+    return norm(x * fade, 0.3)
+
+
 SOUNDS = {
     "las_1": lambda: las(0), "las_2": lambda: las(1), "las_3": lambda: las(2),
     "bolt_1": lambda: bolt(0), "bolt_2": lambda: bolt(1), "bolt_3": lambda: bolt(2),
@@ -239,8 +332,12 @@ SOUNDS = {
     "explosion_1": lambda: explosion(0), "explosion_2": lambda: explosion(1), "explosion_3": lambda: explosion(2),
     "artillery": artillery, "bomber": bomber, "bombs": bombs, "orbital": orbital, "drop_pod": drop_pod,
     "flamer": flamer, "chainsword": chainsword, "warp": warp, "horn": horn,
-    "ui_card": ui_card, "ui_click": ui_click,
+    "ui_card": ui_card, "ui_click": ui_click, "panic": panic,
 }
+for _k in ("imperial", "astartes", "ork", "tyranid", "necron", "tau", "eldar", "mechanicus", "chaos", "khorne"):
+    SOUNDS["warcry_" + _k] = (lambda k: lambda: warcry(k))(_k)
+for _k in ("hive", "jungle", "wind", "station", "lava", "tomb", "warp"):
+    SOUNDS["amb_" + _k] = (lambda k: lambda: ambient(k))(_k)
 
 
 def write_ogg(name, x):

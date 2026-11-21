@@ -115,7 +115,7 @@ class WH40KBattleSetup
 		const g = this.sides[role].general;
 		if (!g)
 			return null;
-		const def = this.D.generals[g.id];
+		const def = this.g.generalStats(g.id);
 		return {
 			"id": "general",
 			"general": true,
@@ -212,7 +212,7 @@ class WH40KBattleSetup
 		const hasAir = this.sides[role].entries.some(e => this.g.unit(e.bat)?.category == "air");
 		const orbit = this.g.orbitalControl(this.pdef.body, faction);
 		const powers = this.D.supportOf(faction).filter(p => p.requires == "orbit" ? orbit : p.requires == "air" ? hasAir : true);
-		const general = this.sides[role].general && this.D.generals[this.sides[role].general.id];
+		const general = this.sides[role].general && this.g.generalStats(this.sides[role].general.id);
 		return { "powers": powers, "ready": general ? general.support || 0 : 0, "orbit": orbit, "air": hasAir };
 	}
 
@@ -235,16 +235,30 @@ class WH40KBattleSetup
 		const prov = this.g.province(this.battle.province);
 		const sideOpts = (list, role) => {
 			const faction = this.sides[role].faction;
-			const g = this.sides[role].general && this.D.generals[this.sides[role].general.id];
+			const g = this.sides[role].general && this.g.generalStats(this.sides[role].general.id);
 			const sup = this.supportFor(role);
 			let armor = 1;
 			if (role == "defender")
 				armor += 0.12 * prov.forts + (this.pdef.hive == 2 ? 0.1 : 0) + (this.pdef.terrain == "mountains" ? 0.1 : 0) + (g ? g.defense * 0.5 : 0);
+			// Bônus dos rituais (exércitos do lado): metade do valor, como os do general.
+			let buffAtk = 0;
+			let buffDef = 0;
+			for (const aid of this.battle[role].armies)
+			{
+				const army = this.g.s.armies[aid];
+				if (army)
+				{
+					buffAtk = Math.max(buffAtk, this.g.buffBonus(army, "attack"));
+					buffDef = Math.max(buffDef, this.g.buffBonus(army, "defense"));
+				}
+			}
+			armor = Math.max(0.5, armor + buffDef * 0.5);
 			return {
 				"units": list.map(e => Object.assign({}, e, unitStats(e))),
 				"support": sup.powers.map(p => ({ "id": p.id, "type": p.type, "name": p.name, "icon": p.icon, "desc": p.desc, "kills": this.killsNeeded(p, role) })),
 				"ready": sup.ready,
-				"dps": 1 + (this.D.factions[faction]?.attackBonus || 0) + (role == "attacker" && g ? g.attack * 0.5 : 0),
+				"dps": Math.max(0.5, 1 + (this.D.factions[faction]?.attackBonus || 0) + (role == "attacker" && g ? g.attack * 0.5 : 0) + buffAtk * 0.5),
+				"morale": this.D.factions[faction]?.morale ?? 1,
 				"armor": armor,
 				"regen": this.D.factions[faction]?.regen || 0,
 				"landing": role == "attacker" && this.battle.kind == "landing"
@@ -276,10 +290,17 @@ class WH40KBattleSetup
 			generalsAlive[this.playerRole] = !!res.generals[1];
 		if (res.generals[2] !== null && res.generals[2] !== undefined)
 			generalsAlive[this.enemyRole] = !!res.generals[2];
+		const powers = {};
+		if (res.powers)
+		{
+			powers[this.playerRole] = res.powers[1] || 0;
+			powers[this.enemyRole] = res.powers[2] || 0;
+		}
 		const report = this.g.applyBattle(battle, {
 			"winner": res.winner == 1 ? this.playerRole : this.enemyRole,
 			"strengths": strengths,
-			"generalsAlive": generalsAlive
+			"generalsAlive": generalsAlive,
+			"powers": powers
 		});
 		report.lines.unshift("Baixas causadas: você " + (res.kills[1] || 0) + ", inimigo " + (res.kills[2] || 0) + " (" + Math.floor(res.time / 60) + " min " + (res.time % 60) + " s de combate).");
 		return report;

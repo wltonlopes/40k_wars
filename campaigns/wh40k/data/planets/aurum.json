@@ -1,0 +1,63 @@
+{
+	"id": "aurum",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"aurum_yards": {
+			"rect": [
+				0.09473,
+				0.15937,
+				0.47168,
+				0.85312
+			],
+			"label": [
+				0.2646,
+				0.5438
+			],
+			"area": 98854,
+			"neighbors": [
+				"aurum_battery",
+				"aurum_ring"
+			],
+			"coastal": false
+		},
+		"aurum_ring": {
+			"rect": [
+				0.35156,
+				0.14531,
+				0.76172,
+				0.82969
+			],
+			"label": [
+				0.5391,
+				0.4016
+			],
+			"area": 106372,
+			"neighbors": [
+				"aurum_battery",
+				"aurum_yards"
+			],
+			"coastal": false
+		},
+		"aurum_battery": {
+			"rect": [
+				0.48633,
+				0.26562,
+				0.8457,
+				0.90156
+			],
+			"label": [
+				0.7607,
+				0.5562
+			],
+			"area": 68053,
+			"neighbors": [
+				"aurum_ring",
+				"aurum_yards"
+			],
+			"coastal": false
+		}
+	}
+}

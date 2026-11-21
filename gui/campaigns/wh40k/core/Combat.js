@@ -17,6 +17,8 @@
  * Apoio "killstreak": as baixas (homens) que um lado causa enchem as barras
  *          dos poderes; cheio, o poder é lançado num ponto do campo.
  * Debandada: um lado reduzido a 25% da força inicial, diante do dobro, foge.
+ * Moral: um batalhão que cai abaixo de 30% da força (× moral da facção; 0 =
+ *          nunca) sob fogo recua em pânico por 8 s e depois se reagrupa.
  * Fim: um lado sem ninguém em campo perde; tempo esgotado = o defensor segura.
  */
 const WH40K_COMBAT = {
@@ -102,6 +104,7 @@ class WH40KCombat
 				"dps": def.dps || 1,
 				"armor": def.armor || 1,
 				"regen": def.regen || 0,
+				"morale": def.morale === undefined ? 1 : def.morale,
 				"landing": !!def.landing,
 				"routing": false,
 				"routTime": 0,
@@ -305,6 +308,7 @@ class WH40KCombat
 		for (const u of this.units)
 			if (u.state == "alive")
 			{
+				this.checkMorale(u);
 				this.think(u, dt);
 				// Protocolos de reanimação (Necrons): sem levar dano por 4 s, a força volta aos poucos.
 				const regen = this.sides[u.side].regen;
@@ -393,9 +397,38 @@ class WH40KCombat
 		}
 	}
 
+	/** Pânico: uma vez por batalha, o batalhão muito ferido sob fogo recua por 8 s. */
+	checkMorale(u)
+	{
+		const morale = this.sides[u.side].morale;
+		if (u.general || u.temp || u.brokeOnce || !morale || this.sides[u.side].routing)
+			return;
+		if (u.hp < u.hp0 * 0.3 * morale && this.time - u.lastHit < 2)
+		{
+			u.brokeOnce = true;
+			u.brokenUntil = this.time + 8;
+			this.message(u.side, u.name + " recua em pânico!", true);
+			this.events.push({ "type": "panic", "unit": u, "x": u.x, "y": u.y });
+		}
+	}
+
 	think(u, dt)
 	{
 		const side = this.sides[u.side];
+		if (u.brokenUntil)
+		{
+			if (this.time < u.brokenUntil && !side.routing)
+			{
+				const homeY = this.homeY(u.side);
+				if (Math.abs(u.y - homeY) > 0.06)
+					this.moveTowards(u, u.x, homeY, dt, 1.1);
+				return;
+			}
+			u.brokenUntil = 0;
+			if (u.order != "retreat")
+				u.order = "hold";
+			this.message(u.side, u.name + " se reagrupa.", true);
+		}
 		if (side.routing || u.order == "retreat")
 		{
 			const enemy = this.nearestEnemy(u, this.rangeOf(u));
@@ -782,6 +815,7 @@ class WH40KCombat
 			"battalions": strengths,
 			"generals": generals,
 			"kills": { "1": Math.round(this.sides[1].kills), "2": Math.round(this.sides[2].kills) },
+			"powers": { "1": this.sides[1].powers.reduce((n, p) => n + (p.uses || 0), 0), "2": this.sides[2].powers.reduce((n, p) => n + (p.uses || 0), 0) },
 			"time": Math.round(this.time)
 		};
 	}

@@ -1,0 +1,83 @@
+{
+	"id": "macragge_anchor",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"ma_keep": {
+			"rect": [
+				0.3125,
+				0.0,
+				0.68066,
+				0.65781
+			],
+			"label": [
+				0.4971,
+				0.3609
+			],
+			"area": 106846,
+			"neighbors": [
+				"ma_fields",
+				"ma_hills",
+				"ma_silos"
+			],
+			"coastal": false
+		},
+		"ma_fields": {
+			"rect": [
+				0.0,
+				0.0,
+				0.43164,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 194550,
+			"neighbors": [
+				"ma_hills",
+				"ma_keep"
+			],
+			"coastal": false
+		},
+		"ma_silos": {
+			"rect": [
+				0.57812,
+				0.0,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 198937,
+			"neighbors": [
+				"ma_hills",
+				"ma_keep"
+			],
+			"coastal": false
+		},
+		"ma_hills": {
+			"rect": [
+				0.05566,
+				0.58594,
+				0.93359,
+				1.0
+			],
+			"label": [
+				0.4277,
+				0.9984
+			],
+			"area": 155027,
+			"neighbors": [
+				"ma_fields",
+				"ma_keep",
+				"ma_silos"
+			],
+			"coastal": false
+		}
+	}
+}

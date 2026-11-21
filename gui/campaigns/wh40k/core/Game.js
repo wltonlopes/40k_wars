@@ -7,7 +7,15 @@
  *   armies[a]     { id, faction, general, province | null, fleet | null, battalions, moves }
  *   fleets[f]     { id, faction, name, ships, body | null, dest, eta, from, cargo: [exército] }
  *   batalhão      { id, unit, strength (0..1), xp, leader }
- *   generals[g]   { state: available | hired | wounded, turns }
+ *   generals[g]   { state: available | hired | wounded | spawn, turns, xp, traits, relics, stats, ascended }
+ *   factions[f]   também: special (recurso especial), battleTurn
+ *   army.buffs    [{ name, attack, defense, turns }] (rituais)
+ *   truces        { "a|b": { since, until } } tréguas (core/Mechanics.js)
+ *   grudges       { "a|b": turno } traições recentes (sem trégua até lá)
+ *   relics        { relíquia: general } relíquias já reclamadas
+ *   pendingChoices eventos e propostas que esperam a decisão do jogador
+ *   storms        { corpo: turnos } tempestades da disformidade
+ *   stats         [{ turn, prov: {f: n} }] e battleStats {f: {...}}
  *   pendingBattles  batalhas que esperam a decisão do jogador (atacado pela IA)
  *   events        [{ id, turn, kind, pid | body, faction }] ações de peso dos
  *                 últimos turnos (orbital, sack, battle, capture, landing,
@@ -32,13 +40,19 @@ class WH40KGame
 		this.D = WH40KData.load(state.scenario || "armageddon");
 		this.s = state;
 		this.s.events = this.s.events || [];
+		// Saves de versões anteriores à 0.6.
+		for (const k of ["truces", "grudges", "relics", "storms", "battleStats"])
+			this.s[k] = this.s[k] || {};
+		for (const k of ["pendingChoices", "stats"])
+			this.s[k] = this.s[k] || [];
+		this.s.difficulty = this.s.difficulty || "normal";
 		// Saves antigos (versão com a batalha 3D): a partida em andamento é resolvida automaticamente.
 		this.s.activeBattle = null;
 	}
 
 	// ------------------------------------------------------------ novo jogo
 
-	static newState(playerFaction, scenarioId)
+	static newState(playerFaction, scenarioId, difficulty)
 	{
 		const D = WH40KData.load(scenarioId || "armageddon");
 		const s = {
@@ -56,13 +70,18 @@ class WH40KGame
 			"pendingBattles": [],
 			"events": [],
 			"activeBattle": null,
-			"gameOver": null
+			"gameOver": null,
+			"difficulty": WH40K_DIFFICULTY[difficulty] ? difficulty : "normal"
 		};
 		const game = new WH40KGame(s);
 		for (const f of D.scenarioFactions())
-			s.factions[f] = { "funds": D.factions[f].startingFunds, "ai": f != playerFaction, "alive": true };
+		{
+			const diff = WH40K_DIFFICULTY[s.difficulty];
+			const funds = Math.round(D.factions[f].startingFunds * (f == playerFaction ? diff.playerFunds : diff.aiFunds));
+			s.factions[f] = { "funds": funds, "ai": f != playerFaction, "alive": true, "special": D.factions[f].special?.start || 0 };
+		}
 		for (const g in D.generals)
-			s.generals[g] = { "state": D.factions[D.generals[g].faction]?.enabled ? "available" : "unavailable", "turns": 0 };
+			s.generals[g] = { "state": D.factions[D.generals[g].faction]?.enabled ? "available" : "unavailable", "turns": 0, "xp": 0, "traits": [], "relics": [], "stats": {} };
 		for (const pid in D.provinces)
 		{
 			const def = D.provinces[pid];
@@ -86,6 +105,7 @@ class WH40KGame
 			if (s.factions[start.faction])
 				game.createFleet(start.faction, start.body, start.ships);
 		game.log(D.scenario.name + " — " + D.sector.system.name + ". " + D.factionName(playerFaction) + ": que comece a guerra!", "info");
+		game.recordStats();
 		return s;
 	}
 
@@ -180,14 +200,22 @@ class WH40KGame
 		return this.D.unitById[bat.unit];
 	}
 
+	/** General do exército, com nível, traços, relíquias e ascensão (generalStats). */
 	general(army)
 	{
-		return army && army.general ? this.D.generals[army.general] : null;
+		return army && army.general ? this.generalStats(army.general) : null;
 	}
 
+	/** Inimigos: nem a mesma facção, nem aliados da campanha, nem em trégua. */
 	hostile(a, b)
 	{
-		return a != b && !this.D.allied(a, b);
+		return a != b && !this.D.allied(a, b) && !this.inTruce(a, b);
+	}
+
+	/** Aliados ou em trégua: não se atacam nem tomam as terras um do outro. */
+	friendly(a, b)
+	{
+		return this.D.allied(a, b) || this.inTruce(a, b);
 	}
 
 	armiesAt(pid, faction)
@@ -250,6 +278,7 @@ class WH40KGame
 		let bonus = general ? (role == "attack" ? general.attack : general.defense) || 0 : 0;
 		if (role == "attack")
 			bonus += this.D.factions[army.faction]?.attackBonus || 0;
+		bonus += this.buffBonus(army, role == "attack" ? "attack" : "defense");
 		if (general)
 			bonus += 0.05;
 		return base * (1 + bonus) + (general ? 4 : 0);
@@ -325,6 +354,8 @@ class WH40KGame
 		const def = this.pdef(pid);
 		if (!unit || unit.faction != faction)
 			return "Unidade de outra facção.";
+		if (unit.noRecruit)
+			return "Não se recruta.";
 		if (this.province(pid).owner != faction)
 			return "A província não é sua.";
 		if (unit.needsHive && !def.hive && !this.province(pid).forts)
@@ -469,7 +500,7 @@ class WH40KGame
 		const prov = this.province(pid);
 		if (this.hostileArmiesAt(pid, faction).length)
 			return true;
-		if (this.D.allied(prov.owner, faction))
+		if (this.friendly(prov.owner, faction))
 			return false;
 		return !!prov.owner || prov.garrison.length > 0;
 	}
@@ -489,13 +520,14 @@ class WH40KGame
 		army.province = pid;
 		--army.moves;
 		this.captureIfEmpty(pid, army.faction);
+		this.claimRelics();
 		return {};
 	}
 
 	captureIfEmpty(pid, faction)
 	{
 		const prov = this.province(pid);
-		if (this.D.allied(prov.owner, faction) || this.isHostileTarget(pid, faction))
+		if (this.friendly(prov.owner, faction) || this.isHostileTarget(pid, faction))
 			return false;
 		const old = prov.owner;
 		prov.owner = faction;
@@ -503,6 +535,9 @@ class WH40KGame
 		prov.capturedTurn = this.s.turn;
 		this.event("capture", pid, faction);
 		this.log(this.D.factionName(faction) + " ocupa " + this.pdef(pid).name + (old ? "" : " sem resistência") + ".", "capture", faction);
+		this.gainSpecial(faction, "capture", 1);
+		if (this.pdef(pid).hive == 2)
+			this.gainSpecial(faction, "hive", 1);
 		return true;
 	}
 
@@ -672,15 +707,18 @@ class WH40KGame
 		lines.push(attackerName + " (atacante) perdeu cerca de " + Math.round(losses.attacker) + " homens/veículos; " + defenderName + " perdeu cerca de " + Math.round(losses.defender) + ".");
 
 		// Generais.
+		const fallen = {};
 		for (const role of ["attacker", "defender"])
 		{
 			const g = sides[role].general;
 			if (!g || result.generalsAlive[role] !== false)
 				continue;
+			fallen[role] = true;
 			const army = this.s.armies[g.army];
 			if (army)
 				lines.push(this.woundGeneral(army));
 		}
+		result.fallen = fallen;
 
 		let conquered = false;
 		if (result.winner == "attacker")
@@ -727,6 +765,7 @@ class WH40KGame
 					lines.push(this.disbandArmy(army, "O exército atacante foi destruído."));
 			}
 		}
+		lines.push(...this.afterBattle(battle, sides, result, losses, conquered));
 		const report = { "title": title, "lines": lines.filter(Boolean), "winner": result.winner, "conquered": conquered, "province": battle.province, "attacker": battle.attacker.faction, "defender": battle.defender.faction };
 		this.log(title + ". " + report.lines.join(" "), "battle", battle.attacker.faction);
 		// A IA vencedora decide se saqueia (também nas batalhas contra o jogador).
@@ -751,7 +790,11 @@ class WH40KGame
 		const general = this.general(army);
 		if (!general)
 			return "";
-		this.s.generals[army.general] = { "state": "wounded", "turns": WH40K_WOUND_TURNS };
+		const gs = this.s.generals[army.general];
+		gs.state = "wounded";
+		gs.turns = WH40K_WOUND_TURNS;
+		gs.stats = gs.stats || {};
+		gs.stats.wounds = (gs.stats.wounds || 0) + 1;
 		army.general = null;
 		const text = general.title + " " + general.name + " foi gravemente ferido e deixa o comando por " + WH40K_WOUND_TURNS + " turnos.";
 		if (!army.battalions.length)
@@ -777,7 +820,9 @@ class WH40KGame
 		if (army.general)
 		{
 			const general = this.general(army);
-			this.s.generals[army.general] = { "state": "wounded", "turns": WH40K_WOUND_TURNS };
+			const gs = this.s.generals[army.general];
+			gs.state = "wounded";
+			gs.turns = WH40K_WOUND_TURNS;
 			text += " " + general.title + " " + general.name + " escapa ferido.";
 		}
 		this.unloadFromFleet(army);
@@ -838,6 +883,7 @@ class WH40KGame
 		army.moves = 0;
 		this.event("landing", pid, army.faction);
 		this.captureIfEmpty(pid, army.faction);
+		this.claimRelics();
 		return {};
 	}
 
@@ -852,6 +898,8 @@ class WH40KGame
 			fleet.eta = 0;
 			return "";
 		}
+		if (this.s.storms[fleet.body] || this.s.storms[body])
+			return "Tempestade da disformidade: nenhuma frota sai de " + this.D.bodies[this.s.storms[fleet.body] ? fleet.body : body].name + " ou chega lá por " + (this.s.storms[fleet.body] || this.s.storms[body]) + " turno(s).";
 		fleet.dest = body;
 		fleet.eta = this.D.travelTurns(fleet.body, body);
 		return "";
@@ -966,6 +1014,7 @@ class WH40KGame
 		for (const bat of army.battalions)
 			bat.xp = (bat.xp || 0) + (this.D.factions[army.faction]?.sackXp || 0);
 		this.event("sack", pid, army.faction);
+		this.gainSpecial(army.faction, "sack", 1);
 		this.log(this.D.factionName(army.faction) + " — " + (this.D.factions[army.faction]?.sackName || "Saquear").toLowerCase() + ": " + this.pdef(pid).name + ": +" + loot + " " + this.D.factions[army.faction].currencyShort +
 			". A província fica devastada por " + WH40K_SACK_TURNS + " turnos.", "sack", army.faction);
 		return "";
@@ -988,8 +1037,14 @@ class WH40KGame
 		this.moveFleets(reports);
 		this.spaceBattles(reports);
 		this.economy(reports);
+		this.specialEconomy();
+		this.tickBuffs();
+		this.tickDiplomacy();
+		this.claimRelics();
 		this.checkElimination();
 		++this.s.turn;
+		this.rollEvents(reports);
+		this.recordStats();
 		this.s.events = this.s.events.filter(ev => ev.turn >= this.s.turn - 1);
 		for (const army of Object.values(this.s.armies))
 			army.moves = this.maxMoves(army);
@@ -1001,6 +1056,9 @@ class WH40KGame
 		for (const fleet of Object.values(this.s.fleets))
 		{
 			if (!fleet.dest)
+				continue;
+			// Tempestade da disformidade: ninguém sai nem chega (a viagem atrasa).
+			if (this.s.storms[fleet.dest] || fleet.body && this.s.storms[fleet.body])
 				continue;
 			if (fleet.body)
 				fleet.from = fleet.body;
@@ -1027,48 +1085,120 @@ class WH40KGame
 				continue;
 			const power = f => fleets.filter(x => x.faction == f).reduce((sum, x) => sum + x.ships, 0);
 			factions.sort((a, b) => power(b) - power(a));
-			const [a, b] = factions;
-			const pa = power(a) * randRange(0.75, 1.35);
-			const pb = power(b) * randRange(0.75, 1.35);
-			const winner = pa >= pb ? a : b;
-			const loser = winner == a ? b : a;
-			const lines = [];
-			for (const fleet of fleets)
+			// As duas maiores frotas inimigas entre si (aliados e tréguas não lutam).
+			let a, b;
+			for (let i = 0; i < factions.length && !b; ++i)
+				for (let j = i + 1; j < factions.length && !b; ++j)
+					if (this.hostile(factions[i], factions[j]))
+						[a, b] = [factions[i], factions[j]];
+			if (!b)
+				continue;
+			const report = this.spaceBattle(body, a, b);
+			if (report.fleetBattle)
+				reports.push(report);
+		}
+	}
+
+	/**
+	 * Batalha espacial entre as frotas das facções a e b na órbita de body.
+	 * attacker (opcional) ataca de surpresa: +15% de força. Devolve o
+	 * relatório (com fleetBattle se o jogador está envolvido).
+	 */
+	spaceBattle(body, a, b, attacker)
+	{
+		const fleets = this.fleetsAt(body).filter(f => f.faction == a || f.faction == b);
+		const power = f => fleets.filter(x => x.faction == f).reduce((sum, x) => sum + x.ships, 0);
+		const pa = power(a) * randRange(0.75, 1.35) * (attacker == a ? 1.15 : 1);
+		const pb = power(b) * randRange(0.75, 1.35) * (attacker == b ? 1.15 : 1);
+		const winner = pa >= pb ? a : b;
+		const loser = winner == a ? b : a;
+		const lines = [];
+		const before = { [a]: power(a), [b]: power(b) };
+		for (const fleet of fleets)
+		{
+			let loss;
+			if (fleet.faction == loser)
+				loss = Math.max(1, Math.ceil(fleet.ships * randRange(0.5, 1.0)));
+			else
+				loss = Math.floor(before[loser] * 0.35 * Math.random());
+			fleet.ships = Math.max(0, fleet.ships - loss);
+			if (!fleet.ships)
 			{
-				let loss;
-				if (fleet.faction == loser)
-					loss = Math.max(1, Math.ceil(fleet.ships * randRange(0.5, 1.0)));
-				else if (fleet.faction == winner)
-					loss = Math.floor(power(loser) * 0.35 * Math.random());
-				else
-					continue;
-				fleet.ships = Math.max(0, fleet.ships - loss);
-				if (!fleet.ships)
+				lines.push("A frota " + fleet.name + " (" + this.D.factionName(fleet.faction) + ") foi destruída" + (fleet.cargo.length ? ", com os exércitos a bordo" : "") + ".");
+				for (const aid of fleet.cargo.slice())
+					if (this.s.armies[aid])
+						this.disbandArmy(this.s.armies[aid], "");
+				delete this.s.fleets[fleet.id];
+			}
+			else if (fleet.faction == loser && !fleet.dest)
+			{
+				// recua para o corpo de onde veio ou um corpo próprio
+				const home = fleet.from && fleet.from != body ? fleet.from : this.homeBody(fleet.faction, body);
+				if (home && home != body)
 				{
-					lines.push("A frota " + fleet.name + " (" + this.D.factionName(fleet.faction) + ") foi destruída" + (fleet.cargo.length ? ", com os exércitos a bordo" : "") + ".");
-					for (const aid of fleet.cargo.slice())
-						if (this.s.armies[aid])
-							this.disbandArmy(this.s.armies[aid], "");
-					delete this.s.fleets[fleet.id];
-				}
-				else if (fleet.faction == loser && !fleet.dest)
-				{
-					// recua para o corpo de onde veio ou um corpo próprio
-					const home = fleet.from && fleet.from != body ? fleet.from : this.homeBody(fleet.faction, body);
-					if (home && home != body)
-					{
-						fleet.dest = home;
-						fleet.eta = this.D.travelTurns(body, home);
-						lines.push("A frota " + fleet.name + " recua para " + this.D.bodies[home].name + ".");
-					}
+					fleet.dest = home;
+					fleet.eta = this.D.travelTurns(body, home);
+					lines.push("A frota " + fleet.name + " recua para " + this.D.bodies[home].name + ".");
 				}
 			}
-			const title = "Batalha espacial em " + this.D.bodies[body].name + ": vitória de " + this.D.factionName(winner);
-			this.event("space", body, winner);
-			this.log(title + ". " + lines.join(" "), "space", winner);
-			if (a == this.player || b == this.player)
-				reports.push({ "title": title, "lines": lines, "space": true, "winner": winner });
 		}
+		const title = "Batalha espacial em " + this.D.bodies[body].name + ": vitória de " + this.D.factionName(winner);
+		if (attacker)
+			lines.unshift(this.D.factionName(attacker) + " ataca primeiro (+15% de força).");
+		this.event("space", body, winner);
+		this.log(title + ". " + lines.join(" "), "space", winner);
+		const report = { "title": title, "lines": lines, "space": true, "winner": winner };
+		if (a == this.player || b == this.player)
+		{
+			const after = f => fleets.filter(x => x.faction == f && this.s.fleets[x.id]).reduce((sum, x) => sum + x.ships, 0);
+			const mine = a == this.player ? a : b;
+			const other = mine == a ? b : a;
+			report.fleetBattle = { "body": body, "sides": [{ "faction": mine, "before": before[mine], "after": after(mine) }, { "faction": other, "before": before[other], "after": after(other) }] };
+		}
+		return report;
+	}
+
+	/** Pode a frota atacar a frota alvo? "" ou o motivo. */
+	canAttackFleet(fleet, target)
+	{
+		if (!fleet || !target || fleet.faction == target.faction)
+			return "Frota inválida.";
+		if (!this.hostile(fleet.faction, target.faction))
+			return "Não é inimiga (aliada ou em trégua).";
+		if (!fleet.body)
+			return "A frota está em trânsito.";
+		if (fleet.acted == this.s.turn)
+			return "A frota já agiu neste turno.";
+		if (!target.body && !target.dest)
+			return "O alvo está fora de alcance.";
+		return "";
+	}
+
+	/**
+	 * Ataque a uma frota inimiga: na mesma órbita, a batalha é agora (com
+	 * iniciativa); em outro corpo, a frota parte para lá e luta ao chegar.
+	 * Devolve { error } | { report } | { eta }.
+	 */
+	attackFleet(fleetId, targetId)
+	{
+		const fleet = this.s.fleets[fleetId];
+		const target = this.s.fleets[targetId];
+		const why = this.canAttackFleet(fleet, target);
+		if (why)
+			return { "error": why };
+		if (target.body == fleet.body && !target.dest)
+		{
+			const report = this.spaceBattle(fleet.body, fleet.faction, target.faction, fleet.faction);
+			if (this.s.fleets[fleetId])
+				fleet.acted = this.s.turn;
+			this.checkElimination();
+			return { "report": report };
+		}
+		const dest = target.body || target.dest;
+		const err = this.moveFleet(fleetId, dest);
+		if (err)
+			return { "error": err };
+		return { "eta": fleet.eta, "body": dest };
 	}
 
 	homeBody(faction, exclude)
@@ -1084,7 +1214,7 @@ class WH40KGame
 			const fs = this.s.factions[f];
 			if (!fs.alive)
 				continue;
-			fs.funds += this.income(f) - this.upkeep(f);
+			fs.funds += Math.round(this.income(f) * this.incomeFactor(f)) - this.upkeep(f);
 			if (fs.funds < 0)
 			{
 				// Deserção: o batalhão mais fraco some.
@@ -1108,7 +1238,7 @@ class WH40KGame
 				--this.s.provinces[pid].devastated;
 		// Reposição das baixas em território próprio.
 		for (const army of Object.values(this.s.armies))
-			if (army.province && this.D.allied(this.province(army.province).owner, army.faction))
+			if (army.province && this.friendly(this.province(army.province).owner, army.faction))
 				for (const bat of army.battalions)
 					bat.strength = Math.min(1, bat.strength + WH40K_HEAL_PER_TURN);
 		for (const pid in this.s.provinces)

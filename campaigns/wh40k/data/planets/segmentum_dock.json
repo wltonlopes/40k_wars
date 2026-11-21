@@ -1,0 +1,63 @@
+{
+	"id": "segmentum_dock",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"sd_yards": {
+			"rect": [
+				0.11133,
+				0.14062,
+				0.49121,
+				0.87344
+			],
+			"label": [
+				0.3037,
+				0.5156
+			],
+			"area": 120631,
+			"neighbors": [
+				"sd_battery",
+				"sd_ring"
+			],
+			"coastal": false
+		},
+		"sd_ring": {
+			"rect": [
+				0.4375,
+				0.12969,
+				0.82031,
+				0.63438
+			],
+			"label": [
+				0.5967,
+				0.35
+			],
+			"area": 79694,
+			"neighbors": [
+				"sd_battery",
+				"sd_yards"
+			],
+			"coastal": false
+		},
+		"sd_battery": {
+			"rect": [
+				0.44141,
+				0.38281,
+				0.8916,
+				0.89531
+			],
+			"label": [
+				0.6953,
+				0.6672
+			],
+			"area": 74342,
+			"neighbors": [
+				"sd_ring",
+				"sd_yards"
+			],
+			"coastal": false
+		}
+	}
+}

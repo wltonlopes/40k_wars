@@ -455,5 +455,253 @@
 			"icon": "salamanders/r1c3.png",
 			"desc": "A frota de Nocturne satura a área com bombas incendiárias. Atinge todos."
 		}
+	],
+	"grey_knights": [
+		{
+			"id": "gk_teleport",
+			"type": "drop_pod",
+			"name": "Teleporte de Exterminadores",
+			"kills": 8,
+			"requires": "",
+			"icon": "grey_knights/r1c0.png",
+			"desc": "Um esquadrão de Exterminadores se teleporta para o ponto escolhido."
+		},
+		{
+			"id": "gk_stormravens",
+			"type": "strategic_bomber",
+			"name": "Ataque de Stormravens",
+			"kills": 15,
+			"requires": "",
+			"icon": "grey_knights/r3c3.png",
+			"desc": "Canhoneiras da ordem varrem a linha com mísseis.",
+			"airDiscount": 6
+		},
+		{
+			"id": "gk_hammer",
+			"type": "orbital_laser",
+			"name": "Martelo do Imperador",
+			"kills": 18,
+			"requires": "",
+			"icon": "grey_knights/r1c2.png",
+			"desc": "Os Bibliotecários unem as mentes num raio psíquico. Atinge todos."
+		},
+		{
+			"id": "gk_bombard",
+			"type": "orbital_saturation",
+			"name": "Bombardeio da Nau Negra",
+			"kills": 28,
+			"requires": "orbit",
+			"icon": "grey_knights/r2c3.png",
+			"desc": "A nau negra da ordem satura a área. Atinge todos."
+		}
+	],
+	"mechanicus": [
+		{
+			"id": "mc_drop",
+			"type": "drop_pod",
+			"name": "Cápsula Skitarii",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "mechanicus/r0c0.png",
+			"desc": "Uma cápsula da forja solta Skitarii no ponto escolhido."
+		},
+		{
+			"id": "mc_archaeopter",
+			"type": "strategic_bomber",
+			"name": "Archaeopters",
+			"kills": 14,
+			"requires": "",
+			"icon": "mechanicus/r1c2.png",
+			"desc": "Aeronaves da forja passam em linha bombardeando.",
+			"airDiscount": 6
+		},
+		{
+			"id": "mc_lance",
+			"type": "orbital_laser",
+			"name": "Lança de Volkite Orbital",
+			"kills": 18,
+			"requires": "orbit",
+			"icon": "mechanicus/r2c0.png",
+			"desc": "A Arca Mechanicus queima o alvo com um feixe antigo."
+		}
+	],
+	"sororitas": [
+		{
+			"id": "sr_drop",
+			"type": "drop_pod",
+			"name": "Descida das Seraphim",
+			"kills": 8,
+			"requires": "",
+			"icon": "sororitas/r2c1.png",
+			"desc": "Irmãs com mochilas de salto descem no ponto escolhido."
+		},
+		{
+			"id": "sr_avenger",
+			"type": "strategic_bomber",
+			"name": "Avengers da Eclesiarquia",
+			"kills": 15,
+			"requires": "",
+			"icon": "sororitas/r3c3.png",
+			"desc": "Caças da Frota passam em linha disparando.",
+			"airDiscount": 6
+		},
+		{
+			"id": "sr_miracle",
+			"type": "orbital_laser",
+			"name": "Ira da Santa",
+			"kills": 18,
+			"requires": "",
+			"icon": "sororitas/r2c0.png",
+			"desc": "Um raio de luz desce sobre os hereges. Atinge todos."
+		}
+	],
+	"custodes": [
+		{
+			"id": "cu_teleport",
+			"type": "drop_pod",
+			"name": "Teleporte Allarus",
+			"kills": 9,
+			"requires": "",
+			"icon": "custodes/r1c0.png",
+			"desc": "Exterminadores Allarus se teleportam para o ponto escolhido."
+		},
+		{
+			"id": "cu_orion",
+			"type": "strategic_bomber",
+			"name": "Canhoneiras Orion",
+			"kills": 16,
+			"requires": "",
+			"icon": "custodes/r3c3.png",
+			"desc": "Canhoneiras douradas passam em linha.",
+			"airDiscount": 6
+		},
+		{
+			"id": "cu_lance",
+			"type": "orbital_laser",
+			"name": "Lança da Barca Dourada",
+			"kills": 18,
+			"requires": "orbit",
+			"icon": "custodes/r2c2.png",
+			"desc": "A barca dos Custódios queima o alvo."
+		}
+	],
+	"drukhari": [
+		{
+			"id": "dk_portal",
+			"type": "drop_pod",
+			"name": "Portal da Teia",
+			"kills": 8,
+			"requires": "",
+			"icon": "drukhari/r1c1.png",
+			"desc": "Um portal da Teia se abre e solta Íncubos e Wyches."
+		},
+		{
+			"id": "dk_razorwing",
+			"type": "strategic_bomber",
+			"name": "Razorwings",
+			"kills": 14,
+			"requires": "",
+			"icon": "drukhari/r3c3.png",
+			"desc": "Caças Razorwing passam em linha soltando mísseis.",
+			"airDiscount": 6
+		},
+		{
+			"id": "dk_voidraven",
+			"type": "orbital_saturation",
+			"name": "Bombas de Escuridão (Voidraven)",
+			"kills": 24,
+			"requires": "",
+			"icon": "drukhari/r3c2.png",
+			"desc": "Bombardeiros soltam minas de vazio sobre a área. Atinge todos."
+		}
+	],
+	"astral_claws": [
+		{
+			"id": "ac_pod",
+			"type": "drop_pod",
+			"name": "Cápsula de Desembarque",
+			"kills": 8,
+			"requires": "orbit",
+			"icon": "badab_claws/r0c0.png",
+			"desc": "Uma cápsula cai com uma esquadra tática."
+		},
+		{
+			"id": "ac_thunderhawk",
+			"type": "strategic_bomber",
+			"name": "Ataque de Thunderhawks",
+			"kills": 15,
+			"requires": "",
+			"icon": "badab_claws/r3c1.png",
+			"desc": "Canhoneiras passam em linha disparando.",
+			"airDiscount": 6
+		},
+		{
+			"id": "ac_lance",
+			"type": "orbital_laser",
+			"name": "Lança da Frota do Tirano",
+			"kills": 18,
+			"requires": "orbit",
+			"icon": "badab_claws/r1c0.png",
+			"desc": "A frota de Huron queima o alvo."
+		}
+	],
+	"krieg": [
+		{
+			"id": "kr_barrage",
+			"type": "orbital_saturation",
+			"name": "Barragem Earthshaker",
+			"kills": 18,
+			"requires": "",
+			"icon": "krieg/r3c2.png",
+			"desc": "Dias de artilharia condensados em minutos. Atinge todos."
+		},
+		{
+			"id": "kr_valkyrie",
+			"type": "drop_pod",
+			"name": "Assalto de Valkyries",
+			"kills": 9,
+			"requires": "",
+			"icon": "krieg/r0c2.png",
+			"desc": "Granadeiros descem de Valkyries no ponto escolhido."
+		},
+		{
+			"id": "kr_marauder",
+			"type": "strategic_bomber",
+			"name": "Bombardeiros Marauder",
+			"kills": 15,
+			"requires": "",
+			"icon": "krieg/r2c3.png",
+			"desc": "A Armada passa em linha soltando bombas.",
+			"airDiscount": 6
+		}
+	],
+	"vraks": [
+		{
+			"id": "vr_basilisks",
+			"type": "orbital_saturation",
+			"name": "Basiliscos da Cidadela",
+			"kills": 18,
+			"requires": "",
+			"icon": "vraks/r3c2.png",
+			"desc": "A artilharia roubada satura a área. Atinge todos."
+		},
+		{
+			"id": "vr_tunnels",
+			"type": "drop_pod",
+			"name": "Túneis da Cidadela",
+			"kills": 8,
+			"requires": "",
+			"icon": "vraks/r0c1.png",
+			"desc": "Rebeldes saem de um túnel no ponto escolhido."
+		},
+		{
+			"id": "vr_daemon",
+			"type": "orbital_laser",
+			"name": "Invocação Profana",
+			"kills": 20,
+			"requires": "",
+			"icon": "vraks/r2c0.png",
+			"desc": "Xaphan abre a disformidade sobre o alvo. Atinge todos."
+		}
 	]
 }

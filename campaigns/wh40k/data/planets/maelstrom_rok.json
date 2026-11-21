@@ -1,0 +1,61 @@
+{
+	"id": "maelstrom_rok",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"mr_den": {
+			"rect": [
+				0.28125,
+				0.13281,
+				0.69141,
+				0.84375
+			],
+			"label": [
+				0.4854,
+				0.3781
+			],
+			"area": 129435,
+			"neighbors": [
+				"mr_docks",
+				"mr_tunnels"
+			],
+			"coastal": false
+		},
+		"mr_tunnels": {
+			"rect": [
+				0.12598,
+				0.14219,
+				0.39551,
+				0.825
+			],
+			"label": [
+				0.2354,
+				0.3812
+			],
+			"area": 61054,
+			"neighbors": [
+				"mr_den"
+			],
+			"coastal": false
+		},
+		"mr_docks": {
+			"rect": [
+				0.52441,
+				0.15781,
+				0.86816,
+				0.84062
+			],
+			"label": [
+				0.7324,
+				0.4969
+			],
+			"area": 82529,
+			"neighbors": [
+				"mr_den"
+			],
+			"coastal": false
+		}
+	}
+}

@@ -9,8 +9,9 @@ mod public 40k_wars
 
 O mod troca o **menu principal** por um menu próprio no estilo gótico do
 warhr, com a batalha de Armageddon de fundo (zoom e pan lentos) e só os
-botões essenciais: **Iniciar Cruzada** (vai direto para a escolha da
-facção), Continuar Cruzada, Carregar Cruzada, Opções, Mods e Sair. Para
+botões essenciais: **Iniciar Cruzada** (campanha, lado e dificuldade),
+Continuar Cruzada, Carregar Cruzada, **Códex** (todas as facções, unidades,
+generais e rituais, com as fichas), Opções, Mods e Sair. Para
 voltar ao menu normal do 0 A.D., desative o mod em "Mods".
 
 ## Campanhas
@@ -20,7 +21,10 @@ voltar ao menu normal do 0 A.D., desative o mod em "Mods".
 | Cruzada de Armageddon | Sistema Armageddon | Guarda Imperial, Orks | Colmeias de Armageddon |
 | Invasão Tirânida | Golfo de Damocles (Agrellan, Prefectia, Dal'yth, Kel-Morai e estações) | Imperium, Império Tau, Frota-Colmeia Gorgon | Colmeias de Agrellan |
 | 13ª Cruzada Negra | Portão de Cadia (Cadia, Bastião Ultima, Agripinaa, Vor'kaas, Mundo-Nave Ulthwé, Thyrr) | Imperium, Legião Negra, Eldar de Ulthwé, Necrons | Kasrs de Cadia |
-| O Grande Jogo dos Deuses | Vigil Aeterna (Aeternum Sanctus, Fortaleza-Estelar Vigil, Barca Sangue Eterno, Prometeu Menor e os mundos-demônio Skarvos, Mortis Vel, Ixathar e Lysandrae) | World Eaters, Death Guard, Thousand Sons, Emperor's Children; Ultramarines, Blood Angels e Salamandras aliados | Relicários de Aeternum |
+| O Grande Jogo dos Deuses | Vigil Aeterna (Aeternum Sanctus, Fortaleza-Estelar Vigil, Barca Sangue Eterno, Prometeu Menor, Nau Negra Égide e os mundos-demônio Skarvos, Mortis Vel, Ixathar e Lysandrae) | World Eaters, Death Guard, Thousand Sons, Emperor's Children; Ultramarines, Blood Angels, Salamandras e Grey Knights aliados | Relicários de Aeternum |
+| A Profanação de Thaurus | Thaurus (Thaurus Prime, Santa Lucrécia, Bastião Áureo, Nau Negra Égide, Morbus, Sekhmet Vul, Âncora de Vel'Sharra) | Mechanicus, Sororitas, Custódios e Grey Knights aliados; Drukhari, Death Guard, Thousand Sons | Forjas de Thaurus |
+| A Guerra de Badab | Badab (Badab Primaris, Fortaleza Garra Astral, Carcharias, Frota Nocturne, Ancoradouro de Macragge, Doca do Segmentum, Rocha do Maelstrom) | Secessionistas de Badab (Astral Claws, Legião do Tirano, Lamenters, Mantis Warriors, Executioners); Salamandras, Ultramarines e Guarda Imperial aliados | Colmeias de Badab |
+| O Cerco de Vraks | Vraks (Vraks Prime, Vraks Menor, Doca de Krieg, Nau Negra Silêncio, Fenda de Sangue) | Death Korps of Krieg e Grey Knights aliados; Rebeldes de Vraks e World Eaters aliados | Cidadelas de Vraks |
 
 "Iniciar Cruzada" abre a escolha da campanha e depois a do lado. Em todas,
 vence quem controlar as cidades-colmeia do planeta principal ou expulsar os
@@ -99,6 +103,61 @@ províncias uns dos outros e vencem juntos.
 Unidades especialistas causam mais dano a veículos, infantaria ou aeronaves
 (`vsVehicle`, `vsInfantry`, `vsAir` em `units.json`). Terrenos novos:
 biomassa tiranídea, solo da disformidade e complexo tumular.
+
+## Mecânicas da versão 0.6
+
+- **Recurso especial** de cada facção (no topo, ao lado dos recursos; o
+  tooltip diz como se ganha): Biomassa dos Tiranídeos (inimigos abatidos e
+  províncias devoradas), Favor de Khorne/Nurgle/Tzeentch/Slaanesh e dos
+  Deuses, Waaagh!, Fé, Glória do Capítulo, Pureza, Juramento, Dor,
+  Conhecimento Arcano, Bem Maior, Destino, Energia Ancestral, Dízimo Retido,
+  Expiação (Krieg ganha com as próprias perdas), Heresia. Gaste em
+  **rituais** (clique no recurso ou em "Rituais" no exército): reforços
+  grátis, cura, bônus de ataque/defesa por alguns turnos, marcha extra,
+  fortificar, barragem/praga nas províncias vizinhas, converter uma
+  província neutra (Tau, Vraks) e recursos. Alguns recursos se esvaem nos
+  turnos sem batalha (Khorne, Slaanesh, Orks, Drukhari).
+- **Príncipe-Demônio**: as legiões do Caos podem pedir a ascensão do general
+  (+20% no ataque, +15% na defesa, +1 carga). Em 30% das vezes os deuses
+  recusam e ele vira uma **Cria do Caos** (um monstro no exército).
+- **Generais com progressão**: experiência por batalha, 5 níveis (+3% no
+  ataque e na defesa cada), traços conquistados (Matador de Tanques,
+  Muralha, Conquistador, Matador de Generais, Veterano de <mundo>, Marca de
+  <deus>...) e **relíquias** em províncias especiais de cada campanha (um
+  general seu na província a reclama: Gorechild, Espada do Imperador, Coroa
+  do Tirano...). Tudo aparece na ficha do general.
+- **Diplomacia** (painel geral): tréguas de 10 turnos entre facções com
+  pactos compatíveis — as legiões do Caos entre si e com os Drukhari, Badab
+  com os lealistas, Eldar e Imperium... Khorne, Orks, Tiranídeos, Necrons e
+  os capítulos leais não negociam. Uma trégua pode ser **traída** (+20% no
+  ataque naquele turno; ninguém confia no traidor por um tempo). A IA também
+  propõe e trai.
+- **Eventos** no começo do turno, com escolhas: tempestade da disformidade
+  (frotas presas), dízimo da Inquisição, Exterminatus, revolta de
+  cultistas, praga, achado arqueológico/STC, mercenários, reforços, Waaagh!,
+  sussurro dos deuses.
+- **Moral na batalha 2D**: um batalhão muito ferido sob fogo recua em pânico
+  por 8 s e se reagrupa; Krieg, Tiranídeos, Necrons, Death Guard, World
+  Eaters, Custódios e Grey Knights nunca entram em pânico.
+- **Dificuldade** (Fácil, Normal, Difícil) na campanha nova; **estatísticas**
+  (territórios por turno, batalhas, baixas, rituais) no painel geral e no
+  fim da guerra; **Códex** no menu e no painel geral.
+- **Cidades-colmeia e frotas com arte própria** (`tools/source/space/`,
+  recortadas por `tools/art/slice_space.py`): as 12 cidades vistas de cima
+  aparecem nos mapas dos planetas (desenhadas por `gen_planets.py`) e no
+  **campo de batalha** das províncias com cidade; as naves (8 estilos ×
+  4 tamanhos, pelo número de naves da frota) aparecem na vista do sistema.
+- **Batalha espacial (mapa de frotas)**: quando as frotas se enfrentam numa
+  órbita com você envolvido, as duas frotas lutam na tela diante do planeta
+  (proa contra proa, tiros, explosões, naves perdidas) antes do relatório.
+  "Pular" vai direto ao resultado.
+- **Atacar frotas inimigas**: com uma frota sua selecionada, botão direito
+  numa frota inimiga na vista do sistema (ou "Atacar" no painel da frota,
+  para as inimigas na mesma órbita). Na mesma órbita a batalha é na hora,
+  com iniciativa (+15% de força); em outro corpo a frota viaja e luta ao
+  chegar. Uma vez por turno por frota.
+- **Som**: gritos de guerra por facção no início da batalha e som ambiente
+  em cada tipo de planeta (sintetizados por `tools/audio/gen_sfx.py`).
 
 ## Como se joga
 
@@ -233,7 +292,11 @@ Grimgob...) e ganha experiência (níveis •, +10% de força cada).
 | Tiranídeos, Tau | jogáveis (Invasão Tirânida) |
 | Caos, Necrons | jogáveis (13ª Cruzada Negra) |
 | World Eaters, Death Guard, Thousand Sons, Emperor's Children | jogáveis (O Grande Jogo dos Deuses) |
-| Ultramarines, Blood Angels, Salamanders | jogáveis e aliados entre si (O Grande Jogo dos Deuses) |
+| Ultramarines, Blood Angels, Salamanders | jogáveis (O Grande Jogo dos Deuses; Salamandras e Ultramarines também em Badab) |
+| Grey Knights | jogáveis (Grande Jogo, Thaurus, Vraks) |
+| Adeptus Mechanicus, Adepta Sororitas, Adeptus Custodes, Drukhari | jogáveis (A Profanação de Thaurus) |
+| Secessionistas de Badab | jogáveis (A Guerra de Badab), com cinco forças de recrutamento |
+| Death Korps of Krieg, Rebeldes de Vraks | jogáveis (O Cerco de Vraks) |
 
 Para ativar uma facção nova: as unidades em `units.json` (com retratos),
 os poderes em `support.json`, os generais em `generals.json` e `enabled: true`.
@@ -259,6 +322,11 @@ para a raiz do mod, pôr `"warhr"` nas dependências do `mod.json`, trocar
 | `campaigns/wh40k/data/scenarios.json` | As campanhas: setor, facções, lados jogáveis, objetivo, textos. |
 | `campaigns/wh40k/data/sector_damocles.json`, `sector_cadia.json` | Setores das campanhas novas (gerados por `tools/data/build_sectors.py`). |
 | `tools/data/build_great_game.py` | O Grande Jogo dos Deuses: as quatro legiões, os três capítulos, generais, apoios, setor e cenário. |
+| `tools/data/build_thaurus.py` | Grey Knights, Mechanicus, Sororitas, Custódios, Drukhari e A Profanação de Thaurus (e os Grey Knights no Grande Jogo). |
+| `tools/data/build_badab_vraks.py` | Secessionistas de Badab, Krieg, Rebeldes de Vraks e as duas campanhas. |
+| `tools/data/build_mechanics.py` | Recursos especiais e rituais, pactos, moral, gritos de guerra, Crias do Caos e `progression.json` (níveis, traços, relíquias). Rodar por último. Ordem: build_factions, build_sectors, build_great_game, build_thaurus, build_badab_vraks, build_mechanics. |
+| `gui/campaigns/wh40k/core/Mechanics.js`, `Events.js` | Recurso especial, rituais, ascensão, progressão dos generais, relíquias, diplomacia, eventos, estatísticas. |
+| `gui/campaigns/wh40k/ui/Codex.js`, `Stats.js` | Códex e estatísticas. |
 | `tools/audio/gen_sfx.py` | Efeitos sonoros da batalha, sintetizados (`audio/interface/wh40k/`). |
 | `audio/music/` | Músicas (Kevin MacLeod, CC-BY 4.0; créditos em `audio/music/CREDITS.txt`). `gui/common/music.js` troca as músicas do menu. |
 | `tools/data/build_factions.py` | Unidades, generais, apoios e dados das facções novas (e retratos novos da Guarda e dos Orks). |
@@ -268,6 +336,8 @@ para a raiz do mod, pôr `"warhr"` nas dependências do `mod.json`, trocar
 | `tools/art/gen_fx.py` | Quadros dos efeitos animados (`art/textures/ui/campaigns/wh40k/fx/`): explosão, impacto, sangue, feixe orbital, cápsula, fogo, fumaça, anel, choque, lança. |
 | `tools/art/slice_imperium.py` | Recorta `tools/source/imperium_forces.png` (5 × 11 cartas) nos ícones das forças aliadas (`portraits/imperium/<id>.png`). |
 | `tools/art/slice_portraits.py` | Recorta as colagens de `tools/source/` em retratos 256×256 (`art/textures/ui/wh40k/portraits/<facção>/r<linha>c<coluna>.png`). |
+| `tools/art/slice_space.py` | Recorta `tools/source/space/` (cidades-colmeia e naves) em `art/textures/ui/campaigns/wh40k/cities/` e `ships/`. Rodar antes de `gen_planets.py`. |
+| `gui/campaigns/wh40k/ui/SpaceView.js` | Batalha espacial encenada (mapa de frotas). |
 | `tools/art/gen_planets.py` | Gera mapas dos corpos, máscaras das províncias, vizinhança, globos, fundo do sistema, ícones, fundos do desdobramento, emblemas e banner. Rode de novo depois de mudar `sector.json`. |
 | `legacy_3d/` | A batalha 3D guardada (não carregada). |
 
@@ -281,6 +351,7 @@ para a raiz do mod, pôr `"warhr"` nas dependências do `mod.json`, trocar
 ## Próximos passos
 
 - Eldar, Tau, Necrons e Tiranídeos também em Armageddon; capítulos Astartes aliados da Guarda nas outras campanhas.
+- Traços negativos e eventos encadeados; diplomacia com tributos e alianças completas.
 - Volta da batalha 3D (com modelos próprios dos Orks), mantendo a 2D como opção.
 - Mais sistemas estelares ligados por rotas de disformidade.
 - Reforços chegando de províncias vizinhas durante a batalha; batalhas

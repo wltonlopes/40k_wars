@@ -1,0 +1,83 @@
+{
+	"id": "titan_blade",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"tb_bridge": {
+			"rect": [
+				0.26953,
+				0.11875,
+				0.59375,
+				0.79375
+			],
+			"label": [
+				0.4648,
+				0.4344
+			],
+			"area": 82820,
+			"neighbors": [
+				"tb_librarium",
+				"tb_teleport",
+				"tb_vault"
+			],
+			"coastal": false
+		},
+		"tb_librarium": {
+			"rect": [
+				0.09863,
+				0.1375,
+				0.39844,
+				0.8
+			],
+			"label": [
+				0.2402,
+				0.4406
+			],
+			"area": 66161,
+			"neighbors": [
+				"tb_bridge",
+				"tb_vault"
+			],
+			"coastal": false
+		},
+		"tb_teleport": {
+			"rect": [
+				0.54688,
+				0.13594,
+				0.86816,
+				0.72344
+			],
+			"label": [
+				0.7148,
+				0.4359
+			],
+			"area": 71610,
+			"neighbors": [
+				"tb_bridge",
+				"tb_vault"
+			],
+			"coastal": false
+		},
+		"tb_vault": {
+			"rect": [
+				0.2666,
+				0.53438,
+				0.79785,
+				0.88594
+			],
+			"label": [
+				0.582,
+				0.7266
+			],
+			"area": 63173,
+			"neighbors": [
+				"tb_bridge",
+				"tb_librarium",
+				"tb_teleport"
+			],
+			"coastal": false
+		}
+	}
+}

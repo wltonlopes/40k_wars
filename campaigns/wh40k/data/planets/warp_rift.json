@@ -1,0 +1,83 @@
+{
+	"id": "warp_rift",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"wr_throne": {
+			"rect": [
+				0.3252,
+				0.0,
+				0.69043,
+				0.64062
+			],
+			"label": [
+				0.501,
+				0.4172
+			],
+			"area": 101849,
+			"neighbors": [
+				"wr_bones",
+				"wr_brass",
+				"wr_pits"
+			],
+			"coastal": false
+		},
+		"wr_pits": {
+			"rect": [
+				0.0,
+				0.0,
+				0.41699,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 204941,
+			"neighbors": [
+				"wr_brass",
+				"wr_throne"
+			],
+			"coastal": false
+		},
+		"wr_bones": {
+			"rect": [
+				0.56445,
+				0.0,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 200249,
+			"neighbors": [
+				"wr_brass",
+				"wr_throne"
+			],
+			"coastal": false
+		},
+		"wr_brass": {
+			"rect": [
+				0.1084,
+				0.59531,
+				0.92871,
+				1.0
+			],
+			"label": [
+				0.5859,
+				0.9984
+			],
+			"area": 148321,
+			"neighbors": [
+				"wr_bones",
+				"wr_pits",
+				"wr_throne"
+			],
+			"coastal": false
+		}
+	}
+}

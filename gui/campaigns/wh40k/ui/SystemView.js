@@ -168,18 +168,22 @@ class WH40KSystemView
 				pos = { "x": from.x + (to.x - from.x) * t, "y": from.y + (to.y - from.y) * t };
 			}
 			const selected = page.sel && page.sel.type == "fleet" && page.sel.id == fleet.id;
-			const scale = 1 + Math.min(1, fleet.ships / 6) * 0.5;
-			const fw = 46 * scale;
-			const fh = 23 * scale;
-			setSize(btn, pos.x - fw / 2, pos.y - fh / 2, pos.x + fw / 2, pos.y + fh / 2);
-			const color = selected ? [255, 225, 120] : D.factionColor(fleet.faction);
-			btn.sprite = "color:" + rgbStr(color, 255) + ":textureAsMask:campaigns/wh40k/icons/fleet.png";
-			btn.sprite_over = "color:255 255 255 255:textureAsMask:campaigns/wh40k/icons/fleet.png";
-			gui("sysFleetLabel[" + i + "]").caption = fleet.ships + (fleet.cargo.length ? " +" + fleet.cargo.length : "");
+			const scale = (1 + Math.min(1, fleet.ships / 6) * 0.6) * (selected ? 1.2 : 1);
+			const fs = 56 * scale;
+			setSize(btn, pos.x - fs / 2, pos.y - fs / 2, pos.x + fs / 2, pos.y + fs / 2);
+			btn.sprite = shipSprite(D, fleet.faction, fleet.ships);
+			btn.sprite_over = btn.sprite;
+			const label = gui("sysFleetLabel[" + i + "]");
+			label.caption = fleet.ships + (fleet.cargo.length ? " +" + fleet.cargo.length : "");
+			label.textcolor = rgbStr(selected ? [255, 225, 120] : D.factionColor(fleet.faction));
 			btn.tooltip = this.fleetTooltip(fleet);
 			btn.onPress = () => page.select({ "type": "fleet", "id": fleet.id });
 			btn.onPressRight = () => {
-				if (fleet.body)
+				const mine = page.selectedFleet();
+				// Frota inimiga com uma frota sua selecionada: atacar.
+				if (mine && mine.faction == page.player && page.game.hostile(fleet.faction, page.player))
+					page.attackFleet(fleet);
+				else if (fleet.body)
 					page.orderBody(fleet.body);
 			};
 			// Rota da frota selecionada (ou em viagem própria): pontos até o destino.
@@ -218,6 +222,7 @@ class WH40KSystemView
 		return colored(fleet.name, D.factionColor(fleet.faction)) + " — " + D.factionName(fleet.faction) +
 			"\n" + fleet.ships + " nave" + (fleet.ships > 1 ? "s" : "") + " de guerra. " + where +
 			(cargo.length ? "\nA bordo: " + cargo.join(", ") : "") +
-			(fleet.faction == this.page.player ? "\n\nClique: selecionar. Depois, botão direito num corpo: viajar." : "");
+			(fleet.faction == this.page.player ? "\n\nClique: selecionar. Depois, botão direito num corpo: viajar; numa frota inimiga: atacar." :
+				g.hostile(fleet.faction, this.page.player) ? "\n\n" + colored("Botão direito (com uma frota sua selecionada): atacar esta frota.", [250, 150, 110]) : "");
 	}
 }

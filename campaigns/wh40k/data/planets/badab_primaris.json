@@ -1,0 +1,271 @@
+{
+	"id": "badab_primaris",
+	"mapSize": [
+		2048,
+		1280
+	],
+	"provinces": {
+		"tyrant_palace": {
+			"rect": [
+				0.38281,
+				0.27109,
+				0.63525,
+				0.53281
+			],
+			"label": [
+				0.4932,
+				0.4062
+			],
+			"area": 122154,
+			"neighbors": [
+				"greenwood",
+				"ironspire",
+				"north_ice",
+				"salt_flats",
+				"talon_hive",
+				"tithe_vaults"
+			],
+			"coastal": false
+		},
+		"ironspire": {
+			"rect": [
+				0.09082,
+				0.0,
+				0.43848,
+				0.44922
+			],
+			"label": [
+				0.2412,
+				0.0
+			],
+			"area": 254164,
+			"neighbors": [
+				"greenwood",
+				"north_ice",
+				"spine_mts",
+				"tyrant_palace"
+			],
+			"coastal": false
+		},
+		"talon_hive": {
+			"rect": [
+				0.57227,
+				0.0,
+				0.80273,
+				0.45703
+			],
+			"label": [
+				0.7007,
+				0.1672
+			],
+			"area": 191375,
+			"neighbors": [
+				"ash_belt",
+				"north_ice",
+				"tithe_vaults",
+				"tyrant_palace"
+			],
+			"coastal": true
+		},
+		"greenwood": {
+			"rect": [
+				0.19385,
+				0.42812,
+				0.41846,
+				0.76953
+			],
+			"label": [
+				0.3345,
+				0.5477
+			],
+			"area": 109372,
+			"neighbors": [
+				"ironspire",
+				"salamander_head",
+				"salt_flats",
+				"south_swamp",
+				"spine_mts",
+				"tyrant_palace"
+			],
+			"coastal": false
+		},
+		"tithe_vaults": {
+			"rect": [
+				0.53857,
+				0.37422,
+				0.77832,
+				0.72734
+			],
+			"label": [
+				0.6548,
+				0.5695
+			],
+			"area": 147364,
+			"neighbors": [
+				"ash_belt",
+				"loyal_landing",
+				"rust_district",
+				"salt_flats",
+				"talon_hive",
+				"tyrant_palace"
+			],
+			"coastal": false
+		},
+		"salt_flats": {
+			"rect": [
+				0.375,
+				0.52109,
+				0.60254,
+				0.91328
+			],
+			"label": [
+				0.4863,
+				0.6539
+			],
+			"area": 127163,
+			"neighbors": [
+				"greenwood",
+				"rust_district",
+				"south_swamp",
+				"tithe_vaults",
+				"tyrant_palace"
+			],
+			"coastal": false
+		},
+		"spine_mts": {
+			"rect": [
+				0.0,
+				0.0,
+				0.28467,
+				0.62344
+			],
+			"label": [
+				0.0,
+				0.2297
+			],
+			"area": 296949,
+			"neighbors": [
+				"greenwood",
+				"ironspire",
+				"salamander_head"
+			],
+			"coastal": false
+		},
+		"ash_belt": {
+			"rect": [
+				0.73682,
+				0.22891,
+				1.0,
+				0.64297
+			],
+			"label": [
+				0.8467,
+				0.4367
+			],
+			"area": 225218,
+			"neighbors": [
+				"loyal_landing",
+				"talon_hive",
+				"tithe_vaults"
+			],
+			"coastal": true
+		},
+		"north_ice": {
+			"rect": [
+				0.36035,
+				0.0,
+				0.64941,
+				0.28828
+			],
+			"label": [
+				0.5063,
+				0.0
+			],
+			"area": 143870,
+			"neighbors": [
+				"ironspire",
+				"talon_hive",
+				"tyrant_palace"
+			],
+			"coastal": false
+		},
+		"south_swamp": {
+			"rect": [
+				0.18848,
+				0.64688,
+				0.50732,
+				1.0
+			],
+			"label": [
+				0.3477,
+				0.9992
+			],
+			"area": 211017,
+			"neighbors": [
+				"greenwood",
+				"rust_district",
+				"salamander_head",
+				"salt_flats"
+			],
+			"coastal": false
+		},
+		"salamander_head": {
+			"rect": [
+				0.0,
+				0.48281,
+				0.22656,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.8508
+			],
+			"area": 240600,
+			"neighbors": [
+				"greenwood",
+				"south_swamp",
+				"spine_mts"
+			],
+			"coastal": false
+		},
+		"loyal_landing": {
+			"rect": [
+				0.76904,
+				0.57969,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.9995,
+				0.8938
+			],
+			"area": 215895,
+			"neighbors": [
+				"ash_belt",
+				"rust_district",
+				"tithe_vaults"
+			],
+			"coastal": false
+		},
+		"rust_district": {
+			"rect": [
+				0.50244,
+				0.66406,
+				0.81641,
+				1.0
+			],
+			"label": [
+				0.6606,
+				0.9992
+			],
+			"area": 196508,
+			"neighbors": [
+				"loyal_landing",
+				"salt_flats",
+				"south_swamp",
+				"tithe_vaults"
+			],
+			"coastal": false
+		}
+	}
+}

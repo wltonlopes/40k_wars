@@ -1,5 +1,5 @@
 {
-	"Description": "Facções da campanha. 'civ' é o nome interno da facção (reservado para a futura volta da batalha 3D). Facções com enabled=false já têm lugar reservado (generais, cores, recursos) e entram quando tiverem unidades. attackBonus: bônus de ataque de todos os exércitos (Waaagh!). incomeMult: multiplicador do rendimento das províncias. allies: forças aliadas (abas do recrutamento): nome, descrição, ícone e os títulos e nomes dos líderes. Campos das facções: portrait/winPortrait/losePortrait (retratos das janelas), emblemSource (retrato do emblema, tools/art/gen_planets.py), sackName/sackMult/aiSack/sackXp/sackNote (saque: nome, multiplicador, chance da IA, experiência), regen (reparo por segundo na batalha 2D), dropFx (cor do clarão do reforço; sem ele, cápsula), tips (dica do tutorial).",
+	"Description": "Facções da campanha. 'civ' é o nome interno da facção (reservado para a futura volta da batalha 3D). Facções com enabled=false já têm lugar reservado (generais, cores, recursos) e entram quando tiverem unidades. attackBonus: bônus de ataque de todos os exércitos (Waaagh!). incomeMult: multiplicador do rendimento das províncias. allies: forças aliadas (abas do recrutamento): nome, descrição, ícone e os títulos e nomes dos líderes. Campos das facções: portrait/winPortrait/losePortrait (retratos das janelas), emblemSource (retrato do emblema, tools/art/gen_planets.py), sackName/sackMult/aiSack/sackXp/sackNote (saque: nome, multiplicador, chance da IA, experiência), regen (reparo por segundo na batalha 2D), dropFx (cor do clarão do reforço; sem ele, cápsula), tips (dica do tutorial). Mecânicas (v0.6): special (recurso especial e rituais), pact (diplomacia), morale (moral na batalha 2D, 0 = sem debandada), warcry (grito de guerra) — ver tools/data/build_mechanics.py.",
 	"factions": {
 		"imperial": {
 			"name": "Guarda Imperial",
@@ -154,7 +154,87 @@
 			"portrait": "imperial/r0c6.png",
 			"winPortrait": "astra_inf/r2c0.png",
 			"losePortrait": "astra_inf/r2c3.png",
-			"tips": "Aliados do Império: Space Marines (frota na órbita), Irmãs de Batalha (colmeias), Mechanicus (forjas) e agentes da Inquisição — escolha a força em 'Recrutar'."
+			"tips": "Aliados do Império: Space Marines (frota na órbita), Irmãs de Batalha (colmeias), Mechanicus (forjas) e agentes da Inquisição — escolha a força em 'Recrutar'.",
+			"special": {
+				"name": "Glória Regimental",
+				"short": "Glória",
+				"icon": "imperial/r0c6.png",
+				"desc": "Os regimentos ganham glória vencendo batalhas e tomando cidades; o Alto Comando a recompensa.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"win": 8,
+					"capture": 4,
+					"hive": 10,
+					"kill": 0.1
+				},
+				"rituals": [
+					{
+						"id": "barrage",
+						"name": "Barragem de Artilharia",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "plague",
+							"damage": 0.2,
+							"name": "barragem"
+						},
+						"desc": "As baterias castigam os inimigos das províncias vizinhas ao exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "segmentum",
+						"name": "Reforços do Segmentum",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "guard_platoon",
+							"count": 2
+						},
+						"desc": "Dois pelotões novos chegam ao exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "commissar",
+						"name": "Discurso do Comissário",
+						"cost": 25,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Discurso do Comissário",
+							"attack": 0.2,
+							"defense": 0.1,
+							"turns": 1
+						},
+						"desc": "+20% no ataque e +10% na defesa por 1 turno.",
+						"ai": 1.0
+					},
+					{
+						"id": "medicae",
+						"name": "Medicae",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "Os hospitais de campanha repõem as perdas do exército.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "imperium",
+				"with": [
+					"eldar",
+					"tau",
+					"secessionists"
+				]
+			},
+			"morale": 1.1,
+			"warcry": "imperial",
+			"ships": "imperial"
 		},
 		"orks": {
 			"name": "Orks da Waaagh!",
@@ -232,7 +312,73 @@
 			"portrait": "orks/r0c5.png",
 			"winPortrait": "orks/r0c5.png",
 			"losePortrait": "orks/r2c0.png",
-			"tips": "Orks: muitos rapazes baratos, Nobz e máquinas dos Meks; saquear rende mais e dá experiência."
+			"tips": "Orks: muitos rapazes baratos, Nobz e máquinas dos Meks; saquear rende mais e dá experiência.",
+			"special": {
+				"name": "Waaagh!",
+				"short": "Waaagh!",
+				"icon": "orks/r0c5.png",
+				"desc": "A Waaagh! cresce com cada briga — e murcha se os rapazes ficam parados.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"battle": 7,
+					"win": 6,
+					"kill": 0.25,
+					"sack": 10,
+					"decay": 0.12
+				},
+				"rituals": [
+					{
+						"id": "waaagh",
+						"name": "WAAAGH!",
+						"cost": 50,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "WAAAGH!",
+							"attack": 0.35,
+							"defense": 0.0,
+							"turns": 2,
+							"moves": 1
+						},
+						"desc": "+35% no ataque por 2 turnos — e o exército marcha mais uma vez neste turno.",
+						"ai": 1.4
+					},
+					{
+						"id": "more_boyz",
+						"name": "Mais Rapazes!",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "boyz",
+							"count": 2
+						},
+						"desc": "Dois bandos de rapazes aparecem do nada (como sempre).",
+						"ai": 1.0
+					},
+					{
+						"id": "mek",
+						"name": "Mek Conserta",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "Os Meks e os Doutores remendam tudo.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "orks",
+				"with": [],
+				"never": "Orks só negociam no soco."
+			},
+			"morale": 0.8,
+			"warcry": "ork",
+			"ships": "orks"
 		},
 		"eldar": {
 			"name": "Eldar de Ulthwé",
@@ -286,7 +432,72 @@
 					"desc": "Guardiões, Aspectos e construtos.",
 					"icon": "eldar/r2c2.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Destino",
+				"short": "Destino",
+				"icon": "eldar/r2c2.png",
+				"desc": "Os videntes leem os fios do destino; cada vitória e cada turno de paciência revelam mais.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"win": 6,
+					"turn": 3,
+					"kill": 0.15
+				},
+				"rituals": [
+					{
+						"id": "vision",
+						"name": "Visão do Vidente",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Visão do Vidente",
+							"attack": 0.0,
+							"defense": 0.35,
+							"turns": 2
+						},
+						"desc": "+35% na defesa por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "webway",
+						"name": "Atalho da Teia",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "moves",
+							"amount": 2
+						},
+						"desc": "O exército marcha mais duas vezes neste turno.",
+						"ai": 1.0
+					},
+					{
+						"id": "wraith",
+						"name": "Despertar os Espíritos",
+						"cost": 70,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "wraithguard",
+							"count": 1
+						},
+						"desc": "Uma esquadra de Guardas Espectrais se junta ao exército.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "eldar",
+				"with": [
+					"imperium",
+					"drukhari"
+				]
+			},
+			"morale": 0.9,
+			"warcry": "eldar",
+			"ships": "eldar"
 		},
 		"ultramarines": {
 			"name": "Ultramarines",
@@ -339,7 +550,88 @@
 					"desc": "Os filhos de Guilliman seguem o Codex Astartes: tropas equilibradas, logística impecável e apoio orbital da frota.",
 					"icon": "ultramarines/r2c0.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Glória do Capítulo",
+				"short": "Glória",
+				"icon": "ultramarines/r2c0.png",
+				"desc": "Glória das vitórias do Ultramarines: vencer batalhas, derrubar generais inimigos e tomar cidades.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"win": 8,
+					"generalKill": 25,
+					"capture": 3,
+					"hive": 10,
+					"kill": 0.1
+				},
+				"rituals": [
+					{
+						"id": "reinforce",
+						"name": "Reforços do Capítulo",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "um_intercessors",
+							"count": 1
+						},
+						"desc": "Uma cápsula traz uma esquadra nova para o exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "apothecary",
+						"name": "Apotecários",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "Os apotecários repõem as perdas do exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "oath",
+						"name": "Juramento de Momento",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Juramento de Momento",
+							"attack": 0.25,
+							"defense": 0.0,
+							"turns": 2
+						},
+						"desc": "+25% no ataque por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "codex",
+						"name": "Táticas do Codex",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Táticas do Codex",
+							"attack": 0.15,
+							"defense": 0.2,
+							"turns": 3
+						},
+						"desc": "+15% no ataque e +20% na defesa por 3 turnos.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "imperium",
+				"with": [
+					"secessionists"
+				]
+			},
+			"morale": 0.5,
+			"warcry": "astartes",
+			"ships": "astartes"
 		},
 		"tyranids": {
 			"name": "Frota-Colmeia Gorgon",
@@ -354,8 +646,8 @@
 			],
 			"emblem": "wh40k/emblems/tyranids.png",
 			"emblemSource": "tyranids/r2c3.png",
-			"currency": "Biomassa",
-			"currencyShort": "Bio",
+			"currency": "Essência",
+			"currencyShort": "Ess",
 			"startingFunds": 900,
 			"fleetName": "Frota-Colmeia",
 			"leaderTitles": [
@@ -405,7 +697,98 @@
 					"desc": "Organismos da Frota-Colmeia.",
 					"icon": "tyranids/r2c3.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Biomassa",
+				"short": "Bio",
+				"icon": "tyranids/r2c3.png",
+				"desc": "A Mente da Colmeia recolhe a biomassa dos inimigos abatidos e das províncias devoradas, e a transforma em novos organismos.",
+				"start": 20,
+				"max": 400,
+				"gain": {
+					"kill": 0.8,
+					"win": 4,
+					"sack": 45,
+					"capture": 4,
+					"hive": 8
+				},
+				"rituals": [
+					{
+						"id": "brood",
+						"name": "Nova Ninhada",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "termagants",
+							"count": 2
+						},
+						"desc": "Duas ninhadas de termagantes brotam junto ao exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "carnifex",
+						"name": "Gerar Carnifex",
+						"cost": 60,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "carnifex",
+							"count": 1
+						},
+						"desc": "Um Carnifex cresce da biomassa acumulada.",
+						"ai": 1.3
+					},
+					{
+						"id": "tervigon",
+						"name": "Gerar Tervigon",
+						"cost": 90,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "tervigon",
+							"count": 1
+						},
+						"desc": "Uma Tervigon, mãe de ninhadas, se junta ao enxame.",
+						"ai": 1.0
+					},
+					{
+						"id": "regen",
+						"name": "Regeneração",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "O enxame se regenera: perdas repostas.",
+						"ai": 1.0
+					},
+					{
+						"id": "adapt",
+						"name": "Evolução Adaptativa",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Evolução Adaptativa",
+							"attack": 0.2,
+							"defense": 0.2,
+							"turns": 3
+						},
+						"desc": "+20% no ataque e na defesa por 3 turnos.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "tyranids",
+				"with": [],
+				"never": "A Mente da Colmeia não negocia: só devora."
+			},
+			"morale": 0,
+			"warcry": "tyranid",
+			"ships": "tyranids"
 		},
 		"chaos": {
 			"name": "Legião Negra",
@@ -472,7 +855,86 @@
 					"desc": "Traidores, cultistas e máquinas-demônio.",
 					"icon": "chaos/r2c0.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Favor dos Deuses",
+				"short": "Favor",
+				"icon": "chaos/r2c0.png",
+				"desc": "Os Quatro Deuses recompensam a matança, a profanação e a queda de generais inimigos. Parados, eles se entediam.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"kill": 0.3,
+					"win": 8,
+					"generalKill": 25,
+					"sack": 15,
+					"decay": 0.08
+				},
+				"rituals": [
+					{
+						"id": "ascend",
+						"name": "Ascensão a Príncipe-Demônio",
+						"cost": 110,
+						"target": "army",
+						"effect": {
+							"type": "ascend",
+							"god": "Caos Indiviso"
+						},
+						"desc": "O general do exército pede a recompensa final de Caos Indiviso: vira Príncipe-Demônio (+20% no ataque, +15% na defesa, +1 carga de apoio). Se os deuses não estiverem satisfeitos (30%), ele vira uma Cria do Caos.",
+						"ai": 0.8
+					},
+					{
+						"id": "gift",
+						"name": "Dádiva do Caos",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Dádiva do Caos",
+							"attack": 0.25,
+							"defense": 0.1,
+							"turns": 2
+						},
+						"desc": "+25% no ataque e +10% na defesa por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "summon",
+						"name": "Invocar Possuídos",
+						"cost": 50,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "possessed",
+							"count": 1
+						},
+						"desc": "Demônios tomam a carne de um esquadrão: Possuídos para o exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "mark",
+						"name": "Marca do Caos",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "xp",
+							"amount": 2
+						},
+						"desc": "Os batalhões do exército ganham experiência.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "chaos",
+				"with": [
+					"chaos",
+					"drukhari"
+				]
+			},
+			"morale": 0.7,
+			"warcry": "chaos",
+			"ships": "chaos"
 		},
 		"necrons": {
 			"name": "Dinastia Sautekh",
@@ -531,7 +993,73 @@
 					"desc": "Guerreiros, construtos e destruidores.",
 					"icon": "necrons/r1c3.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Energia Ancestral",
+				"short": "Energia",
+				"icon": "necrons/r1c3.png",
+				"desc": "Os complexos tumulares despertam com a guerra; cada tumba controlada alimenta os protocolos.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"kill": 0.3,
+					"win": 5,
+					"capture": 4,
+					"hold": {
+						"tomb": 2
+					}
+				},
+				"rituals": [
+					{
+						"id": "reanimate",
+						"name": "Protocolos de Reanimação",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "O exército se reconstrói: perdas repostas.",
+						"ai": 1.0
+					},
+					{
+						"id": "awaken",
+						"name": "Despertar uma Falange",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "necron_warriors",
+							"count": 2
+						},
+						"desc": "Duas falanges de guerreiros despertam.",
+						"ai": 1.0
+					},
+					{
+						"id": "storm",
+						"name": "Tempestade de Imotekh",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Tempestade",
+							"attack": 0.25,
+							"defense": 0.0,
+							"turns": 2
+						},
+						"desc": "+25% no ataque por 2 turnos.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "necrons",
+				"with": [],
+				"never": "Os Necrons não tratam com os vivos."
+			},
+			"morale": 0,
+			"warcry": "necron",
+			"ships": "necrons"
 		},
 		"tau": {
 			"name": "Império Tau",
@@ -588,7 +1116,72 @@
 					"desc": "Casta do Fogo e auxiliares.",
 					"icon": "tau/r1c1.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Bem Maior",
+				"short": "Bem Maior",
+				"icon": "tau/r1c1.png",
+				"desc": "Cada província que entra no Império Tau aproxima o Bem Maior — de preferência sem disparar um tiro.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"capture": 7,
+					"hive": 10,
+					"win": 5,
+					"turn": 2
+				},
+				"rituals": [
+					{
+						"id": "envoy",
+						"name": "Emissário do Bem Maior",
+						"cost": 50,
+						"target": "army",
+						"effect": {
+							"type": "convert"
+						},
+						"desc": "Uma província neutra vizinha ao exército se junta ao Império Tau sem luta (se a guarnição for pequena).",
+						"ai": 1.4
+					},
+					{
+						"id": "markers",
+						"name": "Marcadores de Alvo",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Marcadores de Alvo",
+							"attack": 0.2,
+							"defense": 0.0,
+							"turns": 2
+						},
+						"desc": "+20% no ataque por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "kroot",
+						"name": "Contratar Kroot",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "kroot",
+							"count": 2
+						},
+						"desc": "Dois bandos de Kroot se juntam ao exército.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "tau",
+				"with": [
+					"imperium",
+					"eldar"
+				]
+			},
+			"morale": 1.1,
+			"warcry": "tau",
+			"ships": "astartes"
 		},
 		"world_eaters": {
 			"name": "World Eaters",
@@ -651,7 +1244,85 @@
 					"desc": "A legião de Angron só conhece a matança.",
 					"icon": "khorne/r1c2.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Favor de Khorne",
+				"short": "Crânios",
+				"icon": "khorne/r1c0.png",
+				"desc": "Khorne não se importa de onde vem o sangue — só que corra. Batalhas, matança e crânios de generais enchem o favor; a paz o esvazia.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"kill": 0.5,
+					"battle": 8,
+					"win": 6,
+					"generalKill": 40,
+					"sack": 10,
+					"decay": 0.15
+				},
+				"rituals": [
+					{
+						"id": "ascend",
+						"name": "Ascensão a Príncipe-Demônio",
+						"cost": 110,
+						"target": "army",
+						"effect": {
+							"type": "ascend",
+							"god": "Khorne"
+						},
+						"desc": "O general do exército pede a recompensa final de Khorne: vira Príncipe-Demônio (+20% no ataque, +15% na defesa, +1 carga de apoio). Se os deuses não estiverem satisfeitos (30%), ele vira uma Cria do Caos.",
+						"ai": 0.8
+					},
+					{
+						"id": "frenzy",
+						"name": "Fúria Sanguinária",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Fúria Sanguinária",
+							"attack": 0.35,
+							"defense": -0.1,
+							"turns": 2
+						},
+						"desc": "+35% no ataque, -10% na defesa por 2 turnos.",
+						"ai": 1.3
+					},
+					{
+						"id": "bloodletters",
+						"name": "Invocar Sanguinários",
+						"cost": 50,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "we_bloodletters",
+							"count": 2
+						},
+						"desc": "Dois bandos de Sanguinários saem da disformidade.",
+						"ai": 1.0
+					},
+					{
+						"id": "skulls",
+						"name": "Crânios para o Trono",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "xp",
+							"amount": 2
+						},
+						"desc": "Os batalhões do exército ganham experiência.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "chaos",
+				"with": [],
+				"never": "Khorne não negocia: só aceita crânios."
+			},
+			"morale": 0,
+			"warcry": "khorne",
+			"ships": "chaos"
 		},
 		"death_guard": {
 			"name": "Death Guard",
@@ -715,7 +1386,89 @@
 					"desc": "A legião de Mortarion avança devagar e nunca para.",
 					"icon": "nurgle/r1c2.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Favor de Nurgle",
+				"short": "Bênçãos",
+				"icon": "nurgle/r1c2.png",
+				"desc": "O Avô Nurgle se alegra com cada província infectada: semeie a praga e mantenha as terras devastadas.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"sack": 30,
+					"infected": 3,
+					"capture": 5,
+					"win": 4,
+					"hold": {
+						"mire": 1
+					}
+				},
+				"rituals": [
+					{
+						"id": "ascend",
+						"name": "Ascensão a Príncipe-Demônio",
+						"cost": 110,
+						"target": "army",
+						"effect": {
+							"type": "ascend",
+							"god": "Nurgle"
+						},
+						"desc": "O general do exército pede a recompensa final de Nurgle: vira Príncipe-Demônio (+20% no ataque, +15% na defesa, +1 carga de apoio). Se os deuses não estiverem satisfeitos (30%), ele vira uma Cria do Caos.",
+						"ai": 0.8
+					},
+					{
+						"id": "spread",
+						"name": "Espalhar a Praga",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "plague",
+							"damage": 0.25,
+							"name": "praga",
+							"devastate": true
+						},
+						"desc": "A praga salta para as províncias vizinhas: os inimigos lá perdem força e a terra fica devastada.",
+						"ai": 1.2
+					},
+					{
+						"id": "blessing",
+						"name": "Bênção da Podridão",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0,
+							"defense": 0.2,
+							"turns": 2
+						},
+						"desc": "Perdas repostas e +20% na defesa por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "poxwalkers",
+						"name": "Erguer Ambulantes",
+						"cost": 25,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "dg_poxwalkers",
+							"count": 2
+						},
+						"desc": "Os mortos da praga se levantam: dois bandos de Ambulantes da Praga.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "chaos",
+				"with": [
+					"chaos",
+					"drukhari"
+				]
+			},
+			"morale": 0,
+			"warcry": "chaos",
+			"ships": "chaos2"
 		},
 		"thousand_sons": {
 			"name": "Thousand Sons",
@@ -731,7 +1484,7 @@
 			"emblem": "wh40k/emblems/thousand_sons.png",
 			"emblemSource": "tzeentch/r1c2.png",
 			"currency": "Segredos",
-			"currencyShort": "Segr.",
+			"currencyShort": "Segr",
 			"startingFunds": 900,
 			"fleetName": "Frota de Prospero",
 			"leaderTitles": [
@@ -778,7 +1531,87 @@
 					"desc": "Os feiticeiros de Magnus e seus Rubricae — marines reduzidos a pó em armaduras seladas.",
 					"icon": "tzeentch/r1c2.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Favor de Tzeentch",
+				"short": "Segredos",
+				"icon": "tzeentch/r1c2.png",
+				"desc": "O Arquiteto do Destino ama as tramas: poderes usados, conhecimento pilhado, cidades tomadas e o simples passar do tempo.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"power": 8,
+					"sack": 20,
+					"hive": 12,
+					"capture": 3,
+					"turn": 3,
+					"win": 3
+				},
+				"rituals": [
+					{
+						"id": "ascend",
+						"name": "Ascensão a Príncipe-Demônio",
+						"cost": 110,
+						"target": "army",
+						"effect": {
+							"type": "ascend",
+							"god": "Tzeentch"
+						},
+						"desc": "O general do exército pede a recompensa final de Tzeentch: vira Príncipe-Demônio (+20% no ataque, +15% na defesa, +1 carga de apoio). Se os deuses não estiverem satisfeitos (30%), ele vira uma Cria do Caos.",
+						"ai": 0.8
+					},
+					{
+						"id": "weave",
+						"name": "Teia do Destino",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Teia do Destino",
+							"attack": 0.1,
+							"defense": 0.3,
+							"turns": 3
+						},
+						"desc": "+30% na defesa e +10% no ataque por 3 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "horrors",
+						"name": "Invocar Horrores",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "ts_horrors",
+							"count": 1
+						},
+						"desc": "Horrores de Tzeentch surgem junto ao exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "portal",
+						"name": "Portal da Disformidade",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "moves",
+							"amount": 1
+						},
+						"desc": "O exército marcha mais uma vez neste turno.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "chaos",
+				"with": [
+					"chaos",
+					"drukhari"
+				]
+			},
+			"morale": 0.4,
+			"warcry": "chaos",
+			"ships": "chaos2"
 		},
 		"emperors_children": {
 			"name": "Emperor's Children",
@@ -794,7 +1627,7 @@
 			"emblem": "wh40k/emblems/emperors_children.png",
 			"emblemSource": "slaanesh/r1c1.png",
 			"currency": "Excessos",
-			"currencyShort": "Exc.",
+			"currencyShort": "Exc",
 			"startingFunds": 900,
 			"fleetName": "Frota do Excesso",
 			"leaderTitles": [
@@ -841,7 +1674,87 @@
 					"desc": "A legião de Fulgrim busca a perfeição em cada excesso.",
 					"icon": "slaanesh/r1c1.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Favor de Slaanesh",
+				"short": "Excessos",
+				"icon": "slaanesh/r1c1.png",
+				"desc": "O Príncipe Sombrio quer excesso: saques, vitórias esmagadoras e sensações sem fim. A rotina o entedia.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"sack": 30,
+					"lopsided": 20,
+					"win": 6,
+					"kill": 0.3,
+					"decay": 0.12
+				},
+				"rituals": [
+					{
+						"id": "ascend",
+						"name": "Ascensão a Príncipe-Demônio",
+						"cost": 110,
+						"target": "army",
+						"effect": {
+							"type": "ascend",
+							"god": "Slaanesh"
+						},
+						"desc": "O general do exército pede a recompensa final de Slaanesh: vira Príncipe-Demônio (+20% no ataque, +15% na defesa, +1 carga de apoio). Se os deuses não estiverem satisfeitos (30%), ele vira uma Cria do Caos.",
+						"ai": 0.8
+					},
+					{
+						"id": "ecstasy",
+						"name": "Êxtase da Batalha",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Êxtase da Batalha",
+							"attack": 0.25,
+							"defense": 0.0,
+							"turns": 2,
+							"moves": 1
+						},
+						"desc": "+25% no ataque por 2 turnos e o exército marcha mais uma vez neste turno.",
+						"ai": 1.2
+					},
+					{
+						"id": "daemonettes",
+						"name": "Invocar Demonetes",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "ec_daemonettes",
+							"count": 2
+						},
+						"desc": "Duas hostes de Demonetes atendem ao chamado.",
+						"ai": 1.0
+					},
+					{
+						"id": "feast",
+						"name": "Banquete de Excessos",
+						"cost": 40,
+						"target": "faction",
+						"effect": {
+							"type": "funds",
+							"amount": 300
+						},
+						"desc": "+300 Excessos.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "chaos",
+				"with": [
+					"chaos",
+					"drukhari"
+				]
+			},
+			"morale": 0.8,
+			"warcry": "chaos",
+			"ships": "chaos"
 		},
 		"blood_angels": {
 			"name": "Blood Angels",
@@ -894,7 +1807,87 @@
 					"desc": "Os filhos de Sanguinius: nobres, belos e assombrados pela Sede Vermelha.",
 					"icon": "blood_angels/r2c0.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Glória do Capítulo",
+				"short": "Glória",
+				"icon": "blood_angels/r2c0.png",
+				"desc": "Glória das vitórias do Blood Angels: vencer batalhas, derrubar generais inimigos e tomar cidades.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"win": 8,
+					"generalKill": 25,
+					"capture": 3,
+					"hive": 10,
+					"kill": 0.1
+				},
+				"rituals": [
+					{
+						"id": "reinforce",
+						"name": "Reforços do Capítulo",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "ba_intercessors",
+							"count": 1
+						},
+						"desc": "Uma cápsula traz uma esquadra nova para o exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "apothecary",
+						"name": "Apotecários",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "Os apotecários repõem as perdas do exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "oath",
+						"name": "Juramento de Momento",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Juramento de Momento",
+							"attack": 0.25,
+							"defense": 0.0,
+							"turns": 2
+						},
+						"desc": "+25% no ataque por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "thirst",
+						"name": "A Sede Vermelha",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "A Sede Vermelha",
+							"attack": 0.4,
+							"defense": -0.1,
+							"turns": 2
+						},
+						"desc": "+40% no ataque, -10% na defesa por 2 turnos.",
+						"ai": 1.2
+					}
+				]
+			},
+			"pact": {
+				"group": "imperium",
+				"with": [],
+				"never": "O Imperador não negocia com hereges e xenos."
+			},
+			"morale": 0.4,
+			"warcry": "astartes",
+			"ships": "astartes"
 		},
 		"salamanders": {
 			"name": "Salamanders",
@@ -947,7 +1940,1239 @@
 					"desc": "Os filhos de Vulkan, forjados no fogo de Nocturne.",
 					"icon": "salamanders/r2c0.png"
 				}
-			}
+			},
+			"special": {
+				"name": "Glória do Capítulo",
+				"short": "Glória",
+				"icon": "salamanders/r2c0.png",
+				"desc": "Glória das vitórias do Salamanders: vencer batalhas, derrubar generais inimigos e tomar cidades.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"win": 8,
+					"generalKill": 25,
+					"capture": 3,
+					"hive": 10,
+					"kill": 0.1
+				},
+				"rituals": [
+					{
+						"id": "reinforce",
+						"name": "Reforços do Capítulo",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "sal_intercessors",
+							"count": 1
+						},
+						"desc": "Uma cápsula traz uma esquadra nova para o exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "apothecary",
+						"name": "Apotecários",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "Os apotecários repõem as perdas do exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "oath",
+						"name": "Juramento de Momento",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Juramento de Momento",
+							"attack": 0.25,
+							"defense": 0.0,
+							"turns": 2
+						},
+						"desc": "+25% no ataque por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "anvil",
+						"name": "Forja de Vulkan",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "fort"
+						},
+						"desc": "Os Salamandras fortificam a província do exército (+1 fortificação).",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "imperium",
+				"with": [
+					"secessionists"
+				]
+			},
+			"morale": 0.4,
+			"warcry": "astartes",
+			"ships": "astartes"
+		},
+		"grey_knights": {
+			"name": "Grey Knights",
+			"short": "Cavaleiros Cinzentos",
+			"civ": "grey_knights",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				175,
+				185,
+				200
+			],
+			"emblem": "wh40k/emblems/grey_knights.png",
+			"emblemSource": "grey_knights/r2c3.png",
+			"currency": "Requisição",
+			"currencyShort": "Req",
+			"startingFunds": 1200,
+			"fleetName": "Nau Negra da Ordem",
+			"leaderTitles": [
+				"Justicar",
+				"Irmão",
+				"Capitão"
+			],
+			"leaderNames": [
+				"Thawn",
+				"Garran",
+				"Leodegar",
+				"Tiberius",
+				"Mordrak",
+				"Varn",
+				"Orth",
+				"Cador"
+			],
+			"shipNames": [
+				"Aegis",
+				"Martelo de Titã",
+				"Lâmina Pura",
+				"Vigília Silenciosa"
+			],
+			"attackBonus": 0.1,
+			"incomeMult": 1.5,
+			"dropFx": [
+				180,
+				210,
+				255
+			],
+			"portrait": "grey_knights/r2c3.png",
+			"winPortrait": "grey_knights/r2c1.png",
+			"losePortrait": "grey_knights/r0c0.png",
+			"description": "A Câmara Militante secreta da Inquisição contra os demônios. Poucos, caros e psíquicos: nos solos da disformidade, destroem a mácula.",
+			"tips": "Grey Knights: tropas caras e de elite — teleportes que não precisam de frota e +25% de dano na disformidade. Aliados dos outros Astartes e do Imperium.",
+			"allies": {
+				"guard": {
+					"name": "Cavaleiros Cinzentos",
+					"desc": "A Câmara Militante secreta da Inquisição contra os demônios.",
+					"icon": "grey_knights/r2c3.png"
+				}
+			},
+			"special": {
+				"name": "Pureza",
+				"short": "Pureza",
+				"icon": "grey_knights/r2c3.png",
+				"desc": "A pureza da ordem cresce a cada demônio e herege destruído.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"win": 8,
+					"kill": 0.3,
+					"generalKill": 30,
+					"power": 4
+				},
+				"rituals": [
+					{
+						"id": "purge",
+						"name": "Rito de Purificação",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "plague",
+							"damage": 0.25,
+							"name": "purificação"
+						},
+						"desc": "Os Bibliotecários purgam as províncias vizinhas: os inimigos lá perdem força.",
+						"ai": 1.0
+					},
+					{
+						"id": "teleport",
+						"name": "Teleporte Estratégico",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "moves",
+							"amount": 1
+						},
+						"desc": "O exército marcha mais uma vez neste turno.",
+						"ai": 1.0
+					},
+					{
+						"id": "terminators",
+						"name": "Irmandade de Exterminadores",
+						"cost": 70,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "gk_terminators",
+							"count": 1
+						},
+						"desc": "Um esquadrão de Exterminadores se teleporta para o exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "aegis",
+						"name": "Égide",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Égide",
+							"attack": 0.0,
+							"defense": 0.3,
+							"turns": 2
+						},
+						"desc": "+30% na defesa por 2 turnos.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "imperium",
+				"with": [],
+				"never": "O Imperador não negocia com hereges e xenos."
+			},
+			"morale": 0,
+			"warcry": "astartes",
+			"ships": "astartes"
+		},
+		"mechanicus": {
+			"name": "Adeptus Mechanicus",
+			"short": "Mechanicus",
+			"civ": "mechanicus",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				190,
+				40,
+				30
+			],
+			"emblem": "wh40k/emblems/mechanicus.png",
+			"emblemSource": "mechanicus/r2c0.png",
+			"currency": "Componentes",
+			"currencyShort": "Comp",
+			"startingFunds": 900,
+			"fleetName": "Frota da Forja",
+			"leaderTitles": [
+				"Alfa",
+				"Manipulus",
+				"Magos"
+			],
+			"leaderNames": [
+				"Vex-7",
+				"Kardan Thol",
+				"Omicron-Theta",
+				"Sigma-Varn",
+				"Ixal-12",
+				"Corrin Dahl",
+				"Delta-Rho",
+				"Hexis-4"
+			],
+			"shipNames": [
+				"Arca de Thaurus",
+				"Vontade do Omnissiah",
+				"Engrenagem Sagrada",
+				"Mente-Máquina"
+			],
+			"attackBonus": 0.03,
+			"incomeMult": 1.3,
+			"regen": 0.002,
+			"dropFx": [
+				230,
+				80,
+				50
+			],
+			"portrait": "mechanicus/r2c0.png",
+			"winPortrait": "mechanicus/r2c1.png",
+			"losePortrait": "mechanicus/r0c0.png",
+			"description": "Os sacerdotes do Deus-Máquina e seus Skitarii. Forjas que produzem sem parar, robôs antigos e armas que nenhum outro exército tem.",
+			"tips": "Mechanicus: a melhor economia (+30%) e as máquinas se reparam na batalha. Lutam melhor nas zonas industriais. As forjas (estaleiro ou zona industrial) liberam o Onager.",
+			"allies": {
+				"guard": {
+					"name": "Mechanicus",
+					"desc": "Os sacerdotes do Deus-Máquina e seus Skitarii.",
+					"icon": "mechanicus/r2c0.png"
+				}
+			},
+			"special": {
+				"name": "Conhecimento Arcano",
+				"short": "Conhec.",
+				"icon": "mechanicus/r2c0.png",
+				"desc": "Fragmentos de STC e tecno-relíquias: as zonas industriais e os estaleiros rendem conhecimento todo turno.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"win": 5,
+					"kill": 0.15,
+					"capture": 3,
+					"hold": {
+						"industrial": 2
+					}
+				},
+				"rituals": [
+					{
+						"id": "kastelan",
+						"name": "Ativar Robô Kastelan",
+						"cost": 60,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "mc_kastelan",
+							"count": 1
+						},
+						"desc": "Um par de robôs Kastelan desperta nos cofres da forja.",
+						"ai": 1.2
+					},
+					{
+						"id": "canticle",
+						"name": "Cânticos do Omnissiah",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Cânticos do Omnissiah",
+							"attack": 0.15,
+							"defense": 0.15,
+							"turns": 2
+						},
+						"desc": "+15% no ataque e na defesa por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "repair",
+						"name": "Ritos de Reparo",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "Os tecno-sacerdotes reparam o exército: perdas repostas.",
+						"ai": 1.0
+					},
+					{
+						"id": "fortify",
+						"name": "Fortificar",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "fort"
+						},
+						"desc": "+1 fortificação na província do exército.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "imperium",
+				"with": [
+					"drukhari"
+				]
+			},
+			"morale": 0.7,
+			"warcry": "mechanicus",
+			"ships": "imperial"
+		},
+		"sororitas": {
+			"name": "Adepta Sororitas",
+			"short": "Irmãs de Batalha",
+			"civ": "sororitas",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				120,
+				20,
+				35
+			],
+			"emblem": "wh40k/emblems/sororitas.png",
+			"emblemSource": "sororitas/r2c2.png",
+			"currency": "Dízimos",
+			"currencyShort": "Díz",
+			"startingFunds": 900,
+			"fleetName": "Frota da Eclesiarquia",
+			"leaderTitles": [
+				"Irmã Superiora",
+				"Irmã Veterana",
+				"Palatina"
+			],
+			"leaderNames": [
+				"Agathe",
+				"Bethesda",
+				"Constantia",
+				"Dorothea",
+				"Elsabet",
+				"Honoria",
+				"Ignatia",
+				"Lucinda",
+				"Mercia",
+				"Sabine"
+			],
+			"shipNames": [
+				"Rosa Sangrenta",
+				"Lágrima da Santa",
+				"Martírio",
+				"Chama Sagrada"
+			],
+			"attackBonus": 0.1,
+			"incomeMult": 1.15,
+			"dropFx": [
+				255,
+				220,
+				150
+			],
+			"portrait": "sororitas/r2c2.png",
+			"winPortrait": "sororitas/r2c0.png",
+			"losePortrait": "sororitas/r0c0.png",
+			"description": "As Ordens Militantes da Eclesiarquia: fé fervorosa, lança-chamas, penitentes e a Viva Santa Celestine.",
+			"tips": "Sororitas: ataque forte (+10%) e tropas baratas de fé; os penitentes (Repentia, Arco-Flagelantes, Motores) atacam sem medo. Lutam melhor nas cidades-colmeia.",
+			"allies": {
+				"guard": {
+					"name": "Irmãs de Batalha",
+					"desc": "As Ordens Militantes da Eclesiarquia: fé fervorosa, lança-chamas, penitentes e a Viva Santa Celestine.",
+					"icon": "sororitas/r2c2.png"
+				}
+			},
+			"special": {
+				"name": "Fé",
+				"short": "Fé",
+				"icon": "sororitas/r2c2.png",
+				"desc": "A fé das Irmãs cresce a cada batalha e a cada catedral sob o seu cuidado. Gaste-a em Atos de Fé.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"battle": 5,
+					"win": 5,
+					"kill": 0.15,
+					"hold": {
+						"hive": 1
+					}
+				},
+				"rituals": [
+					{
+						"id": "miracle",
+						"name": "Ato de Fé: Milagre",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "As feridas se fecham: perdas repostas.",
+						"ai": 1.0
+					},
+					{
+						"id": "fury",
+						"name": "Ato de Fé: Fúria Divina",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Fúria Divina",
+							"attack": 0.3,
+							"defense": 0.0,
+							"turns": 2
+						},
+						"desc": "+30% no ataque por 2 turnos.",
+						"ai": 1.2
+					},
+					{
+						"id": "penitents",
+						"name": "Convocar Penitentes",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "sr_repentia",
+							"count": 1
+						},
+						"desc": "Uma esquadra de Repentia busca o perdão no exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "sanctify",
+						"name": "Santificar",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "restore",
+							"fort": true
+						},
+						"desc": "A província do exército é santificada: acaba a devastação e ganha +1 fortificação.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "imperium",
+				"with": [],
+				"never": "O Imperador não negocia com hereges e xenos."
+			},
+			"morale": 0.6,
+			"warcry": "imperial",
+			"ships": "imperial"
+		},
+		"custodes": {
+			"name": "Adeptus Custodes",
+			"short": "Custódios",
+			"civ": "custodes",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				220,
+				175,
+				60
+			],
+			"emblem": "wh40k/emblems/custodes.png",
+			"emblemSource": "custodes/r2c2.png",
+			"currency": "Requisição",
+			"currencyShort": "Req",
+			"startingFunds": 1100,
+			"fleetName": "Frota Dourada",
+			"leaderTitles": [
+				"Companheiro",
+				"Guardião",
+				"Capitão-Escudo"
+			],
+			"leaderNames": [
+				"Aquilon",
+				"Tybalt",
+				"Marcellus",
+				"Venatar",
+				"Kyrion",
+				"Heraclius",
+				"Orestes",
+				"Ancelin"
+			],
+			"shipNames": [
+				"Barca Dourada",
+				"Lâmina do Trono",
+				"Vigia Eterno",
+				"Juramento de Terra"
+			],
+			"attackBonus": 0.1,
+			"incomeMult": 1.3,
+			"dropFx": [
+				255,
+				210,
+				100
+			],
+			"portrait": "custodes/r2c2.png",
+			"winPortrait": "custodes/r2c1.png",
+			"losePortrait": "custodes/r0c0.png",
+			"description": "Os Dez Mil, guarda-costas do Imperador, enviados na Cruzada Indomitus. Poucos guerreiros dourados, cada um quase invencível, e as Irmãs do Silêncio.",
+			"tips": "Custódios: o exército mais caro e mais forte por batalhão; cada perda dói. As Irmãs do Silêncio queimam feiticeiros (bônus na disformidade).",
+			"allies": {
+				"guard": {
+					"name": "Custódios",
+					"desc": "Os Dez Mil, guarda-costas do Imperador, enviados na Cruzada Indomitus.",
+					"icon": "custodes/r2c2.png"
+				}
+			},
+			"special": {
+				"name": "Juramento",
+				"short": "Juramento",
+				"icon": "custodes/r2c2.png",
+				"desc": "Os Custódios honram os juramentos com vitórias e com a cabeça dos comandantes inimigos.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"win": 10,
+					"generalKill": 30,
+					"kill": 0.2
+				},
+				"rituals": [
+					{
+						"id": "shield",
+						"name": "Escudo do Trono",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Escudo do Trono",
+							"attack": 0.0,
+							"defense": 0.4,
+							"turns": 2
+						},
+						"desc": "+40% na defesa por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "deathoath",
+						"name": "Juramento de Morte",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Juramento de Morte",
+							"attack": 0.35,
+							"defense": 0.0,
+							"turns": 2
+						},
+						"desc": "+35% no ataque por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "terra",
+						"name": "Reforços de Terra",
+						"cost": 70,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "cu_spears",
+							"count": 1
+						},
+						"desc": "Uma esquadra de Guardas Custódios chega de Terra.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "imperium",
+				"with": [],
+				"never": "O Imperador não negocia com hereges e xenos."
+			},
+			"morale": 0,
+			"warcry": "astartes",
+			"ships": "astartes"
+		},
+		"drukhari": {
+			"name": "Cabala da Lâmina Dilacerada",
+			"short": "Drukhari",
+			"civ": "drukhari",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				70,
+				140,
+				150
+			],
+			"emblem": "wh40k/emblems/drukhari.png",
+			"emblemSource": "drukhari/r2c0.png",
+			"currency": "Escravos",
+			"currencyShort": "Escr",
+			"startingFunds": 900,
+			"fleetName": "Frota de Rapina",
+			"leaderTitles": [
+				"Sibarita",
+				"Dracon",
+				"Hekatrix"
+			],
+			"leaderNames": [
+				"Vhaelis",
+				"Kraelith",
+				"Sythrae",
+				"Morvhaine",
+				"Ixandrel",
+				"Lhaeryn",
+				"Zaelith",
+				"Veyrith"
+			],
+			"shipNames": [
+				"Lâmina do Crepúsculo",
+				"Grito Eterno",
+				"Teia Negra",
+				"Fome de Commorragh"
+			],
+			"attackBonus": 0.1,
+			"incomeMult": 1.4,
+			"sackName": "Rapina",
+			"sackMult": 1.8,
+			"aiSack": 0.9,
+			"sackXp": 1,
+			"sackNote": "Escravos para Commorragh: o maior saque da galáxia.",
+			"dropFx": [
+				160,
+				80,
+				220
+			],
+			"portrait": "drukhari/r2c0.png",
+			"winPortrait": "drukhari/r2c1.png",
+			"losePortrait": "drukhari/r0c0.png",
+			"description": "Os eldar sombrios de Commorragh vivem da dor alheia. Atacam como um raio pela Teia, levam escravos e somem antes do contra-ataque.",
+			"tips": "Drukhari: os mais rápidos da galáxia e o maior saque ('Rapina'); a infantaria é frágil. Atacam onde o inimigo é fraco e saqueiam tudo o que tomam.",
+			"allies": {
+				"guard": {
+					"name": "Drukhari",
+					"desc": "Os eldar sombrios de Commorragh vivem da dor alheia.",
+					"icon": "drukhari/r2c0.png"
+				}
+			},
+			"special": {
+				"name": "Dor",
+				"short": "Dor",
+				"icon": "drukhari/r2c0.png",
+				"desc": "Os Drukhari se alimentam da dor alheia: matança e rapina enchem os corpos de energia, que se esvai depressa.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"kill": 0.6,
+					"sack": 35,
+					"win": 5,
+					"decay": 0.15
+				},
+				"rituals": [
+					{
+						"id": "elixir",
+						"name": "Elixires de Combate",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Elixires de Combate",
+							"attack": 0.25,
+							"defense": 0.0,
+							"turns": 2,
+							"moves": 1
+						},
+						"desc": "+25% no ataque por 2 turnos e o exército marcha mais uma vez neste turno.",
+						"ai": 1.2
+					},
+					{
+						"id": "rebirth",
+						"name": "Renascer na Cuba",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "heal",
+							"amount": 1.0
+						},
+						"desc": "Os Haemonculi remontam os mortos: perdas repostas.",
+						"ai": 1.0
+					},
+					{
+						"id": "incubi",
+						"name": "Contratar Íncubos",
+						"cost": 50,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "dk_incubi",
+							"count": 1
+						},
+						"desc": "Uma esquadra de Íncubos aceita o contrato.",
+						"ai": 1.0
+					},
+					{
+						"id": "slaves",
+						"name": "Leilão de Escravos",
+						"cost": 40,
+						"target": "faction",
+						"effect": {
+							"type": "funds",
+							"amount": 320
+						},
+						"desc": "+320 Escravos.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "drukhari",
+				"with": [
+					"chaos",
+					"imperium",
+					"eldar"
+				]
+			},
+			"morale": 1.2,
+			"warcry": "eldar",
+			"ships": "eldar"
+		},
+		"astral_claws": {
+			"name": "Secessionistas de Badab",
+			"short": "Badab",
+			"civ": "astral_claws",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				70,
+				110,
+				190
+			],
+			"emblem": "wh40k/emblems/astral_claws.png",
+			"emblemSource": "badab_claws/r1c0.png",
+			"currency": "Dízimo",
+			"currencyShort": "Díz",
+			"startingFunds": 1000,
+			"fleetName": "Frota do Tirano",
+			"leaderTitles": [
+				"Sargento",
+				"Veterano",
+				"Capitão"
+			],
+			"leaderNames": [
+				"Corvan",
+				"Mordaci",
+				"Sabrus",
+				"Haldane",
+				"Kaedus",
+				"Varrian",
+				"Dexter",
+				"Tamburlaine"
+			],
+			"shipNames": [
+				"Tirano Eterno",
+				"Garra Astral",
+				"Coroa de Badab",
+				"Dízimo Negado"
+			],
+			"attackBonus": 0.06,
+			"incomeMult": 1.3,
+			"dropFx": [
+				150,
+				180,
+				255
+			],
+			"portrait": "badab_claws/r1c0.png",
+			"winPortrait": "badab_claws/r1c1.png",
+			"losePortrait": "badab_claws/r2c0.png",
+			"description": "Lugft Huron, o Tirano de Badab, recusou o dízimo de semente genética a Terra. Os Astral Claws, a Legião do Tirano e três capítulos aliados enfrentam a cruzada lealista.",
+			"tips": "Badab: escolha a força em 'Recrutar' — Astral Claws, a Legião do Tirano (barata), Lamenters (assalto), Mantis Warriors (emboscada e atiradores) e Executioners (elite).",
+			"allies": {
+				"claws": {
+					"name": "Astral Claws",
+					"desc": "Os Marines de Huron.",
+					"icon": "badab_claws/r1c0.png"
+				},
+				"tyrant": {
+					"name": "Legião do Tirano",
+					"desc": "Auxiliares humanos: baratos e numerosos.",
+					"icon": "badab_claws/r2c3.png",
+					"leaderTitles": [
+						"Sargento",
+						"Tenente",
+						"Capitão"
+					],
+					"leaderNames": [
+						"Varro",
+						"Kesh",
+						"Dorran",
+						"Mulk",
+						"Hesk",
+						"Tallin",
+						"Brask",
+						"Oren"
+					]
+				},
+				"lamenters": {
+					"name": "Lamenters",
+					"desc": "Sucessores de Sanguinius que seguiram Huron.",
+					"icon": "badab_allies/r0c3.png",
+					"leaderNames": [
+						"Ariel",
+						"Danath",
+						"Sabrael",
+						"Ithurel",
+						"Zadkiel",
+						"Lucan"
+					]
+				},
+				"mantis": {
+					"name": "Mantis Warriors",
+					"desc": "Mestres da guerrilha e da emboscada.",
+					"icon": "badab_allies/r1c3.png",
+					"leaderNames": [
+						"Kel'than",
+						"Ixar",
+						"Vhoren",
+						"Tanric",
+						"Silas",
+						"Dreyl"
+					]
+				},
+				"executioners": {
+					"name": "Executioners",
+					"desc": "Caçadores de troféus. Os Land Raiders exigem cidade-colmeia.",
+					"icon": "badab_allies/r2c3.png",
+					"leaderNames": [
+						"Mordek",
+						"Hrazz",
+						"Kael",
+						"Thorne",
+						"Vulkis",
+						"Gharr"
+					]
+				}
+			},
+			"special": {
+				"name": "Dízimo Retido",
+				"short": "Dízimo",
+				"icon": "badab_claws/r1c0.png",
+				"desc": "A semente genética que Huron negou a Terra: cada vitória, cada cidade mantida e cada lealista abatido aumentam o tesouro do Tirano.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"win": 7,
+					"kill": 0.2,
+					"capture": 4,
+					"hive": 10,
+					"hold": {
+						"hive": 1
+					}
+				},
+				"rituals": [
+					{
+						"id": "recruits",
+						"name": "Novos Iniciados",
+						"cost": 50,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "ac_tactical",
+							"count": 1
+						},
+						"desc": "A semente retida vira uma esquadra tática nova.",
+						"ai": 1.0
+					},
+					{
+						"id": "legion",
+						"name": "Levas da Legião do Tirano",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "tl_rifles",
+							"count": 3
+						},
+						"desc": "Três bandos de fuzileiros mercenários se juntam ao exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "ambush",
+						"name": "Emboscada dos Mantis Warriors",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "plague",
+							"damage": 0.22,
+							"name": "a emboscada"
+						},
+						"desc": "Atiradores e batedores castigam os inimigos das províncias vizinhas.",
+						"ai": 1.0
+					},
+					{
+						"id": "tyrant",
+						"name": "Juramento ao Tirano",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Juramento ao Tirano",
+							"attack": 0.2,
+							"defense": 0.15,
+							"turns": 2
+						},
+						"desc": "+20% no ataque e +15% na defesa por 2 turnos.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "secessionists",
+				"with": [
+					"imperium",
+					"chaos"
+				]
+			},
+			"morale": 0.6,
+			"warcry": "astartes",
+			"ships": "astartes"
+		},
+		"krieg": {
+			"name": "Death Korps of Krieg",
+			"short": "Krieg",
+			"civ": "krieg",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				110,
+				120,
+				130
+			],
+			"emblem": "wh40k/emblems/krieg.png",
+			"emblemSource": "krieg/r2c0.png",
+			"currency": "Suprimentos",
+			"currencyShort": "Supr",
+			"startingFunds": 1000,
+			"fleetName": "Frota de Desembarque",
+			"leaderTitles": [
+				"Watchmaster",
+				"Tenente",
+				"Capitão"
+			],
+			"leaderNames": [
+				"Haller",
+				"Brandt",
+				"Vogt",
+				"Kessel",
+				"Reiss",
+				"Strahl",
+				"Wendt",
+				"Falk",
+				"Gerold",
+				"Ulrich"
+			],
+			"shipNames": [
+				"Expiação",
+				"Fé de Krieg",
+				"Vigília Cinzenta",
+				"Martírio"
+			],
+			"attackBonus": 0.0,
+			"incomeMult": 1.6,
+			"dropFx": [
+				200,
+				200,
+				210
+			],
+			"portrait": "krieg/r2c0.png",
+			"winPortrait": "krieg/r2c1.png",
+			"losePortrait": "krieg/r0c0.png",
+			"description": "Os filhos de Krieg buscam expiar o pecado do seu mundo morrendo pelo Imperador. Ondas de infantaria, artilharia sem fim e uma paciência de anos.",
+			"tips": "Krieg: infantaria baratíssima que nunca debanda e a melhor artilharia (Earthshaker). O recurso Expiação cresce com as próprias perdas.",
+			"allies": {
+				"guard": {
+					"name": "Krieg",
+					"desc": "Os filhos de Krieg buscam expiar o pecado do seu mundo morrendo pelo Imperador.",
+					"icon": "krieg/r2c0.png"
+				}
+			},
+			"special": {
+				"name": "Expiação",
+				"short": "Expiação",
+				"icon": "krieg/r2c0.png",
+				"desc": "Krieg expia o pecado do seu mundo morrendo pelo Imperador: cada soldado perdido em batalha aproxima a redenção.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"sacrifice": 0.5,
+					"win": 5,
+					"capture": 4
+				},
+				"rituals": [
+					{
+						"id": "waves",
+						"name": "Ondas de Infantaria",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "kr_rifles",
+							"count": 3
+						},
+						"desc": "Três pelotões novos chegam das docas de Krieg.",
+						"ai": 1.0
+					},
+					{
+						"id": "barrage",
+						"name": "Barragem Contínua",
+						"cost": 40,
+						"target": "army",
+						"effect": {
+							"type": "plague",
+							"damage": 0.25,
+							"name": "a barragem",
+							"devastate": true
+						},
+						"desc": "Semanas de artilharia sobre as províncias vizinhas: os inimigos perdem força e a terra fica devastada.",
+						"ai": 1.3
+					},
+					{
+						"id": "dig",
+						"name": "Cavar Trincheiras",
+						"cost": 25,
+						"target": "army",
+						"effect": {
+							"type": "fort"
+						},
+						"desc": "+1 fortificação na província do exército.",
+						"ai": 1.0
+					},
+					{
+						"id": "charge",
+						"name": "Carga dos Death Riders",
+						"cost": 35,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Carga dos Death Riders",
+							"attack": 0.25,
+							"defense": 0.0,
+							"turns": 1,
+							"moves": 1
+						},
+						"desc": "+25% no ataque por 1 turno e o exército marcha mais uma vez neste turno.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "imperium",
+				"with": [],
+				"never": "Krieg não negocia: só expia."
+			},
+			"morale": 0,
+			"warcry": "imperial",
+			"ships": "imperial"
+		},
+		"vraks": {
+			"name": "Rebeldes de Vraks",
+			"short": "Vraks",
+			"civ": "vraks",
+			"enabled": true,
+			"playable": true,
+			"color": [
+				150,
+				60,
+				40
+			],
+			"emblem": "wh40k/emblems/vraks.png",
+			"emblemSource": "vraks/r2c0.png",
+			"currency": "Arsenal",
+			"currencyShort": "Ars",
+			"startingFunds": 900,
+			"fleetName": "Frota Renegada",
+			"leaderTitles": [
+				"Sargento",
+				"Capitão",
+				"Apóstata"
+			],
+			"leaderNames": [
+				"Mardek",
+				"Sorn",
+				"Vexx",
+				"Halek",
+				"Druun",
+				"Kalder",
+				"Rusk",
+				"Ossen",
+				"Tavik"
+			],
+			"shipNames": [
+				"Estrela de Vraks",
+				"Cálice Negro",
+				"Apostasia",
+				"Arsenal Eterno"
+			],
+			"attackBonus": 0.05,
+			"incomeMult": 1.6,
+			"sackName": "Pilhar o Arsenal",
+			"sackMult": 1.4,
+			"aiSack": 0.5,
+			"sackXp": 1,
+			"sackNote": "O arsenal da província vira armas para a rebelião.",
+			"dropFx": [
+				220,
+				80,
+				50
+			],
+			"portrait": "vraks/r2c0.png",
+			"winPortrait": "vraks/r1c2.png",
+			"losePortrait": "vraks/r0c0.png",
+			"description": "O Cardeal Xaphan virou o mundo-arsenal Vraks contra o Imperador. Milícias armadas até os dentes com o arsenal imperial, cultistas, hereges da Mechanicus e Marines da Alpha Legion.",
+			"tips": "Vraks: tropas baratas e muito armamento capturado (Basiliscos, Leman Russ). Lutam melhor nas ruínas e nas cidades.",
+			"allies": {
+				"guard": {
+					"name": "Vraks",
+					"desc": "O Cardeal Xaphan virou o mundo-arsenal Vraks contra o Imperador.",
+					"icon": "vraks/r2c0.png"
+				}
+			},
+			"special": {
+				"name": "Heresia",
+				"short": "Heresia",
+				"icon": "vraks/r2c0.png",
+				"desc": "A heresia de Xaphan se alimenta de cada mundo profanado e de cada soldado de Krieg abatido.",
+				"start": 0,
+				"max": 300,
+				"gain": {
+					"kill": 0.3,
+					"sack": 25,
+					"capture": 5,
+					"win": 5
+				},
+				"rituals": [
+					{
+						"id": "sermon",
+						"name": "Sermão de Xaphan",
+						"cost": 30,
+						"target": "army",
+						"effect": {
+							"type": "buff",
+							"name": "Sermão de Xaphan",
+							"attack": 0.2,
+							"defense": 0.1,
+							"turns": 2
+						},
+						"desc": "+20% no ataque e +10% na defesa por 2 turnos.",
+						"ai": 1.0
+					},
+					{
+						"id": "arm",
+						"name": "Armar os Escravos",
+						"cost": 25,
+						"target": "army",
+						"effect": {
+							"type": "spawn",
+							"unit": "vr_cultists",
+							"count": 3
+						},
+						"desc": "Três bandos de cultistas recebem armas do arsenal.",
+						"ai": 1.0
+					},
+					{
+						"id": "alpha",
+						"name": "Células da Alpha Legion",
+						"cost": 45,
+						"target": "army",
+						"effect": {
+							"type": "convert"
+						},
+						"desc": "Uma província neutra vizinha se rebela e se junta a Vraks sem luta (se a guarnição for pequena).",
+						"ai": 1.3
+					},
+					{
+						"id": "arsenal",
+						"name": "Abrir o Arsenal",
+						"cost": 40,
+						"target": "faction",
+						"effect": {
+							"type": "funds",
+							"amount": 300
+						},
+						"desc": "+300 Arsenal.",
+						"ai": 1.0
+					}
+				]
+			},
+			"pact": {
+				"group": "chaos",
+				"with": [
+					"chaos",
+					"drukhari"
+				]
+			},
+			"morale": 1.2,
+			"warcry": "chaos",
+			"ships": "chaos2"
 		}
 	},
 	"neutral": {

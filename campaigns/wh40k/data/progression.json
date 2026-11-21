@@ -1,0 +1,280 @@
+{
+	"Description": "Progressão dos generais e relíquias (tools/data/build_mechanics.py). levels: experiência de cada nível (batalha +1, vitória +1, general inimigo derrubado +2); cada nível dá +3% no ataque e na defesa. traits: traços ganhos pelo que o general fez (when). relics: por campanha, província -> relíquia; um general próprio que esteja na província a reclama.",
+	"levels": [
+		0,
+		3,
+		7,
+		12,
+		18,
+		26
+	],
+	"traits": [
+		{
+			"id": "tank_killer",
+			"name": "Matador de Tanques",
+			"when": "vehicles",
+			"count": 3,
+			"attack": 0.08,
+			"desc": "Venceu batalhas contra muitos blindados e monstros: +8% no ataque."
+		},
+		{
+			"id": "wall",
+			"name": "Muralha",
+			"when": "defenseWins",
+			"count": 2,
+			"defense": 0.12,
+			"desc": "Segurou a linha duas vezes: +12% na defesa."
+		},
+		{
+			"id": "conqueror",
+			"name": "Conquistador",
+			"when": "hives",
+			"count": 2,
+			"attack": 0.06,
+			"move": 1,
+			"desc": "Tomou duas cidades-colmeia: +6% no ataque e marcha uma província a mais."
+		},
+		{
+			"id": "slayer",
+			"name": "Matador de Generais",
+			"when": "generalKills",
+			"count": 1,
+			"attack": 0.1,
+			"desc": "Derrubou um general inimigo: +10% no ataque."
+		},
+		{
+			"id": "scarred",
+			"name": "Cicatrizes de Guerra",
+			"when": "wounds",
+			"count": 1,
+			"defense": 0.08,
+			"desc": "Voltou de um ferimento grave: +8% na defesa."
+		},
+		{
+			"id": "dropmaster",
+			"name": "Mestre do Desembarque",
+			"when": "landingWins",
+			"count": 1,
+			"support": 1,
+			"desc": "Venceu um assalto vindo da órbita: +1 carga de apoio."
+		},
+		{
+			"id": "veteran",
+			"name": "Veterano de {body}",
+			"when": "bodyBattles",
+			"count": 3,
+			"attack": 0.05,
+			"defense": 0.05,
+			"desc": "Três batalhas no mesmo mundo: +5% no ataque e na defesa."
+		},
+		{
+			"id": "hunter",
+			"name": "Caçador de Hereges",
+			"when": "chaosWins",
+			"count": 2,
+			"attack": 0.08,
+			"desc": "Venceu os servos do Caos duas vezes: +8% no ataque."
+		},
+		{
+			"id": "marked",
+			"name": "Marca de {god}",
+			"when": "chaosGeneralWins",
+			"count": 3,
+			"attack": 0.1,
+			"desc": "Os deuses notaram as suas vitórias: +10% no ataque."
+		}
+	],
+	"relics": {
+		"armageddon": {
+			"hades": {
+				"id": "yarrick_claw",
+				"name": "Garra de Ferro de Yarrick",
+				"attack": 0.15,
+				"desc": "A garra de força do velho comissário: +15% no ataque."
+			},
+			"rok_fort": {
+				"id": "ghazghkull_banner",
+				"name": "Estandarte da Grande Waaagh!",
+				"attack": 0.1,
+				"support": 1,
+				"desc": "O estandarte de Ghazghkull: +10% no ataque e +1 carga de apoio."
+			},
+			"vesperia_capital": {
+				"id": "vesper_aquila",
+				"name": "Águia de Vesper",
+				"defense": 0.15,
+				"desc": "Relíquia da cidadela: +15% na defesa."
+			}
+		},
+		"damocles": {
+			"katuo": {
+				"id": "dawn_blade",
+				"name": "Lâmina do Alvorecer",
+				"attack": 0.15,
+				"desc": "Lâmina forjada de um metal desconhecido: +15% no ataque."
+			},
+			"kel_nest": {
+				"id": "norn_crown",
+				"name": "Coroa Norn",
+				"support": 1,
+				"defense": 0.1,
+				"desc": "Um nódulo sináptico ancestral: +10% na defesa e +1 carga de apoio."
+			},
+			"pathos": {
+				"id": "pathos_icon",
+				"name": "Ícone de Pathos",
+				"defense": 0.15,
+				"desc": "O ícone sagrado da colmeia: +15% na defesa."
+			}
+		},
+		"cadia": {
+			"kasr_kraf": {
+				"id": "creed_cap",
+				"name": "Quepe de Creed",
+				"attack": 0.1,
+				"defense": 0.1,
+				"desc": "O quepe do Lorde Castelão: +10% no ataque e na defesa."
+			},
+			"vork_citadel": {
+				"id": "talon_horus",
+				"name": "Garra de Horus",
+				"attack": 0.2,
+				"desc": "A garra do Mestre de Guerra traidor: +20% no ataque."
+			},
+			"thyrr_pyramid": {
+				"id": "staff_light",
+				"name": "Cajado da Luz Eterna",
+				"support": 2,
+				"desc": "Um cetro de Faraó: +2 cargas de apoio."
+			},
+			"ulthwe_dome": {
+				"id": "spear_twilight",
+				"name": "Lança do Crepúsculo",
+				"attack": 0.12,
+				"move": 1,
+				"desc": "Arma de um herói eldar: +12% no ataque e marcha extra."
+			}
+		},
+		"great_game": {
+			"relicary": {
+				"id": "emperor_sword",
+				"name": "Espada do Imperador",
+				"attack": 0.2,
+				"defense": 0.05,
+				"desc": "Uma lâmina da Cruzada Indomitus: +20% no ataque, +5% na defesa."
+			},
+			"lumen": {
+				"id": "helm_ultramar",
+				"name": "Capacete de Ultramar",
+				"defense": 0.15,
+				"support": 1,
+				"desc": "Um elmo dos Senhores de Macragge: +15% na defesa e +1 carga de apoio."
+			},
+			"sk_throne": {
+				"id": "gorechild",
+				"name": "Gorechild",
+				"attack": 0.25,
+				"desc": "O machado-serra de Angron: +25% no ataque."
+			},
+			"ix_tower": {
+				"id": "book_magnus",
+				"name": "Livro de Magnus",
+				"support": 2,
+				"desc": "Páginas do grimório do Rei Carmesim: +2 cargas de apoio."
+			},
+			"mv_garden": {
+				"id": "silence",
+				"name": "Silêncio",
+				"defense": 0.2,
+				"desc": "A foice de Mortarion: +20% na defesa."
+			},
+			"ly_palace": {
+				"id": "laer_blade",
+				"name": "Lâmina de Laer",
+				"attack": 0.15,
+				"move": 1,
+				"desc": "A espada de Fulgrim: +15% no ataque e marcha extra."
+			}
+		},
+		"badab": {
+			"tyrant_palace": {
+				"id": "tyrant_crown",
+				"name": "Coroa do Tirano",
+				"attack": 0.1,
+				"defense": 0.15,
+				"desc": "A coroa de Huron: +10% no ataque e +15% na defesa."
+			},
+			"cr_hall": {
+				"id": "trophy_axe",
+				"name": "Machado dos Troféus",
+				"attack": 0.2,
+				"desc": "O machado ancestral dos Executioners: +20% no ataque."
+			},
+			"ma_keep": {
+				"id": "codex_page",
+				"name": "Página do Codex Astartes",
+				"defense": 0.1,
+				"support": 1,
+				"desc": "Uma página escrita por Guilliman: +10% na defesa e +1 carga de apoio."
+			}
+		},
+		"vraks": {
+			"cathedral": {
+				"id": "black_chalice",
+				"name": "Cálice Negro de Xaphan",
+				"support": 2,
+				"desc": "O cálice profanado do cardeal: +2 cargas de apoio."
+			},
+			"citadel": {
+				"id": "vraks_keys",
+				"name": "Chaves do Arsenal",
+				"attack": 0.1,
+				"defense": 0.1,
+				"desc": "As chaves dos depósitos de Vraks: +10% no ataque e na defesa."
+			},
+			"wr_throne": {
+				"id": "brass_collar",
+				"name": "Colar de Bronze",
+				"defense": 0.2,
+				"attack": 0.05,
+				"desc": "Um colar de Khorne que repele a feitiçaria: +20% na defesa, +5% no ataque."
+			}
+		},
+		"thaurus": {
+			"forge_mother": {
+				"id": "stc_core",
+				"name": "Núcleo do Arquivo STC",
+				"defense": 0.15,
+				"support": 1,
+				"desc": "O coração do arquivo: +15% na defesa e +1 carga de apoio."
+			},
+			"lc_convent": {
+				"id": "lucrecia_mantle",
+				"name": "Manto de Santa Lucrécia",
+				"defense": 0.15,
+				"attack": 0.05,
+				"desc": "O manto da santa padroeira: +15% na defesa, +5% no ataque."
+			},
+			"crystal_archive": {
+				"id": "crystal_eye",
+				"name": "Olho de Cristal",
+				"support": 2,
+				"desc": "Um fragmento do olho de Magnus: +2 cargas de apoio."
+			},
+			"vs_gate": {
+				"id": "vect_crown",
+				"name": "Diadema Sombrio",
+				"attack": 0.15,
+				"move": 1,
+				"desc": "Um diadema de Commorragh: +15% no ataque e marcha extra."
+			},
+			"tb_vault": {
+				"id": "liber_daemonica",
+				"name": "Liber Daemonica",
+				"attack": 0.1,
+				"defense": 0.1,
+				"desc": "O livro sagrado dos Cavaleiros Cinzentos: +10% no ataque e na defesa."
+			}
+		}
+	}
+}

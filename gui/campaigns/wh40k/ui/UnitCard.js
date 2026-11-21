@@ -30,7 +30,7 @@ class WH40KUnitCard
 	{
 		const D = this.page.D;
 		if (opts.general && D.generals[opts.general])
-			return this.show(this.generalCard(D.generals[opts.general]));
+			return this.show(this.generalCard(this.page.game ? this.page.game.generalStats(opts.general) : D.generals[opts.general]));
 		const unit = D.unitById[opts.unit || opts.bat?.unit];
 		if (unit)
 			this.show(this.unitCard(unit, opts));
@@ -81,7 +81,8 @@ class WH40KUnitCard
 			line("Blindagem", "x" + ((unit.armor || 1) * cat.armor).toFixed(2)),
 			vs.length ? line("Especialista", vs.join(", ")) : "",
 			unitTerrainText(unit) ? line("Terreno", unitTerrainText(unit)) : "",
-			req.length ? line("Exige", req.join(", ")) : ""
+			req.length ? line("Exige", req.join(", ")) : "",
+			unit.noRecruit ? colored("Não se recruta.", [230, 120, 120]) : ""
 		];
 		if (opts.bat || opts.strength !== undefined)
 		{
@@ -102,6 +103,13 @@ class WH40KUnitCard
 		};
 	}
 
+	nextLevelText(gen)
+	{
+		const levels = this.page.D.progression?.levels || [];
+		const next = levels[gen.level + 1];
+		return next ? " (próximo nível: " + next + ")" : " (nível máximo)";
+	}
+
 	generalCard(gen)
 	{
 		const D = this.page.D;
@@ -109,7 +117,7 @@ class WH40KUnitCard
 		const gold = [235, 205, 125];
 		const pct = v => (v > 0 ? "+" : "") + Math.round(v * 100) + "%";
 		const st = this.page.game?.s.generals[gen.id];
-		const state = { "available": "disponível", "hired": "em campo", "wounded": "ferido", "dead": "morto", "unavailable": "fora desta campanha" };
+		const state = { "available": "disponível", "hired": "em campo", "wounded": "ferido", "dead": "morto", "spawn": "virou Cria do Caos", "unavailable": "fora desta campanha" };
 		return {
 			"portrait": gen.portrait,
 			"title": gen.title + " " + gen.name,
@@ -118,9 +126,13 @@ class WH40KUnitCard
 				colored("Ataque: ", gold) + pct(gen.attack) + " · " + colored("Defesa: ", gold) + pct(gen.defense),
 				colored("Marcha extra: ", gold) + (gen.move || 0) + " · " + colored("Cargas de apoio: ", gold) + (gen.support || 0),
 				colored("Contratação: ", gold) + (gen.hireCost ? gen.hireCost + " " + (f.currencyShort || "") : "comanda desde o início"),
-				st ? colored("Situação: ", gold) + (state[st.state] || st.state) : ""
+				st ? colored("Situação: ", gold) + (state[st.state] || st.state) : "",
+				gen.level !== undefined ? colored("Nível: ", gold) + gen.level + " · experiência " + (gen.xp || 0) + this.nextLevelText(gen) : "",
+				gen.ascended ? colored("Príncipe-Demônio de " + gen.ascended, [240, 120, 120]) + " (+20% ataque, +15% defesa, +1 carga)" : "",
+				(gen.traitList || []).length ? colored("Traços: ", gold) + gen.traitList.map(t => t.name).join(", ") : "",
+				(gen.relicList || []).length ? colored("Relíquias: ", gold) + gen.relicList.map(r => r.name).join(", ") : ""
 			].filter(Boolean).join("\n"),
-			"desc": gen.trait || "",
+			"desc": (gen.trait || "") + [...(gen.traitList || []).map(t => "\n• " + t.name + ": " + t.desc), ...(gen.relicList || []).map(r => "\n• " + r.name + ": " + r.desc)].join(""),
 			"quote": pickFrom(gen.quotes || [""]),
 			"color": f.color
 		};

@@ -1,0 +1,335 @@
+{
+	"id": "thaurus",
+	"mapSize": [
+		2048,
+		1280
+	],
+	"provinces": {
+		"forge_mother": {
+			"rect": [
+				0.32275,
+				0.19609,
+				0.57812,
+				0.50703
+			],
+			"label": [
+				0.4575,
+				0.3461
+			],
+			"area": 124870,
+			"neighbors": [
+				"cold_plateau",
+				"ferrum",
+				"omega",
+				"omnissiah",
+				"rail",
+				"sigma"
+			],
+			"coastal": false
+		},
+		"ferrum": {
+			"rect": [
+				0.18652,
+				0.0,
+				0.4209,
+				0.40781
+			],
+			"label": [
+				0.293,
+				0.1484
+			],
+			"area": 176198,
+			"neighbors": [
+				"cold_plateau",
+				"forge_mother",
+				"iron_peaks",
+				"putrid_foundry",
+				"sigma"
+			],
+			"coastal": false
+		},
+		"omega": {
+			"rect": [
+				0.49902,
+				0.0,
+				0.76953,
+				0.41484
+			],
+			"label": [
+				0.6567,
+				0.1703
+			],
+			"area": 200526,
+			"neighbors": [
+				"cold_plateau",
+				"crystal_archive",
+				"forge_mother",
+				"omnissiah",
+				"slag"
+			],
+			"coastal": false
+		},
+		"sigma": {
+			"rect": [
+				0.18652,
+				0.39688,
+				0.41064,
+				0.81172
+			],
+			"label": [
+				0.2788,
+				0.5773
+			],
+			"area": 136317,
+			"neighbors": [
+				"chem_marsh",
+				"ferrum",
+				"forge_mother",
+				"golden_bastion",
+				"iron_peaks",
+				"rail",
+				"slave_port"
+			],
+			"coastal": false
+		},
+		"omnissiah": {
+			"rect": [
+				0.54785,
+				0.39062,
+				0.75488,
+				0.74844
+			],
+			"label": [
+				0.6401,
+				0.5625
+			],
+			"area": 128679,
+			"neighbors": [
+				"forge_mother",
+				"golden_bastion",
+				"kappa",
+				"omega",
+				"rail",
+				"rust_dunes",
+				"slag"
+			],
+			"coastal": false
+		},
+		"golden_bastion": {
+			"rect": [
+				0.36133,
+				0.63672,
+				0.59717,
+				1.0
+			],
+			"label": [
+				0.4712,
+				0.8492
+			],
+			"area": 163398,
+			"neighbors": [
+				"chem_marsh",
+				"omnissiah",
+				"rail",
+				"rust_dunes",
+				"sigma"
+			],
+			"coastal": false
+		},
+		"rail": {
+			"rect": [
+				0.34521,
+				0.43906,
+				0.56152,
+				0.69453
+			],
+			"label": [
+				0.4463,
+				0.5891
+			],
+			"area": 96681,
+			"neighbors": [
+				"forge_mother",
+				"golden_bastion",
+				"omnissiah",
+				"sigma"
+			],
+			"coastal": false
+		},
+		"slag": {
+			"rect": [
+				0.66162,
+				0.14688,
+				0.95605,
+				0.59609
+			],
+			"label": [
+				0.8027,
+				0.4117
+			],
+			"area": 168177,
+			"neighbors": [
+				"crystal_archive",
+				"kappa",
+				"omega",
+				"omnissiah"
+			],
+			"coastal": false
+		},
+		"iron_peaks": {
+			"rect": [
+				0.00977,
+				0.22344,
+				0.29297,
+				0.60703
+			],
+			"label": [
+				0.1582,
+				0.4
+			],
+			"area": 147114,
+			"neighbors": [
+				"ferrum",
+				"putrid_foundry",
+				"sigma",
+				"slave_port"
+			],
+			"coastal": false
+		},
+		"rust_dunes": {
+			"rect": [
+				0.53906,
+				0.68281,
+				0.81348,
+				1.0
+			],
+			"label": [
+				0.6772,
+				0.9992
+			],
+			"area": 165305,
+			"neighbors": [
+				"golden_bastion",
+				"kappa",
+				"omnissiah"
+			],
+			"coastal": true
+		},
+		"chem_marsh": {
+			"rect": [
+				0.06055,
+				0.65625,
+				0.39453,
+				1.0
+			],
+			"label": [
+				0.2334,
+				0.9992
+			],
+			"area": 188085,
+			"neighbors": [
+				"golden_bastion",
+				"sigma",
+				"slave_port"
+			],
+			"coastal": false
+		},
+		"kappa": {
+			"rect": [
+				0.7168,
+				0.41953,
+				1.0,
+				0.83828
+			],
+			"label": [
+				0.9658,
+				0.5586
+			],
+			"area": 189039,
+			"neighbors": [
+				"crystal_archive",
+				"omnissiah",
+				"rust_dunes",
+				"slag"
+			],
+			"coastal": true
+		},
+		"cold_plateau": {
+			"rect": [
+				0.36035,
+				0.0,
+				0.59326,
+				0.23359
+			],
+			"label": [
+				0.4834,
+				0.0
+			],
+			"area": 93669,
+			"neighbors": [
+				"ferrum",
+				"forge_mother",
+				"omega"
+			],
+			"coastal": false
+		},
+		"putrid_foundry": {
+			"rect": [
+				0.0,
+				0.0,
+				0.19678,
+				0.40859
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 152469,
+			"neighbors": [
+				"ferrum",
+				"iron_peaks",
+				"slave_port"
+			],
+			"coastal": false
+		},
+		"crystal_archive": {
+			"rect": [
+				0.76318,
+				0.0,
+				1.0,
+				0.43281
+			],
+			"label": [
+				0.9995,
+				0.0
+			],
+			"area": 190283,
+			"neighbors": [
+				"kappa",
+				"omega",
+				"slag"
+			],
+			"coastal": false
+		},
+		"slave_port": {
+			"rect": [
+				0.0,
+				0.40859,
+				0.2041,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.6766
+			],
+			"area": 190370,
+			"neighbors": [
+				"chem_marsh",
+				"iron_peaks",
+				"putrid_foundry",
+				"sigma"
+			],
+			"coastal": false
+		}
+	}
+}

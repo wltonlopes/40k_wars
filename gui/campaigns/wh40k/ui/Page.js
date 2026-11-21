@@ -38,6 +38,23 @@ function portraitSprite(path, grayscale)
 	return (grayscale ? "grayscale:" : "") + "stretched:wh40k/portraits/" + path;
 }
 
+/** Sprite da nave da facção (factions.json: ships) no tamanho pela quantidade de naves. */
+function shipSprite(D, faction, ships)
+{
+	const style = D.factions[faction]?.ships || "imperial";
+	const size = ships >= 6 ? 3 : ships >= 4 ? 2 : ships >= 2 ? 1 : 0;
+	return "stretched:campaigns/wh40k/ships/" + style + "_" + size + ".png";
+}
+
+/** Cidade-colmeia vista de cima da província (a mesma do mapa: tools/art/gen_planets.py). */
+function citySprite(pid)
+{
+	let n = 0;
+	for (let i = 0; i < pid.length; ++i)
+		n += pid.charCodeAt(i);
+	return "stretched:campaigns/wh40k/cities/city_" + (n % 12) + ".png";
+}
+
 function percent(x)
 {
 	return Math.round(x * 100) + "%";
@@ -66,6 +83,20 @@ class WH40KPage
 	constructor(initData, closePageCallback)
 	{
 		this.closePageCallback = closePageCallback;
+		if (initData?.codex)
+		{
+			// Códex aberto do menu principal: só os dados, sem campanha.
+			this.D = WH40KData.load();
+			this.sound = new WH40KSound();
+			this.card = new WH40KUnitCard(this);
+			this.codex = new WH40KCodex(this);
+			this.dialog = new WH40KDialog();
+			this.codexOnly = true;
+			for (const id of ["topBar", "side", "bottomBar", "mapArea"])
+				gui(id).hidden = true;
+			this.codex.open(null, () => this.closePageCallback({ [Engine.openRequest]: { "page": "page_pregame.xml" } }));
+			return;
+		}
 		const filename = initData?.filename || CampaignRun.getCurrentRunFilename();
 		this.run = new CampaignRun(filename).load();
 		if (!this.run.isCurrent())
@@ -74,11 +105,14 @@ class WH40KPage
 		this.sound = new WH40KSound();
 		this.dialog = new WH40KDialog();
 		this.card = new WH40KUnitCard(this);
+		this.codex = new WH40KCodex(this);
+		this.stats = new WH40KStats(this);
 		this.side = new WH40KSidePanel(this);
 		this.system = new WH40KSystemView(this);
 		this.planet = new WH40KPlanetView(this);
 		this.deploy = new WH40KDeployView(this);
 		this.battle = new WH40KBattleView(this);
+		this.space = new WH40KSpaceView(this);
 		this.fx = new WH40KCampaignFx(this);
 		this.sel = null;
 		this.view = "system";
@@ -93,6 +127,7 @@ class WH40KPage
 		gui("btnEndTurn").onPress = () => this.endTurn();
 		gui("btnEndTurn").tooltip = "Termina o turno: a IA joga, as frotas viajam, a economia rende e as baixas são repostas.";
 		gui("btnMenu").onPress = () => this.exit();
+		gui("topSpecial").onPress = () => this.openRituals();
 		gui("btnMenu").tooltip = "Salva a campanha e volta ao menu principal.";
 		gui("wh40kRoot").onWindowResized = () => this.refresh();
 
@@ -117,7 +152,8 @@ class WH40KPage
 		else if (view == "deploy" && army)
 		{
 			const targets = this.game.armyTargets(army);
-			const pid = Object.keys(targets).find(p => targets[p] == "attack");
+			const attacks = Object.keys(targets).filter(p => targets[p] == "attack");
+			const pid = attacks.find(p => this.D.provinces[p].hive) || attacks[0];
 			if (pid)
 				this.openDeploy(this.game.makeBattle(pid, this.player, [army.id], "assault"));
 		}
@@ -136,6 +172,35 @@ class WH40KPage
 		}
 		else if (view == "gencard" && army && army.general)
 			this.card.open({ "general": army.general });
+		else if (view == "ritual" && army)
+		{
+			this.game.s.factions[this.player].special = 200;
+			this.select({ "type": "army", "id": army.id });
+			this.side.mode = "ritual";
+			this.side.ritualArmy = army.id;
+			this.refresh();
+		}
+		else if (view == "space")
+		{
+			const enemy = Object.keys(this.game.s.factions).find(f => this.game.hostile(f, this.player));
+			const body = this.homeBody();
+			this.space.debugLoop = true;
+			this.space.open({ "title": "Batalha espacial em " + this.D.bodies[body].name + ": vitória de " + this.D.factionName(this.player), "lines": [], "space": true, "winner": this.player,
+				"fleetBattle": { "body": body, "sides": [{ "faction": this.player, "before": 7, "after": 5 }, { "faction": enemy, "before": 6, "after": 0 }] } });
+		}
+		else if (view == "codex")
+			this.codex.open(this.player);
+		else if (view == "stats")
+			this.stats.open();
+		else if (view == "diplomacy")
+			this.showDiplomacy();
+		else if (view == "choice")
+		{
+			const ev = WH40K_EVENTS.find(e => e.when(this.game, this.player) && (!e.factions || e.factions(this.game, this.player)));
+			if (ev)
+				this.game.s.pendingChoices.push({ "kind": "event", "event": ev.id, "faction": this.player, "ctx": ev.when(this.game, this.player), "turn": this.game.s.turn });
+			this.processQueue();
+		}
 		else if (view == "sack" && army)
 		{
 			// Mostra os efeitos: saque, bombardeio, conquista e batalha na província do exército.
@@ -144,14 +209,31 @@ class WH40KPage
 		}
 	}
 
+	/** Esc: fecha a janela de cima (ficha, estatísticas, códex). */
+	cancel()
+	{
+		if (this.card.isOpen())
+			this.card.close();
+		else if (this.stats && this.stats.isOpen())
+			this.stats.close();
+		else if (this.codex && this.codex.isOpen())
+			this.codex.close();
+	}
+
 	/** Tique (onTick da raiz): animações e a batalha 2D. */
 	tick()
 	{
+		if (this.codexOnly)
+			return;
 		const now = Date.now();
 		if (this.fx)
 			this.fx.tick(now);
 		if (this.view == "battle")
 			this.battle.tick(now);
+		if (this.view == "space")
+			this.space.tick(now);
+		if (this.view == "planet" && this.body && !this.dialog.isOpen())
+			this.sound.ambient(this.D.bodies[this.body]?.palette);
 		if (this.debugEvents && now >= this.debugEvents.at)
 		{
 			const pid = this.debugEvents.pid;
@@ -175,6 +257,97 @@ class WH40KPage
 		this.sound.music("campaign");
 		this.refresh();
 		this.processQueue();
+	}
+
+	// ------------------------------------------------------------ recurso especial, diplomacia
+
+	/** Painel dos rituais: no exército selecionado (se for seu) ou os da facção. */
+	openRituals()
+	{
+		if (!this.game || this.view == "deploy" || this.view == "battle" || !this.game.special(this.player))
+			return;
+		const army = this.selectedArmy();
+		this.side.mode = "ritual";
+		this.side.ritualArmy = army && army.faction == this.player ? army.id : null;
+		this.refresh();
+	}
+
+	showDiplomacy()
+	{
+		const g = this.game;
+		const me = this.player;
+		const others = Object.keys(g.s.factions).filter(f => f != me && g.s.factions[f].alive && !this.D.allied(f, me));
+		const lines = others.map(f => {
+			const fd = this.D.factions[f];
+			let state;
+			if (g.inTruce(f, me))
+				state = colored("em trégua até o turno " + g.s.truces[g.truceKey(f, me)].until, [150, 220, 150]);
+			else
+			{
+				const why = g.canTruce(me, f);
+				state = why ? colored("em guerra — " + why, [220, 140, 110]) : colored("em guerra — aceita negociar (chance " + percent(g.truceChance(f, me)) + ")", [235, 205, 125]);
+			}
+			return colored(fd.name, fd.color) + (g.s.factions[f].treachery ? " (traiu " + g.s.factions[f].treachery + "×)" : "") + "\n  " + state;
+		});
+		const allies = Object.keys(g.s.factions).filter(f => f != me && this.D.allied(f, me) && g.s.factions[f].alive);
+		const buttons = [];
+		for (const f of others)
+		{
+			const name = this.D.factions[f].short || this.D.factions[f].name;
+			if (g.inTruce(f, me))
+				buttons.push({ "caption": "Trair: " + name, "tooltip": "Rompe a trégua: +20% no ataque dos seus exércitos neste turno, mas ninguém confiará em você por um bom tempo.",
+					"onPress": () => { g.betray(me, f); this.save(); this.refresh(); this.showDiplomacy(); } });
+			else if (!g.canTruce(me, f))
+				buttons.push({ "caption": "Trégua: " + name, "tooltip": "Propõe " + WH40K_TRUCE_TURNS + " turnos sem ataques. Chance de aceitar: " + percent(g.truceChance(f, me)) + ".",
+					"onPress": () => {
+						const res = g.proposeTruce(me, f);
+						this.save();
+						this.refresh();
+						this.dialog.open({ "title": "Diplomacia", "text": res.error || (res.accepted ? this.D.factions[f].name + " aceita a trégua até o turno " + g.s.truces[g.truceKey(f, me)].until + "." : this.D.factions[f].name + " recusa a proposta."),
+							"buttons": [{ "caption": "Voltar", "onPress": () => this.showDiplomacy() }, { "caption": "Fechar" }] });
+					} });
+		}
+		buttons.push({ "caption": "Fechar" });
+		this.dialog.open({
+			"title": "Diplomacia",
+			"text": (allies.length ? "Aliados de campanha: " + allies.map(f => colored(this.D.factions[f].name, this.D.factions[f].color)).join(", ") + "\n\n" : "") +
+				lines.join("\n\n") +
+				"\n\nTrégua: " + WH40K_TRUCE_TURNS + " turnos sem ataques; os exércitos passam pelas terras um do outro sem tomá-las. A vitória ainda exige derrotar quem está em trégua." +
+				(this.D.factions[me].pact?.never ? "\n\n" + colored(this.D.factions[me].pact.never, [220, 140, 110]) : ""),
+			"portrait": portraitSprite(this.D.factionPortrait(me)),
+			"buttons": buttons.slice(0, WH40K_DIALOG_BUTTONS)
+		});
+	}
+
+	/** Próxima escolha pendente (evento ou proposta de trégua). */
+	showChoice(choice)
+	{
+		const view = this.game.choiceView(choice);
+		if (!view)
+		{
+			this.game.resolveChoice(choice, 0);
+			this.processQueue();
+			return;
+		}
+		this.sound.ui("card");
+		this.dialog.open({
+			"title": view.title,
+			"text": view.text,
+			"portrait": portraitSprite(view.portrait),
+			"buttons": view.options.map((o, i) => ({
+				"caption": o.caption,
+				"tooltip": (o.tooltip || "") + (o.why ? (o.tooltip ? "\n" : "") + colored(o.why, [250, 120, 90]) : ""),
+				"enabled": !o.why,
+				"onPress": () => {
+					const text = this.game.resolveChoice(choice, i);
+					this.save();
+					this.refresh();
+					if (text && i >= 0 && choice.kind == "event")
+						this.flash(text);
+					this.processQueue();
+				}
+			}))
+		});
 	}
 
 	save()
@@ -243,8 +416,23 @@ class WH40KPage
 			"buttons": factions.map(f => ({
 				"caption": D.factions[f].short || D.factions[f].name,
 				"tooltip": D.factions[f].name,
+				"onPress": () => this.chooseDifficulty(scenarioId, f)
+			})).concat([{ "caption": "Voltar", "onPress": () => this.chooseFaction() }])
+		});
+	}
+
+	chooseDifficulty(scenarioId, f)
+	{
+		const D = WH40KData.load(scenarioId);
+		this.dialog.open({
+			"title": "Dificuldade",
+			"text": Object.keys(WH40K_DIFFICULTY).map(k => colored(WH40K_DIFFICULTY[k].name, [235, 205, 125]) + " — " + WH40K_DIFFICULTY[k].desc).join("\n\n"),
+			"portrait": portraitSprite(D.factionPortrait(f)),
+			"buttons": Object.keys(WH40K_DIFFICULTY).map(k => ({
+				"caption": WH40K_DIFFICULTY[k].name,
+				"tooltip": WH40K_DIFFICULTY[k].desc,
 				"onPress": () => {
-					this.run.data.state = WH40KGame.newState(f, scenarioId);
+					this.run.data.state = WH40KGame.newState(f, scenarioId, k);
 					this.run.save();
 					this.start();
 					const start = D.sector.startingArmies.find(a => a.faction == f && a.general);
@@ -255,7 +443,7 @@ class WH40KPage
 						"buttons": [{ "caption": "Às armas!" }]
 					});
 				}
-			})).concat([{ "caption": "Voltar", "onPress": () => this.chooseFaction() }])
+			})).concat([{ "caption": "Voltar", "onPress": () => this.chooseSide(scenarioId) }])
 		});
 	}
 
@@ -268,6 +456,9 @@ class WH40KPage
 			"• Ao atacar, escolha 'Comandar': posicione os batalhões, dê ordens e assista à batalha em tempo real no mapa tático, mudando as ordens durante a luta. Baixas inimigas liberam o apoio.\n" +
 			"• Uma província recém-conquistada pode ser saqueada: muito dinheiro na hora, mas ela fica devastada por alguns turnos.\n" +
 			(f.tips ? "• " + f.tips + "\n" : "") +
+			(f.special ? "• " + f.special.name + ": " + f.special.desc + " Gaste em rituais (clique no recurso no topo, ou 'Rituais' no exército).\n" : "") +
+			"• Generais ganham experiência, níveis, traços e relíquias (um general seu numa província com relíquia a reclama). Clique no retrato para a ficha.\n" +
+			"• Diplomacia: algumas facções aceitam tréguas — e podem traí-las. Eventos pedem decisões no começo do turno.\n" +
 			"• Objetivo: " + this.D.scenario.objective.text + ", ou expulsar os inimigos do sistema.";
 	}
 
@@ -292,10 +483,11 @@ class WH40KPage
 	{
 		if (!this.game)
 			return;
-		const deploying = this.view == "deploy" || this.view == "battle";
+		const deploying = this.view == "deploy" || this.view == "battle" || this.view == "space";
 		gui("systemView").hidden = this.view != "system";
 		gui("planetView").hidden = this.view != "planet";
-		gui("deployView").hidden = !deploying;
+		gui("deployView").hidden = this.view != "deploy" && this.view != "battle";
+		gui("spaceView").hidden = this.view != "space";
 		// Desdobramento e batalha: sem o registro, o campo usa a altura toda.
 		gui("bottomBar").hidden = deploying;
 		gui("mapArea").size = deploying ? "0 44 100%-370 100%" : "0 44 100%-370 100%-62";
@@ -315,6 +507,8 @@ class WH40KPage
 		}
 		else if (this.view == "battle")
 			this.battle.render();
+		else if (this.view == "space")
+			this.space.render();
 		else
 			this.deploy.render();
 		if (!deploying)
@@ -328,12 +522,22 @@ class WH40KPage
 		const f = this.D.factions[this.player];
 		gui("topEmblem").sprite = "stretched:" + f.emblem;
 		gui("topFaction").caption = f.name;
-		const income = g.income(this.player);
+		const income = Math.round(g.income(this.player) * g.incomeFactor(this.player));
 		const upkeep = g.upkeep(this.player);
 		const net = income - upkeep;
 		gui("topFunds").caption = f.currency + ": " + g.s.factions[this.player].funds + "  " + colored((net >= 0 ? "+" : "") + net, net >= 0 ? [140, 220, 120] : [240, 110, 90]);
 		gui("topFunds").tooltip = "Rendimento das províncias: +" + income + "\nManutenção (exércitos, guarnições, frotas): -" + upkeep + "\nSem recursos, batalhões desertam.";
 		gui("topTurn").caption = "Turno " + g.s.turn + " — " + this.D.sector.start.year;
+		const sp = g.special(this.player);
+		gui("topSpecial").hidden = !sp;
+		if (sp)
+		{
+			gui("topSpecialIcon").sprite = portraitSprite(sp.icon);
+			gui("topSpecialText").caption = sp.short + ": " + g.specialAmount(this.player) + colored("/" + sp.max, [170, 160, 140]);
+			const ready = sp.rituals.filter(r => r.cost <= g.specialAmount(this.player)).length;
+			gui("topSpecial").tooltip = colored(sp.name, [235, 205, 125]) + "\n" + sp.desc + "\n\nGanha com: " + specialGainText(sp) +
+				"\n\nRituais disponíveis agora: " + ready + " de " + sp.rituals.length + ".\nClique: abrir os rituais (no exército selecionado).";
+		}
 		const obj = g.objective();
 		gui("topObjective").caption = this.D.scenario.objective.label + ": " + obj.mine + "/" + obj.hives;
 		gui("topObjective").tooltip = this.D.scenario.name + " — vitória: " + this.D.scenario.objective.text + ", ou expulsar os inimigos do sistema.";
@@ -342,7 +546,8 @@ class WH40KPage
 	renderLog()
 	{
 		const lines = this.game.s.log.slice(-3).reverse().map(e => {
-			const color = { "battle": [240, 170, 120], "capture": [200, 220, 140], "space": [150, 190, 240], "orbital": [230, 150, 230], "sack": [240, 140, 60], "warning": [250, 110, 90], "victory": [250, 220, 110] }[e.kind] || [215, 205, 185];
+			const color = { "battle": [240, 170, 120], "capture": [200, 220, 140], "space": [150, 190, 240], "orbital": [230, 150, 230], "sack": [240, 140, 60], "warning": [250, 110, 90], "victory": [250, 220, 110],
+				"ritual": [210, 170, 250], "relic": [250, 225, 150], "diplomacy": [150, 220, 210], "event": [230, 200, 160] }[e.kind] || [215, 205, 185];
 			return colored("T" + e.turn, [150, 140, 120]) + "  " + colored(e.text, color);
 		});
 		gui("logText").caption = lines.join("\n");
@@ -408,6 +613,31 @@ class WH40KPage
 		}
 	}
 
+	/** A frota selecionada ataca uma frota inimiga (agora, se na mesma órbita; senão, viaja até ela). */
+	attackFleet(target)
+	{
+		const fleet = this.selectedFleet();
+		if (!fleet || fleet.faction != this.player)
+			return;
+		const res = this.game.attackFleet(fleet.id, target.id);
+		this.save();
+		if (res.error)
+			this.flash(res.error);
+		else if (res.report)
+		{
+			if (!this.game.s.fleets[fleet.id])
+				this.sel = null;
+			if (res.report.fleetBattle)
+				this.space.open(res.report);
+			else
+				this.showReport(res.report);
+			return;
+		}
+		else
+			this.flash("A frota " + fleet.name + " parte para atacar " + target.name + " em " + this.D.bodies[res.body].name + " (" + res.eta + " turno(s)); a batalha acontece na chegada.");
+		this.refresh();
+	}
+
 	/** Clique direito num corpo na vista do sistema. */
 	orderBody(body)
 	{
@@ -433,11 +663,11 @@ class WH40KPage
 
 	endTurn()
 	{
-		if (this.dialog.isOpen() || this.game.s.gameOver)
+		if (this.dialog.isOpen() || this.game.s.gameOver || this.view == "space")
 			return;
 		const res = this.game.endTurn();
 		this.save();
-		this.queue = (this.queue || []).concat(res.reports.map(r => () => this.showReport(r)));
+		this.queue = (this.queue || []).concat(res.reports.map(r => () => r.fleetBattle ? this.space.open(r) : this.showReport(r)));
 		this.refresh();
 		this.processQueue();
 	}
@@ -451,6 +681,12 @@ class WH40KPage
 		if (this.queue.length)
 		{
 			this.queue.shift()();
+			return;
+		}
+		const choice = this.game.s.pendingChoices[0];
+		if (choice && !this.game.s.gameOver)
+		{
+			this.showChoice(choice);
 			return;
 		}
 		const pending = this.game.nextPendingBattle();
@@ -467,7 +703,7 @@ class WH40KPage
 				"title": won ? "VITÓRIA!" : "DERROTA",
 				"text": this.game.s.gameOver.text + "\n\nVocê pode continuar jogando para conquistar o resto do sistema.",
 				"portrait": portraitSprite(this.D.factionPortrait(this.player, won ? "win" : "lose")),
-				"buttons": [{ "caption": "Continuar" }, { "caption": "Menu principal", "onPress": () => this.exit() }]
+				"buttons": [{ "caption": "Continuar" }, { "caption": "Estatísticas", "onPress": () => this.stats.open() }, { "caption": "Menu principal", "onPress": () => this.exit() }]
 			});
 		}
 	}
@@ -489,7 +725,7 @@ class WH40KPage
 	{
 		const side = sides[role];
 		const name = this.D.factionName(side.faction);
-		const general = side.general ? this.D.generals[side.general.id] : null;
+		const general = side.general ? this.game.generalStats(side.general.id) : null;
 		const counts = {};
 		for (const e of side.entries)
 		{
@@ -511,9 +747,9 @@ class WH40KPage
 		const support = setup.supportFor(playerRole);
 		const chance = g.winChance(battle);
 		const myChance = playerRole == "attacker" ? chance : 1 - chance;
-		const myGeneral = sides[playerRole].general ? this.D.generals[sides[playerRole].general.id] : null;
+		const myGeneral = sides[playerRole].general ? this.game.generalStats(sides[playerRole].general.id) : null;
 		const enemyRole = playerRole == "attacker" ? "defender" : "attacker";
-		const enemyGeneral = sides[enemyRole].general ? this.D.generals[sides[enemyRole].general.id] : null;
+		const enemyGeneral = sides[enemyRole].general ? this.game.generalStats(sides[enemyRole].general.id) : null;
 		const enemyPortrait = enemyGeneral ? enemyGeneral.portrait : (sides[enemyRole].entries[0] ? this.game.unit(sides[enemyRole].entries[0].bat).portrait : null);
 		const prov = g.province(battle.province);
 		const text =
@@ -573,7 +809,7 @@ class WH40KPage
 		if (pending.length && pending[0].id == setup.battle.id)
 			pending.shift();
 		this.view = "battle";
-		this.sound.play("horn", true);
+		this.sound.warcry(this.D.factions[this.player]?.warcry, this.D.factions[setup.factionOf(setup.enemyRole)]?.warcry);
 		this.sound.music("battle");
 		this.battle.open(setup, deployment);
 		this.refresh();
@@ -631,6 +867,7 @@ class WH40KDialog
 			const def = buttons[i];
 			btn.caption = def.caption;
 			btn.tooltip = def.tooltip || "";
+			btn.enabled = def.enabled !== false;
 			const line = Math.floor(i / perLine);
 			const col = i % perLine;
 			// A última linha (com menos botões) fica centrada.

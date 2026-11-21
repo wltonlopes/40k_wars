@@ -1,0 +1,676 @@
+{
+	"Description": "Sistema estelar e corpos celestes (mesmo formato do sector.json). Gerado por tools/data/build_badab_vraks.py; mapas por tools/art/gen_planets.py.",
+	"start": {
+		"turn": 1,
+		"year": "904.M41",
+		"monthsPerTurn": 1
+	},
+	"system": {
+		"id": "badab",
+		"name": "Sistema Badab",
+		"star": {
+			"name": "Badab",
+			"color": [
+				255,
+				225,
+				190
+			]
+		},
+		"desc": "À beira do Maelstrom, Lugft Huron se declarou Tirano de Badab. A cruzada lealista chega para acabar com a secessão."
+	},
+	"bodies": [
+		{
+			"id": "badab_primaris",
+			"name": "Badab Primaris",
+			"kind": "planet",
+			"class": "Mundo-Colmeia",
+			"orbit": 0.2,
+			"angle": 200,
+			"size": 1.0,
+			"mapSize": [
+				2048,
+				1280
+			],
+			"seed": 201,
+			"palette": "hive",
+			"desc": "O mundo-colmeia de Huron, coberto de fortalezas. O Palácio dos Tiranos domina a maior colmeia. Os lealistas já abriram duas cabeças de ponte.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "tyrant_palace",
+					"name": "Palácio dos Tiranos",
+					"terrain": "hive",
+					"x": 0.5,
+					"y": 0.4,
+					"owner": "astral_claws",
+					"hive": 2,
+					"forts": 3,
+					"shipyard": true,
+					"garrison": [
+						"ac_tactical",
+						"tl_rifles",
+						"ac_devastators"
+					]
+				},
+				{
+					"id": "ironspire",
+					"name": "Colmeia Agulha de Ferro",
+					"terrain": "hive",
+					"x": 0.32,
+					"y": 0.25,
+					"owner": "astral_claws",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"tl_rifles",
+						"tl_veterans"
+					]
+				},
+				{
+					"id": "talon_hive",
+					"name": "Colmeia Garra",
+					"terrain": "hive",
+					"x": 0.68,
+					"y": 0.24,
+					"owner": "astral_claws",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"tl_rifles",
+						"lm_tactical"
+					]
+				},
+				{
+					"id": "greenwood",
+					"name": "Selvas de Vilamus",
+					"terrain": "jungle",
+					"x": 0.3,
+					"y": 0.58,
+					"owner": "astral_claws",
+					"garrison": [
+						"mw_scouts"
+					]
+				},
+				{
+					"id": "tithe_vaults",
+					"name": "Cofres do Dízimo",
+					"terrain": "industrial",
+					"x": 0.64,
+					"y": 0.55,
+					"owner": "astral_claws",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"tl_heavy"
+					]
+				},
+				{
+					"id": "salt_flats",
+					"name": "Salinas de Badab",
+					"terrain": "plains",
+					"x": 0.5,
+					"y": 0.66,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "spine_mts",
+					"name": "Montes da Espinha",
+					"terrain": "mountains",
+					"x": 0.16,
+					"y": 0.42,
+					"forts": 1,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "ash_belt",
+					"name": "Cinturão de Cinzas",
+					"terrain": "ash",
+					"x": 0.84,
+					"y": 0.44,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "north_ice",
+					"name": "Calota Norte",
+					"terrain": "ice",
+					"x": 0.5,
+					"y": 0.08,
+					"garrison": []
+				},
+				{
+					"id": "south_swamp",
+					"name": "Pântanos do Sul",
+					"terrain": "mire",
+					"x": 0.36,
+					"y": 0.84,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "salamander_head",
+					"name": "Cabeça de Ponte Nocturne",
+					"terrain": "hive",
+					"x": 0.1,
+					"y": 0.74,
+					"owner": "salamanders",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"sal_intercessors",
+						"sal_intercessors"
+					]
+				},
+				{
+					"id": "loyal_landing",
+					"name": "Desembarque de Macragge",
+					"terrain": "hive",
+					"x": 0.9,
+					"y": 0.78,
+					"owner": "ultramarines",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"um_intercessors",
+						"um_intercessors"
+					]
+				},
+				{
+					"id": "rust_district",
+					"name": "Distrito Ferrugem",
+					"terrain": "industrial",
+					"x": 0.66,
+					"y": 0.86,
+					"hive": 1,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "bp_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.92,
+					"y": 0.1
+				}
+			]
+		},
+		{
+			"id": "claw_fort",
+			"name": "Fortaleza Garra Astral",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "badab_primaris",
+			"orbit": 0.085,
+			"angle": 40,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 203,
+			"palette": "station",
+			"desc": "A fortaleza orbital dos Astral Claws sobre Badab Primaris.",
+			"neutralCiv": "astral_claws",
+			"provinces": [
+				{
+					"id": "claw_fort_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "astral_claws",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"ac_tactical"
+					]
+				},
+				{
+					"id": "claw_fort_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "astral_claws",
+					"garrison": [
+						"ac_tactical"
+					]
+				},
+				{
+					"id": "claw_fort_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "astral_claws",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "carcharias",
+			"name": "Carcharias",
+			"kind": "planet",
+			"class": "Mundo dos Executioners",
+			"orbit": 0.34,
+			"angle": 120,
+			"size": 0.62,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 205,
+			"palette": "ice",
+			"desc": "Mundo gelado onde os Executioners guardam os seus troféus.",
+			"neutralCiv": "astral_claws",
+			"provinces": [
+				{
+					"id": "cr_hall",
+					"name": "Salão dos Troféus",
+					"terrain": "hive",
+					"x": 0.48,
+					"y": 0.45,
+					"owner": "astral_claws",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"ex_tactical",
+						"tl_rifles"
+					]
+				},
+				{
+					"id": "cr_glacier",
+					"name": "Glaciar das Cabeças",
+					"terrain": "ice",
+					"x": 0.2,
+					"y": 0.32,
+					"owner": "astral_claws",
+					"garrison": []
+				},
+				{
+					"id": "cr_peaks",
+					"name": "Picos Cinzentos",
+					"terrain": "mountains",
+					"x": 0.78,
+					"y": 0.32,
+					"owner": "astral_claws",
+					"forts": 1,
+					"garrison": [
+						"tl_rifles"
+					]
+				},
+				{
+					"id": "cr_mines",
+					"name": "Minas Profundas",
+					"terrain": "industrial",
+					"x": 0.32,
+					"y": 0.76,
+					"owner": "astral_claws",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "cr_wastes",
+					"name": "Ermos Brancos",
+					"terrain": "ice",
+					"x": 0.72,
+					"y": 0.76,
+					"garrison": [
+						"guard_platoon"
+					]
+				}
+			]
+		},
+		{
+			"id": "nocturne_fleet",
+			"name": "Frota de Cerco Nocturne",
+			"kind": "station",
+			"class": "Barca de Batalha",
+			"orbit": 0.36,
+			"angle": 260,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 207,
+			"palette": "station",
+			"desc": "A barca de batalha dos Salamandras, à frente da cruzada lealista.",
+			"neutralCiv": "salamanders",
+			"provinces": [
+				{
+					"id": "nf_bridge",
+					"name": "Ponte de Comando",
+					"terrain": "station",
+					"x": 0.45,
+					"y": 0.45,
+					"owner": "salamanders",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"sal_intercessors",
+						"sal_eradicators"
+					]
+				},
+				{
+					"id": "nf_forge",
+					"name": "Forja da Barca",
+					"terrain": "station",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "salamanders",
+					"garrison": []
+				},
+				{
+					"id": "nf_hangars",
+					"name": "Hangares",
+					"terrain": "station",
+					"x": 0.72,
+					"y": 0.38,
+					"owner": "salamanders",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"sal_scouts"
+					]
+				}
+			]
+		},
+		{
+			"id": "macragge_anchor",
+			"name": "Ancoradouro de Macragge",
+			"kind": "planet",
+			"class": "Lua Agrícola",
+			"orbit": 0.46,
+			"angle": 330,
+			"size": 0.55,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 209,
+			"palette": "agri",
+			"desc": "Uma lua agrícola tomada como base de partida dos Ultramarines.",
+			"neutralCiv": "ultramarines",
+			"provinces": [
+				{
+					"id": "ma_keep",
+					"name": "Fortaleza do Ancoradouro",
+					"terrain": "hive",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "ultramarines",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"um_intercessors",
+						"um_scouts"
+					]
+				},
+				{
+					"id": "ma_fields",
+					"name": "Campos de Grãos",
+					"terrain": "plains",
+					"x": 0.2,
+					"y": 0.32,
+					"owner": "ultramarines",
+					"garrison": []
+				},
+				{
+					"id": "ma_silos",
+					"name": "Silos",
+					"terrain": "industrial",
+					"x": 0.78,
+					"y": 0.32,
+					"owner": "ultramarines",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "ma_hills",
+					"name": "Colinas",
+					"terrain": "mountains",
+					"x": 0.5,
+					"y": 0.78,
+					"owner": "ultramarines",
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "segmentum_dock",
+			"name": "Doca do Segmentum",
+			"kind": "station",
+			"class": "Estação da Armada",
+			"orbit": 0.44,
+			"angle": 190,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 211,
+			"palette": "station",
+			"desc": "A doca da Armada Imperial que abastece o cerco.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "sd_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.3,
+					"y": 0.45,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"guard_platoon",
+						"leman_russ"
+					]
+				},
+				{
+					"id": "sd_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.62,
+					"y": 0.35,
+					"owner": "imperial",
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "sd_battery",
+					"name": "Bateria",
+					"terrain": "station",
+					"x": 0.72,
+					"y": 0.68,
+					"owner": "imperial",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "maelstrom_rok",
+			"name": "Rocha do Maelstrom",
+			"kind": "planet",
+			"class": "Asteroide Fortificado",
+			"orbit": 0.3,
+			"angle": 30,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 213,
+			"palette": "rok",
+			"desc": "Uma rocha escavada à beira do Maelstrom, cheia de corsários e mercenários do Tirano.",
+			"neutralCiv": "astral_claws",
+			"provinces": [
+				{
+					"id": "mr_den",
+					"name": "Covil dos Corsários",
+					"terrain": "hive",
+					"x": 0.48,
+					"y": 0.45,
+					"owner": "astral_claws",
+					"hive": 2,
+					"forts": 1,
+					"shipyard": true,
+					"garrison": [
+						"tl_rifles",
+						"tl_heavy"
+					]
+				},
+				{
+					"id": "mr_tunnels",
+					"name": "Túneis",
+					"terrain": "rok",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "astral_claws",
+					"garrison": []
+				},
+				{
+					"id": "mr_docks",
+					"name": "Docas Ocultas",
+					"terrain": "rok",
+					"x": 0.72,
+					"y": 0.62,
+					"owner": "astral_claws",
+					"garrison": []
+				}
+			]
+		}
+	],
+	"startingArmies": [
+		{
+			"faction": "astral_claws",
+			"general": "huron",
+			"body": "badab_primaris",
+			"province": "tyrant_palace",
+			"battalions": [
+				"ac_tactical",
+				"ac_tactical",
+				"ac_assault",
+				"ac_devastators",
+				"ac_terminators",
+				"tl_rifles",
+				"tl_rifles",
+				"ac_predator"
+			]
+		},
+		{
+			"faction": "astral_claws",
+			"general": "vharkus",
+			"body": "carcharias",
+			"province": "cr_hall",
+			"battalions": [
+				"ex_tactical",
+				"ex_vanguard",
+				"tl_rifles",
+				"tl_heavy"
+			]
+		},
+		{
+			"faction": "salamanders",
+			"general": "tushan",
+			"body": "badab_primaris",
+			"province": "salamander_head",
+			"battalions": [
+				"sal_intercessors",
+				"sal_intercessors",
+				"sal_infernus",
+				"sal_eradicators",
+				"sal_redemptor"
+			]
+		},
+		{
+			"faction": "salamanders",
+			"general": "hestan",
+			"body": "nocturne_fleet",
+			"province": "nf_bridge",
+			"battalions": [
+				"sal_intercessors",
+				"sal_assault",
+				"sal_scouts"
+			]
+		},
+		{
+			"faction": "ultramarines",
+			"general": "sicarius",
+			"body": "badab_primaris",
+			"province": "loyal_landing",
+			"battalions": [
+				"um_intercessors",
+				"um_intercessors",
+				"um_hellblasters",
+				"um_inceptors"
+			]
+		},
+		{
+			"faction": "ultramarines",
+			"general": "ventris",
+			"body": "macragge_anchor",
+			"province": "ma_keep",
+			"battalions": [
+				"um_intercessors",
+				"um_scouts",
+				"um_predator"
+			]
+		},
+		{
+			"faction": "imperial",
+			"general": null,
+			"body": "segmentum_dock",
+			"province": "sd_yards",
+			"battalions": [
+				"guard_platoon",
+				"guard_platoon",
+				"leman_russ",
+				"chimera"
+			]
+		}
+	],
+	"startingFleets": [
+		{
+			"faction": "astral_claws",
+			"body": "badab_primaris",
+			"ships": 3
+		},
+		{
+			"faction": "astral_claws",
+			"body": "maelstrom_rok",
+			"ships": 2
+		},
+		{
+			"faction": "salamanders",
+			"body": "nocturne_fleet",
+			"ships": 3
+		},
+		{
+			"faction": "ultramarines",
+			"body": "macragge_anchor",
+			"ships": 2
+		},
+		{
+			"faction": "imperial",
+			"body": "segmentum_dock",
+			"ships": 3
+		}
+	]
+}

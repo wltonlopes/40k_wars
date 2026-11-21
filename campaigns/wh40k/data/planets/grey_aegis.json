@@ -1,0 +1,61 @@
+{
+	"id": "grey_aegis",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"ga_bridge": {
+			"rect": [
+				0.26367,
+				0.14688,
+				0.62695,
+				0.87969
+			],
+			"label": [
+				0.4609,
+				0.6266
+			],
+			"area": 127356,
+			"neighbors": [
+				"ga_librarium",
+				"ga_teleport"
+			],
+			"coastal": false
+		},
+		"ga_librarium": {
+			"rect": [
+				0.12207,
+				0.15156,
+				0.37695,
+				0.80156
+			],
+			"label": [
+				0.2354,
+				0.4203
+			],
+			"area": 58765,
+			"neighbors": [
+				"ga_bridge"
+			],
+			"coastal": false
+		},
+		"ga_teleport": {
+			"rect": [
+				0.54785,
+				0.16094,
+				0.89258,
+				0.83438
+			],
+			"label": [
+				0.7236,
+				0.4922
+			],
+			"area": 87859,
+			"neighbors": [
+				"ga_bridge"
+			],
+			"coastal": false
+		}
+	}
+}

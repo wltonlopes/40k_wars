@@ -777,6 +777,71 @@
 					"y": 0.97
 				}
 			]
+		},
+		{
+			"id": "aegis_gg",
+			"name": "Nau Negra Égide",
+			"kind": "station",
+			"class": "Nau Negra",
+			"orbit": 0.36,
+			"angle": 40,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 191,
+			"palette": "station",
+			"desc": "A nau negra dos Cavaleiros Cinzentos, atraída pela aposta dos Deuses.",
+			"neutralCiv": "grey_knights",
+			"provinces": [
+				{
+					"id": "ag_bridge",
+					"name": "Ponte da Nau",
+					"terrain": "station",
+					"x": 0.45,
+					"y": 0.45,
+					"owner": "grey_knights",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"gk_strike",
+						"gk_strike"
+					]
+				},
+				{
+					"id": "ag_librarium",
+					"name": "Librarium",
+					"terrain": "station",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "grey_knights",
+					"garrison": []
+				},
+				{
+					"id": "ag_teleport",
+					"name": "Sala de Teleporte",
+					"terrain": "station",
+					"x": 0.72,
+					"y": 0.38,
+					"owner": "grey_knights",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"gk_purgators"
+					]
+				},
+				{
+					"id": "ag_vault",
+					"name": "Cofre dos Nomes",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.72,
+					"owner": "grey_knights",
+					"garrison": []
+				}
+			]
 		}
 	],
 	"startingArmies": [
@@ -964,6 +1029,19 @@
 				"ec_noise_marines",
 				"ec_seekers"
 			]
+		},
+		{
+			"faction": "grey_knights",
+			"general": "draigo",
+			"body": "aegis_gg",
+			"province": "ag_bridge",
+			"battalions": [
+				"gk_strike",
+				"gk_strike",
+				"gk_purifiers",
+				"gk_interceptors",
+				"gk_dreadknight"
+			]
 		}
 	],
 	"startingFleets": [
@@ -1001,6 +1079,11 @@
 			"faction": "emperors_children",
 			"body": "lysandrae",
 			"ships": 3
+		},
+		{
+			"faction": "grey_knights",
+			"body": "aegis_gg",
+			"ships": 2
 		}
 	]
 }

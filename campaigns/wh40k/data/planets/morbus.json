@@ -1,0 +1,101 @@
+{
+	"id": "morbus",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"mb_garden": {
+			"rect": [
+				0.33398,
+				0.0,
+				0.69727,
+				0.675
+			],
+			"label": [
+				0.5068,
+				0.425
+			],
+			"area": 107829,
+			"neighbors": [
+				"mb_bog",
+				"mb_foundry",
+				"mb_rot",
+				"mb_swamp"
+			],
+			"coastal": true
+		},
+		"mb_bog": {
+			"rect": [
+				0.0,
+				0.0,
+				0.40332,
+				0.70469
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 149270,
+			"neighbors": [
+				"mb_garden",
+				"mb_rot"
+			],
+			"coastal": false
+		},
+		"mb_foundry": {
+			"rect": [
+				0.54785,
+				0.0,
+				1.0,
+				0.59531
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 133614,
+			"neighbors": [
+				"mb_garden",
+				"mb_swamp"
+			],
+			"coastal": false
+		},
+		"mb_rot": {
+			"rect": [
+				0.0,
+				0.53125,
+				0.46875,
+				1.0
+			],
+			"label": [
+				0.1201,
+				0.9984
+			],
+			"area": 105906,
+			"neighbors": [
+				"mb_bog",
+				"mb_garden"
+			],
+			"coastal": true
+		},
+		"mb_swamp": {
+			"rect": [
+				0.57031,
+				0.4875,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.9326,
+				0.9984
+			],
+			"area": 113745,
+			"neighbors": [
+				"mb_foundry",
+				"mb_garden"
+			],
+			"coastal": true
+		}
+	}
+}

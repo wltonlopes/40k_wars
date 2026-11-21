@@ -11,6 +11,8 @@
  *  - Os Orks saqueiam parte das províncias que tomam (menos as colmeias).
  *  - Frotas sem carga caçam frotas inimigas menores e bombardeiam províncias
  *    inimigas sob a sua órbita; estaleiros lançam naves.
+ *  - Gasta o recurso especial em rituais (core/Mechanics.js) e, com pactos
+ *    compatíveis, propõe tréguas — e às vezes trai quando está forte.
  * Batalhas contra o jogador vão para s.pendingBattles (ele decide como lutar).
  */
 class WH40KAI
@@ -30,10 +32,80 @@ class WH40KAI
 
 	play(reports)
 	{
+		this.diplomacy();
 		this.hireGenerals();
 		this.recruit();
+		this.rituals();
 		this.armies(reports);
 		this.fleets(reports);
+	}
+
+	get attackRatio()
+	{
+		return (WH40K_DIFFICULTY[this.s.difficulty] || WH40K_DIFFICULTY.normal).aiRatio;
+	}
+
+	/** Tréguas: propõe a quem tem pacto compatível; trai quando ganha muito com isso. */
+	diplomacy()
+	{
+		for (const other of this.g.truceWith(this.f))
+		{
+			const t = this.s.truces[this.g.truceKey(this.f, other)];
+			const myPower = this.g.factionPower(this.f);
+			const theirPower = this.g.factionPower(other);
+			// Trai quando é bem mais forte, tem um exército na fronteira dele e a trégua já durou um pouco.
+			const border = this.g.armiesOf(this.f).some(a => a.province && this.D.provinces[a.province].neighbors.some(pid => this.s.provinces[pid].owner == other));
+			const chance = 0.04 + 0.015 * (this.s.turn - t.since) + (myPower > theirPower * 1.5 ? 0.1 : 0);
+			if (border && myPower > theirPower && Math.random() < chance)
+				this.g.betray(this.f, other);
+		}
+		if (Math.random() > 0.25)
+			return;
+		const candidates = Object.keys(this.s.factions).filter(o => !this.g.canTruce(this.f, o));
+		if (!candidates.length)
+			return;
+		// Prefere o vizinho mais forte (para se livrar de uma frente).
+		candidates.sort((a, b) => this.g.factionPower(b) - this.g.factionPower(a));
+		this.g.proposeTruce(this.f, candidates[0]);
+	}
+
+	/** Rituais: gasta quando sobra recurso especial, no exército que mais precisa. */
+	rituals()
+	{
+		const sp = this.g.special(this.f);
+		if (!sp)
+			return;
+		for (let guard = 0; guard < 3; ++guard)
+		{
+			const amount = this.g.specialAmount(this.f);
+			const affordable = sp.rituals.filter(r => r.cost <= amount);
+			if (!affordable.length || (amount < sp.max * 0.35 && Math.random() < 0.5))
+				return;
+			const r = weightedPick(affordable, r => r.ai || 1);
+			if (r.target == "faction")
+			{
+				if (this.g.ritual(this.f, r.id).error)
+					return;
+				continue;
+			}
+			const armies = this.g.armiesOf(this.f).filter(a => !this.g.canRitual(this.f, r.id, a.id));
+			if (!armies.length)
+				return;
+			const score = a => {
+				const e = r.effect;
+				if (e.type == "heal")
+					return a.battalions.reduce((s, b) => s + 1 - b.strength, 0);
+				if (e.type == "ascend")
+					return (this.g.generalStats(a.general)?.level || 0) + Math.random();
+				// Bônus, marcha e invocações: no exército da fronteira mais forte.
+				return (a.province && this.frontier(a.province) ? 100 : 0) + this.g.armyPower(a, "attack") / 10;
+			};
+			armies.sort((a, b) => score(b) - score(a));
+			if (r.effect.type == "ascend" && amount < r.cost + 15)
+				return;
+			if (this.g.ritual(this.f, r.id, armies[0].id).error)
+				return;
+		}
 	}
 
 	frontier(pid)
@@ -60,7 +132,7 @@ class WH40KAI
 
 	pickUnit(pid, preferCheap)
 	{
-		const options = this.D.unitsOf(this.f).filter(u => !this.g.canRecruit(this.f, u.id, pid) && this.funds - u.cost >= 60);
+		const options = this.D.unitsOf(this.f).filter(u => !u.noRecruit && !this.g.canRecruit(this.f, u.id, pid) && this.funds - u.cost >= 60);
 		if (!options.length)
 			return null;
 		if (preferCheap)
@@ -157,7 +229,7 @@ class WH40KAI
 					continue;
 				const defense = this.g.defensePower(pid, this.f);
 				const ratio = myPower / Math.max(1, defense);
-				if (ratio < 1.25)
+				if (ratio < this.attackRatio)
 					continue;
 				const def = this.D.provinces[pid];
 				const score = ratio * (1 + 2 * (def.hive || 0) + (this.s.provinces[pid].owner ? 0.5 : 0));

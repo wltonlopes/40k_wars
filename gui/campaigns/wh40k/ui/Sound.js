@@ -14,8 +14,15 @@ const WH40K_SFX_VARIANTS = { "las": 3, "bolt": 3, "auto": 2, "cannon": 2, "explo
 const WH40K_SFX_GAP = {
 	"las": 70, "bolt": 90, "auto": 260, "cannon": 350, "explosion": 160, "flamer": 600, "chainsword": 300,
 	"artillery": 900, "bomber": 3000, "bombs": 1500, "orbital": 1200, "drop_pod": 600, "warp": 800, "horn": 3000,
-	"ui_card": 150, "ui_click": 60
+	"ui_card": 150, "ui_click": 60, "panic": 2500
 };
+/** Ambiente de cada paleta de planeta (audio/interface/wh40k/amb_<nome>.ogg, ~20 s). */
+const WH40K_AMBIENT = {
+	"hive": "hive", "fortress": "hive", "tau": "hive", "agri": "jungle", "bio": "jungle", "ice": "wind", "station": "station",
+	"rok": "station", "volcanic": "lava", "forge": "lava", "tomb": "tomb", "warp": "warp", "khorne": "warp", "nurgle": "warp",
+	"tzeentch": "warp", "slaanesh": "warp", "dark": "warp"
+};
+const WH40K_AMBIENT_EVERY = 21000;
 /** Unidades com lança-chamas (pelo id). */
 const WH40K_FLAME_RE = /flame|burna|infernus|blightspawn|hellhound|redeemer|warpflamer|aggressor|bommer/;
 
@@ -73,6 +80,41 @@ class WH40KSound
 		return true;
 	}
 
+	/** Gritos de guerra dos dois lados no início da batalha (factions.json: warcry). */
+	warcry(mine, theirs)
+	{
+		this.play("horn", true);
+		for (const cry of [mine, theirs])
+			if (cry)
+				try
+				{
+					Engine.PlayUISound(WH40K_SFX_DIR + "warcry_" + cry + ".ogg", false);
+				}
+				catch (e)
+				{
+					// sem o arquivo: só a trompa
+				}
+	}
+
+	/** Som ambiente do planeta aberto (chamado no tique; um trecho a cada ~21 s). */
+	ambient(palette)
+	{
+		const name = WH40K_AMBIENT[palette];
+		const now = Date.now();
+		if (!name || (this.ambientName == name && now - (this.ambientAt || 0) < WH40K_AMBIENT_EVERY))
+			return;
+		this.ambientName = name;
+		this.ambientAt = now;
+		try
+		{
+			Engine.PlayUISound(WH40K_SFX_DIR + "amb_" + name + ".ogg", false);
+		}
+		catch (e)
+		{
+			// sem ambiente
+		}
+	}
+
 	ui(name)
 	{
 		this.play("ui_" + name);
@@ -128,6 +170,9 @@ class WH40KSound
 			break;
 		case "laser":
 			this.play("orbital", true);
+			break;
+		case "panic":
+			this.play("panic");
 			break;
 		}
 	}

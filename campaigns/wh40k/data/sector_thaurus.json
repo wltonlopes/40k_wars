@@ -1,0 +1,887 @@
+{
+	"Description": "Sistema estelar e corpos celestes (mesmo formato do sector.json). Gerado por tools/data/build_thaurus.py; mapas por tools/art/gen_planets.py.",
+	"start": {
+		"turn": 1,
+		"year": "015.M42",
+		"monthsPerTurn": 1
+	},
+	"system": {
+		"id": "thaurus",
+		"name": "Sistema Thaurus",
+		"star": {
+			"name": "Olho do Omnissiah",
+			"color": [
+				255,
+				210,
+				170
+			]
+		},
+		"desc": "Um mundo-forja guarda um arquivo de Padrões de Construção (STC). A Death Guard quer infectar as forjas, os Thousand Sons querem o arquivo e os Drukhari querem escravos."
+	},
+	"bodies": [
+		{
+			"id": "thaurus",
+			"name": "Thaurus Prime",
+			"kind": "planet",
+			"class": "Mundo-Forja",
+			"orbit": 0.2,
+			"angle": 210,
+			"size": 1.0,
+			"mapSize": [
+				2048,
+				1280
+			],
+			"seed": 171,
+			"palette": "forge",
+			"desc": "Um planeta coberto de forjas, refinarias e fumaça. O Arquivo STC está escondido sob a Forja-Mãe. Nas bordas, os invasores já tomaram três cidades.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "forge_mother",
+					"name": "Forja-Mãe Thaurus",
+					"terrain": "industrial",
+					"x": 0.46,
+					"y": 0.4,
+					"owner": "mechanicus",
+					"hive": 2,
+					"forts": 3,
+					"shipyard": true,
+					"garrison": [
+						"mc_rangers",
+						"mc_kataphron"
+					]
+				},
+				{
+					"id": "ferrum",
+					"name": "Colmeia-Forja Ferrum",
+					"terrain": "hive",
+					"x": 0.3,
+					"y": 0.24,
+					"owner": "mechanicus",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"mc_rangers",
+						"mc_vanguard"
+					]
+				},
+				{
+					"id": "omega",
+					"name": "Manufactorum Omega",
+					"terrain": "industrial",
+					"x": 0.62,
+					"y": 0.22,
+					"owner": "mechanicus",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"mc_vanguard"
+					]
+				},
+				{
+					"id": "sigma",
+					"name": "Refinaria Sigma",
+					"terrain": "industrial",
+					"x": 0.3,
+					"y": 0.62,
+					"owner": "mechanicus",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"mc_rangers"
+					]
+				},
+				{
+					"id": "omnissiah",
+					"name": "Catedral do Omnissiah",
+					"terrain": "hive",
+					"x": 0.64,
+					"y": 0.58,
+					"owner": "sororitas",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"sr_battle_sisters",
+						"sr_novitiates"
+					]
+				},
+				{
+					"id": "golden_bastion",
+					"name": "Bastião Dourado",
+					"terrain": "hive",
+					"x": 0.48,
+					"y": 0.74,
+					"owner": "custodes",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"cu_spears"
+					]
+				},
+				{
+					"id": "rail",
+					"name": "Linha Ferroviária Magna",
+					"terrain": "plains",
+					"x": 0.46,
+					"y": 0.57,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "slag",
+					"name": "Ermos de Escória",
+					"terrain": "ash",
+					"x": 0.78,
+					"y": 0.4,
+					"owner": "thousand_sons",
+					"garrison": [
+						"ts_cultists"
+					]
+				},
+				{
+					"id": "iron_peaks",
+					"name": "Montes de Ferro",
+					"terrain": "mountains",
+					"x": 0.18,
+					"y": 0.42,
+					"owner": "death_guard",
+					"forts": 1,
+					"garrison": [
+						"dg_poxwalkers"
+					]
+				},
+				{
+					"id": "rust_dunes",
+					"name": "Dunas de Ferrugem",
+					"terrain": "plains",
+					"x": 0.7,
+					"y": 0.84,
+					"garrison": []
+				},
+				{
+					"id": "chem_marsh",
+					"name": "Pântanos Químicos",
+					"terrain": "mire",
+					"x": 0.24,
+					"y": 0.84,
+					"owner": "drukhari",
+					"garrison": [
+						"dk_kabalites"
+					]
+				},
+				{
+					"id": "kappa",
+					"name": "Zona Industrial Kappa",
+					"terrain": "industrial",
+					"x": 0.84,
+					"y": 0.66,
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "cold_plateau",
+					"name": "Planalto Gelado",
+					"terrain": "ice",
+					"x": 0.5,
+					"y": 0.08,
+					"garrison": []
+				},
+				{
+					"id": "putrid_foundry",
+					"name": "Fundição Pútrida (profanada)",
+					"terrain": "mire",
+					"x": 0.08,
+					"y": 0.18,
+					"owner": "death_guard",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"dg_poxwalkers",
+						"dg_poxwalkers",
+						"dg_plague_marines"
+					]
+				},
+				{
+					"id": "crystal_archive",
+					"name": "Arquivo Cristalino (profanado)",
+					"terrain": "warp",
+					"x": 0.92,
+					"y": 0.16,
+					"owner": "thousand_sons",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"ts_cultists",
+						"ts_cultists",
+						"ts_rubrics"
+					]
+				},
+				{
+					"id": "slave_port",
+					"name": "Porto dos Escravos (tomado)",
+					"terrain": "hive",
+					"x": 0.08,
+					"y": 0.66,
+					"owner": "drukhari",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"dk_kabalites",
+						"dk_wyches",
+						"dk_incubi"
+					]
+				},
+				{
+					"id": "th_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.92,
+					"y": 0.92
+				}
+			]
+		},
+		{
+			"id": "lucrecia",
+			"name": "Santa Lucrécia",
+			"kind": "planet",
+			"class": "Lua-Santuário",
+			"parent": "thaurus",
+			"orbit": 0.085,
+			"angle": 30,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 173,
+			"palette": "hive",
+			"desc": "A lua-convento da Ordem da Rosa Sangrenta, cheia de basílicas e ossários.",
+			"neutralCiv": "sororitas",
+			"provinces": [
+				{
+					"id": "lc_convent",
+					"name": "Convento da Rosa Sangrenta",
+					"terrain": "hive",
+					"x": 0.45,
+					"y": 0.45,
+					"owner": "sororitas",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"sr_battle_sisters",
+						"sr_celestians"
+					]
+				},
+				{
+					"id": "lc_ossuary",
+					"name": "Ossário dos Mártires",
+					"terrain": "ash",
+					"x": 0.2,
+					"y": 0.32,
+					"owner": "sororitas",
+					"garrison": []
+				},
+				{
+					"id": "lc_pilgrims",
+					"name": "Campos dos Peregrinos",
+					"terrain": "plains",
+					"x": 0.75,
+					"y": 0.32,
+					"owner": "sororitas",
+					"garrison": [
+						"sr_novitiates"
+					]
+				},
+				{
+					"id": "lc_reliquary",
+					"name": "Relicário de Santa Lucrécia",
+					"terrain": "mountains",
+					"x": 0.5,
+					"y": 0.78,
+					"owner": "sororitas",
+					"hive": 1,
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "aurum",
+			"name": "Bastião Áureo",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "thaurus",
+			"orbit": 0.13,
+			"angle": 250,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 175,
+			"palette": "station",
+			"desc": "Fortaleza orbital trazida pelos Custódios da Cruzada Indomitus.",
+			"neutralCiv": "custodes",
+			"provinces": [
+				{
+					"id": "aurum_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "custodes",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"cu_spears"
+					]
+				},
+				{
+					"id": "aurum_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "custodes",
+					"garrison": [
+						"cu_spears"
+					]
+				},
+				{
+					"id": "aurum_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "custodes",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "titan_blade",
+			"name": "Nau Negra Égide",
+			"kind": "station",
+			"class": "Nau Negra",
+			"orbit": 0.31,
+			"angle": 115,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 177,
+			"palette": "station",
+			"desc": "A nau negra dos Cavaleiros Cinzentos, chegada para caçar os demônios dos invasores.",
+			"neutralCiv": "grey_knights",
+			"provinces": [
+				{
+					"id": "tb_bridge",
+					"name": "Ponte da Nau",
+					"terrain": "station",
+					"x": 0.45,
+					"y": 0.45,
+					"owner": "grey_knights",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"gk_strike",
+						"gk_strike"
+					]
+				},
+				{
+					"id": "tb_librarium",
+					"name": "Librarium",
+					"terrain": "station",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "grey_knights",
+					"garrison": []
+				},
+				{
+					"id": "tb_teleport",
+					"name": "Sala de Teleporte",
+					"terrain": "station",
+					"x": 0.72,
+					"y": 0.38,
+					"owner": "grey_knights",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"gk_purgators"
+					]
+				},
+				{
+					"id": "tb_vault",
+					"name": "Cofre dos Nomes",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.72,
+					"owner": "grey_knights",
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "morbus",
+			"name": "Morbus",
+			"kind": "planet",
+			"class": "Mundo da Praga",
+			"orbit": 0.44,
+			"angle": 160,
+			"size": 0.72,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 179,
+			"palette": "nurgle",
+			"desc": "Um mundo afogado em pântanos e moscas, dado pela Death Guard ao Avô Nurgle.",
+			"neutralCiv": "death_guard",
+			"provinces": [
+				{
+					"id": "mb_garden",
+					"name": "Jardim das Moscas",
+					"terrain": "warp",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "death_guard",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"dg_plague_marines",
+						"dg_poxwalkers"
+					]
+				},
+				{
+					"id": "mb_bog",
+					"name": "Lodaçal Fervente",
+					"terrain": "mire",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "death_guard",
+					"garrison": [
+						"dg_poxwalkers"
+					]
+				},
+				{
+					"id": "mb_foundry",
+					"name": "Fundição Enferrujada",
+					"terrain": "industrial",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "death_guard",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "mb_rot",
+					"name": "Florestas Podres",
+					"terrain": "jungle",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "death_guard",
+					"garrison": []
+				},
+				{
+					"id": "mb_swamp",
+					"name": "Pântano dos Ossos",
+					"terrain": "mire",
+					"x": 0.74,
+					"y": 0.76,
+					"owner": "death_guard",
+					"garrison": []
+				},
+				{
+					"id": "mb_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.97
+				}
+			]
+		},
+		{
+			"id": "sekhmet",
+			"name": "Sekhmet Vul",
+			"kind": "planet",
+			"class": "Mundo dos Feiticeiros",
+			"orbit": 0.44,
+			"angle": 330,
+			"size": 0.68,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 181,
+			"palette": "tzeentch",
+			"desc": "Um mundo de torres de cristal que mudam de forma a cada noite.",
+			"neutralCiv": "thousand_sons",
+			"provinces": [
+				{
+					"id": "sv_tower",
+					"name": "Torre do Olho",
+					"terrain": "warp",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "thousand_sons",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"ts_rubrics",
+						"ts_cultists"
+					]
+				},
+				{
+					"id": "sv_library",
+					"name": "Biblioteca Ardente",
+					"terrain": "warp",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "thousand_sons",
+					"hive": 1,
+					"garrison": [
+						"ts_tzaangors"
+					]
+				},
+				{
+					"id": "sv_plains",
+					"name": "Planícies de Vidro",
+					"terrain": "plains",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "thousand_sons",
+					"garrison": []
+				},
+				{
+					"id": "sv_peaks",
+					"name": "Picos Cambiantes",
+					"terrain": "mountains",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "thousand_sons",
+					"garrison": []
+				},
+				{
+					"id": "sv_ice",
+					"name": "Gelo Azul",
+					"terrain": "ice",
+					"x": 0.74,
+					"y": 0.76,
+					"owner": "thousand_sons",
+					"garrison": []
+				},
+				{
+					"id": "sv_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.5,
+					"y": 0.97
+				}
+			]
+		},
+		{
+			"id": "velsharra",
+			"name": "Âncora de Vel'Sharra",
+			"kind": "planet",
+			"class": "Porto da Teia",
+			"orbit": 0.38,
+			"angle": 60,
+			"size": 0.55,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 183,
+			"palette": "dark",
+			"desc": "Uma rocha escura presa a um portal da Teia, onde as barcas de rapina se reúnem.",
+			"neutralCiv": "drukhari",
+			"provinces": [
+				{
+					"id": "vs_gate",
+					"name": "Portal da Teia",
+					"terrain": "hive",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "drukhari",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"dk_kabalites",
+						"dk_incubi"
+					]
+				},
+				{
+					"id": "vs_spires",
+					"name": "Agulhas Negras",
+					"terrain": "mountains",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "drukhari",
+					"garrison": [
+						"dk_kabalites"
+					]
+				},
+				{
+					"id": "vs_arena",
+					"name": "Arena Sangrenta",
+					"terrain": "ash",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "drukhari",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "vs_pens",
+					"name": "Currais de Escravos",
+					"terrain": "plains",
+					"x": 0.3,
+					"y": 0.76,
+					"owner": "drukhari",
+					"garrison": []
+				},
+				{
+					"id": "vs_labs",
+					"name": "Laboratórios dos Haemonculi",
+					"terrain": "industrial",
+					"x": 0.74,
+					"y": 0.76,
+					"owner": "drukhari",
+					"garrison": []
+				}
+			]
+		}
+	],
+	"startingArmies": [
+		{
+			"faction": "mechanicus",
+			"general": "dominus_vantor",
+			"body": "thaurus",
+			"province": "forge_mother",
+			"battalions": [
+				"mc_rangers",
+				"mc_rangers",
+				"mc_vanguard",
+				"mc_kataphron",
+				"mc_onager"
+			]
+		},
+		{
+			"faction": "mechanicus",
+			"general": "manipulus_hexa",
+			"body": "thaurus",
+			"province": "ferrum",
+			"battalions": [
+				"mc_rangers",
+				"mc_infiltrators",
+				"mc_corpuscarii",
+				"mc_ironstrider"
+			]
+		},
+		{
+			"faction": "sororitas",
+			"general": "vahl",
+			"body": "thaurus",
+			"province": "omnissiah",
+			"battalions": [
+				"sr_battle_sisters",
+				"sr_novitiates",
+				"sr_dominions",
+				"sr_repentia"
+			]
+		},
+		{
+			"faction": "sororitas",
+			"general": "celestine",
+			"body": "lucrecia",
+			"province": "lc_convent",
+			"battalions": [
+				"sr_battle_sisters",
+				"sr_geminae",
+				"sr_novitiates"
+			]
+		},
+		{
+			"faction": "custodes",
+			"general": "trajann",
+			"body": "thaurus",
+			"province": "golden_bastion",
+			"battalions": [
+				"cu_spears",
+				"cu_witchseekers",
+				"cu_vertus"
+			]
+		},
+		{
+			"faction": "custodes",
+			"general": "valerian",
+			"body": "aurum",
+			"province": "aurum_yards",
+			"battalions": [
+				"cu_spears",
+				"cu_witchseekers"
+			]
+		},
+		{
+			"faction": "grey_knights",
+			"general": "draigo",
+			"body": "titan_blade",
+			"province": "tb_bridge",
+			"battalions": [
+				"gk_strike",
+				"gk_strike",
+				"gk_purifiers",
+				"gk_interceptors",
+				"gk_dreadknight"
+			]
+		},
+		{
+			"faction": "grey_knights",
+			"general": "voldus",
+			"body": "titan_blade",
+			"province": "tb_teleport",
+			"battalions": [
+				"gk_strike",
+				"gk_purgators",
+				"gk_librarian"
+			]
+		},
+		{
+			"faction": "death_guard",
+			"general": "typhus",
+			"body": "thaurus",
+			"province": "putrid_foundry",
+			"battalions": [
+				"dg_poxwalkers",
+				"dg_poxwalkers",
+				"dg_poxwalkers",
+				"dg_plague_marines",
+				"dg_plague_marines",
+				"dg_plague_marines",
+				"dg_blight_launchers",
+				"dg_blightspawn",
+				"dg_plagueburst",
+				"dg_plague_marines"
+			]
+		},
+		{
+			"faction": "death_guard",
+			"general": "felthius",
+			"body": "morbus",
+			"province": "mb_garden",
+			"battalions": [
+				"dg_poxwalkers",
+				"dg_plague_marines",
+				"dg_blight_hauler"
+			]
+		},
+		{
+			"faction": "thousand_sons",
+			"general": "ahriman",
+			"body": "thaurus",
+			"province": "crystal_archive",
+			"battalions": [
+				"ts_cultists",
+				"ts_tzaangors",
+				"ts_tzaangors",
+				"ts_rubrics",
+				"ts_rubrics",
+				"ts_rubrics",
+				"ts_horrors",
+				"ts_enlightened",
+				"ts_defiler",
+				"ts_rubrics"
+			]
+		},
+		{
+			"faction": "thousand_sons",
+			"general": "amon",
+			"body": "sekhmet",
+			"province": "sv_tower",
+			"battalions": [
+				"ts_cultists",
+				"ts_rubrics",
+				"ts_enlightened"
+			]
+		},
+		{
+			"faction": "drukhari",
+			"general": "malidrach",
+			"body": "thaurus",
+			"province": "slave_port",
+			"battalions": [
+				"dk_kabalites",
+				"dk_kabalites",
+				"dk_kabalites",
+				"dk_wyches",
+				"dk_wyches",
+				"dk_incubi",
+				"dk_trueborn",
+				"dk_reavers",
+				"dk_ravager",
+				"dk_incubi"
+			]
+		},
+		{
+			"faction": "drukhari",
+			"general": "lelith",
+			"body": "velsharra",
+			"province": "vs_gate",
+			"battalions": [
+				"dk_wyches",
+				"dk_bloodbrides",
+				"dk_hellions",
+				"dk_raider"
+			]
+		}
+	],
+	"startingFleets": [
+		{
+			"faction": "mechanicus",
+			"body": "thaurus",
+			"ships": 2
+		},
+		{
+			"faction": "sororitas",
+			"body": "lucrecia",
+			"ships": 2
+		},
+		{
+			"faction": "custodes",
+			"body": "aurum",
+			"ships": 2
+		},
+		{
+			"faction": "grey_knights",
+			"body": "titan_blade",
+			"ships": 3
+		},
+		{
+			"faction": "death_guard",
+			"body": "morbus",
+			"ships": 3
+		},
+		{
+			"faction": "thousand_sons",
+			"body": "sekhmet",
+			"ships": 3
+		},
+		{
+			"faction": "drukhari",
+			"body": "velsharra",
+			"ships": 4
+		}
+	]
+}

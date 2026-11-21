@@ -24,7 +24,7 @@ function startNewCrusade(closePageCallback)
 export const mainMenuItems = [
 	{
 		"caption": "INICIAR CRUZADA",
-		"tooltip": "Começa uma nova campanha: Cruzada de Armageddon, Invasão Tirânida ou 13ª Cruzada Negra.",
+		"tooltip": "Começa uma nova campanha: escolha o cenário, o lado e a dificuldade.",
 		"onPress": startNewCrusade
 	},
 	{
@@ -52,6 +52,17 @@ export const mainMenuItems = [
 		{
 			closePageCallback({ [Engine.openRequest]: {
 				"page": "campaigns/load_modal/page.xml"
+			} });
+		}
+	},
+	{
+		"caption": "Códex",
+		"tooltip": "Todas as facções: unidades, generais, recursos especiais e rituais.",
+		"onPress": closePageCallback =>
+		{
+			closePageCallback({ [Engine.openRequest]: {
+				"page": "campaigns/wh40k/page.xml",
+				"argument": { "codex": true }
 			} });
 		}
 	},

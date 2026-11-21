@@ -1,0 +1,63 @@
+{
+	"id": "claw_fort",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"claw_fort_yards": {
+			"rect": [
+				0.09863,
+				0.16719,
+				0.50293,
+				0.86875
+			],
+			"label": [
+				0.2607,
+				0.4922
+			],
+			"area": 103846,
+			"neighbors": [
+				"claw_fort_battery",
+				"claw_fort_ring"
+			],
+			"coastal": false
+		},
+		"claw_fort_ring": {
+			"rect": [
+				0.36816,
+				0.09375,
+				0.78223,
+				0.8375
+			],
+			"label": [
+				0.543,
+				0.3859
+			],
+			"area": 116234,
+			"neighbors": [
+				"claw_fort_battery",
+				"claw_fort_yards"
+			],
+			"coastal": false
+		},
+		"claw_fort_battery": {
+			"rect": [
+				0.5,
+				0.25625,
+				0.89062,
+				0.85469
+			],
+			"label": [
+				0.75,
+				0.6016
+			],
+			"area": 63884,
+			"neighbors": [
+				"claw_fort_ring",
+				"claw_fort_yards"
+			],
+			"coastal": false
+		}
+	}
+}

@@ -8,9 +8,31 @@
  *   corpo      descrição e domínio
  * Clicar num batalhão mostra o retrato do líder e uma frase dele.
  * Modos: recruit (lista de unidades, por força aliada), hire (generais),
- * bombard (escolher alvo).
+ * bombard (escolher alvo), ritual (gastar o recurso especial).
  */
 const WH40K_ROW_H = 40;
+
+const WH40K_GAIN_NAMES = {
+	"kill": "inimigos abatidos", "battle": "batalhas", "win": "vitórias", "lopsided": "vitórias esmagadoras", "generalKill": "generais inimigos derrubados",
+	"sack": "saques", "capture": "províncias tomadas", "hive": "cidades tomadas", "power": "poderes de apoio usados", "infected": "províncias devastadas (por turno)",
+	"turn": "cada turno", "sacrifice": "as próprias perdas em batalha"
+};
+
+/** Como a facção ganha o recurso especial (texto). */
+function specialGainText(sp)
+{
+	const parts = [];
+	for (const k in sp.gain)
+	{
+		if (k == "decay")
+			continue;
+		if (k == "hold")
+			parts.push(Object.keys(sp.gain.hold).map(t => (WH40K_TERRAIN_NAMES[t] || t).toLowerCase()).join(", ") + " sob seu controle (por turno)");
+		else if (WH40K_GAIN_NAMES[k])
+			parts.push(WH40K_GAIN_NAMES[k]);
+	}
+	return parts.join(", ") + "." + (sp.gain.decay ? " Perde " + Math.round(sp.gain.decay * 100) + "% nos turnos sem batalha." : "");
+}
 
 class WH40KSidePanel
 {
@@ -125,6 +147,8 @@ class WH40KSidePanel
 			return this.renderRecruit();
 		if (this.mode == "hire")
 			return this.renderHire();
+		if (this.mode == "ritual")
+			return this.renderRitual();
 		if (!sel)
 			return this.renderOverview();
 		if (sel.type == "province" && this.g.province(sel.id))
@@ -226,7 +250,62 @@ class WH40KSidePanel
 			"text": "Províncias: " + g.provincesOf(f).length + " · Frotas: " + Object.values(g.s.fleets).filter(x => x.faction == f).length +
 				"\nRendimento " + g.income(f) + " · Manutenção " + g.upkeep(f) + "\n\nSelecione algo no mapa, ou um exército abaixo.",
 			"rows": rows,
-			"actions": [{ "caption": "Ajuda", "onPress": () => this.page.dialog.open({ "title": "Como jogar", "text": this.page.tutorialText() }) }]
+			"actions": [
+				D.factions[f].special ? { "caption": "Rituais (" + D.factions[f].special.short + ")", "tooltip": "Gaste " + D.factions[f].special.name + ". Os rituais de exército precisam de um exército selecionado.", "onPress": () => this.page.openRituals() } : null,
+				{ "caption": "Diplomacia", "tooltip": "Tréguas e traições.", "onPress": () => this.page.showDiplomacy() },
+				{ "caption": "Códex", "tooltip": "Todas as unidades e generais das facções, com as fichas.", "onPress": () => this.page.codex.open(f) },
+				{ "caption": "Estatísticas", "tooltip": "Territórios por turno, batalhas e baixas.", "onPress": () => this.page.stats.open() },
+				{ "caption": "Ajuda", "onPress": () => this.page.dialog.open({ "title": "Como jogar", "text": this.page.tutorialText() }) }
+			]
+		});
+	}
+
+	// ------------------------------------------------------------ rituais
+
+	renderRitual()
+	{
+		const g = this.g;
+		const D = this.D;
+		const f = this.page.player;
+		const sp = g.special(f);
+		const army = this.ritualArmy && g.s.armies[this.ritualArmy];
+		if (!sp)
+		{
+			this.mode = null;
+			return this.render();
+		}
+		const rows = sp.rituals.map(r => {
+			const why = r.target == "army" && !army ? "Selecione um exército seu para este ritual." : g.canRitual(f, r.id, army ? army.id : null);
+			return {
+				"icon": portraitSprite(r.effect.unit ? D.unitById[r.effect.unit].portrait : sp.icon, !!why),
+				"text": r.name + "\n" + colored(r.cost + " " + sp.short + (r.target == "faction" ? " · facção" : " · exército"), why ? [200, 110, 90] : [190, 180, 160]),
+				"tooltip": r.name + " — " + r.desc + "\nCusto: " + r.cost + " " + sp.name + "." + (why ? "\n\n" + colored(why, [250, 120, 90]) : "\n\nClique: fazer o ritual."),
+				"card": r.effect.unit ? { "unit": r.effect.unit } : null,
+				"onPress": () => {
+					const res = g.ritual(f, r.id, army ? army.id : null);
+					if (res.error)
+						this.page.flash(res.error);
+					else
+					{
+						this.page.sound.ui("card");
+						this.page.flash(res.text);
+					}
+					this.refresh();
+				}
+			};
+		});
+		const buffs = army ? (army.buffs || []).map(b => b.name + " (" + g.buffText(b) + ", " + b.turns + " t)").join(", ") : "";
+		this.show({
+			"portrait": portraitSprite(sp.icon),
+			"title": sp.name + ": " + g.specialAmount(f) + "/" + sp.max,
+			"subtitle": army ? "Alvo: " + g.armyLabel(army) : "Sem exército selecionado",
+			"text": sp.desc + "\nGanha com: " + specialGainText(sp) + (buffs ? "\nAtivos: " + buffs : ""),
+			"textHeight": 96,
+			"rows": rows,
+			"actions": [
+				army ? { "caption": "Ver exército", "onPress": () => { this.mode = null; this.page.select({ "type": "army", "id": army.id }); } } : null,
+				{ "caption": "Voltar", "onPress": () => { this.mode = null; this.render(); } }
+			]
 		});
 	}
 
@@ -297,6 +376,10 @@ class WH40KSidePanel
 		if (own)
 		{
 			actions.push({ "caption": "Recrutar", "enabled": !!inOwnProvince, "tooltip": inOwnProvince ? "Recruta batalhões para este exército." : "Só em província própria.", "onPress": () => { this.mode = "recruit"; this.recruitTarget = { "army": army.id }; this.render(); } });
+			const sp = g.special(army.faction);
+			if (sp)
+				actions.push({ "caption": "Rituais (" + g.specialAmount(army.faction) + " " + sp.short + ")", "tooltip": "Gaste " + sp.name + " neste exército: reforços, bônus, cura" + (sp.rituals.some(r => r.effect.type == "ascend") ? ", ascensão a Príncipe-Demônio" : "") + "...",
+					"onPress": () => { this.mode = "ritual"; this.ritualArmy = army.id; this.render(); } });
 			if (army.province)
 			{
 				const fleets = g.fleetsAt(D.provinces[army.province].body, army.faction).filter(f => !f.dest && f.cargo.length < g.fleetCapacity(f));
@@ -327,7 +410,10 @@ class WH40KSidePanel
 			"quote": general && this.lastQuoteFor != army.id ? (this.armyQuote = pickFrom(general.quotes)) : general ? this.armyQuote : null
 		});
 		this.lastQuoteFor = army.id;
-		header.text = (general ? general.trait + "\n" : "") +
+		const buffs = (army.buffs || []).map(b => colored(b.name + " (" + g.buffText(b) + ", " + b.turns + " t)", [210, 170, 250])).join(", ");
+		header.text = (general ? (general.ascended ? colored("Príncipe-Demônio de " + general.ascended + ". ", [230, 120, 120]) : "") +
+				(general.level ? "Nível " + general.level + ". " : "") + general.trait + "\n" : "") +
+			(buffs ? buffs + "\n" : "") +
 			"Força: ataque " + Math.round(g.armyPower(army, "attack")) + " · defesa " + Math.round(g.armyPower(army, "defense")) +
 			(own ? "\nMovimentos: " + army.moves + "/" + g.maxMoves(army) + " · Batalhões: " + army.battalions.length + "/" + WH40K_MAX_BATTALIONS : "");
 		header.rows = rows;
@@ -352,7 +438,7 @@ class WH40KSidePanel
 		if (groups.indexOf(this.recruitGroup) == -1)
 			this.recruitGroup = groups[0];
 		const group = allies[this.recruitGroup];
-		const units = D.unitsOf(f).filter(u => !groups.length || (u.group || "guard") == this.recruitGroup);
+		const units = D.unitsOf(f).filter(u => !u.noRecruit && (!groups.length || (u.group || "guard") == this.recruitGroup));
 		const rows = units.map(unit => {
 			const reason = g.canRecruit(f, unit.id, pid);
 			return {
@@ -400,7 +486,7 @@ class WH40KSidePanel
 		const f = this.page.player;
 		const pid = this.hireProvince;
 		const rows = g.hireableGenerals(f).map(gid => {
-			const gen = D.generals[gid];
+			const gen = g.generalStats(gid);
 			const poor = g.s.factions[f].funds < gen.hireCost;
 			return {
 				"icon": portraitSprite(gen.portrait, poor),
@@ -456,6 +542,17 @@ class WH40KSidePanel
 				}
 			};
 		});
+		if (own && fleet.body)
+			for (const enemy of g.fleetsAt(fleet.body).filter(f => g.hostile(f.faction, fleet.faction)))
+			{
+				const why = g.canAttackFleet(fleet, enemy);
+				rows.push({
+					"icon": shipSprite(D, enemy.faction, enemy.ships),
+					"text": colored(enemy.name, D.factionColor(enemy.faction)) + "\n" + colored(enemy.ships + " naves · inimiga na órbita", [230, 150, 120]),
+					"tooltip": "Frota inimiga na mesma órbita. Atacar agora dá a iniciativa (+15% de força)." + (why ? "\n" + colored(why, [250, 120, 90]) : ""),
+					"button": { "caption": "Atacar", "enabled": !why, "onPress": () => this.page.attackFleet(enemy) }
+				});
+			}
 		let where = fleet.body ? "Em órbita de " + D.bodies[fleet.body].name : "Em trânsito";
 		if (fleet.dest)
 			where += " → " + D.bodies[fleet.dest].name + " (" + fleet.eta + " turno" + (fleet.eta > 1 ? "s" : "") + ")";
@@ -467,12 +564,16 @@ class WH40KSidePanel
 			{
 				actions.push({ "caption": "Bombardeio orbital", "enabled": fleet.acted != g.s.turn && g.orbitalControl(fleet.body, fleet.faction), "tooltip": "Escolha uma província inimiga sob esta órbita (botão direito no mapa).", "onPress": () => { this.mode = "bombard"; this.page.showPlanet(fleet.body); } });
 				actions.push({ "caption": "Ver planeta", "onPress": () => this.page.showPlanet(fleet.body) });
+				const prey = Object.values(g.s.fleets).filter(f => g.hostile(f.faction, fleet.faction) && f.body);
+				if (prey.length)
+					actions.push({ "caption": "Atacar frota", "enabled": fleet.acted != g.s.turn, "tooltip": "Abre o sistema: botão direito numa frota inimiga para atacá-la (na mesma órbita, a batalha é na hora; longe, a frota viaja e luta ao chegar).",
+						"onPress": () => this.page.showSystem() });
 				if (fleet.dest)
 					actions.push({ "caption": "Cancelar viagem", "onPress": () => this.report(g.moveFleet(fleet.id, fleet.body)) });
 			}
 		}
 		this.show({
-			"portrait": "stretched:" + D.factions[fleet.faction].emblem,
+			"portrait": shipSprite(D, fleet.faction, fleet.ships),
 			"title": fleet.name,
 			"subtitle": colored(D.factions[fleet.faction].fleetName, D.factionColor(fleet.faction)),
 			"text": fleet.ships + " nave" + (fleet.ships > 1 ? "s" : "") + " de guerra · capacidade " + g.fleetCapacity(fleet) + " exército(s)\n" + where +

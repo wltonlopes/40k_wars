@@ -1,0 +1,103 @@
+{
+	"id": "carcharias",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"cr_hall": {
+			"rect": [
+				0.31641,
+				0.0,
+				0.65625,
+				0.73125
+			],
+			"label": [
+				0.4805,
+				0.4125
+			],
+			"area": 109944,
+			"neighbors": [
+				"cr_glacier",
+				"cr_mines",
+				"cr_peaks",
+				"cr_wastes"
+			],
+			"coastal": false
+		},
+		"cr_glacier": {
+			"rect": [
+				0.0,
+				0.0,
+				0.43848,
+				0.71406
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 142031,
+			"neighbors": [
+				"cr_hall",
+				"cr_mines"
+			],
+			"coastal": false
+		},
+		"cr_peaks": {
+			"rect": [
+				0.55176,
+				0.0,
+				1.0,
+				0.60781
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 144092,
+			"neighbors": [
+				"cr_hall",
+				"cr_wastes"
+			],
+			"coastal": false
+		},
+		"cr_mines": {
+			"rect": [
+				0.0,
+				0.47812,
+				0.52344,
+				1.0
+			],
+			"label": [
+				0.2637,
+				0.9984
+			],
+			"area": 128036,
+			"neighbors": [
+				"cr_glacier",
+				"cr_hall",
+				"cr_wastes"
+			],
+			"coastal": false
+		},
+		"cr_wastes": {
+			"rect": [
+				0.50586,
+				0.51094,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.7861,
+				0.9984
+			],
+			"area": 131257,
+			"neighbors": [
+				"cr_hall",
+				"cr_mines",
+				"cr_peaks"
+			],
+			"coastal": false
+		}
+	}
+}

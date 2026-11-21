@@ -1203,6 +1203,526 @@
 				"Ainda queimo.",
 				"Avançar, filhos de Vulkan."
 			]
+		},
+		{
+			"id": "draigo",
+			"faction": "grey_knights",
+			"name": "Kaldor Draigo",
+			"title": "Mestre Supremo",
+			"portrait": "grey_knights/r2c3.png",
+			"attack": 0.3,
+			"defense": 0.25,
+			"move": 0,
+			"support": 2,
+			"hireCost": 0,
+			"start": true,
+			"trait": "O Mestre Supremo que caminha pela disformidade: +30% no ataque, +25% na defesa, duas cargas de apoio.",
+			"quotes": [
+				"Eu gravei o meu nome no coração de Mortarion.",
+				"Somos o martelo.",
+				"A disformidade não me prende."
+			]
+		},
+		{
+			"id": "voldus",
+			"faction": "grey_knights",
+			"name": "Aldrik Voldus",
+			"title": "Grão-Mestre",
+			"portrait": "grey_knights/r2c1.png",
+			"attack": 0.2,
+			"defense": 0.2,
+			"move": 0,
+			"support": 3,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Grão-Mestre da 3ª Irmandade, o maior psíquico da ordem: três cargas de apoio.",
+			"quotes": [
+				"A mente é a arma mais afiada.",
+				"Abram o portal.",
+				"Pela pureza."
+			]
+		},
+		{
+			"id": "crowe",
+			"faction": "grey_knights",
+			"name": "Castelão Crowe",
+			"title": "Campeão da Espada",
+			"portrait": "grey_knights/r2c2.png",
+			"attack": 0.35,
+			"defense": 0.1,
+			"move": 0,
+			"support": 0,
+			"hireCost": 420,
+			"trait": "Guardião da Lâmina Negra de Antwyr: +35% no ataque.",
+			"quotes": [
+				"A espada sussurra. Eu não escuto.",
+				"Nada me corrompe.",
+				"Em guarda."
+			]
+		},
+		{
+			"id": "stern",
+			"faction": "grey_knights",
+			"name": "Arvann Stern",
+			"title": "Capitão da Irmandade",
+			"portrait": "grey_knights/r2c0.png",
+			"attack": 0.2,
+			"defense": 0.25,
+			"move": 1,
+			"support": 1,
+			"hireCost": 400,
+			"trait": "Caçador de demônios incansável: +25% na defesa e marcha uma província a mais.",
+			"quotes": [
+				"O nome do demônio é meu escudo.",
+				"Avançar.",
+				"Já matei pior."
+			]
+		},
+		{
+			"id": "dominus_vantor",
+			"faction": "mechanicus",
+			"name": "Orsk Vantor",
+			"title": "Magos Dominus",
+			"portrait": "mechanicus/r2c0.png",
+			"attack": 0.2,
+			"defense": 0.25,
+			"move": 0,
+			"support": 2,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Senhor da Forja de Thaurus: +25% na defesa e duas cargas de apoio.",
+			"quotes": [
+				"O Omnissiah calcula a vitória.",
+				"Carne é fraca.",
+				"Parâmetros de guerra aceitos."
+			]
+		},
+		{
+			"id": "manipulus_hexa",
+			"faction": "mechanicus",
+			"name": "Hexa-Rho",
+			"title": "Magos Manipulus",
+			"portrait": "mechanicus/r2c1.png",
+			"attack": 0.25,
+			"defense": 0.15,
+			"move": 1,
+			"support": 1,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Comandante dos Skitarii: +25% no ataque e marcha uma província a mais.",
+			"quotes": [
+				"Avançar em formação Delta.",
+				"A vontade da forja guia.",
+				"Execução eficiente."
+			]
+		},
+		{
+			"id": "datasmith_kelvar",
+			"faction": "mechanicus",
+			"name": "Kelvar-9",
+			"title": "Datasmith Cybernetica",
+			"portrait": "mechanicus/r2c2.png",
+			"attack": 0.15,
+			"defense": 0.3,
+			"move": 0,
+			"support": 1,
+			"hireCost": 380,
+			"trait": "Mestre dos robôs Kastelan: +30% na defesa.",
+			"quotes": [
+				"Protocolos carregados.",
+				"Os autômatos obedecem.",
+				"PROTOCOLO: FORTALEZA."
+			]
+		},
+		{
+			"id": "vahl",
+			"faction": "sororitas",
+			"name": "Morvenn Vahl",
+			"title": "Abadessa Sanctorum",
+			"portrait": "sororitas/r2c2.png",
+			"attack": 0.25,
+			"defense": 0.3,
+			"move": 0,
+			"support": 1,
+			"hireCost": 0,
+			"start": true,
+			"trait": "A senhora das Ordens Militantes, num exo-traje Paragon: +25% no ataque, +30% na defesa.",
+			"quotes": [
+				"A fé é a nossa armadura.",
+				"Pelo Imperador e pela Santa!",
+				"Nenhum herege fica de pé."
+			]
+		},
+		{
+			"id": "celestine",
+			"faction": "sororitas",
+			"name": "Santa Celestine",
+			"title": "A Viva Santa",
+			"portrait": "sororitas/r2c0.png",
+			"attack": 0.35,
+			"defense": 0.25,
+			"move": 1,
+			"support": 1,
+			"hireCost": 0,
+			"start": true,
+			"trait": "A Santa que sempre volta: +35% no ataque, +25% na defesa e marcha uma província a mais.",
+			"quotes": [
+				"Eu fui enviada.",
+				"Levantem-se, irmãs!",
+				"A luz do Imperador está conosco."
+			]
+		},
+		{
+			"id": "eruita",
+			"faction": "sororitas",
+			"name": "Junith Eruita",
+			"title": "Cônega",
+			"portrait": "sororitas/r2c3.png",
+			"attack": 0.15,
+			"defense": 0.25,
+			"move": 0,
+			"support": 2,
+			"hireCost": 400,
+			"trait": "Pregadora no Púlpito de Santa Holine: duas cargas de apoio.",
+			"quotes": [
+				"Ouçam a Palavra!",
+				"Queimem o herege!",
+				"O púlpito avança."
+			]
+		},
+		{
+			"id": "trajann",
+			"faction": "custodes",
+			"name": "Trajann Valoris",
+			"title": "Capitão-Geral",
+			"portrait": "custodes/r2c2.png",
+			"attack": 0.35,
+			"defense": 0.3,
+			"move": 0,
+			"support": 1,
+			"hireCost": 0,
+			"start": true,
+			"trait": "O comandante dos Dez Mil: +35% no ataque, +30% na defesa.",
+			"quotes": [
+				"Eu respondo ao Imperador.",
+				"Ninguém toca no Trono.",
+				"Avançar, Companheiros."
+			]
+		},
+		{
+			"id": "valerian",
+			"faction": "custodes",
+			"name": "Valerian",
+			"title": "Capitão-Escudo",
+			"portrait": "custodes/r2c0.png",
+			"attack": 0.25,
+			"defense": 0.3,
+			"move": 0,
+			"support": 1,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Veterano de cem guerras: +30% na defesa.",
+			"quotes": [
+				"Escudos dourados.",
+				"Eu guardo.",
+				"Firmes."
+			]
+		},
+		{
+			"id": "ixion",
+			"faction": "custodes",
+			"name": "Ixion Hale",
+			"title": "Campeão da Lâmina",
+			"portrait": "custodes/r2c1.png",
+			"attack": 0.4,
+			"defense": 0.1,
+			"move": 0,
+			"support": 0,
+			"hireCost": 440,
+			"trait": "Duelista que desafia os campeões inimigos: +40% no ataque.",
+			"quotes": [
+				"Mostre-me o seu melhor.",
+				"Um golpe basta.",
+				"Duelo aceito."
+			]
+		},
+		{
+			"id": "malidrach",
+			"faction": "drukhari",
+			"name": "Vraesque Malidrach",
+			"title": "Arconte",
+			"portrait": "drukhari/r2c0.png",
+			"attack": 0.3,
+			"defense": 0.15,
+			"move": 1,
+			"support": 1,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Senhor da Cabala da Lâmina Dilacerada: +30% no ataque e marcha uma província a mais.",
+			"quotes": [
+				"Escravos. Muitos escravos.",
+				"A dor deles me rejuvenesce.",
+				"Que gritem."
+			]
+		},
+		{
+			"id": "lelith",
+			"faction": "drukhari",
+			"name": "Lelith Hesperax",
+			"title": "Rainha das Facas",
+			"portrait": "drukhari/r2c1.png",
+			"attack": 0.4,
+			"defense": 0.05,
+			"move": 1,
+			"support": 0,
+			"hireCost": 0,
+			"start": true,
+			"trait": "A maior gladiadora de Commorragh: +40% no ataque e marcha uma província a mais.",
+			"quotes": [
+				"Vamos dançar?",
+				"Lento demais.",
+				"A plateia me adora."
+			]
+		},
+		{
+			"id": "rakarth",
+			"faction": "drukhari",
+			"name": "Urien Rakarth",
+			"title": "Mestre Haemonculus",
+			"portrait": "drukhari/r2c2.png",
+			"attack": 0.15,
+			"defense": 0.35,
+			"move": 0,
+			"support": 2,
+			"hireCost": 440,
+			"trait": "O escultor da carne: +35% na defesa, duas cargas de apoio.",
+			"quotes": [
+				"Que material interessante.",
+				"A dor é arte.",
+				"Nada morre de verdade comigo."
+			]
+		},
+		{
+			"id": "huron",
+			"faction": "astral_claws",
+			"name": "Lugft Huron",
+			"title": "Tirano de Badab",
+			"portrait": "badab_claws/r1c0.png",
+			"attack": 0.3,
+			"defense": 0.25,
+			"move": 0,
+			"support": 2,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Mestre dos Astral Claws que se recusou a entregar o dízimo a Terra: +30% no ataque, +25% na defesa, duas cargas.",
+			"quotes": [
+				"Terra esqueceu as Marcas de Badab. Eu não.",
+				"Sou o Tirano, e isto é meu.",
+				"Que venham os lealistas."
+			]
+		},
+		{
+			"id": "vharkus",
+			"faction": "astral_claws",
+			"name": "Garrox Vharkus",
+			"title": "Capitão dos Astral Claws",
+			"portrait": "badab_claws/r1c1.png",
+			"attack": 0.25,
+			"defense": 0.15,
+			"move": 1,
+			"support": 1,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Capitão de confiança do Tirano: +25% no ataque e marcha uma província a mais.",
+			"quotes": [
+				"O Tirano manda, eu cumpro.",
+				"Avançar, irmãos.",
+				"Nenhuma piedade."
+			]
+		},
+		{
+			"id": "tarrek",
+			"faction": "astral_claws",
+			"name": "Tarrek Mund",
+			"title": "Coronel da Legião do Tirano",
+			"portrait": "badab_claws/r2c3.png",
+			"attack": 0.1,
+			"defense": 0.25,
+			"move": 0,
+			"support": 1,
+			"hireCost": 340,
+			"trait": "Comandante dos mercenários humanos: +25% na defesa; tropas baratas.",
+			"quotes": [
+				"Os homens lutam pelo soldo.",
+				"Firmes!",
+				"Linha de fogo!"
+			]
+		},
+		{
+			"id": "phoros",
+			"faction": "astral_claws",
+			"name": "Malakim Phoros",
+			"title": "Mestre dos Lamenters",
+			"portrait": "badab_allies/r0c3.png",
+			"attack": 0.25,
+			"defense": 0.2,
+			"move": 0,
+			"support": 1,
+			"hireCost": 420,
+			"trait": "Mestre do capítulo amaldiçoado que seguiu Huron: +25% no ataque, +20% na defesa.",
+			"quotes": [
+				"A honra nos trouxe até aqui.",
+				"Lamentamos, e lutamos.",
+				"Pelo Anjo."
+			]
+		},
+		{
+			"id": "redth",
+			"faction": "astral_claws",
+			"name": "Ahazra Redth",
+			"title": "Bibliotecário-Chefe dos Mantis Warriors",
+			"portrait": "badab_allies/r1c3.png",
+			"attack": 0.15,
+			"defense": 0.2,
+			"move": 0,
+			"support": 3,
+			"hireCost": 420,
+			"trait": "Psíquico dos Mantis Warriors: três cargas de apoio.",
+			"quotes": [
+				"Eu vejo a emboscada antes deles.",
+				"A mente é uma lâmina.",
+				"Paciência."
+			]
+		},
+		{
+			"id": "kane",
+			"faction": "astral_claws",
+			"name": "Thulsa Kane",
+			"title": "Mestre dos Executioners",
+			"portrait": "badab_allies/r2c3.png",
+			"attack": 0.35,
+			"defense": 0.05,
+			"move": 0,
+			"support": 0,
+			"hireCost": 420,
+			"trait": "Caçador de troféus: +35% no ataque.",
+			"quotes": [
+				"Mais uma cabeça para o salão.",
+				"Caçem o campeão deles.",
+				"Morte com honra."
+			]
+		},
+		{
+			"id": "zuehlke",
+			"faction": "krieg",
+			"name": "Zuehlke",
+			"title": "Lorde-Comandante",
+			"portrait": "krieg/r2c0.png",
+			"attack": 0.15,
+			"defense": 0.3,
+			"move": 0,
+			"support": 2,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Comandante do cerco de Vraks: paciência de anos, +30% na defesa e duas cargas de artilharia.",
+			"quotes": [
+				"Vraks cairá. O tempo não importa.",
+				"Mais uma onda.",
+				"O Imperador conta os mortos."
+			]
+		},
+		{
+			"id": "vosk",
+			"faction": "krieg",
+			"name": "Vosk",
+			"title": "Comissário-Mor",
+			"portrait": "krieg/r2c1.png",
+			"attack": 0.25,
+			"defense": 0.15,
+			"move": 0,
+			"support": 1,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Ninguém recua com ele por perto: +25% no ataque.",
+			"quotes": [
+				"Avancem.",
+				"A morte é dever.",
+				"Recuar é heresia."
+			]
+		},
+		{
+			"id": "kerrig",
+			"faction": "krieg",
+			"name": "Kerrig",
+			"title": "Marechal da Cavalaria",
+			"portrait": "krieg/r1c3.png",
+			"attack": 0.25,
+			"defense": 0.05,
+			"move": 1,
+			"support": 0,
+			"hireCost": 360,
+			"trait": "Comandante dos Death Riders: +25% no ataque e marcha uma província a mais.",
+			"quotes": [
+				"Lanças baixas!",
+				"Carga!",
+				"Pela glória da morte."
+			]
+		},
+		{
+			"id": "xaphan",
+			"faction": "vraks",
+			"name": "Cardeal Xaphan",
+			"title": "Senhor de Vraks",
+			"portrait": "vraks/r2c0.png",
+			"attack": 0.15,
+			"defense": 0.3,
+			"move": 0,
+			"support": 2,
+			"hireCost": 0,
+			"start": true,
+			"trait": "O cardeal apóstata que entregou Vraks ao Caos: +30% na defesa e duas cargas.",
+			"quotes": [
+				"O Imperador é um cadáver.",
+				"Vraks é livre.",
+				"Ajoelhem-se perante a verdade."
+			]
+		},
+		{
+			"id": "drax",
+			"faction": "vraks",
+			"name": "Vosen Drax",
+			"title": "Comandante Rebelde",
+			"portrait": "vraks/r1c2.png",
+			"attack": 0.25,
+			"defense": 0.15,
+			"move": 1,
+			"support": 1,
+			"hireCost": 0,
+			"start": true,
+			"trait": "Antigo oficial imperial: +25% no ataque e marcha uma província a mais.",
+			"quotes": [
+				"Eu conheço as táticas deles.",
+				"Avançar!",
+				"Krieg sangrará."
+			]
+		},
+		{
+			"id": "ugrak",
+			"faction": "vraks",
+			"name": "Ugrak, o Marcado",
+			"title": "Campeão do Caos",
+			"portrait": "vraks/r2c3.png",
+			"attack": 0.35,
+			"defense": 0.1,
+			"move": 0,
+			"support": 0,
+			"hireCost": 400,
+			"trait": "Campeão escolhido dos Deuses: +35% no ataque.",
+			"quotes": [
+				"Sangue para o Deus do Sangue!",
+				"Desafio!",
+				"Os Deuses me olham."
+			]
 		}
 	]
 }

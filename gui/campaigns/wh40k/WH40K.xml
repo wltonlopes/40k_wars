@@ -16,7 +16,7 @@
 	<object name="wh40kRoot" type="image" sprite="wh40kBlack" size="0 0 100% 100%">
 		<action on="Tick">if (g_WH40KPage) g_WH40KPage.tick();</action>
 		<object hotkey="cancel">
-			<action on="Press">if (g_WH40KPage &amp;&amp; g_WH40KPage.card.isOpen()) g_WH40KPage.card.close();</action>
+			<action on="Press">if (g_WH40KPage) g_WH40KPage.cancel();</action>
 		</object>
 
 		<!-- ============================================== vistas -->
@@ -84,11 +84,30 @@
 				<object name="planetHint" type="text" ghost="true" size="12 100%-22 100%-12 100%-2" font="sans-stroke-13" textcolor="210 200 180"/>
 			</object>
 
+			<!-- Batalha espacial (ui/SpaceView.js) -->
+			<object name="spaceView" hidden="true" size="0 0 100% 100%">
+				<object name="spaceBg" type="image" sprite="stretched:campaigns/wh40k/system/background.png" ghost="true" size="0 0 100% 100%"/>
+				<object name="spacePlanet" type="image" ghost="true"/>
+				<repeat count="32" var="n">
+					<object name="spaceShip[n]" type="image" ghost="true" hidden="true"/>
+				</repeat>
+				<repeat count="48" var="n">
+					<object name="spaceBolt[n]" type="image" ghost="true" hidden="true"/>
+				</repeat>
+				<repeat count="24" var="n">
+					<object name="spaceFx[n]" type="image" ghost="true" hidden="true"/>
+				</repeat>
+				<object name="spaceTitle" type="text" ghost="true" size="12 6 100%-12 34" font="sans-bold-stroke-20" textcolor="230 200 120"/>
+				<object name="spaceHud" type="text" ghost="true" size="12 36 100%-12 62" font="sans-bold-stroke-16" textcolor="240 230 200"/>
+				<object name="spaceSkip" type="button" style="wh40kButton" size="100%-160 100%-46 100%-12 100%-10">Pular</object>
+			</object>
+
 			<!-- Desdobramento tático -->
 			<object name="deployView" hidden="true" size="0 0 100% 100%">
 				<object type="image" sprite="wh40kBlack" size="0 0 100% 100%" ghost="true"/>
 				<object name="deployField" type="button">
 					<object name="deployGround" type="image" ghost="true" size="0 0 100% 100%"/>
+					<object name="deployCity" type="image" ghost="true" hidden="true"/>
 					<repeat count="48" var="n">
 						<object name="deployFeature[n]" type="image" ghost="true" hidden="true"/>
 					</repeat>
@@ -131,15 +150,19 @@
 		<!-- ============================================== barra superior -->
 		<object name="topBar" type="image" sprite="wh40kBar" size="0 0 100% 44">
 			<object name="topEmblem" type="image" size="6 4 42 40"/>
-			<object name="topFaction" type="text" size="50 0 300 100%" font="sans-bold-stroke-18" textcolor="230 200 120" text_valign="center"/>
-			<object name="topFunds" type="text" size="300 0 560 100%" font="sans-bold-stroke-16" textcolor="240 230 200" text_valign="center"/>
-			<object name="topTurn" type="text" size="560 0 760 100%" font="sans-bold-stroke-16" textcolor="240 230 200" text_valign="center"/>
-			<object name="topObjective" type="text" size="760 0 100%-640 100%" font="sans-stroke-14" textcolor="210 190 150" text_valign="center"/>
-			<object name="btnSystem" type="button" style="wh40kButton" size="100%-636 6 100%-526 38">Sistema</object>
-			<object name="btnPlanet" type="button" style="wh40kButton" size="100%-522 6 100%-412 38">Planeta</object>
-			<object name="btnLog" type="button" style="wh40kButton" size="100%-408 6 100%-298 38">Registro</object>
-			<object name="btnEndTurn" type="button" style="wh40kButton" size="100%-294 6 100%-120 38">Encerrar Turno</object>
-			<object name="btnMenu" type="button" style="wh40kButton" size="100%-116 6 100%-6 38">Sair</object>
+			<object name="topFaction" type="text" size="50 0 282 100%" font="sans-bold-stroke-16" textcolor="230 200 120" text_valign="center"/>
+			<object name="topFunds" type="text" size="286 0 446 100%" font="sans-bold-stroke-16" textcolor="240 230 200" text_valign="center"/>
+			<object name="topSpecial" type="button" size="448 4 604 40" sprite_over="wh40kRowOver">
+				<object name="topSpecialIcon" type="image" ghost="true" size="2 2 34 34"/>
+				<object name="topSpecialText" type="text" ghost="true" size="38 0 100% 100%" font="sans-bold-stroke-14" textcolor="240 205 140" text_valign="center"/>
+			</object>
+			<object name="topTurn" type="text" size="612 3 100%-540 23" font="sans-bold-stroke-14" textcolor="240 230 200"/>
+			<object name="topObjective" type="text" size="612 23 100%-540 43" font="sans-stroke-13" textcolor="210 190 150"/>
+			<object name="btnSystem" type="button" style="wh40kButton" size="100%-534 6 100%-438 38">Sistema</object>
+			<object name="btnPlanet" type="button" style="wh40kButton" size="100%-434 6 100%-338 38">Planeta</object>
+			<object name="btnLog" type="button" style="wh40kButton" size="100%-334 6 100%-238 38">Registro</object>
+			<object name="btnEndTurn" type="button" style="wh40kButton" size="100%-234 6 100%-86 38">Encerrar Turno</object>
+			<object name="btnMenu" type="button" style="wh40kButton" size="100%-82 6 100%-6 38">Sair</object>
 		</object>
 
 		<!-- ============================================== painel lateral -->
@@ -169,6 +192,41 @@
 			<object name="logText" type="text" size="10 5 100%-10 100%-5" font="sans-13" textcolor="215 205 185"/>
 		</object>
 
+		<!-- ============================================== códex (ui/Codex.js) -->
+		<object name="codexDim" type="image" sprite="wh40kDim" size="0 0 100% 100%" hidden="true" z="190">
+			<object name="codexPanel" type="image" sprite="wh40kPanel" size="50%-570 50%-390 50%+570 50%+390">
+				<object name="codexTitle" type="text" size="230 12 100%-70 48" font="sans-bold-stroke-20" textcolor="235 205 125" text_valign="center"/>
+				<object name="codexClose" type="button" style="wh40kButton" size="100%-50 14 100%-18 46" tooltip="Fechar (Esc)">X</object>
+				<object name="codexHeader" type="text" size="20 14 220 48" font="sans-bold-stroke-16" textcolor="235 205 125" text_valign="center">CÓDEX</object>
+				<repeat count="26" var="n">
+					<object name="codexFac[n]" type="button" style="wh40kButton" font="sans-bold-12" hidden="true"/>
+				</repeat>
+				<object name="codexText" type="text" size="232 50 100%-20 176" font="sans-13" textcolor="225 220 205" scrollbar="true" scrollbar_style="ModernScrollBar"/>
+				<repeat count="48" var="n">
+					<object name="codexIcon[n]" type="button" sprite_over="wh40kRowOver" hidden="true">
+						<object name="codexIconImg[n]" type="image" ghost="true" size="3 3 100%-3 100%-3"/>
+						<object name="codexIconTag[n]" type="text" ghost="true" size="4 100%-20 100%-4 100%-2" font="sans-bold-stroke-12" textcolor="250 225 150" text_align="center"/>
+					</object>
+				</repeat>
+			</object>
+		</object>
+
+		<!-- ============================================== estatísticas (ui/Stats.js) -->
+		<object name="statsDim" type="image" sprite="wh40kDim" size="0 0 100% 100%" hidden="true" z="195">
+			<object name="statsPanel" type="image" sprite="wh40kPanel" size="50%-500 50%-340 50%+500 50%+340">
+				<object name="statsTitle" type="text" size="20 12 100%-70 48" font="sans-bold-stroke-20" textcolor="235 205 125" text_valign="center"/>
+				<object name="statsClose" type="button" style="wh40kButton" size="100%-50 14 100%-18 46" tooltip="Fechar (Esc)">X</object>
+				<object name="statsChart" type="image" sprite="color:12 10 8 200" size="20 56 100%-220 356">
+					<repeat count="320" var="n">
+						<object name="statsBar[n]" type="image" ghost="true" hidden="true"/>
+					</repeat>
+				</object>
+				<object name="statsAxis" type="text" size="20 358 100%-220 380" font="sans-12" textcolor="190 180 160"/>
+				<object name="statsLegend" type="text" size="100%-210 56 100%-20 380" font="sans-13" textcolor="225 220 205"/>
+				<object name="statsText" type="text" size="20 388 100%-20 100%-20" font="sans-13" textcolor="225 220 205" scrollbar="true" scrollbar_style="ModernScrollBar"/>
+			</object>
+		</object>
+
 		<!-- ============================================== diálogo -->
 		<object name="dialogDim" type="image" sprite="wh40kDim" size="0 0 100% 100%" hidden="true" z="200">
 			<object name="dialog" type="image" sprite="wh40kPanel" size="50%-330 50%-230 50%+330 50%+230">
@@ -191,7 +249,7 @@
 				<object name="cardTitle" type="text" ghost="true" size="520 22 100%-56 82" text_valign="center" font="sans-bold-stroke-20" textcolor="235 205 125"/>
 				<object name="cardSubtitle" type="text" ghost="true" size="520 84 100%-20 108" font="sans-bold-14" textcolor="200 190 170"/>
 				<object name="cardStats" type="text" ghost="true" size="520 116 100%-20 310" font="sans-14" textcolor="225 220 205"/>
-				<object name="cardDesc" type="text" ghost="true" size="520 316 100%-20 424" font="sans-14" textcolor="210 205 190"/>
+				<object name="cardDesc" type="text" size="520 316 100%-20 424" font="sans-13" textcolor="210 205 190" scrollbar="true" scrollbar_style="ModernScrollBar"/>
 				<object name="cardQuote" type="text" ghost="true" size="520 424 100%-20 100%-20" font="sans-bold-stroke-14" textcolor="250 225 150"/>
 				<object name="cardClose" type="button" style="wh40kButton" size="100%-50 18 100%-18 50" tooltip="Fechar (Esc ou clique fora)">X</object>
 			</object>

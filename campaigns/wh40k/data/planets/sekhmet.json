@@ -1,0 +1,101 @@
+{
+	"id": "sekhmet",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"sv_tower": {
+			"rect": [
+				0.34863,
+				0.0,
+				0.68359,
+				0.7125
+			],
+			"label": [
+				0.4951,
+				0.4219
+			],
+			"area": 105816,
+			"neighbors": [
+				"sv_ice",
+				"sv_library",
+				"sv_peaks",
+				"sv_plains"
+			],
+			"coastal": true
+		},
+		"sv_library": {
+			"rect": [
+				0.0,
+				0.0,
+				0.40723,
+				0.73281
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 149050,
+			"neighbors": [
+				"sv_peaks",
+				"sv_tower"
+			],
+			"coastal": false
+		},
+		"sv_plains": {
+			"rect": [
+				0.5332,
+				0.0,
+				1.0,
+				0.55156
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 133299,
+			"neighbors": [
+				"sv_ice",
+				"sv_tower"
+			],
+			"coastal": false
+		},
+		"sv_peaks": {
+			"rect": [
+				0.0,
+				0.50156,
+				0.4707,
+				1.0
+			],
+			"label": [
+				0.123,
+				0.9984
+			],
+			"area": 105548,
+			"neighbors": [
+				"sv_library",
+				"sv_tower"
+			],
+			"coastal": true
+		},
+		"sv_ice": {
+			"rect": [
+				0.57129,
+				0.49219,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.9697,
+				0.9984
+			],
+			"area": 117572,
+			"neighbors": [
+				"sv_plains",
+				"sv_tower"
+			],
+			"coastal": true
+		}
+	}
+}

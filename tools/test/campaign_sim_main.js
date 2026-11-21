@@ -41,5 +41,6 @@ for (let t = 0; t < TURNS && !state.gameOver; ++t)
 print(summary());
 print("batalhas pendentes resolvidas: " + battles + "; fim: " + JSON.stringify(state.gameOver));
 print("últimos eventos:");
+if (typeof GREP != "undefined") for (const e of state.log) if (GREP.test(e.text)) print("  * [T" + e.turn + "] " + e.text);
 for (const e of state.log.slice(-12))
 	print("  [T" + e.turn + " " + e.kind + "] " + e.text);

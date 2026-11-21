@@ -1,0 +1,61 @@
+{
+	"id": "vraks_minor",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"vm_silos": {
+			"rect": [
+				0.30859,
+				0.13125,
+				0.70215,
+				0.87344
+			],
+			"label": [
+				0.4902,
+				0.4484
+			],
+			"area": 122450,
+			"neighbors": [
+				"vm_bunkers",
+				"vm_docks"
+			],
+			"coastal": false
+		},
+		"vm_bunkers": {
+			"rect": [
+				0.10059,
+				0.15781,
+				0.38574,
+				0.82812
+			],
+			"label": [
+				0.2197,
+				0.6047
+			],
+			"area": 72759,
+			"neighbors": [
+				"vm_silos"
+			],
+			"coastal": false
+		},
+		"vm_docks": {
+			"rect": [
+				0.49902,
+				0.20156,
+				0.93262,
+				0.89531
+			],
+			"label": [
+				0.7471,
+				0.4781
+			],
+			"area": 89715,
+			"neighbors": [
+				"vm_silos"
+			],
+			"coastal": false
+		}
+	}
+}

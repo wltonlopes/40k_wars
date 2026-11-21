@@ -25,6 +25,16 @@ const WH40K_ORDERS = {
 	"retreat": { "name": "Recuar", "desc": "Foge para a borda do seu lado; quem sai escapa." }
 };
 
+/**
+ * Dificuldade (escolhida na campanha nova): recursos iniciais, rendimento e
+ * quanto a IA exige de vantagem para atacar (aiRatio: menor = mais agressiva).
+ */
+const WH40K_DIFFICULTY = {
+	"easy": { "name": "Fácil", "desc": "Mais recursos para você; a IA rende menos e só ataca com muita vantagem.", "playerFunds": 1.4, "aiFunds": 0.8, "playerIncome": 1.2, "aiIncome": 0.85, "aiRatio": 1.6 },
+	"normal": { "name": "Normal", "desc": "As regras padrão.", "playerFunds": 1, "aiFunds": 1, "playerIncome": 1, "aiIncome": 1, "aiRatio": 1.25 },
+	"hard": { "name": "Difícil", "desc": "A IA começa e rende mais, e ataca com menos vantagem.", "playerFunds": 0.9, "aiFunds": 1.3, "playerIncome": 1, "aiIncome": 1.25, "aiRatio": 1.1 }
+};
+
 var WH40KData = {
 	"loaded": false,
 
@@ -58,6 +68,24 @@ var WH40KData = {
 		this.generals = {};
 		for (const general of read("generals.json").generals)
 			this.generals[general.id] = general;
+
+		// Progressão dos generais e relíquias (progression.json, v0.6).
+		let progression = {};
+		try
+		{
+			progression = read("progression.json") || {};
+		}
+		catch (e)
+		{
+			warn("40k Wars: progression.json indisponível: " + e);
+		}
+		this.progression = { "levels": progression.levels || [0, 3, 7, 12, 18, 26], "traits": {} };
+		for (const t of progression.traits || [])
+			this.progression.traits[t.id] = t;
+		this.relics = (progression.relics || {})[this.scenario.id] || {};
+		this.relicById = {};
+		for (const pid in this.relics)
+			this.relicById[this.relics[pid].id] = Object.assign({ "province": pid }, this.relics[pid]);
 
 		const support = read("support.json");
 		this.support = {};

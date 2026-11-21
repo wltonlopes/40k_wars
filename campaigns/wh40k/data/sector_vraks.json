@@ -1,0 +1,554 @@
+{
+	"Description": "Sistema estelar e corpos celestes (mesmo formato do sector.json). Gerado por tools/data/build_badab_vraks.py; mapas por tools/art/gen_planets.py.",
+	"start": {
+		"turn": 1,
+		"year": "813.M41",
+		"monthsPerTurn": 3
+	},
+	"system": {
+		"id": "vraks",
+		"name": "Sistema Vraks",
+		"star": {
+			"name": "Vraks",
+			"color": [
+				255,
+				200,
+				160
+			]
+		},
+		"desc": "O mundo-arsenal Vraks Prime guarda armas para mil regimentos. O Cardeal Xaphan o entregou ao Caos — e Krieg veio cobrar."
+	},
+	"bodies": [
+		{
+			"id": "vraks_prime",
+			"name": "Vraks Prime",
+			"kind": "planet",
+			"class": "Mundo-Arsenal",
+			"orbit": 0.2,
+			"angle": 200,
+			"size": 1.0,
+			"mapSize": [
+				2048,
+				1280
+			],
+			"seed": 221,
+			"palette": "forge",
+			"desc": "Um planeta de bunkers, depósitos e trincheiras. A Cidadela de Vraks é cercada por linhas de defesa em anéis. Krieg desembarcou no sul.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "citadel",
+					"name": "Cidadela de Vraks",
+					"terrain": "hive",
+					"x": 0.5,
+					"y": 0.24,
+					"owner": "vraks",
+					"hive": 2,
+					"forts": 3,
+					"shipyard": true,
+					"garrison": [
+						"vr_rifles",
+						"vr_hmg",
+						"vr_grenadiers"
+					]
+				},
+				{
+					"id": "arsenal_east",
+					"name": "Arsenal Oriental",
+					"terrain": "industrial",
+					"x": 0.72,
+					"y": 0.28,
+					"owner": "vraks",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"vr_rifles",
+						"vr_hmg"
+					]
+				},
+				{
+					"id": "arsenal_west",
+					"name": "Arsenal Ocidental",
+					"terrain": "industrial",
+					"x": 0.28,
+					"y": 0.28,
+					"owner": "vraks",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"vr_rifles",
+						"vr_raiders"
+					]
+				},
+				{
+					"id": "cathedral",
+					"name": "Catedral Profanada",
+					"terrain": "hive",
+					"x": 0.5,
+					"y": 0.08,
+					"owner": "vraks",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"vr_cultists",
+						"vr_preachers"
+					]
+				},
+				{
+					"id": "outer_line",
+					"name": "Linha Exterior",
+					"terrain": "ash",
+					"x": 0.5,
+					"y": 0.46,
+					"owner": "vraks",
+					"forts": 2,
+					"garrison": [
+						"vr_rifles",
+						"vr_hmg"
+					]
+				},
+				{
+					"id": "east_redoubt",
+					"name": "Reduto Leste",
+					"terrain": "mountains",
+					"x": 0.8,
+					"y": 0.5,
+					"owner": "vraks",
+					"forts": 2,
+					"garrison": [
+						"vr_rifles"
+					]
+				},
+				{
+					"id": "west_redoubt",
+					"name": "Reduto Oeste",
+					"terrain": "mountains",
+					"x": 0.2,
+					"y": 0.5,
+					"owner": "vraks",
+					"forts": 2,
+					"garrison": [
+						"vr_rifles"
+					]
+				},
+				{
+					"id": "no_mans_land",
+					"name": "Terra de Ninguém",
+					"terrain": "ash",
+					"x": 0.5,
+					"y": 0.64,
+					"garrison": []
+				},
+				{
+					"id": "crater_fields",
+					"name": "Campos de Crateras",
+					"terrain": "ash",
+					"x": 0.3,
+					"y": 0.7,
+					"garrison": [
+						"vr_rifles"
+					]
+				},
+				{
+					"id": "east_trenches",
+					"name": "Trincheiras do Leste",
+					"terrain": "ash",
+					"x": 0.72,
+					"y": 0.7,
+					"garrison": [
+						"vr_rifles"
+					]
+				},
+				{
+					"id": "krieg_camp",
+					"name": "Acampamento de Krieg",
+					"terrain": "plains",
+					"x": 0.5,
+					"y": 0.86,
+					"owner": "krieg",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"kr_rifles",
+						"kr_heavy"
+					]
+				},
+				{
+					"id": "west_camp",
+					"name": "Linha de Abastecimento Oeste",
+					"terrain": "plains",
+					"x": 0.2,
+					"y": 0.86,
+					"owner": "krieg",
+					"forts": 1,
+					"garrison": [
+						"kr_rifles"
+					]
+				},
+				{
+					"id": "east_camp",
+					"name": "Linha de Abastecimento Leste",
+					"terrain": "plains",
+					"x": 0.82,
+					"y": 0.88,
+					"owner": "krieg",
+					"forts": 1,
+					"garrison": [
+						"kr_rifles"
+					]
+				},
+				{
+					"id": "toxic_marsh",
+					"name": "Pântano Tóxico",
+					"terrain": "mire",
+					"x": 0.08,
+					"y": 0.66,
+					"garrison": []
+				},
+				{
+					"id": "burned_forest",
+					"name": "Floresta Queimada",
+					"terrain": "jungle",
+					"x": 0.92,
+					"y": 0.7,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "vraks_minor",
+			"name": "Vraks Menor",
+			"kind": "planet",
+			"class": "Lua-Depósito",
+			"parent": "vraks_prime",
+			"orbit": 0.085,
+			"angle": 120,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 223,
+			"palette": "rok",
+			"desc": "A lua-depósito do arsenal, cheia de silos e bunkers rebeldes.",
+			"neutralCiv": "vraks",
+			"provinces": [
+				{
+					"id": "vm_silos",
+					"name": "Silos de Munição",
+					"terrain": "hive",
+					"x": 0.48,
+					"y": 0.45,
+					"owner": "vraks",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"vr_rifles",
+						"vr_basilisk"
+					]
+				},
+				{
+					"id": "vm_bunkers",
+					"name": "Bunkers",
+					"terrain": "rok",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "vraks",
+					"forts": 1,
+					"garrison": [
+						"vr_rifles"
+					]
+				},
+				{
+					"id": "vm_docks",
+					"name": "Docas",
+					"terrain": "rok",
+					"x": 0.72,
+					"y": 0.62,
+					"owner": "vraks",
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "krieg_dock",
+			"name": "Doca de Desembarque de Krieg",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "vraks_prime",
+			"orbit": 0.13,
+			"angle": 300,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 225,
+			"palette": "station",
+			"desc": "A estação por onde chegam os regimentos de Krieg, um atrás do outro.",
+			"neutralCiv": "krieg",
+			"provinces": [
+				{
+					"id": "krieg_dock_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "krieg",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"kr_rifles"
+					]
+				},
+				{
+					"id": "krieg_dock_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "krieg",
+					"garrison": [
+						"kr_rifles"
+					]
+				},
+				{
+					"id": "krieg_dock_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "krieg",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "grey_aegis",
+			"name": "Nau Negra Silêncio",
+			"kind": "station",
+			"class": "Nau Negra",
+			"orbit": 0.38,
+			"angle": 70,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 227,
+			"palette": "station",
+			"desc": "A nau negra dos Cavaleiros Cinzentos, chamada pelos presságios de uma grande incursão demoníaca.",
+			"neutralCiv": "grey_knights",
+			"provinces": [
+				{
+					"id": "ga_bridge",
+					"name": "Ponte da Nau",
+					"terrain": "station",
+					"x": 0.45,
+					"y": 0.45,
+					"owner": "grey_knights",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"gk_strike",
+						"gk_purgators"
+					]
+				},
+				{
+					"id": "ga_librarium",
+					"name": "Librarium",
+					"terrain": "station",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "grey_knights",
+					"garrison": []
+				},
+				{
+					"id": "ga_teleport",
+					"name": "Sala de Teleporte",
+					"terrain": "station",
+					"x": 0.72,
+					"y": 0.38,
+					"owner": "grey_knights",
+					"hive": 1,
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "warp_rift",
+			"name": "Fenda de Sangue",
+			"kind": "planet",
+			"class": "Fenda da Disformidade",
+			"orbit": 0.42,
+			"angle": 160,
+			"size": 0.6,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 229,
+			"palette": "khorne",
+			"desc": "Uma ferida na realidade aberta pelos sacrifícios de Xaphan. Por ela passam os servos de Khorne.",
+			"neutralCiv": "world_eaters",
+			"provinces": [
+				{
+					"id": "wr_throne",
+					"name": "Trono de Bronze",
+					"terrain": "warp",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "world_eaters",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"we_berzerkers",
+						"we_bloodletters"
+					]
+				},
+				{
+					"id": "wr_pits",
+					"name": "Poços de Sangue",
+					"terrain": "warp",
+					"x": 0.2,
+					"y": 0.35,
+					"owner": "world_eaters",
+					"garrison": [
+						"we_jakhals"
+					]
+				},
+				{
+					"id": "wr_bones",
+					"name": "Campos de Ossos",
+					"terrain": "ash",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "world_eaters",
+					"garrison": []
+				},
+				{
+					"id": "wr_brass",
+					"name": "Torres de Bronze",
+					"terrain": "industrial",
+					"x": 0.5,
+					"y": 0.78,
+					"owner": "world_eaters",
+					"hive": 1,
+					"garrison": []
+				}
+			]
+		}
+	],
+	"startingArmies": [
+		{
+			"faction": "krieg",
+			"general": "zuehlke",
+			"body": "vraks_prime",
+			"province": "krieg_camp",
+			"battalions": [
+				"kr_rifles",
+				"kr_rifles",
+				"kr_rifles",
+				"kr_watchmaster",
+				"kr_grenadiers",
+				"kr_engineers",
+				"kr_heavy",
+				"kr_earthshaker",
+				"kr_demolisher"
+			]
+		},
+		{
+			"faction": "krieg",
+			"general": "vosk",
+			"body": "vraks_prime",
+			"province": "west_camp",
+			"battalions": [
+				"kr_rifles",
+				"kr_rifles",
+				"kr_flamers",
+				"kr_plasma",
+				"kr_riders"
+			]
+		},
+		{
+			"faction": "vraks",
+			"general": "xaphan",
+			"body": "vraks_prime",
+			"province": "citadel",
+			"battalions": [
+				"vr_rifles",
+				"vr_rifles",
+				"vr_grenadiers",
+				"vr_hmg",
+				"vr_alpha",
+				"vr_russ",
+				"vr_basilisk"
+			]
+		},
+		{
+			"faction": "vraks",
+			"general": "drax",
+			"body": "vraks_prime",
+			"province": "arsenal_west",
+			"battalions": [
+				"vr_rifles",
+				"vr_raiders",
+				"vr_raiders",
+				"vr_disciplinarians",
+				"vr_chimera"
+			]
+		},
+		{
+			"faction": "grey_knights",
+			"general": "voldus",
+			"body": "grey_aegis",
+			"province": "ga_bridge",
+			"battalions": [
+				"gk_strike",
+				"gk_purifiers",
+				"gk_terminators"
+			]
+		},
+		{
+			"faction": "world_eaters",
+			"general": "invocatus",
+			"body": "warp_rift",
+			"province": "wr_throne",
+			"battalions": [
+				"we_jakhals",
+				"we_berzerkers",
+				"we_bloodletters",
+				"we_bloodcrushers"
+			]
+		}
+	],
+	"startingFleets": [
+		{
+			"faction": "krieg",
+			"body": "krieg_dock",
+			"ships": 3
+		},
+		{
+			"faction": "vraks",
+			"body": "vraks_minor",
+			"ships": 2
+		},
+		{
+			"faction": "grey_knights",
+			"body": "grey_aegis",
+			"ships": 2
+		},
+		{
+			"faction": "world_eaters",
+			"body": "warp_rift",
+			"ships": 2
+		}
+	]
+}

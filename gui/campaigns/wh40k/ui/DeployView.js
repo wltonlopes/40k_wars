@@ -57,6 +57,15 @@ class WH40KDeployView
 		gui("deployField").sprite = "wh40kBlack";
 		gui("deployField").sprite_over = "wh40kBlack";
 		gui("deployGround").sprite = "stretched:campaigns/wh40k/battle/ground_" + setup.pdef.terrain + ".png";
+		// Província com cidade: a cidade vista de cima no meio do campo.
+		const city = gui("deployCity");
+		city.hidden = !setup.pdef.hive;
+		if (setup.pdef.hive)
+		{
+			const cs = r.h * (setup.pdef.hive == 2 ? 0.92 : 0.62);
+			city.sprite = citySprite(setup.pdef.id);
+			setSize(city, r.w / 2 - cs / 2, r.h / 2 - cs / 2, r.w / 2 + cs / 2, r.h / 2 + cs / 2);
+		}
 		gui("deployTitle").caption = "Desdobramento — " + setup.pdef.name + " (" + WH40K_TERRAIN_NAMES[setup.pdef.terrain] + ")";
 		gui("deployHint").caption = "Clique num batalhão e depois no campo (zona verde) para posicioná-lo. Escolha a ordem de cada um e o plano no painel.";
 

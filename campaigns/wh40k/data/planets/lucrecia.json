@@ -1,0 +1,83 @@
+{
+	"id": "lucrecia",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"lc_convent": {
+			"rect": [
+				0.27539,
+				0.0,
+				0.62793,
+				0.69219
+			],
+			"label": [
+				0.4473,
+				0.3781
+			],
+			"area": 101189,
+			"neighbors": [
+				"lc_ossuary",
+				"lc_pilgrims",
+				"lc_reliquary"
+			],
+			"coastal": false
+		},
+		"lc_ossuary": {
+			"rect": [
+				0.0,
+				0.0,
+				0.39844,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 180576,
+			"neighbors": [
+				"lc_convent",
+				"lc_reliquary"
+			],
+			"coastal": false
+		},
+		"lc_pilgrims": {
+			"rect": [
+				0.5332,
+				0.0,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 216761,
+			"neighbors": [
+				"lc_convent",
+				"lc_reliquary"
+			],
+			"coastal": false
+		},
+		"lc_reliquary": {
+			"rect": [
+				0.06055,
+				0.53594,
+				0.94238,
+				1.0
+			],
+			"label": [
+				0.5391,
+				0.9984
+			],
+			"area": 156834,
+			"neighbors": [
+				"lc_convent",
+				"lc_ossuary",
+				"lc_pilgrims"
+			],
+			"coastal": false
+		}
+	}
+}

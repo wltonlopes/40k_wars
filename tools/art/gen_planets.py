@@ -71,12 +71,15 @@ PALETTE_TINT = {
     "nurgle": (0.98, 1.06, 0.78),
     "tzeentch": (0.82, 0.92, 1.2),
     "slaanesh": (1.14, 0.82, 1.12),
+    "forge": (1.14, 0.86, 0.74),
+    "dark": (0.84, 0.92, 1.02),
 }
 ATMOSPHERE = {
     "hive": (200, 150, 90), "volcanic": (230, 110, 50), "ice": (160, 200, 240),
     "agri": (150, 200, 120), "rok": (0, 0, 0), "station": (0, 0, 0),
     "bio": (200, 90, 200), "warp": (240, 60, 120), "tomb": (90, 230, 130), "fortress": (180, 190, 210), "tau": (230, 190, 120),
     "khorne": (240, 50, 30), "nurgle": (170, 200, 70), "tzeentch": (80, 140, 255), "slaanesh": (230, 90, 220),
+    "forge": (220, 90, 50), "dark": (120, 70, 180),
 }
 
 
@@ -179,15 +182,13 @@ def render_map(body, ids, void, w, h, rng):
         sea = TT.sea_layer(h, w, land | void, trng, k)
         img[~land & ~void] = sea[~land & ~void]
 
-    # Colmeias: brilho das luzes em volta do centro.
+    # Colmeias: sombra e brilho leve em volta (a cidade é desenhada depois, draw_cities).
     for i, p in enumerate(provs):
         if p.get("hive"):
             px, py = p["x"] * w, p["y"] * h
-            r = np.sqrt((xx - px) ** 2 + (yy - py) ** 2) / (min(w, h) * (0.075 if p["hive"] == 2 else 0.04))
-            glow = np.clip(1 - r, 0, 1) ** 1.8 * (ids == i)
-            img = img * (1 - glow[..., None] * 0.25) + np.array((255, 168, 80), np.float32) * glow[..., None] * 0.45
-            sparks = (trng.random((h, w)) > 0.9) & (glow > 0.12)
-            img[sparks] = (255, 222, 150)
+            r = np.sqrt((xx - px) ** 2 + (yy - py) ** 2) / (min(w, h) * (0.12 if p["hive"] == 2 else 0.075))
+            glow = np.clip(1 - r, 0, 1) ** 1.5 * (ids == i)
+            img = img * (1 - glow[..., None] * 0.35) + np.array((255, 160, 80), np.float32) * glow[..., None] * 0.12
     img *= np.array(PALETTE_TINT.get(body["palette"], (1, 1, 1)), np.float32)
 
     # Vazio do espaço com estrelas (corpos pequenos).
@@ -306,6 +307,36 @@ def render_globe(body, map_img, rng, void, size=256):
     return img
 
 
+CITIES = os.path.join(UI, "campaigns", "wh40k", "cities")
+
+
+def draw_cities(body, map_img, ids):
+    """Cidades-colmeia vistas de cima (tools/art/slice_space.py) no centro das províncias com cidade."""
+    if not os.path.isdir(CITIES):
+        return map_img
+    w, h = map_img.size
+    tint = np.array(PALETTE_TINT.get(body["palette"], (1, 1, 1)), np.float32)
+    out = map_img.convert("RGBA")
+    for i, p in enumerate(body["provinces"]):
+        if not p.get("hive") or p["terrain"] == "sea":
+            continue
+        n = sum(ord(ch) for ch in p["id"]) % 12
+        city = Image.open(os.path.join(CITIES, "city_%d.png" % n)).convert("RGBA")
+        size = int(min(w, h) * (0.24 if p["hive"] == 2 else 0.14) * (0.75 if body["palette"] in ("station", "rok") else 1))
+        city = city.resize((size, size), Image.LANCZOS)
+        arr = np.asarray(city).astype(np.float32)
+        arr[..., :3] = np.clip(arr[..., :3] * tint, 0, 255)
+        city = Image.fromarray(arr.astype(np.uint8), "RGBA")
+        # Sombra escura em volta: a cidade se destaca do terreno.
+        alpha = city.getchannel("A").filter(ImageFilter.MaxFilter(5)).filter(ImageFilter.GaussianBlur(max(2, size // 40)))
+        shadow = Image.new("RGBA", city.size, (8, 6, 4, 0))
+        shadow.putalpha(alpha.point(lambda v: int(v * 0.85)))
+        x, y = int(p["x"] * w - size / 2), int(p["y"] * h - size / 2)
+        out.alpha_composite(shadow, (x + max(2, size // 50), y + max(2, size // 50)))
+        out.alpha_composite(city, (x, y))
+    return out.convert("RGB")
+
+
 def gen_body(body):
     w, h = body["mapSize"]
     rng = np.random.default_rng(body.get("seed", 1))
@@ -316,7 +347,7 @@ def gen_body(body):
             os.remove(os.path.join(out_dir, f))
     ids, void = assign_provinces(body, w, h, rng)
     img, land = render_map(body, ids, void, w, h, rng)
-    map_img = Image.fromarray(img, "RGB")
+    map_img = draw_cities(body, Image.fromarray(img, "RGB"), ids)
     # A textura precisa de lados em potência de 2: salva esticada (a tela
     # desenha o mapa na proporção de mapSize).
     map_img.resize((pow2(w, 4096), pow2(h, 4096) if pow2(h, 4096) <= h else pow2(h, 4096) // 2), Image.LANCZOS).save(os.path.join(out_dir, "map.png"))
