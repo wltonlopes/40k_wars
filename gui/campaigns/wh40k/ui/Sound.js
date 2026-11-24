@@ -8,6 +8,13 @@ const WH40K_MUSIC = {
 	"campaign": ["wh40k_Crusade_Heavy_Industry.ogg", "wh40k_Dark_Times.ogg", "wh40k_Death_of_Kings.ogg", "wh40k_Gregorian_Chant.ogg"],
 	"battle": ["wh40k_Five_Armies.ogg", "wh40k_Black_Vortex.ogg", "wh40k_Volatile_Reaction.ogg", "wh40k_Clash_Defiant.ogg"]
 };
+/** Tema de cada grupo de facções (tocado junto com as faixas da campanha). */
+const WH40K_MUSIC_THEMES = {
+	"imperium": ["wh40k_Heroic_Age.ogg"], "secessionists": ["wh40k_Heroic_Age.ogg"],
+	"chaos": ["wh40k_Unholy_Knight.ogg", "wh40k_Darkest_Child.ogg"], "orks": ["wh40k_Rites.ogg"],
+	"mechanicus": ["wh40k_Mechanolith.ogg"], "necrons": ["wh40k_Crypto.ogg"],
+	"tyranids": ["wh40k_Lightless_Dawn.ogg"], "xenos": ["wh40k_Gathering_Darkness.ogg", "wh40k_Lightless_Dawn.ogg"]
+};
 const WH40K_SFX_DIR = "audio/interface/wh40k/";
 const WH40K_SFX_VARIANTS = { "las": 3, "bolt": 3, "auto": 2, "cannon": 2, "explosion": 3 };
 /** Intervalo mínimo (ms) entre dois sons do mesmo grupo. */
@@ -35,6 +42,15 @@ class WH40KSound
 		this.window = [];
 	}
 
+	/** Tema musical da facção do jogador (WH40K_MUSIC_THEMES). */
+	setTheme(faction, D)
+	{
+		const group = faction == "mechanicus" ? "mechanicus" : faction == "necrons" ? "necrons" : faction == "tyranids" ? "tyranids" :
+			D?.factions[faction]?.pact?.group;
+		this.theme = WH40K_MUSIC_THEMES[group] || WH40K_MUSIC_THEMES[["imperium", "chaos", "orks", "secessionists"].indexOf(group) == -1 ? "xenos" : group] || [];
+		this.musicState = null;
+	}
+
 	music(state)
 	{
 		if (this.musicState == state || !WH40K_MUSIC[state])
@@ -42,7 +58,8 @@ class WH40KSound
 		this.musicState = state;
 		try
 		{
-			const tracks = WH40K_MUSIC[state].slice();
+			// O tema da facção abre a campanha e volta entre as faixas gerais.
+			const tracks = state == "campaign" && this.theme ? this.theme.concat(WH40K_MUSIC[state]) : WH40K_MUSIC[state].slice();
 			// Começa por uma faixa diferente a cada vez.
 			const k = Math.floor(Math.random() * tracks.length);
 			Engine.ClearPlaylist();
@@ -170,6 +187,12 @@ class WH40KSound
 			break;
 		case "laser":
 			this.play("orbital", true);
+			break;
+		case "ability":
+			this.play(ev.kind == "smite" || ev.kind == "teleport" ? "warp" : ev.kind == "warcry" || ev.kind == "inspire" ? "horn" : "ui_card", true);
+			break;
+		case "wallbreak":
+			this.play("explosion", true);
 			break;
 		case "panic":
 			this.play("panic");

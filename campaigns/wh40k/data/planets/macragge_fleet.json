@@ -1,0 +1,63 @@
+{
+	"id": "macragge_fleet",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"macragge_fleet_yards": {
+			"rect": [
+				0.12207,
+				0.16875,
+				0.47852,
+				0.85781
+			],
+			"label": [
+				0.2773,
+				0.5547
+			],
+			"area": 98432,
+			"neighbors": [
+				"macragge_fleet_battery",
+				"macragge_fleet_ring"
+			],
+			"coastal": false
+		},
+		"macragge_fleet_ring": {
+			"rect": [
+				0.33691,
+				0.14062,
+				0.76562,
+				0.84375
+			],
+			"label": [
+				0.5293,
+				0.3828
+			],
+			"area": 102264,
+			"neighbors": [
+				"macragge_fleet_battery",
+				"macragge_fleet_yards"
+			],
+			"coastal": false
+		},
+		"macragge_fleet_battery": {
+			"rect": [
+				0.47852,
+				0.27031,
+				0.90527,
+				0.87031
+			],
+			"label": [
+				0.7861,
+				0.5406
+			],
+			"area": 79938,
+			"neighbors": [
+				"macragge_fleet_ring",
+				"macragge_fleet_yards"
+			],
+			"coastal": false
+		}
+	}
+}

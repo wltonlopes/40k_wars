@@ -1,0 +1,61 @@
+{
+	"id": "tomb_moon",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"km_pyramid": {
+			"rect": [
+				0.24023,
+				0.0,
+				0.74414,
+				1.0
+			],
+			"label": [
+				0.5029,
+				0.3781
+			],
+			"area": 197896,
+			"neighbors": [
+				"km_halls",
+				"km_vaults"
+			],
+			"coastal": false
+		},
+		"km_halls": {
+			"rect": [
+				0.0,
+				0.0,
+				0.44141,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 218222,
+			"neighbors": [
+				"km_pyramid"
+			],
+			"coastal": false
+		},
+		"km_vaults": {
+			"rect": [
+				0.53809,
+				0.0,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.9984
+			],
+			"area": 239242,
+			"neighbors": [
+				"km_pyramid"
+			],
+			"coastal": false
+		}
+	}
+}

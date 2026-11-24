@@ -14,6 +14,10 @@
  */
 const WH40K_TRUCE_TURNS = 10;
 const WH40K_GRUDGE_TURNS = 12;
+/** Alianças de conveniência (Caos): forma com um inimigo comum mais forte; rompe quando ele enfraquece. */
+const WH40K_ALLY_THREAT = 0.9;
+const WH40K_ALLY_BREAK = 0.55;
+const WH40K_ALLY_COOLDOWN = 4;
 const WH40K_ASCEND_CHANCE = 0.7;
 const WH40K_MAX_FORTS = 3;
 
@@ -243,6 +247,7 @@ Object.assign(WH40KGame.prototype, {
 			const prov = this.province(pid);
 			prov.owner = faction;
 			prov.garrison = [];
+			prov.order = 60;
 			prov.capturedTurn = this.s.turn;
 			this.event("capture", pid, faction);
 			text = r.name + ": " + this.pdef(pid).name + " se junta a " + name + " sem disparar um tiro.";
@@ -441,6 +446,12 @@ Object.assign(WH40KGame.prototype, {
 			if (info.isChaos)
 				inc("chaosGeneralWins");
 		}
+		if (!info.win)
+		{
+			inc("defeats");
+			if (info.role == "attacker")
+				inc("attackLosses");
+		}
 		if (info.generalKill)
 			inc("generalKills");
 		if (info.hive)
@@ -547,6 +558,7 @@ Object.assign(WH40KGame.prototype, {
 					lines.push(...progress);
 			}
 		}
+		lines.push(...this.factionAfterBattle(battle, sides, result).filter(() => battle.attacker.faction == this.player || battle.defender.faction == this.player));
 		if (conquered)
 			this.claimRelics();
 		return lines;
@@ -575,7 +587,7 @@ Object.assign(WH40KGame.prototype, {
 	/** Podem fazer trégua? "" ou o motivo. */
 	"canTruce": function(a, b)
 	{
-		if (a == b || this.D.allied(a, b))
+		if (a == b || this.allied(a, b))
 			return "São aliados.";
 		if (!this.s.factions[a]?.alive || !this.s.factions[b]?.alive)
 			return "Facção fora da guerra.";
@@ -649,6 +661,189 @@ Object.assign(WH40KGame.prototype, {
 		return { "accepted": accepted };
 	},
 
+	// ------------------------------------------------------------ alianças de conveniência
+
+	"inAlliance": function(a, b)
+	{
+		return !!a && !!b && a != b && !!this.s.alliances && !!this.s.alliances[this.truceKey(a, b)];
+	},
+
+	"alliesOf": function(faction)
+	{
+		return Object.keys(this.s.factions).filter(f => f != faction && this.s.factions[f].alive && this.allied(f, faction));
+	},
+
+	/**
+	 * Inimigo comum que justifica a aliança: vivo, inimigo dos dois, de fora
+	 * do grupo deles e mais forte que cada um (ratio × o mais forte dos dois).
+	 */
+	"commonThreat": function(a, b, ratio)
+	{
+		const pa = this.factionPower(a);
+		const pb = this.factionPower(b);
+		let best = null;
+		let bestPower = Math.max(pa, pb) * ratio;
+		for (const c in this.s.factions)
+		{
+			if (c == a || c == b || !this.s.factions[c].alive || this.D.groupOf(c) == this.D.groupOf(a))
+				continue;
+			if (this.D.allied(c, a) || this.D.allied(c, b))
+				continue;
+			// Conta o bloco inteiro do inimigo (o Imperium luta junto).
+			const power = [c, ...Object.keys(this.s.factions).filter(o => o != c && this.s.factions[o].alive && this.D.allied(o, c))]
+				.reduce((sum, f) => sum + this.factionPower(f), 0);
+			if (power > bestPower)
+			{
+				best = c;
+				bestPower = power;
+			}
+		}
+		return best;
+	},
+
+	/** Podem se aliar por conveniência? "" ou o motivo. */
+	"canAlly": function(a, b)
+	{
+		if (a == b || this.allied(a, b))
+			return "Já são aliados.";
+		if (!this.s.factions[a]?.alive || !this.s.factions[b]?.alive)
+			return "Facção fora da guerra.";
+		const g = this.D.groupOf(a);
+		if (!g || g != this.D.groupOf(b) || WH40K_INTEREST_GROUPS.indexOf(g) == -1)
+			return "Só facções do mesmo grupo se aliam assim.";
+		const pa = this.D.factions[a].pact || {};
+		const pb = this.D.factions[b].pact || {};
+		if (!(pa.with || []).includes(g))
+			return pa.never || this.D.factionName(a) + " não se alia a ninguém.";
+		if (!(pb.with || []).includes(g))
+			return pb.never || this.D.factionName(b) + " não se alia a ninguém.";
+		const key = this.truceKey(a, b);
+		if ((this.s.grudges[key] || 0) > this.s.turn)
+			return "A traição ainda é recente (até o turno " + this.s.grudges[key] + ").";
+		if ((this.s.allyCooldown[key] || 0) > this.s.turn)
+			return "A última aliança acabou há pouco (até o turno " + this.s.allyCooldown[key] + ").";
+		if (!this.commonThreat(a, b, WH40K_ALLY_THREAT))
+			return "Não há um inimigo comum forte o bastante para justificar a aliança.";
+		return "";
+	},
+
+	"makeAlliance": function(a, b)
+	{
+		const enemy = this.commonThreat(a, b, WH40K_ALLY_THREAT) || this.commonThreat(a, b, 0);
+		const key = this.truceKey(a, b);
+		delete this.s.truces[key];
+		this.s.alliances[key] = { "since": this.s.turn, "enemy": enemy };
+		this.log("Aliança de conveniência: " + this.D.factionName(a) + " e " + this.D.factionName(b) + " se unem contra " + (enemy ? this.D.factionName(enemy) : "o inimigo comum") + ".", "diplomacy", a);
+	},
+
+	/** A aliança acaba. Com betrayer, é traição: +20% no ataque dele neste turno e rancor. */
+	"breakAlliance": function(a, b, why, betrayer)
+	{
+		const key = this.truceKey(a, b);
+		if (!this.s.alliances[key])
+			return "Não há aliança para romper.";
+		delete this.s.alliances[key];
+		this.s.allyCooldown[key] = this.s.turn + WH40K_ALLY_COOLDOWN;
+		if (betrayer)
+		{
+			const victim = betrayer == a ? b : a;
+			this.s.grudges[key] = this.s.turn + WH40K_GRUDGE_TURNS;
+			this.s.factions[betrayer].treachery = (this.s.factions[betrayer].treachery || 0) + 1;
+			for (const army of this.armiesOf(betrayer))
+				this.addBuff(army, { "name": "Traição", "attack": 0.2, "turns": 1 });
+			this.log(this.D.factionName(betrayer) + " TRAI " + this.D.factionName(victim) + "! A aliança acabou com uma faca nas costas.", "warning", betrayer);
+		}
+		else
+			this.log("A aliança entre " + this.D.factionName(a) + " e " + this.D.factionName(b) + " acabou: " + why + ".", "diplomacy", a);
+		// Exércitos que estavam juntos: o que está em terra alheia recua.
+		for (const army of Object.values(this.s.armies))
+			if (army.province && (army.faction == a || army.faction == b) && this.hostileArmiesAt(army.province, army.faction).length &&
+				this.province(army.province).owner != army.faction)
+				this.retreatArmy(army, army.province);
+		return "";
+	},
+
+	/** Proposta de aliança: IA decide na hora, o jogador recebe a escolha. Devolve { error } | { accepted } | { pending }. */
+	"proposeAlliance": function(from, to)
+	{
+		const why = this.canAlly(from, to);
+		if (why)
+			return { "error": why };
+		if (!this.s.factions[to].ai)
+		{
+			if (!this.s.pendingChoices.some(c => c.kind == "alliance" && c.from == from))
+				this.s.pendingChoices.push({ "kind": "alliance", "from": from, "to": to, "turn": this.s.turn });
+			return { "pending": true };
+		}
+		const fs = this.s.factions[from];
+		fs.allyProposals = fs.allyProposals || {};
+		if (fs.allyProposals[to] == this.s.turn)
+			return { "error": "Já propôs neste turno." };
+		fs.allyProposals[to] = this.s.turn;
+		const accepted = Math.random() < this.allianceChance(to, from);
+		if (accepted)
+			this.makeAlliance(from, to);
+		else if (from == this.player)
+			this.log(this.D.factionName(to) + " recusa a aliança.", "diplomacy", from);
+		return { "accepted": accepted };
+	},
+
+	/** Chance de judge aceitar a aliança: maior quanto mais forte o inimigo comum e mais fraco o juiz. */
+	"allianceChance": function(judge, proposer)
+	{
+		const enemy = this.commonThreat(judge, proposer, WH40K_ALLY_THREAT);
+		if (!enemy)
+			return 0;
+		const pj = this.factionPower(judge);
+		let chance = 0.45 + (pj < this.factionPower(proposer) ? 0.15 : 0);
+		if (this.commonThreat(judge, proposer, 1.6))
+			chance += 0.2;
+		chance -= 0.15 * (this.s.factions[proposer].treachery || 0);
+		return Math.max(0.05, Math.min(0.9, chance));
+	},
+
+	/** Alianças de conveniência no fim do turno: rompem sem inimigo comum; a IA forma as novas. */
+	"tickAlliances": function()
+	{
+		for (const key in this.s.alliances)
+		{
+			const [a, b] = key.split("|");
+			if (!this.s.factions[a]?.alive || !this.s.factions[b]?.alive)
+			{
+				delete this.s.alliances[key];
+				continue;
+			}
+			if (this.commonThreat(a, b, WH40K_ALLY_BREAK))
+				continue;
+			// Sem ameaça: o mais forte (se for IA) pode trair; senão a aliança se desfaz.
+			const pa = this.factionPower(a);
+			const pb = this.factionPower(b);
+			const strong = pa >= pb ? a : b;
+			const ratio = Math.max(pa, pb) / Math.max(1, Math.min(pa, pb));
+			const betrayer = this.s.factions[strong].ai && ratio > 1.4 && Math.random() < 0.5 ? strong : null;
+			this.breakAlliance(a, b, "o inimigo comum já não é uma ameaça", betrayer);
+		}
+		// A IA procura aliados (e propõe ao jogador, se for do mesmo grupo).
+		const fs = Object.keys(this.s.factions).filter(f => this.s.factions[f].alive && this.s.factions[f].ai);
+		for (const a of fs)
+			for (const b of Object.keys(this.s.factions))
+			{
+				if (a == b || this.canAlly(a, b))
+					continue;
+				if (!this.s.factions[b].ai)
+				{
+					const last = this.s.factions[a].allyAsked?.[b] || -99;
+					if (this.s.turn - last >= 5 && Math.random() < 0.5)
+					{
+						(this.s.factions[a].allyAsked = this.s.factions[a].allyAsked || {})[b] = this.s.turn;
+						this.proposeAlliance(a, b);
+					}
+				}
+				else if (a < b && Math.random() < 0.5)
+					this.proposeAlliance(a, b);
+			}
+	},
+
 	/** Traição: a trégua acaba e os exércitos do traidor ganham +20% no ataque neste turno. */
 	"betray": function(traitor, victim)
 	{
@@ -665,6 +860,7 @@ Object.assign(WH40KGame.prototype, {
 
 	"tickDiplomacy": function()
 	{
+		this.tickAlliances();
 		for (const key in this.s.truces)
 			if (this.s.truces[key].until <= this.s.turn)
 			{
@@ -723,6 +919,8 @@ Object.assign(WH40KGame.prototype, {
 	/** Descrição da próxima escolha pendente do jogador (para a janela). */
 	"choiceView": function(choice)
 	{
+		if (choice.kind == "info")
+			return { "title": choice.title, "text": choice.text, "portrait": choice.portrait || this.D.factionPortrait(this.player), "options": [{ "caption": "Entendido" }] };
 		if (choice.kind == "truce")
 		{
 			const f = this.D.factions[choice.from];
@@ -730,6 +928,19 @@ Object.assign(WH40KGame.prototype, {
 				"title": "Proposta de trégua",
 				"text": wh40kColor(f.name, f.color) + " propõe uma trégua de " + WH40K_TRUCE_TURNS + " turnos: nenhum dos dois ataca o outro, e os exércitos podem passar pelas terras um do outro sem tomá-las.\n\n" +
 					"Uma trégua pode ser traída a qualquer momento — com +20% no ataque naquele turno para o traidor, mas ninguém mais confia nele por um bom tempo." +
+					(this.s.factions[choice.from].treachery ? "\n\n" + wh40kColor("Atenção: " + f.name + " já traiu " + this.s.factions[choice.from].treachery + " vez(es).", [240, 140, 90]) : ""),
+				"portrait": f.portrait,
+				"options": [{ "caption": "Aceitar" }, { "caption": "Recusar" }]
+			};
+		}
+		if (choice.kind == "alliance")
+		{
+			const f = this.D.factions[choice.from];
+			const enemy = this.commonThreat(choice.from, choice.to, WH40K_ALLY_THREAT);
+			return {
+				"title": "Proposta de aliança",
+				"text": wh40kColor(f.name, f.color) + " propõe uma aliança de conveniência" + (enemy ? " contra " + wh40kColor(this.D.factionName(enemy), this.D.factions[enemy].color) : "") + ".\n\n" +
+					"Aliados não se atacam, passam pelas terras um do outro e mandam reforços às batalhas vizinhas. A aliança acaba quando o inimigo comum deixar de ser uma ameaça — e o Caos não é conhecido pela lealdade. A vitória ainda exige derrotar o aliado." +
 					(this.s.factions[choice.from].treachery ? "\n\n" + wh40kColor("Atenção: " + f.name + " já traiu " + this.s.factions[choice.from].treachery + " vez(es).", [240, 140, 90]) : ""),
 				"portrait": f.portrait,
 				"options": [{ "caption": "Aceitar" }, { "caption": "Recusar" }]
@@ -752,6 +963,8 @@ Object.assign(WH40KGame.prototype, {
 		const i = this.s.pendingChoices.indexOf(choice);
 		if (i != -1)
 			this.s.pendingChoices.splice(i, 1);
+		if (choice.kind == "info")
+			return "";
 		if (choice.kind == "truce")
 		{
 			if (index == 0 && !this.canTruce(choice.from, choice.to))
@@ -761,6 +974,16 @@ Object.assign(WH40KGame.prototype, {
 			}
 			this.log("Você recusa a trégua de " + this.D.factionName(choice.from) + ".", "diplomacy", choice.to);
 			return "Trégua recusada.";
+		}
+		if (choice.kind == "alliance")
+		{
+			if (index == 0 && !this.canAlly(choice.from, choice.to))
+			{
+				this.makeAlliance(choice.from, choice.to);
+				return "Aliança aceita.";
+			}
+			this.log("Você recusa a aliança de " + this.D.factionName(choice.from) + ".", "diplomacy", choice.to);
+			return "Aliança recusada.";
 		}
 		const ev = WH40K_EVENTS.find(e => e.id == choice.event);
 		if (!ev)

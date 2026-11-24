@@ -287,6 +287,72 @@ def spawn_unit(id, portrait):
              range=0.03, speed=0.03, armor=1.2, noRecruit=True)
 
 
+# ------------------------------------------------------------ poderes dos generais (batalha 2D)
+# type: smite (dano numa área escolhida), warcry (dano dos aliados perto), shield
+# (menos dano recebido perto), heal (cura perto), inspire (todo o lado: sem pânico,
+# mais rápido e mais dano), summon (tropas temporárias), teleport (o general e
+# os vizinhos saltam para o ponto). power, radius (campo), duration e cooldown (s).
+ABILITY_TYPES = {
+    "smite": {"name": "Tempestade Psíquica", "desc": "Fere todos os inimigos numa área escolhida.", "power": 0.25, "radius": 0.08, "cooldown": 45},
+    "warcry": {"name": "Grito de Guerra", "desc": "Os aliados perto do general causam +40% de dano por 15 s.", "power": 0.4, "radius": 0.18, "duration": 15, "cooldown": 50},
+    "shield": {"name": "Escudo de Campo", "desc": "Os aliados perto do general recebem 40% menos dano por 15 s.", "power": 0.4, "radius": 0.18, "duration": 15, "cooldown": 50},
+    "heal": {"name": "Cura de Campo", "desc": "Os aliados perto do general recuperam 25% da força.", "power": 0.25, "radius": 0.18, "cooldown": 55},
+    "inspire": {"name": "Sermão Inflamado", "desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.", "power": 0.15, "duration": 20, "cooldown": 70},
+    "summon": {"name": "Invocação", "desc": "Tropas temporárias surgem junto ao general.", "power": 2, "cooldown": 60},
+    "teleport": {"name": "Ataque Relâmpago", "desc": "O general e os dois batalhões mais próximos saltam para o ponto escolhido.", "radius": 0.35, "cooldown": 55},
+}
+ABILITY_BY_TITLE = [
+    ("smite", ["Bibliotec", "Feiticeiro", "Vidente", "Criptek", "Neurotropo", "Psíquico", "Grão-Mestre"]),
+    ("inspire", ["Capelão", "Comissário", "Apóstolo", "Cônega", "Pregador", "Etéreo", "Abadessa", "Profeta", "Arauto", "Santa", "Cardeal", "Senhor de Vraks"]),
+    ("heal", ["Apotecário", "Sacerdote Sanguinário", "Haemonculus", "Doutor", "Medicae"]),
+    ("shield", ["Mek", "Ferreiro", "Datasmith", "Dominus", "Manipulus", "Capitão-Escudo", "Ancião", "Castelão", "Vidente-Mor"]),
+    ("summon", ["Mestre Infernal", "Patriarca", "Tirano da Colmeia"]),
+    ("teleport", ["Lictor", "Mestre Supremo", "Rainha das Facas"]),
+]
+ABILITY_OVERRIDES = {
+    "kharn": ("warcry", "Sangue para o Deus do Sangue!", {"power": 0.6}),
+    "typhus": ("smite", "Enxame Destruidor", {"radius": 0.11}),
+    "ahriman": ("smite", "Fogo de Tzeentch", {"power": 0.3}),
+    "eldrad": ("shield", "Destino Selado", {"power": 0.5}),
+    "imotekh": ("smite", "Tempestade de Relâmpagos", {"radius": 0.1}),
+    "ghazghkull": ("inspire", "WAAAGH!", {"power": 0.25}),
+    "yarrick": ("smite", "Olhar Malvado", {"power": 0.35, "radius": 0.05}),
+    "calgar": ("shield", "Escudo de Macragge", {}),
+    "mephiston": ("smite", "Tempestade de Sangue", {"power": 0.3}),
+    "dante": ("warcry", "A Lança de Sanguinius", {"power": 0.5}),
+    "celestine": ("heal", "Milagre da Viva Santa", {"power": 0.35, "radius": 0.24}),
+    "draigo": ("teleport", "Caminhante da Disformidade", {}),
+    "trajann": ("warcry", "Juramento dos Dez Mil", {}),
+    "hive_tyrant": ("summon", "Ninhada Sináptica", {"unit": "termagants"}),
+    "huron": ("warcry", "Fúria do Tirano", {}),
+    "zuehlke": ("smite", "Barragem de Krieg", {"radius": 0.12, "power": 0.2}),
+    "xaphan": ("inspire", "Sermão Apóstata", {}),
+    "lelith": ("warcry", "Dança das Lâminas", {"power": 0.5}),
+    "abaddon": ("warcry", "A Garra de Horus", {"power": 0.5}),
+    "farsight": ("teleport", "Mont'ka", {}),
+    "malidrach": ("summon", "Portal da Teia", {"unit": "dk_incubi", "power": 1}),
+    "ankhu": ("summon", "Invocar Horrores", {"unit": "ts_horrors", "power": 1}),
+    "tushan": ("shield", "Bigorna de Nocturne", {}),
+    "voldus": ("smite", "Martelo do Imperador", {"power": 0.3}),
+}
+
+
+def general_ability(g):
+    if g["id"] in ABILITY_OVERRIDES:
+        t, name, extra = ABILITY_OVERRIDES[g["id"]]
+    else:
+        t = next((k for k, keys in ABILITY_BY_TITLE if any(w in g["title"] for w in keys)), "warcry")
+        name, extra = None, {}
+    a = OrderedDict([("type", t)])
+    base = dict(ABILITY_TYPES[t])
+    a["name"] = name or base.pop("name")
+    base.pop("name", None)
+    a["desc"] = base.pop("desc")
+    a.update(base)
+    a.update(extra)
+    return a
+
+
 # ------------------------------------------------------------ progressão dos generais
 PROGRESSION = OrderedDict([
     ("Description", "Progressão dos generais e relíquias (tools/data/build_mechanics.py). levels: experiência de cada nível "
@@ -313,6 +379,13 @@ PROGRESSION = OrderedDict([
                      ("desc", "Venceu os servos do Caos duas vezes: +8% no ataque.")]),
         OrderedDict([("id", "marked"), ("name", "Marca de {god}"), ("when", "chaosGeneralWins"), ("count", 3), ("attack", 0.1),
                      ("desc", "Os deuses notaram as suas vitórias: +10% no ataque.")]),
+        # Traços negativos.
+        OrderedDict([("id", "coward"), ("name", "Hesitante"), ("when", "defeats"), ("count", 3), ("attack", -0.08), ("defense", -0.04), ("negative", True),
+                     ("desc", "Três derrotas abalaram a confiança: -8% no ataque, -4% na defesa.")]),
+        OrderedDict([("id", "reckless"), ("name", "Imprudente"), ("when", "attackLosses"), ("count", 2), ("defense", -0.08), ("attack", 0.03), ("negative", True),
+                     ("desc", "Ataca sem medir as forças: +3% no ataque, -8% na defesa.")]),
+        OrderedDict([("id", "corrupted"), ("name", "Tocado pela Disformidade"), ("when", "corrupted"), ("count", 1), ("attack", 0.08), ("defense", -0.06), ("negative", True),
+                     ("desc", "Aceitou um presente que não devia: +8% no ataque, -6% na defesa.")]),
     ]),
     ("relics", OrderedDict([
         ("armageddon", OrderedDict([
@@ -348,6 +421,19 @@ PROGRESSION = OrderedDict([
             ("cathedral", {"id": "black_chalice", "name": "Cálice Negro de Xaphan", "support": 2, "desc": "O cálice profanado do cardeal: +2 cargas de apoio."}),
             ("citadel", {"id": "vraks_keys", "name": "Chaves do Arsenal", "attack": 0.1, "defense": 0.1, "desc": "As chaves dos depósitos de Vraks: +10% no ataque e na defesa."}),
             ("wr_throne", {"id": "brass_collar", "name": "Colar de Bronze", "defense": 0.2, "attack": 0.05, "desc": "Um colar de Khorne que repele a feitiçaria: +20% na defesa, +5% no ataque."}),
+        ])),
+        ("baal", OrderedDict([
+            ("arx", {"id": "blood_chalice", "name": "Cálice Vermelho", "defense": 0.15, "support": 1, "desc": "O cálice sagrado dos Sacerdotes Sanguinários: +15% na defesa e +1 carga de apoio."}),
+            ("lv_heart", {"id": "norn_queen", "name": "Glândula da Rainha Norn", "attack": 0.2, "desc": "Um órgão da Mente da Colmeia: +20% no ataque."}),
+        ])),
+        ("ultramar", OrderedDict([
+            ("archive", {"id": "guilliman_scroll", "name": "Pergaminho de Guilliman", "defense": 0.12, "attack": 0.08, "desc": "Notas do Primarca: +12% na defesa, +8% no ataque."}),
+            ("tm_garden", {"id": "plague_bell", "name": "Sino da Praga", "attack": 0.12, "support": 1, "desc": "O sino que anuncia a Death Guard: +12% no ataque e +1 carga."}),
+        ])),
+        ("sautekh", OrderedDict([
+            ("km_pyramid", {"id": "sautekh_staff", "name": "Cetro de Sautekh", "support": 2, "desc": "O cetro da dinastia: +2 cargas de apoio."}),
+            ("sept_city", {"id": "ethereal_honor", "name": "Lâmina de Honra Etérea", "defense": 0.15, "desc": "A lâmina cerimonial da seita: +15% na defesa."}),
+            ("or_fort", {"id": "big_choppa", "name": "Machadão do Kaudilho", "attack": 0.2, "desc": "O maior machado da Waaagh!: +20% no ataque."}),
         ])),
         ("thaurus", OrderedDict([
             ("forge_mother", {"id": "stc_core", "name": "Núcleo do Arquivo STC", "defense": 0.15, "support": 1, "desc": "O coração do arquivo: +15% na defesa e +1 carga de apoio."}),
@@ -387,12 +473,24 @@ def main():
     units = load("units.json")
     for f, (uid, portrait) in SPAWNS.items():
         units[f] = [u for u in units[f] if u["id"] != uid] + [spawn_unit(uid, portrait)]
+    # Krieg: a infantaria (e a artilharia de campanha) sabe se entrincheirar.
+    for f, lst in units.items():
+        if f == "Description":
+            continue
+        for u in lst:
+            u.pop("entrench", None)
+            if (f == "krieg" and (u["category"] == "infantry" or u["id"] == "kr_earthshaker")) or "Krieg" in u["name"]:
+                u["entrench"] = True
     for f, sp in SPECIALS.items():
         for r in sp["rituals"]:
             if r["effect"]["type"] == "spawn":
                 assert any(u["id"] == r["effect"]["unit"] for u in units[f]), (f, r["effect"]["unit"])
     save("units.json", units)
     save("progression.json", PROGRESSION)
+    gens = load("generals.json")
+    for g in gens["generals"]:
+        g["ability"] = general_ability(g)
+    save("generals.json", gens)
 
     sectors = {sc["id"]: load(sc["sector"]) for sc in load("scenarios.json")["scenarios"]}
     for sc, relics in PROGRESSION["relics"].items():

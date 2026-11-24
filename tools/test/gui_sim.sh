@@ -11,6 +11,7 @@ var MOD = "$MOD";
 var FACTION = "${1:-imperial}";
 var SCENARIO = "${SCENARIO:-armageddon}";
 var SAVE_BATTLE = "${2:-}";
+var LANG = "${LANG_TEST:-pt}";
 JS
 	cat "$MOD/tools/test/gui_stubs.js"
 	for f in "$MOD"/gui/campaigns/wh40k/core/*.js "$MOD"/gui/campaigns/wh40k/ui/*.js; do cat "$f"; echo; done

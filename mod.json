@@ -1,9 +1,9 @@
 {
 	"name": "40k_wars",
-	"version": "0.6.0",
+	"version": "0.8.0",
 	"label": "40k Wars",
 	"url": "",
-	"description": "Grande estratégia gótica no universo Warhammer 40.000, em sete campanhas: Armageddon, Invasão Tirânida, 13ª Cruzada Negra, O Grande Jogo dos Deuses, A Profanação de Thaurus, A Guerra de Badab e O Cerco de Vraks — 22 facções jogáveis. Recursos especiais e rituais por facção, Príncipes-Demônio, generais com níveis, traços e relíquias, tréguas e traições, eventos, frotas, saque, bombardeio orbital e batalhas 2D em tempo real com moral, apoio aéreo e orbital, som e música. Não depende de outros mods.",
+	"description": "Gothic grand strategy in the Warhammer 40,000 universe: ten campaigns (Armageddon, Damocles, Cadia, the Great Game of the Gods, Thaurus, Badab, Vraks, Baal, the Plague War, Sautekh) with 22 playable factions and chained crusades. Special resources, rituals and upgrades, Daemon Princes, generals with levels, traits, relics and battle powers, truces and betrayals, events, buildings, public order and revolts, legendary foes, tactical space battles and 2D battles with weather, walls, reinforcements, morale and miniatures. Skirmish, codex, sound and music. English, Portuguese and Spanish. No other mods required.",
 	"dependencies": [
 		"0ad>=0.27.0"
 	],

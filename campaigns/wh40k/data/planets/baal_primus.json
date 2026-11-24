@@ -1,0 +1,61 @@
+{
+	"id": "baal_primus",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"bp_tribes": {
+			"rect": [
+				0.22461,
+				0.0,
+				0.74609,
+				1.0
+			],
+			"label": [
+				0.5596,
+				0.0016
+			],
+			"area": 191297,
+			"neighbors": [
+				"bp_dunes",
+				"bp_ruins"
+			],
+			"coastal": false
+		},
+		"bp_dunes": {
+			"rect": [
+				0.0,
+				0.0,
+				0.39844,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 212354,
+			"neighbors": [
+				"bp_tribes"
+			],
+			"coastal": false
+		},
+		"bp_ruins": {
+			"rect": [
+				0.4873,
+				0.0,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.9984
+			],
+			"area": 251709,
+			"neighbors": [
+				"bp_tribes"
+			],
+			"coastal": false
+		}
+	}
+}

@@ -282,7 +282,7 @@ KRIEG_F = F("krieg", "Death Korps of Krieg", "Krieg", [110, 120, 130], KR + "r2c
             KR + "r2c0.png", KR + "r2c1.png", KR + "r0c0.png",
             "Os filhos de Krieg buscam expiar o pecado do seu mundo morrendo pelo Imperador. Ondas de infantaria, artilharia sem fim e uma paciência de anos.",
             "Krieg: infantaria baratíssima que nunca debanda e a melhor artilharia (Earthshaker). O recurso Expiação cresce com as próprias perdas.",
-            "Krieg", attackBonus=0.0, incomeMult=1.6, funds=1000, dropFx=[200, 200, 210])
+            "Krieg", attackBonus=0.0, incomeMult=2.0, funds=1300, dropFx=[200, 200, 210])
 
 VRAKS_F = F("vraks", "Rebeldes de Vraks", "Vraks", [150, 60, 40], VR + "r2c0.png", "Arsenal", "Ars", "Frota Renegada",
             ["Sargento", "Capitão", "Apóstata"], ["Mardek", "Sorn", "Vexx", "Halek", "Druun", "Kalder", "Rusk", "Ossen", "Tavik"],
@@ -447,6 +447,8 @@ VRAKS_SECTOR = OrderedDict([
          "battalions": ["kr_rifles", "kr_rifles", "kr_rifles", "kr_watchmaster", "kr_grenadiers", "kr_engineers", "kr_heavy", "kr_earthshaker", "kr_demolisher"]},
         {"faction": "krieg", "general": "vosk", "body": "vraks_prime", "province": "west_camp",
          "battalions": ["kr_rifles", "kr_rifles", "kr_flamers", "kr_plasma", "kr_riders"]},
+        {"faction": "krieg", "general": "kerrig", "body": "vraks_prime", "province": "east_camp",
+         "battalions": ["kr_rifles", "kr_rifles", "kr_rifles", "kr_grenadiers", "kr_riders", "kr_heavy", "kr_earthshaker"]},
         {"faction": "vraks", "general": "xaphan", "body": "vraks_prime", "province": "citadel",
          "battalions": ["vr_rifles", "vr_rifles", "vr_grenadiers", "vr_hmg", "vr_alpha", "vr_russ", "vr_basilisk"]},
         {"faction": "vraks", "general": "drax", "body": "vraks_prime", "province": "arsenal_west",

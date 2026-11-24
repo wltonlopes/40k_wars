@@ -31,16 +31,24 @@ for (let t = 0; t < TURNS && !state.gameOver; ++t)
 		game.applyBattle(b, game.autoResolve(b));
 		++battles;
 	}
+	let sp;
+	while ((sp = game.nextPendingSpace()))
+		game.resolveSpace(sp, game.aiSpaceTactic(sp.body, game.player, sp.a == game.player ? sp.b : sp.a));
+	game.s.pendingChoices = [];
 	// JSON ida e volta (como o save).
 	game = new WH40KGame(JSON.parse(JSON.stringify(state)));
 	Object.assign(state, game.s);
 	game.s = state;
-	if (state.turn % 5 == 0)
+	if (state.turn % (typeof EVERY != "undefined" ? EVERY : 5) == 0)
 		print(summary());
 }
 print(summary());
 print("batalhas pendentes resolvidas: " + battles + "; fim: " + JSON.stringify(state.gameOver));
 print("últimos eventos:");
 if (typeof GREP != "undefined") for (const e of state.log) if (GREP.test(e.text)) print("  * [T" + e.turn + "] " + e.text);
-for (const e of state.log.slice(-12))
+for (const e of state.log.slice(-(typeof LOGN != "undefined" ? LOGN : 12)))
 	print("  [T" + e.turn + " " + e.kind + "] " + e.text);
+
+// EXTRA pode definir onSimEnd() para mostrar contagens no fim.
+if (typeof onSimEnd == "function")
+	onSimEnd();

@@ -1,0 +1,260 @@
+1	The infantry holds (anvil) and the vehicles flank (hammer	La infantería resiste (yunque) y los vehículos flanquean (martillo
+2	The line holds position and waits for the enemy; aircraft attack	La línea mantiene la posición y espera al enemigo; las aeronaves atacan
+3	The wings flank on both sides; the centre stays in reserve	Las alas flanquean por ambos lados; el centro queda en reserva
+4	All-Out Attack	Ataque Total
+5	Casualties inflicted: you	Bajas causadas: tú
+6	Hill: height advantage	Colina: ventaja de altura
+7	Crater	Cráter
+8	Forest: blocks line of sight	Bosque: bloquea la visión
+9	Defensive Line	Línea Defensiva
+10	Hammer and Anvil	Martillo y Yunque
+11	Wall: strong cover for whoever stands in it; fire brings it down	Muralla: cobertura fuerte para quien está en ella; los disparos la derriban
+12	Pincer	Pinza
+13	Boulders	Peñascos
+14	Ruins: cover and obstacle	Ruinas: cobertura y obstáculo
+15	Everyone advances together against the enemy	Todos avanzan juntos contra el enemigo
+16	s of combat	s de combate
+17	Shallow water and mud: slow	Agua poco profunda y barro: lento
+18	The battle for	La batalla por
+19	Support: click the target on the field. Right click cancels	Apoyo: haz clic en el objetivo en el campo. El botón derecho cancela
+20	General Attack	Ataque General
+21	General attack!	¡Ataque general!
+22	Casualties	Bajas
+23	Battle	Batalla
+24	Battalions lost: yours	Batallones perdidos: los tuyos
+25	Right click: your selected battalion attacks this one	Botón derecho: tu batallón seleccionado ataca a este
+26	Click: changes the battle speed (x1, x2, x4	Clic: cambia la velocidad de la batalla (x1, x2, x4
+27	Click: select · right click: move / attack the enemy · panel: orders, support and speed	Clic: seleccionar · botón derecho: mover / atacar al enemigo · panel: órdenes, apoyo y velocidad
+28	DEFEAT AT	DERROTA EN
+29	Highlight	Destacado
+30	Remaining strength of each side. Time left: if it runs out, the defender holds the province (unless the attacker has twice the strength	Fuerza restante de cada bando. Tiempo hasta el final: si se acaba, el defensor conserva la provincia (salvo que el atacante tenga el doble de fuerza
+31	Strength: you	Fuerza: tú
+32	The enemy routs!	¡El enemigo huye!
+33	Order	Orden
+34	READY — click to aim	LISTO — haz clic para apuntar
+35	READY — click to use	LISTO — haz clic para usar
+36	While paused, you can still give orders	En pausa, todavía puedes dar órdenes
+37	Pause	Pausa
+38	Support powers used	Poderes de apoyo usados
+39	Skips to the end of the battle with the current orders	Salta al final de la batalla con las órdenes actuales
+40	RETREAT!	¡RETIRADA!
+41	Cooldown	Recarga
+42	Resolve the rest	Resolver el resto
+43	Hold the Line	Mantener la Línea
+44	Hold the line!	¡Mantened la línea!
+45	Your troops have routed!	¡Tus tropas han huido!
+46	Terrain	Terreno
+47	Everyone advances against the enemy	Todos avanzan contra el enemigo
+48	Everyone flees to the southern edge. Whoever leaves the field escapes; the battle is lost	Todos huyen hacia el borde sur. Quien sale del campo escapa; la batalla está perdida
+49	Everyone stops and holds where they are	Todos se detienen y resisten donde están
+50	VICTORY AT	VICTORIA EN
+51	Speed x	Velocidad x
+52	You	Tú
+53	Back to the campaign	Volver a la campaña
+54	casualties inflicted	bajas causadas
+55	has begun!	¡ha comenzado!
+56	of the enemy	del enemigo
+57	no effect	sin efecto
+58	Campaigns	Campañas
+59	Click: card	Clic: ficha
+60	Cost	Coste
+61	Tip	Consejo
+62	Diplomacy	Diplomacia
+63	Rituals	Rituales
+64	does not negotiate	no negocia
+65	Acid rain	Lluvia ácida
+66	Hill	Colina
+67	Forest	Bosque
+68	Enemy	Enemigo
+69	Blizzard	Ventisca
+70	Night	Noche
+71	The enemy ROUTS!	¡El enemigo HUYE!
+72	The enemy holds the field	El enemigo domina el campo
+73	The enemy launches	El enemigo lanza
+74	The enemy falls back!	¡El enemigo retrocede!
+75	Enemy reinforcements arrive!	¡Llegan refuerzos enemigos!
+76	Ruins	Ruinas
+77	Warp storm	Tormenta de disformidad
+78	Ash storm	Tormenta de ceniza
+79	Time is up	Se acabó el tiempo
+80	Clear weather	Tiempo despejado
+81	A wall collapses!	¡Una muralla se derrumba!
+82	has fallen in battle!	¡ha caído en combate!
+83	damage taken	daño recibido
+84	the attacker holds the field	el atacante domina el campo
+85	falls back in panic!	¡retrocede presa del pánico!
+86	reserve) joins the fight	reserva) entra en combate
+87	regroups	se reagrupa
+88	Water	Agua
+89	The AI starts and earns more, and attacks with less advantage	La IA empieza y gana más, y ataca con menos ventaja
+90	The standard rules	Las reglas estándar
+91	Tyranid biomass	Biomasa tiránida
+92	Hive city	Ciudad colmena
+93	Tomb complex	Complejo tumulario
+94	Goes around the right and attacks from the side	Rodea por la derecha y ataca de lado
+95	Goes around the left and attacks from the side	Rodea por la izquierda y ataca de lado
+96	Hard	Difícil
+97	Ash wastes	Páramos de ceniza
+98	Waits behind; joins when the enemy arrives or losses pass 30%	Espera detrás; entra cuando llega el enemigo o las pérdidas superan el 30%
+99	Orbital station	Estación orbital
+100	Flank (right	Flanquear (der
+101	Flank (left	Flanquear (izq
+102	Flees to your edge of the field; whoever leaves escapes	Huye hacia tu borde del campo; quien sale escapa
+103	Easy	Fácil
+104	Ice	Hielo
+105	More resources for you; the AI earns less and only attacks with a big advantage	Más recursos para ti; la IA gana menos y solo ataca con mucha ventaja
+106	Hold position	Mantener posición
+107	Marches against the nearest enemy and fights	Marcha contra el enemigo más cercano y lucha
+108	Mountains	Montañas
+109	Normal	Normal
+110	Swamp	Pantano
+111	Retreat	Retirarse
+112	Reserve	Reserva
+113	Asteroid rock	Roca de asteroide
+114	Holds the spot and only fights whoever comes close	Mantiene el lugar y solo combate a quien se acerque
+115	Jungle	Selva
+116	Warp-tainted ground	Suelo de la disformidad
+117	Industrial zone	Zona industrial
+118	Aircraft	Aeronaves
+119	Affinities	Afinidades
+120	Support	Apoyo
+121	Cancel attack	Cancelar ataque
+122	Click a battalion and then the field (green zone) to place it. Choose each one's order and the plan in the panel	Haz clic en un batallón y luego en el campo (zona verde) para colocarlo. Elige la orden de cada uno y el plan en el panel
+123	Click: next plan (changes everyone's orders	Clic: siguiente plan (cambia las órdenes de todos
+124	Click: select	Clic: seleccionar
+125	Starts the real-time battle on this field, with this deployment	Comienza la batalla en tiempo real en este campo, con este despliegue
+126	Decides the battle now, without playing	Decide la batalla ahora, sin jugar
+127	Deployment	Despliegue
+128	General	General
+129	START BATTLE	INICIAR BATALLA
+130	Infantry	Infantería
+131	The enemy has	El enemigo tiene
+132	Expected order	Orden prevista
+133	Hover over the field features to see their effects	Pasa el ratón sobre los elementos del campo para ver sus efectos
+134	Plan	Plan
+135	Reinforcements	Refuerzos
+136	Auto Resolve	Resolver Automático
+137	Vehicles	Vehículos
+138	reinforcement battalion(s) on the way	batallón(es) de refuerzo en camino
+139	of your battalion(s) arrive at 50 s	batallón(es) tuyos llegan a los 50 s
+140	ignores the terrain movement penalties	ignora las penalizaciones de movimiento del terreno
+141	ruins	ruinas
+142	water	agua
+143	25 of	25 de
+144	30 of	30 de
+145	The Inquisition Demands the Tithe	La Inquisición Exige el Diezmo
+146	The Answer of	La Respuesta de
+147	The aid has reached	La ayuda llegó a
+148	The garrison of	La guarnición de
+149	The garrison loses 20% and the province is devastated for 2 turns	La guarnición pierde un 20% y la provincia queda devastada 2 turnos
+150	Order drops by 30 now; the cult will rise	El orden cae 30 ahora; el culto se alzará
+151	The province is devastated for 2 turns, but the cult is gone	La provincia queda devastada 2 turnos, pero el culto acaba
+152	Accept the gift	Aceptar el don
+153	Archaeological Find	Hallazgo Arqueológico
+154	Bands of feral Orks hear the noise of war and come running to join	Bandas de Orkos salvajes oyen el ruido de la guerra y vienen corriendo a unirse a
+155	Ride the storm	Cabalgar la tormenta
+156	Hire (250	Contratar (250
+157	Costs 100; the garrison loses 10%	Cuesta 100; la guarnición pierde un 10%
+158	Costs 150; the province is devastated for 1 turn	Cuesta 150; la provincia queda devastada 1 turno
+159	Cost: 500	Coste: 500
+160	Dismiss	Despedir
+161	EXTERMINATUS on	EXTERMINATUS sobre
+162	Saves money now. The cult may grow	Ahorra ahora. El culto puede crecer
+163	In 2 turns the province may join you	En 2 turnos la provincia puede unirse a ti
+164	Send aid (200	Enviar ayuda (200
+165	Excavations at	Excavaciones en
+166	Wait for the storm to pass	Esperar a que pase la tormenta
+167	Study (+30	Estudiar (+30
+168	Purge (150	Purgar (150
+169	Total purge (250	Purga total (250
+170	Exterminatus	Exterminatus
+171	Not enough resources (500	Faltan recursos (500
+172	Ignore	Ignorar
+173	Ignore again	Ignorar de nuevo
+174	Investigate (100	Investigar (100
+175	Heretic Uprising!	¡Levantamiento Herético!
+176	Mercenaries Offer Their Service	Mercenarios Ofrecen sus Servicios
+177	Even odds that the province rebels	Mitad de posibilidades de que la provincia se rebele
+178	Even odds: a purge weakens a garrison and costs special resource	Mitad de posibilidades: una purga debilita una guarnición y cuesta recurso especial
+179	Nothing survived	Nada sobrevivió
+180	The Cult Grows	El Culto Crece
+181	The cult of	El culto de
+182	The world is devastated for 10 turns and left without an owner	El mundo queda devastado 10 turnos y sin dueño
+183	Officers are executed	Los oficiales son ejecutados
+184	Workers of	Los obreros de
+185	Order the Exterminatus	Ordenar el Exterminatus
+186	The Boyz Hear the Waaagh!	¡Los Chikoz Oyen el Waaagh!
+187	The navigators advise waiting	Los navegantes aconsejan esperar
+188	The survivors keep their promise — or not	Los supervivientes cumplen su promesa — o no
+189	The survivors of	Los supervivientes de
+190	Pay	Pagar
+191	For 3 turns no fleet leaves or arrives there, and trips there are delayed	Durante 3 turnos ninguna flota sale ni llega allí, y los viajes hacia allí se retrasan
+192	Quarantine (100	Cuarentena (100
+193	Burn the sick	Quemar a los enfermos
+194	Receive them	Recibirlos
+195	Not enough resources	Recursos insuficientes
+196	Refuse	Rechazar
+197	Refusing may raise suspicions of heresy about your commanders	Rechazar puede levantar sospechas de herejía sobre tus comandantes
+198	Unexpected Reinforcements	Refuerzos Inesperados
+199	Cultist Revolt	Revuelta de Cultistas
+200	If nothing is done, the province may fall into the hands of heretics	Si no se hace nada, la provincia puede caer en manos de los herejes
+201	Distress Signal	Señal de Socorro
+202	Plague Outbreak	Brote de Plaga
+203	Whispers Below	Susurros en el Subsuelo
+204	Warp Storm	Tormenta de Disformidad
+205	An Inquisitor of the Ordo Hereticus arrives with a sealed order: the war tithe of	Un Inquisidor del Ordo Hereticus llega con una orden sellada: el diezmo de guerra de
+206	A Whisper from the Gods	Un Susurro de los Dioses
+207	A band of lordless warriors — equipped as	Una banda de guerreros sin señor — equipados como
+208	A forbidden cult emerges from the underhive of	Un culto prohibido surge de los subterráneos de
+209	A flesh-rotting fever spreads through the garrison of	Una fiebre que pudre la carne se extiende por la guarnición de
+210	A lost force	Una fuerza perdida
+211	A warp storm engulfs	Una tormenta de disformidad envuelve
+212	A voice from the warp offers power to	Una voz de la disformidad ofrece poder a
+213	Sell (+250	Vender (+250
+214	See the outcome	Ver el resultado
+215	the aid departs for	la ayuda parte hacia
+216	the gift is lost	el don se pierde
+217	the gift comes with mutations: the army loses strength, but the favour grows	el don viene con mutaciones: el ejército pierde fuerza, pero el favor crece
+218	the garrison of	la guarnición de
+219	the quarantine in	la cuarentena en
+220	the storm lasts 5 turns	la tormenta dura 5 turnos
+221	the storm closes	la tormenta cierra
+222	crosses the system and reports to the command of	cruza el sistema y se presenta ante el mando de
+223	hired for	contratados para
+224	and the army's battalions gain experience; 15% chance of mutation (the army loses strength	y los batallones del ejército ganan experiencia; 15% de probabilidad de mutación (el ejército pierde fuerza
+225	in exchange for devotion. Accepting fills the gods' favour; refusing may anger them	a cambio de devoción. Aceptar llena el favor de los dioses; rechazar puede enfurecerlos
+226	it was a trap: the aid was stolen and the garrison of	era una trampa: la ayuda fue robada y la guarnición de
+227	is lost to the enemy. An Inquisitor offers the last resort: Exterminatus. Virus bombs erase all life on the planet — armies, garrisons, cities	está perdido para el enemigo. Un Inquisidor ofrece el último recurso: el Exterminatus. Bombas víricas borran toda la vida del planeta — ejércitos, guarniciones, ciudades
+228	speak of secret meetings and eight-pointed symbols scratched on the walls. It may be nothing... or the beginning of a cult	hablan de reuniones secretas y de símbolos de ocho puntas grabados en las paredes. Puede no ser nada... o el comienzo de un culto
+229	grew stronger	se hizo más fuerte
+230	was purged	fue purgado
+231	was paid. The Inquisitor leaves satisfied	fue pagado. El Inquisidor se marcha satisfecho
+232	were burned	fueron quemados
+233	already recruits in the factories and barracks. Public order collapses. It can still be crushed — at a high price	ya recluta en las fábricas y los cuarteles. El orden público se derrumba. Todavía se puede aplastar — cuesta caro
+234	nowhere	ninguna parte
+235	when recruited	al reclutar
+236	there was nowhere to receive them	no había dónde recibirlos
+237	the Inquisitor keeps the orders. For now	el Inquisidor guarda las órdenes. Por ahora
+238	the Inquisitor grumbles and leaves	el Inquisidor refunfuña y se va
+239	the artefact is studied: +30	el artefacto es estudiado: +30
+240	the artefact is sold: +250	el artefacto es vendido: +250
+241	the cult grows in the shadows of	el culto crece en las sombras de
+242	the cult of	el culto de
+243	the cult disperses on its own	el culto se dispersa solo
+244	the tithe of	el diezmo de
+245	the purge burns the cult of	la purga quema el culto de
+246	the uprising takes	el levantamiento toma
+247	the signal fades	la señal se apaga
+248	offers its swords to	ofrece sus espadas a
+249	the gods are offended (-10	los dioses se ofenden (-10
+250	the gods smile (+30	los dioses sonríen (+30
+251	the sick of	los enfermos de
+252	the sorcerers feed the storm (+25	los hechiceros alimentan la tormenta (+25
+253	the investigators dismantle the cult before it grows	los investigadores desmantelan el culto antes de que crezca
+254	the mercenaries move on	los mercenarios siguen su camino
+255	the rumours are ignored	los rumores son ignorados
+256	beg for help: food, ammunition, medicine. They promise loyalty to whoever saves them	piden ayuda: comida, munición, medicinas. Prometen lealtad a quien los salve
+257	takes up arms. The factories become heretic fortresses and the revolt spreads to the neighbouring provinces	toma las armas. Las fábricas se vuelven fortalezas herejes y la revuelta se extiende a las provincias vecinas
+258	for 250	por 250
+259	for 3 turns	durante 3 turnos
+260	new boyz arrive at	nuevos chikoz llegan a

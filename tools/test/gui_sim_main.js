@@ -6,14 +6,41 @@ g_WH40KPage = page;
 const press = name => { const o = gui(name); if (!o.onPress) throw new Error("sem onPress: " + name); o.onPress(); };
 const dlgButtons = () => [...Array(10).keys()].filter(i => !gui("dlgBtn[" + i + "]").hidden).map(i => gui("dlgBtn[" + i + "]").caption);
 const firstEnabled = () => [...Array(10).keys()].find(i => !gui("dlgBtn[" + i + "]").hidden && gui("dlgBtn[" + i + "]").enabled !== false) || 0;
-print("diálogo inicial: " + gui("dlgTitle").caption + " | botões: " + dlgButtons().join(", "));
-const sidx = WH40KData.scenarios.findIndex(sc => sc.id == SCENARIO);
-press("dlgBtn[" + sidx + "]");
-print("campanha: " + gui("dlgTitle").caption + " | botões: " + dlgButtons().join(", "));
-const idx = WH40KData.playableFactions().indexOf(FACTION);
-press("dlgBtn[" + idx + "]");
-print("dificuldade: " + gui("dlgTitle").caption + " | botões: " + dlgButtons().join(", "));
-press("dlgBtn[1]");
+const selItems = () => [...Array(48).keys()].filter(i => !gui("selItem[" + i + "]").hidden).map(i => gui("selItemName[" + i + "]").caption.replace(/\[[^\]]*\]/g, ""));
+print("seletor de campanha: " + gui("selTitle").caption + " | aberto " + page.selector.isOpen() + " | " + selItems().join(", ") + " | " + gui("selPageStatus").caption);
+gui("selFilter[0]").selected = 1;
+gui("selFilter[0]").onSelectionChange();
+print("  filtro " + gui("selFilter[0]").list[1] + ": " + selItems().join(", "));
+gui("selFilter[0]").selected = 0;
+gui("selSearch").caption = "baal";
+gui("selSearch").onTextEdit();
+print("  busca 'baal': " + selItems().join(", "));
+gui("selSearch").caption = "";
+gui("selSearch").onTextEdit();
+page.selector.select(SCENARIO);
+print("  prévia: " + gui("selName").caption + " | " + gui("selInfo").caption);
+press("selOk");
+print("seletor de lado: " + gui("selTitle").caption + " | " + selItems().join(", ") + " | dificuldade " + gui("selExtra").list.join("/"));
+page.selector.select(FACTION);
+gui("selExtra").selected = 1;
+press("selOk");
+// Cinemática de introdução: percorre os quadros (clique completa o texto, outro clique passa).
+{
+	const cin = page.cinema;
+	const seen = [];
+	let t = Date.now();
+	for (let k = 0; k < 400 && cin.isOpen(); ++k)
+	{
+		t += 250;
+		cin.tick(t);
+		if (seen.length <= cin.index)
+			seen.push(gui("cinemaTitle").caption + " [" + gui("cinemaImg").sprite.replace(/^.*\//, "") + " " + gui("cinemaImg").size + "]");
+		if (k % 12 == 11)
+			press("cinema");
+	}
+	print("cinemática: aberta " + cin.isOpen() + " | quadros " + seen.length + " | " + seen.join(" · "));
+	print("  último texto: " + gui("cinemaText").caption);
+}
 print("tutorial: " + gui("dlgTitle").caption);
 press("dlgBtn[0]");
 const g = page.game;
@@ -148,7 +175,7 @@ for (let t = 0; t < 15; ++t)
 			continue;
 		}
 		const buttons = dlgButtons();
-		const auto = buttons.indexOf("Resolver Automaticamente");
+		const auto = buttons.indexOf(tr("Resolver Automaticamente"));
 		press("dlgBtn[" + (auto != -1 ? auto : firstEnabled()) + "]");
 	}
 	page.showSystem();
@@ -231,7 +258,7 @@ if (fleet)
 		const foe = Object.keys(G.s.factions).find(f => G.hostile(f, me));
 		const mineF = Object.values(G.s.fleets).find(f => f.faction == me && f.body && !f.dest) || G.createFleet(me, home, 3);
 		const other = Object.keys(G.D.bodies).find(b => b != mineF.body);
-		const enemyF = Object.values(G.s.fleets).find(f => G.hostile(f.faction, me) && f.body && f.body != mineF.body) || G.createFleet(foe, other, 2);
+		const enemyF = Object.values(G.s.fleets).find(f => G.hostile(f.faction, me) && f.body && f.body != mineF.body) || (foe && G.createFleet(foe, other, 2));
 		if (mineF && enemyF)
 		{
 			mineF.acted = 0;
@@ -248,15 +275,129 @@ if (fleet)
 			enemyF.dest = null;
 			mineF.ships = 4;
 			page.select({ "type": "fleet", "id": mineF.id });
-			const btnRow = [...Array(14).keys()].find(i => !gui("sideRowBtn[" + i + "]").hidden && gui("sideRowBtn[" + i + "]").caption == "Atacar");
+			const btnRow = [...Array(14).keys()].find(i => !gui("sideRowBtn[" + i + "]").hidden && gui("sideRowBtn[" + i + "]").caption == tr("Atacar"));
 			print("painel da frota: botão Atacar " + (btnRow !== undefined));
 			if (btnRow !== undefined)
 				gui("sideRowBtn[" + btnRow + "]").onPress();
+			print("táticas: " + gui("dlgTitle").caption + " | " + dlgButtons().join(", ") + " | abordagem habilitada " + gui("dlgBtn[2]").enabled);
+			press("dlgBtn[1]");
 			print("atacar frota na órbita: vista " + page.view + " | " + gui("spaceHud").caption.replace(/\[[^\]]*\]/g, ""));
 			if (page.view == "space")
 				page.space.finish();
 			print("  relatório: " + gui("dlgTitle").caption + " | " + gui("dlgText").caption.replace(/\[[^\]]*\]/g, "").split("\n").slice(2, 4).join(" / "));
 			page.dialog.close();
+		}
+	}
+	// Desfazer, conselheiro e mapa de ameaça.
+	{
+		const G = page.game;
+		page.showAdvice();
+		print("conselheiro: " + gui("dlgText").caption.replace(/\[[^\]]*\]/g, "").split("\n").slice(0, 3).join(" / "));
+		page.dialog.close();
+		const army = G.armiesOf(me).find(a => a.province && Object.values(G.armyTargets(Object.assign(a, { "moves": 1 }))).indexOf("move") != -1);
+		if (army)
+		{
+			const t = G.armyTargets(army);
+			const dest = Object.keys(t).find(p => t[p] == "move");
+			const from = army.province;
+			page.select({ "type": "army", "id": army.id });
+			page.orderProvince(dest);
+			print("movimento: " + from + " -> " + army.province + " | desfazer visível " + !gui("planetUndoBtn").hidden);
+			press("planetUndoBtn");
+			print("  desfeito: exército em " + G.s.armies[army.id].province + " (era " + from + ")");
+		}
+		page.threatMode = true;
+		page.showPlanet(page.homeBody());
+		print("ameaça: botão " + gui("planetThreatBtn").caption + " | " + gui("prov[0]").tooltip.replace(/\[[^\]]*\]/g, "").split("\n")[0]);
+		page.threatMode = false;
+		page.refresh();
+	}
+	// Construções, ordem e melhorias.
+	{
+		const G = page.game;
+		const pid = G.provincesOf(me).find(p => G.pdef(p).hive) || G.provincesOf(me)[0];
+		if (pid)
+		{
+			G.s.factions[me].funds = 5000;
+			page.select({ "type": "province", "id": pid });
+			print("província: " + gui("sideText").caption.replace(/\[[^\]]*\]/g, "").split("\n").slice(0, 3).join(" / "));
+			const bi = [...Array(12).keys()].find(i => !gui("sideAction[" + i + "]").hidden && gui("sideAction[" + i + "]").caption.indexOf(tr("Construir")) == 0);
+			if (bi !== undefined)
+			{
+				press("sideAction[" + bi + "]");
+				const rows = [...Array(14).keys()].filter(i => !gui("sideRow[" + i + "]").hidden);
+				print("construir: " + rows.map(i => gui("sideRowText[" + i + "]").caption.split("\n")[0]).join(", "));
+				gui("sideRow[" + rows[3] + "]").onPress();
+				print("  construído: " + G.buildingsOf(pid).join(",") + " | rendimento " + G.provinceIncome(pid));
+			}
+			G.s.factions[me].special = 300;
+			page.side.mode = "ritual";
+			page.refresh();
+			const ups = [...Array(14).keys()].filter(i => !gui("sideRow[" + i + "]").hidden && gui("sideRowText[" + i + "]").caption.indexOf(tr("Melhoria")) == 0);
+			print("melhorias: " + ups.map(i => gui("sideRowText[" + i + "]").caption.split("\n")[0]).join(", "));
+			if (ups.length)
+				gui("sideRow[" + ups[0] + "]").onPress();
+			print("  adquiridas: " + G.upgradesOf(me).join(","));
+			page.side.mode = null;
+			G.s.pendingChoices.push({ "kind": "info", "title": "Teste de aviso", "text": "texto" });
+			page.processQueue();
+			print("aviso: " + gui("dlgTitle").caption + " | " + dlgButtons().join(","));
+			press("dlgBtn[0]");
+			page.dialog.close();
+		}
+	}
+	// Cerco: muralhas, clima e reforços.
+	{
+		const G = page.game;
+		page.dialog.close();
+		let army = null;
+		let pid = null;
+		for (const a of G.armiesOf(me).filter(a => a.province && a.battalions.length))
+		{
+			a.moves = 1;
+			const t = G.armyTargets(a);
+			const p = Object.keys(t).find(k => t[k] == "attack");
+			if (p)
+			{
+				army = a;
+				pid = p;
+				break;
+			}
+		}
+		print("cerco: alvo " + pid);
+		if (pid)
+		{
+			G.province(pid).forts = 2;
+			const extra = G.createArmy(me, null, army.province);
+			for (let k = 0; k < 3; ++k)
+				extra.battalions.push(G.newBattalion(army.battalions[0].unit, me));
+			const battle = G.makeBattle(pid, me, [army.id], "assault");
+			page.openDeploy(battle);
+			const setup = page.deploy.setup;
+			print("cerco: " + gui("deployTitle").caption + " | muralhas " + setup.features().filter(f => f.type == "wall").length + " | reservas " + battle.attacker.reserves.length +
+				" | " + gui("sideText").caption.replace(/\[[^\]]*\]/g, "").split("\n").filter(l => /Reforços|reforço/.test(l)).join(" / "));
+			page.startBattle(setup, page.deploy.deployment);
+			const c = page.battle.combat;
+			const gen = c.generalOf(1);
+			if (gen)
+			{
+				c.time = 20;
+				page.battle.renderPanel();
+				print("  poder do general: " + gui("sideRowText[0]").caption.replace(/\[[^\]]*\]/g, "").split("\n").join(" / ") + " | tipo " + gen.ability.type);
+				const foe = c.alive(2)[0] || { "x": 0.5, "y": 0.3 };
+				print("  usado: " + c.useAbility(1, foe.x, foe.y) + " | mensagem: " + c.messages[c.messages.length - 1].text + " | recarga até " + gen.abilityReady);
+			}
+			for (let k = 0; k < 2400 && !c.over; ++k)
+			{
+				c.step(0.1);
+				if (k % 10 == 0)
+					c.aiSupport(2);
+			}
+			print("  depois: tempo " + Math.round(c.time) + "s | reforços em campo " + c.units.filter(u => u.reinforcement).length + " | muralhas de pé " + c.features.filter(f => f.type == "wall").length + " | clima " + c.weather + " | vencedor " + c.winner);
+			page.battle.tick(Date.now());
+			page.battle.close();
+			page.view = "planet";
+			page.refresh();
 		}
 	}
 	page.debug("space");
@@ -269,6 +410,56 @@ if (fleet)
 	}
 	print("  fim: vista " + page.view + " | relatório " + gui("dlgTitle").caption + " | " + gui("spaceHud").caption.replace(/\[[^\]]*\]/g, ""));
 	page.dialog.close();
+	// Vitória e cruzada em sequência.
+	{
+		const G = page.game;
+		page.dialog.close();
+		page.card.close();
+		const gid = Object.keys(G.s.generals).find(id => G.D.generals[id].faction == me);
+		if (gid)
+			G.s.generals[gid].xp = 9;
+		G.s.factions[me].upgrades = ["weapons"];
+		G.s.gameOver = { "won": true, "text": "teste" };
+		page.gameOverShown = false;
+		page.processQueue();
+		print("vitória: " + gui("dlgTitle").caption + " | " + dlgButtons().join(", ") + " | ficha: " + gui("cardTitle").caption + " / " + gui("cardStats").caption.replace(/\[[^\]]*\]/g, "").split("\n")[0]);
+		page.card.close();
+		const wi = dlgButtons().indexOf(tr("Seguir pela disformidade"));
+		if (wi != -1)
+		{
+			press("dlgBtn[" + wi + "]");
+			print("  rotas: " + dlgButtons().join(", "));
+			press("dlgBtn[0]");
+			print("  nova campanha: " + page.game.s.scenario + " | cadeia " + JSON.stringify(page.game.s.chain) + " | xp " + (gid ? page.game.s.generals[gid].xp : "-") + " | melhorias " + page.game.upgradesOf(me).join(","));
+			page.dialog.close();
+		}
+	}
+	// Escaramuça (sem campanha).
+	{
+		const sp = new WH40KPage({ "skirmish": true }, req => { closed = req; });
+		g_WH40KPage = sp;
+		print("escaramuça: " + gui("selTitle").caption + " | " + selItems().length + " facções na página");
+		sp.selector.select("orks");
+		press("selOk");
+		print("  " + gui("selTitle").caption);
+		press("selOk");
+		print("  " + gui("dlgTitle").caption + " | " + dlgButtons().join(", "));
+		press("dlgBtn[1]");
+		print("  " + gui("dlgTitle").caption + " | " + dlgButtons().join(", "));
+		const fight = dlgButtons().indexOf(tr("LUTAR!"));
+		press("dlgBtn[3]");
+		press("dlgBtn[" + fight + "]");
+		print("  desdobramento: vista " + sp.view + " | " + gui("deployTitle").caption + " | muralhas " + sp.deploy.setup.features().filter(f => f.type == "wall").length);
+		sp.startBattle(sp.deploy.setup, sp.deploy.deployment);
+		const c = sp.battle.combat;
+		for (let k = 0; k < 4000 && !c.over; ++k)
+			c.step(0.1);
+		sp.battle.showResult();
+		print("  resultado: " + gui("dlgTitle").caption + " | " + dlgButtons().join(", "));
+		press("dlgBtn[0]");
+		print("  fim: " + gui("dlgTitle").caption + " | " + dlgButtons().join(", "));
+		g_WH40KPage = page;
+	}
 	// Códex do menu principal (sem campanha).
 	const cpage = new WH40KPage({ "codex": true }, req => { closed = req; });
 	print("códex do menu: " + gui("codexTitle").caption.replace(/\[[^\]]*\]/g, ""));
@@ -276,3 +467,9 @@ if (fleet)
 }
 print("OK");
 print("sons tocados: " + g_Sounds.length + " (" + [...new Set(g_Sounds.map(p => p.replace(/^.*\//, "").replace(/(_\d)?\.ogg$/, "")))].join(", ") + ")");
+if (g_Untranslated.size)
+{
+	print("textos não traduzidos (" + LANG + "): " + g_Untranslated.size);
+	for (const [t, n] of g_Untranslated)
+		print("  [" + n + "] " + t);
+}

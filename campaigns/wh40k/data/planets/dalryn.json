@@ -1,0 +1,247 @@
+{
+	"id": "dalryn",
+	"mapSize": [
+		2048,
+		1280
+	],
+	"provinces": {
+		"sept_city": {
+			"rect": [
+				0.35059,
+				0.0,
+				0.6167,
+				0.51797
+			],
+			"label": [
+				0.4985,
+				0.3398
+			],
+			"area": 198231,
+			"neighbors": [
+				"canyon",
+				"domes",
+				"golden_dunes",
+				"kroot_camp",
+				"sky_port"
+			],
+			"coastal": false
+		},
+		"domes": {
+			"rect": [
+				0.0,
+				0.0,
+				0.49365,
+				0.47031
+			],
+			"label": [
+				0.2666,
+				0.0
+			],
+			"area": 367938,
+			"neighbors": [
+				"kroot_camp",
+				"sept_city"
+			],
+			"coastal": false
+		},
+		"sky_port": {
+			"rect": [
+				0.52246,
+				0.0,
+				0.94727,
+				0.38359
+			],
+			"label": [
+				0.6914,
+				0.0
+			],
+			"area": 263334,
+			"neighbors": [
+				"canyon",
+				"crash_site",
+				"sept_city"
+			],
+			"coastal": false
+		},
+		"kroot_camp": {
+			"rect": [
+				0.0,
+				0.17188,
+				0.35352,
+				0.70234
+			],
+			"label": [
+				0.2358,
+				0.5242
+			],
+			"area": 281542,
+			"neighbors": [
+				"domes",
+				"golden_dunes",
+				"pylons",
+				"sept_city",
+				"tomb_gate"
+			],
+			"coastal": false
+		},
+		"golden_dunes": {
+			"rect": [
+				0.3501,
+				0.47188,
+				0.63916,
+				0.74297
+			],
+			"label": [
+				0.5215,
+				0.6109
+			],
+			"area": 153508,
+			"neighbors": [
+				"buried_city",
+				"canyon",
+				"kroot_camp",
+				"salt_flats_d",
+				"sept_city",
+				"tomb_gate"
+			],
+			"coastal": false
+		},
+		"tomb_gate": {
+			"rect": [
+				0.18066,
+				0.57734,
+				0.44629,
+				1.0
+			],
+			"label": [
+				0.2827,
+				0.9289
+			],
+			"area": 175844,
+			"neighbors": [
+				"buried_city",
+				"golden_dunes",
+				"kroot_camp",
+				"pylons"
+			],
+			"coastal": false
+		},
+		"pylons": {
+			"rect": [
+				0.0,
+				0.46016,
+				0.24121,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.8422
+			],
+			"area": 231680,
+			"neighbors": [
+				"kroot_camp",
+				"tomb_gate"
+			],
+			"coastal": false
+		},
+		"buried_city": {
+			"rect": [
+				0.36914,
+				0.71953,
+				0.59814,
+				1.0
+			],
+			"label": [
+				0.4819,
+				0.9992
+			],
+			"area": 135532,
+			"neighbors": [
+				"golden_dunes",
+				"salt_flats_d",
+				"tomb_gate"
+			],
+			"coastal": false
+		},
+		"scrap_hill": {
+			"rect": [
+				0.76855,
+				0.54531,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.9995,
+				0.8547
+			],
+			"area": 210521,
+			"neighbors": [
+				"canyon",
+				"crash_site",
+				"salt_flats_d"
+			],
+			"coastal": false
+		},
+		"crash_site": {
+			"rect": [
+				0.76855,
+				0.0,
+				1.0,
+				0.59766
+			],
+			"label": [
+				0.9995,
+				0.3156
+			],
+			"area": 267867,
+			"neighbors": [
+				"canyon",
+				"scrap_hill",
+				"sky_port"
+			],
+			"coastal": false
+		},
+		"salt_flats_d": {
+			"rect": [
+				0.5791,
+				0.63984,
+				0.86377,
+				1.0
+			],
+			"label": [
+				0.7231,
+				0.9992
+			],
+			"area": 204819,
+			"neighbors": [
+				"buried_city",
+				"canyon",
+				"golden_dunes",
+				"scrap_hill"
+			],
+			"coastal": false
+		},
+		"canyon": {
+			"rect": [
+				0.6084,
+				0.34688,
+				0.81152,
+				0.65391
+			],
+			"label": [
+				0.6987,
+				0.4992
+			],
+			"area": 130624,
+			"neighbors": [
+				"crash_site",
+				"golden_dunes",
+				"salt_flats_d",
+				"scrap_hill",
+				"sept_city",
+				"sky_port"
+			],
+			"coastal": false
+		}
+	}
+}

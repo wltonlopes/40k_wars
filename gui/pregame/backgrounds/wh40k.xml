@@ -3,6 +3,12 @@
 	<sprite name="background-wh40k-armageddon">
 		<image texture="pregame/backgrounds/wh40k_armageddon.png" real_texture_placement="0 0 2048 1024" size="0 0 100% 100%" round_coordinates="false"/>
 	</sprite>
+	<sprite name="background-wh40k-gothic">
+		<image texture="pregame/backgrounds/wh40k_gothic_battle.png" real_texture_placement="0 0 2048 1024" size="0 0 100% 100%" round_coordinates="false"/>
+	</sprite>
+	<sprite name="background-wh40k-eldar">
+		<image texture="pregame/backgrounds/wh40k_eldar.png" real_texture_placement="0 0 2048 1024" size="0 0 100% 100%" round_coordinates="false"/>
+	</sprite>
 	<sprite name="background-wh40k-vignette">
 		<image texture="pregame/wh40k/vignette.png" real_texture_placement="0 0 512 256" size="0 0 100% 100%"/>
 	</sprite>

@@ -1,0 +1,61 @@
+{
+	"id": "ork_rok",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"or_fort": {
+			"rect": [
+				0.27832,
+				0.13438,
+				0.66309,
+				0.88594
+			],
+			"label": [
+				0.5029,
+				0.3844
+			],
+			"area": 126777,
+			"neighbors": [
+				"or_engines",
+				"or_pits"
+			],
+			"coastal": false
+		},
+		"or_engines": {
+			"rect": [
+				0.13086,
+				0.15,
+				0.39648,
+				0.80469
+			],
+			"label": [
+				0.2373,
+				0.4359
+			],
+			"area": 57950,
+			"neighbors": [
+				"or_fort"
+			],
+			"coastal": false
+		},
+		"or_pits": {
+			"rect": [
+				0.5332,
+				0.17969,
+				0.88672,
+				0.81875
+			],
+			"label": [
+				0.7578,
+				0.4141
+			],
+			"area": 83168,
+			"neighbors": [
+				"or_fort"
+			],
+			"coastal": false
+		}
+	}
+}

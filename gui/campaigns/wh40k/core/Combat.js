@@ -20,7 +20,23 @@
  * Moral: um batalhão que cai abaixo de 30% da força (× moral da facção; 0 =
  *          nunca) sob fogo recua em pânico por 8 s e depois se reagrupa.
  * Fim: um lado sem ninguém em campo perde; tempo esgotado = o defensor segura.
+ * Clima (opts.weather, WH40K_WEATHER): noite, tempestade de cinzas, chuva
+ *          ácida, nevasca, tempestade da disformidade — modificadores como os
+ *          do terreno; a chuva ácida fere a infantria sem cobertura.
+ * Muralhas (feições "wall", do defensor com fortificações): cobertura forte;
+ *          os tiros contra quem está nelas as desgastam até virarem ruínas.
+ * Reforços: entradas com arrive (s) entram pela borda do próprio lado.
+ * Poder do general (entrada.ability, generals.json): smite, warcry, shield,
+ *          heal, inspire, summon, teleport — com recarga; ver useAbility().
  */
+const WH40K_WEATHER = {
+	"clear": { "name": "Tempo limpo", "fx": {} },
+	"night": { "name": "Noite", "tint": [10, 14, 40, 110], "fx": { "infantry": { "range": 0.8 }, "vehicle": { "range": 0.8 }, "general": { "range": 0.8 } } },
+	"ash": { "name": "Tempestade de cinzas", "tint": [90, 70, 50, 90], "fx": { "infantry": { "range": 0.85, "speed": 0.9 }, "vehicle": { "range": 0.8, "speed": 0.9 }, "air": { "range": 0.75, "speed": 0.85 } } },
+	"acid": { "name": "Chuva ácida", "tint": [60, 90, 30, 70], "dot": 0.0025, "fx": { "infantry": { "taken": 1.08 }, "air": { "range": 0.85 } } },
+	"snow": { "name": "Nevasca", "tint": [200, 210, 230, 70], "fx": { "infantry": { "speed": 0.85 }, "vehicle": { "speed": 0.8 }, "air": { "range": 0.8 } } },
+	"warpstorm": { "name": "Tempestade da disformidade", "tint": [120, 30, 90, 80], "fx": { "infantry": { "dmg": 1.15, "taken": 1.1 }, "vehicle": { "dmg": 1.15, "taken": 1.1 }, "general": { "dmg": 1.15, "taken": 1.1 } } }
+};
 const WH40K_COMBAT = {
 	"timeLimit": 300,
 	"routRatio": 0.25,
@@ -46,8 +62,14 @@ const WH40K_FEATURE_FX = {
 	"crater": { "infantry": { "taken": 0.8 }, "vehicle": { "speed": 0.7 } },
 	"rocks": { "infantry": { "taken": 0.75, "speed": 0.85 }, "vehicle": { "speed": 0.6, "taken": 0.9 } },
 	"hill": { "infantry": { "range": 1.25, "dmg": 1.1, "speed": 0.85 }, "vehicle": { "range": 1.2, "dmg": 1.1, "speed": 0.8 } },
-	"water": { "infantry": { "speed": 0.5, "taken": 1.15 }, "vehicle": { "speed": 0.35, "taken": 1.1 } }
+	"water": { "infantry": { "speed": 0.5, "taken": 1.15 }, "vehicle": { "speed": 0.35, "taken": 1.1 } },
+	"wall": { "infantry": { "taken": 0.45, "speed": 0.6 }, "vehicle": { "taken": 0.7, "speed": 0.35 }, "general": { "taken": 0.5 } },
+	"trench": { "infantry": { "taken": 0.55, "speed": 0.75 }, "vehicle": { "speed": 0.6 }, "general": { "taken": 0.6 } }
 };
+/** Entrincheirar (Krieg): parado este tempo, o batalhão cava uma trincheira (feição "trench"). */
+const WH40K_DIG_TIME = 6;
+const WH40K_TRENCH_R = 0.05;
+const WH40K_TRENCH_MAX = 24;
 const WH40K_FIELD_FX = {
 	"hive": { "infantry": { "taken": 0.9 }, "vehicle": { "range": 0.85, "speed": 0.85 } },
 	"industrial": { "infantry": { "taken": 0.9 }, "vehicle": { "speed": 0.9 } },
@@ -80,7 +102,9 @@ class WH40KCombat
 	{
 		this.A = opts.aspect || 1;
 		this.field = opts.terrain || "";
-		this.features = (opts.features || []).map(f => ({ "type": f.type, "x": f.x * this.A, "y": f.y, "r": f.r }));
+		this.features = (opts.features || []).map(f => ({ "type": f.type, "x": f.x * this.A, "y": f.y, "r": f.r, "hp": f.type == "wall" ? 1 : 0 }));
+		this.featuresVersion = 0;
+		this.weather = WH40K_WEATHER[opts.weather] ? opts.weather : "clear";
 		this.defender = opts.defender || 2;
 		this.time = 0;
 		this.over = false;
@@ -116,9 +140,30 @@ class WH40KCombat
 				}))
 			};
 			this.sides[s] = side;
+			const late = [];
 			for (const e of def.units)
-				this.addUnit(e, s);
+				if (e.arrive)
+					late.push(e);
+				else
+					this.addUnit(e, s);
+			// Quem sabe cavar e começa com a ordem "segurar" já está entrincheirado.
+			for (const u of this.alive(s))
+				if (u.entrench && u.order == "hold" && !this.inTrench(u))
+					this.addTrench(u);
 			side.initial = this.sidePower(s);
+			// Reforços de exércitos vizinhos: entram pela própria borda.
+			late.forEach((e, i) => this.schedule(e.arrive, () => {
+				if (this.over)
+					return;
+				const u = this.addUnit(Object.assign({}, e, { "x": (0.2 + 0.6 * ((i + 0.5) / late.length)), "y": s == 1 ? 0.97 : 0.03, "order": "advance" }), s);
+				u.reinforcement = true;
+				u.allyName = e.allyName || null;
+				// Um aviso por grupo: os próprios reforços e os de cada aliado.
+				if (late.findIndex(o => (o.allyName || null) == (e.allyName || null)) == i)
+					this.message(s, e.allyName ? (s == 1 ? e.allyName + " chega para ajudar!" : "Aliados do inimigo chegam: " + e.allyName + "!") :
+						s == 1 ? "Reforços chegam pela retaguarda!" : "Reforços inimigos chegam!");
+				this.events.push({ "type": "droppod", "x": u.x, "y": u.y, "side": s, "reinforce": true });
+			}));
 		}
 	}
 
@@ -132,6 +177,9 @@ class WH40KCombat
 			"unitName": e.unitName,
 			"unit": e.unit,
 			"gid": e.gid,
+			"ability": e.ability || null,
+			"abilityReady": e.ability ? 15 : Infinity,
+			"buffs": [],
 			"portrait": e.portrait,
 			"icon": e.icon,
 			"quotes": e.quotes,
@@ -148,6 +196,10 @@ class WH40KCombat
 			"order": e.order || "advance",
 			"terrain": e.terrain || null,
 			"allTerrain": !!e.allTerrain,
+			"entrench": !!e.entrench,
+			"still": 0,
+			"stillX": temp ? e.x : e.x * this.A,
+			"stillY": e.y,
 			"vsVehicle": e.vsVehicle || 1,
 			"vsInfantry": e.vsInfantry || 1,
 			"vsAir": e.vsAir || 1,
@@ -194,7 +246,7 @@ class WH40KCombat
 	 * terreno da província e nas feições dadas. Devolve { speed, range, dmg,
 	 * taken, notes: [texto] }. Usado na simulação e na interface.
 	 */
-	static terrainMods(category, unit, field, featureTypes)
+	static terrainMods(category, unit, field, featureTypes, weather)
 	{
 		const mods = { "speed": 1, "range": 1, "dmg": 1, "taken": 1, "notes": [] };
 		const own = (unit && unit.terrain) || {};
@@ -215,7 +267,9 @@ class WH40KCombat
 			}
 		};
 		const names = typeof WH40K_TERRAIN_NAMES != "undefined" ? WH40K_TERRAIN_NAMES : {};
-		const fnames = { "ruins": "Ruínas", "forest": "Floresta", "crater": "Cratera", "rocks": "Rochedos", "hill": "Colina", "water": "Água" };
+		const fnames = { "ruins": "Ruínas", "forest": "Floresta", "crater": "Cratera", "rocks": "Rochedos", "hill": "Colina", "water": "Água", "wall": "Muralha", "trench": "Trincheira" };
+		if (weather && WH40K_WEATHER[weather] && weather != "clear")
+			apply(WH40K_WEATHER[weather].fx, "weather_" + weather, WH40K_WEATHER[weather].name);
 		if (field)
 			apply(WH40K_FIELD_FX[field], field, names[field] || field);
 		if (category != "air")
@@ -227,12 +281,13 @@ class WH40KCombat
 	/** Modificadores de terreno da unidade onde ela está agora. */
 	modsOf(u)
 	{
-		const types = this.featureAt(u.x, u.y).map(f => f.type);
-		const key = types.join(",");
+		// Trincheira só protege quem a cavou (o inimigo que chega ao corpo a corpo não ganha a cobertura).
+		const types = this.featureAt(u.x, u.y).filter(f => f.type != "trench" || f.side == u.side).map(f => f.type);
+		const key = types.join(",") + "#" + this.featuresVersion;
 		if (u.modsKey !== key)
 		{
 			u.modsKey = key;
-			u.mods = WH40KCombat.terrainMods(u.category, u, this.field, types);
+			u.mods = WH40KCombat.terrainMods(u.category, u, this.field, types, this.weather);
 		}
 		return u.mods;
 	}
@@ -310,6 +365,12 @@ class WH40KCombat
 			{
 				this.checkMorale(u);
 				this.think(u, dt);
+				if (u.entrench && !u.temp)
+					this.dig(u, dt);
+				// Chuva ácida: a infantaria sem cobertura se desgasta.
+				const dot = WH40K_WEATHER[this.weather].dot;
+				if (dot && u.category == "infantry" && !this.featureAt(u.x, u.y).length && u.hp > 0.06)
+					u.hp -= dot * dt;
 				// Protocolos de reanimação (Necrons): sem levar dano por 4 s, a força volta aos poucos.
 				const regen = this.sides[u.side].regen;
 				if (regen && !u.temp && this.time - u.lastHit > 4 && u.hp < u.hp0)
@@ -320,6 +381,38 @@ class WH40KCombat
 		this.checkEnd();
 	}
 
+	inTrench(u)
+	{
+		return this.featureAt(u.x, u.y).some(f => (f.type == "trench" && f.side == u.side) || f.type == "wall");
+	}
+
+	/** Entrincheirar: parado por WH40K_DIG_TIME segundos, cava uma trincheira onde está. */
+	dig(u, dt)
+	{
+		if (Math.hypot(u.x - u.stillX, u.y - u.stillY) > 0.012)
+		{
+			u.stillX = u.x;
+			u.stillY = u.y;
+			u.still = 0;
+			return;
+		}
+		u.still += dt;
+		if (u.still < WH40K_DIG_TIME || this.inTrench(u))
+			return;
+		u.still = 0;
+		if (this.features.filter(f => f.type == "trench").length >= WH40K_TRENCH_MAX)
+			return;
+		this.addTrench(u);
+		this.message(u.side, u.name + " se entrincheira!", true);
+	}
+
+	addTrench(u)
+	{
+		this.features.push({ "type": "trench", "x": u.x, "y": u.y, "r": WH40K_TRENCH_R, "hp": 0, "dug": true, "side": u.side });
+		++this.featuresVersion;
+		this.events.push({ "type": "entrench", "x": u.x, "y": u.y, "side": u.side });
+	}
+
 	moveTowards(u, tx, ty, dt, factor = 1)
 	{
 		const dx = tx - u.x;
@@ -327,7 +420,7 @@ class WH40KCombat
 		const d = Math.hypot(dx, dy);
 		if (d < 1e-4)
 			return true;
-		let speed = u.speed * factor * this.modsOf(u).speed;
+		let speed = u.speed * factor * this.modsOf(u).speed * this.buffMul(u, "speed");
 		if (this.sides[u.side].routing || u.order == "retreat")
 			speed *= 1.15;
 		const stepLen = Math.min(d, speed * dt);
@@ -346,7 +439,7 @@ class WH40KCombat
 			return false;
 		const side = this.sides[u.side];
 		let dmg = WH40K_COMBAT.damage * u.power * (0.35 + 0.65 * Math.min(1, u.hp / Math.max(0.3, u.hp0))) * side.dps * factor * dt;
-		dmg *= this.modsOf(u).dmg;
+		dmg *= this.modsOf(u).dmg * this.buffMul(u, "dmg");
 		// Especialistas: caça-tanques, lança-chamas, antiaéreos.
 		dmg *= target.category == "vehicle" ? u.vsVehicle : target.category == "air" ? u.vsAir : u.vsInfantry;
 		if (side.landing && this.time < 25)
@@ -374,7 +467,21 @@ class WH40KCombat
 		if (target.state != "alive")
 			return;
 		const tside = this.sides[target.side];
-		const loss = dmg / (target.power * target.armor * tside.armor) * this.modsOf(target).taken;
+		const loss = dmg / (target.power * target.armor * tside.armor) * this.modsOf(target).taken * this.buffMul(target, "taken");
+		// Muralha: os tiros contra quem está nela a desgastam (veículos e artilharia mais).
+		if (byUnit && target.category != "air")
+			for (const f of this.features)
+				if (f.type == "wall" && Math.hypot(f.x - target.x, f.y - target.y) < f.r)
+				{
+					f.hp -= dmg * 0.04 * (byUnit.category == "vehicle" ? 3 : 1);
+					if (f.hp <= 0)
+					{
+						f.type = "ruins";
+						++this.featuresVersion;
+						this.events.push({ "type": "wallbreak", "x": f.x, "y": f.y });
+						this.message(target.side, "Uma muralha desaba!", true);
+					}
+				}
 		const before = target.hp;
 		target.hp = Math.max(0, target.hp - loss);
 		target.lastHit = this.time;
@@ -741,8 +848,156 @@ class WH40KCombat
 	}
 
 	/** IA do lado: lança os poderes prontos onde há mais inimigos juntos. */
+	// ------------------------------------------------------------ poder do general
+
+	/** Multiplicador dos efeitos temporários (poderes de general) na unidade. */
+	buffMul(u, key)
+	{
+		let m = 1;
+		if (u.buffs && u.buffs.length)
+		{
+			u.buffs = u.buffs.filter(b => b.until > this.time);
+			for (const b of u.buffs)
+				m *= b[key] || 1;
+		}
+		return m;
+	}
+
+	/** O general do lado (vivo) e o poder dele. */
+	generalOf(side)
+	{
+		return this.alive(side).find(u => u.general && u.ability) || null;
+	}
+
+	abilityReady(side)
+	{
+		const g = this.generalOf(side);
+		return !!g && this.time >= g.abilityReady && !this.over;
+	}
+
+	/** Usa o poder do general (x, y: alvo, para smite e teleport). */
+	useAbility(side, x, y)
+	{
+		if (!this.abilityReady(side))
+			return false;
+		const g = this.generalOf(side);
+		const a = g.ability;
+		g.abilityReady = this.time + (a.cooldown || 50);
+		const near = (cx, cy, r, s) => this.alive(s).filter(o => Math.hypot(o.x - cx, o.y - cy) <= r);
+		if (x === undefined)
+		{
+			x = g.x;
+			y = g.y;
+		}
+		x = Math.max(0.03, Math.min(this.A - 0.03, x));
+		y = Math.max(0.03, Math.min(0.97, y));
+		this.message(side, (side == 1 ? "" : "Inimigo: ") + g.unitName + " — " + a.name + (/[!?]$/.test(a.name) ? "" : "!"));
+		switch (a.type)
+		{
+		case "smite":
+			for (const t of near(x, y, a.radius || 0.08, 3 - side))
+				this.damage(t, (a.power || 0.25) * t.power * t.armor * this.sides[t.side].armor, side, g);
+			this.events.push({ "type": "ability", "kind": "smite", "x": x, "y": y, "radius": a.radius || 0.08, "side": side });
+			break;
+		case "warcry":
+		case "shield":
+			for (const o of near(g.x, g.y, a.radius || 0.18, side))
+				o.buffs.push(a.type == "warcry" ? { "until": this.time + (a.duration || 15), "dmg": 1 + (a.power || 0.4) } : { "until": this.time + (a.duration || 15), "taken": 1 - (a.power || 0.4) });
+			this.events.push({ "type": "ability", "kind": a.type, "x": g.x, "y": g.y, "radius": a.radius || 0.18, "side": side });
+			break;
+		case "heal":
+			for (const o of near(g.x, g.y, a.radius || 0.18, side))
+				o.hp = Math.min(o.hp0, o.hp + (a.power || 0.25));
+			this.events.push({ "type": "ability", "kind": "heal", "x": g.x, "y": g.y, "radius": a.radius || 0.18, "side": side });
+			break;
+		case "inspire":
+			for (const o of this.alive(side))
+			{
+				o.brokenUntil = 0;
+				o.brokeOnce = true;
+				o.buffs.push({ "until": this.time + (a.duration || 20), "dmg": 1 + (a.power || 0.15), "speed": 1 + (a.power || 0.15) });
+			}
+			this.events.push({ "type": "ability", "kind": "inspire", "x": g.x, "y": g.y, "radius": 0.25, "side": side });
+			break;
+		case "summon":
+		{
+			const n = a.power || 2;
+			for (let k = 0; k < n; ++k)
+			{
+				const sx = Math.max(0.03, Math.min(this.A - 0.03, g.x + (k - (n - 1) / 2) * 0.05));
+				const sy = Math.max(0.03, Math.min(0.97, g.y + (side == 1 ? -0.05 : 0.05)));
+				const u = this.addUnit(Object.assign({ "id": "summon" + side + "_" + this.units.length, "category": "infantry", "strength": 1, "order": "advance", "x": sx, "y": sy, "quotes": [] }, a.summon || {}, { "x": sx, "y": sy }), side, true);
+				this.events.push({ "type": "spawn", "unit": u, "x": sx, "y": sy });
+			}
+			break;
+		}
+		case "teleport":
+		{
+			// O ponto fica até a distância do poder; leva o general e os 2 aliados mais próximos.
+			const d = Math.hypot(x - g.x, y - g.y);
+			const r = a.radius || 0.35;
+			if (d > r)
+			{
+				x = g.x + (x - g.x) * r / d;
+				y = g.y + (y - g.y) * r / d;
+			}
+			const group = [g].concat(this.alive(side).filter(o => o != g && o.category != "air").sort((p, q) => Math.hypot(p.x - g.x, p.y - g.y) - Math.hypot(q.x - g.x, q.y - g.y)).slice(0, 2));
+			this.events.push({ "type": "ability", "kind": "teleport", "x": g.x, "y": g.y, "radius": 0.08, "side": side });
+			group.forEach((o, k) => {
+				o.x = Math.max(0.02, Math.min(this.A - 0.02, x + (k - 1) * 0.04));
+				o.y = y;
+				o.anchor = { "x": o.x, "y": o.y };
+				if (o.order == "move" || o.order == "hold" || o.order == "reserve")
+					o.order = "advance";
+			});
+			this.events.push({ "type": "ability", "kind": "teleport", "x": x, "y": y, "radius": 0.08, "side": side });
+			break;
+		}
+		}
+		return true;
+	}
+
+	/** IA do poder do general. */
+	aiAbility(side)
+	{
+		if (!this.abilityReady(side))
+			return;
+		const g = this.generalOf(side);
+		const a = g.ability;
+		const enemies = this.alive(3 - side);
+		const allies = this.alive(side);
+		const dist = (p, q) => Math.hypot(p.x - q.x, p.y - q.y);
+		if (a.type == "smite" || a.type == "teleport")
+		{
+			let best = null;
+			let bestScore = 0;
+			for (const t of enemies)
+			{
+				if (dist(t, g) > 0.45)
+					continue;
+				const score = enemies.filter(o => dist(o, t) < (a.radius || 0.1)).reduce((s, o) => s + o.hp * o.power, 0);
+				if (score > bestScore)
+				{
+					bestScore = score;
+					best = t;
+				}
+			}
+			if (best && bestScore > 15)
+				this.useAbility(side, best.x, best.y);
+			return;
+		}
+		const close = enemies.some(o => dist(o, g) < 0.22);
+		if ((a.type == "warcry" || a.type == "shield" || a.type == "summon") && close)
+			this.useAbility(side);
+		else if (a.type == "heal" && allies.filter(o => dist(o, g) < (a.radius || 0.18)).reduce((s, o) => s + o.hp0 - o.hp, 0) > 0.6)
+			this.useAbility(side);
+		else if (a.type == "inspire" && (this.sidePower(side) < this.sides[side].initial * 0.7 || allies.some(o => o.brokenUntil > this.time)))
+			this.useAbility(side);
+	}
+
 	aiSupport(side)
 	{
+		this.aiAbility(side);
 		const powers = this.sides[side].powers;
 		for (let i = 0; i < powers.length; ++i)
 		{

@@ -34,6 +34,7 @@ class WH40KPlanetView
 		const mx = (W - mw) / 2;
 		const my = top + (bottom - top - mh) / 2;
 		this.rect = { "x": mx, "y": my, "w": mw, "h": mh };
+		this.viewW = W;
 		const map = gui("planetMap");
 		setSize(map, mx, my, mx + mw, my + mh);
 		map.sprite = "stretched:campaigns/wh40k/planets/" + bodyId + "/map.png";
@@ -46,6 +47,14 @@ class WH40KPlanetView
 
 		const provs = body.landProvinces;
 		this.index = {};
+		// Exércitos por província (a pilha nome + ícones + exércitos cabe inteira no mapa).
+		this.armyCount = {};
+		for (const a of Object.values(g.s.armies))
+			if (a.province && D.provinces[a.province].body == bodyId)
+				this.armyCount[a.province] = (this.armyCount[a.province] || 0) + 1;
+		this.anchors = {};
+		this.viewW = W;
+		this.layoutAnchors(body.landProvinces.slice(0, 24));
 		provs.forEach((pid, i) => {
 			if (i >= 24)
 				return;
@@ -58,24 +67,28 @@ class WH40KPlanetView
 			setSize(btn, mx + x0 * mw, my + y0 * mh, mx + x1 * mw, my + y1 * mh);
 			const mask = "campaigns/wh40k/planets/" + bodyId + "/p_" + pid + ".png";
 			// Devastada (saque ou bombardeio): a cor do dono fica queimada.
-			const color = st.devastated > 0 ? D.factionColor(st.owner).map((c, k) => Math.round(c * 0.45 + [110, 35, 10][k] * 0.55)) : D.factionColor(st.owner);
-			const alpha = selProv == pid ? 150 : st.owner ? 95 : 55;
+			let color = st.devastated > 0 ? D.factionColor(st.owner).map((c, k) => Math.round(c * 0.45 + [110, 35, 10][k] * 0.55)) : D.factionColor(st.owner);
+			let alpha = selProv == pid ? 150 : st.owner ? 95 : 55;
+			if (page.threatMode)
+			{
+				// Ameaça: 0 (verde) .. 1 (vermelho).
+				const t = this.threat(pid);
+				color = [Math.round(60 + 195 * t), Math.round(200 - 150 * t), 60];
+				alpha = selProv == pid ? 170 : 125;
+			}
 			btn.sprite = "color:" + rgbStr(color, alpha) + ":textureAsMask:" + mask;
 			btn.sprite_over = "color:" + rgbStr(color.map(c => Math.min(255, c + 50)), alpha + 50) + ":textureAsMask:" + mask;
 			btn.mouse_event_mask = "texture:" + mask;
-			btn.tooltip = this.provinceTooltip(pid, targets[pid], bombarding);
+			btn.tooltip = (page.threatMode ? colored(this.threatText(pid), [250, 200, 120]) + "\n" : "") + this.provinceTooltip(pid, targets[pid], bombarding);
 			btn.onPress = () => page.select({ "type": "province", "id": pid });
 			btn.onPressRight = () => page.orderProvince(pid);
 
-			// Ponto do rótulo; o nome não sai das bordas do mapa.
-			const halfName = Math.max(36, def.name.length * (mw < 900 ? 6.3 : 7.2) / 2 + 6);
-			const lx = Math.max(mx + halfName, Math.min(mx + mw - halfName, mx + def.label[0] * mw));
-			// Abaixo da barra da órbita (34 px) e acima da dica do rodapé.
-			const ly = Math.max(my + 66, Math.min(my + mh - 30, my + def.label[1] * mh));
+			// Ponto do rótulo: a pilha inteira (nome, ícones, alvo e exércitos) fica dentro do mapa.
+			const { "x": lx, "y": ly } = this.anchors[pid] || this.anchor(pid, W);
 			// Nome numa placa escura do tamanho do texto (fonte menor em mapas pequenos).
 			const small = mw < 900;
-			const charW = small ? 6.3 : 7.2;
-			const half = Math.max(36, def.name.length * charW / 2 + 6);
+			const charW = small ? 6.9 : 7.9;
+			const half = Math.max(36, tr(def.name).length * charW / 2 + 6);
 			const label = gui("provLabel[" + i + "]");
 			label.hidden = false;
 			label.caption = def.name;
@@ -98,7 +111,7 @@ class WH40KPlanetView
 			};
 			icon("provHive", !!def.hive, "hive", def.hive == 2 ? [255, 200, 110] : [220, 200, 170]);
 			icon("provFort", st.forts > 0, "fort", [200, 200, 210]);
-			icon("provYard", !!def.shipyard, "shipyard", [150, 200, 255]);
+			icon("provYard", g.hasShipyard(pid), "shipyard", [150, 200, 255]);
 			const garrison = gui("provGarrison[" + i + "]");
 			garrison.hidden = !st.garrison.length;
 			garrison.caption = "G" + st.garrison.length;
@@ -139,7 +152,8 @@ class WH40KPlanetView
 		const def = D.provinces[pid];
 		const st = g.province(pid);
 		let text = def.name + " — " + WH40K_TERRAIN_NAMES[def.terrain] + "\n" + colored(D.factionName(st.owner), D.factionColor(st.owner));
-		text += "\nRendimento: " + g.provinceIncome(pid) + (def.hive == 2 ? " · Cidade-colmeia" : def.hive ? " · Cidade" : "") + (def.shipyard ? " · Estaleiro" : "") + (st.forts ? " · Fortes " + st.forts : "");
+		text += "\nRendimento: " + g.provinceIncome(pid) + (def.hive == 2 ? " · Cidade-colmeia" : def.hive ? " · Cidade" : "") + (g.hasShipyard(pid) ? " · Estaleiro" : "") + (st.forts ? " · Fortes " + st.forts : "") +
+			(st.owner && g.hasOrder(st.owner) ? " · Ordem " + g.orderOf(pid) : "") + (g.buildingsOf(pid).length ? "\nConstruções: " + g.buildingsOf(pid).map(b => WH40K_BUILDINGS[b].name).join(", ") : "");
 		if (st.devastated > 0)
 			text += "\n" + colored("Devastada: mais " + st.devastated + " turno(s) com rendimento reduzido", [240, 140, 60]);
 		if (st.garrison.length)
@@ -156,6 +170,81 @@ class WH40KPlanetView
 		return text;
 	}
 
+	/**
+	 * Âncora da pilha da província (centro do rótulo): presa dentro do mapa,
+	 * contando a largura do nome e dos exércitos e a altura até o último
+	 * retrato, e fora dos botões do canto superior direito.
+	 */
+	/**
+	 * Calcula as âncoras de todas as províncias e afasta as pilhas que se
+	 * sobrepõem (mapas pequenos: estações, luas), sempre dentro do mapa.
+	 */
+	layoutAnchors(pids)
+	{
+		const boxes = pids.map(pid => Object.assign({ "pid": pid }, this.anchor(pid, this.viewW)));
+		const { x: mx, y: my, w: mw, h: mh } = this.rect;
+		for (let iter = 0; iter < 40; ++iter)
+		{
+			let moved = false;
+			for (let i = 0; i < boxes.length; ++i)
+				for (let j = i + 1; j < boxes.length; ++j)
+				{
+					const a = boxes[i];
+					const b = boxes[j];
+					const ox = a.half + b.half + 6 - Math.abs(a.x - b.x);
+					const oy = Math.min(a.y + a.below, b.y + b.below) - Math.max(a.y - a.above, b.y - b.above) + 6;
+					if (ox <= 0 || oy <= 0)
+						continue;
+					moved = true;
+					// Afasta pelo eixo de menor sobreposição, metade para cada lado.
+					if (oy * 1.5 < ox)
+					{
+						const d = oy / 2 + 1;
+						const s = a.y <= b.y ? -1 : 1;
+						a.y += s * d;
+						b.y -= s * d;
+					}
+					else
+					{
+						const d = ox / 2 + 1;
+						const s = a.x <= b.x ? -1 : 1;
+						a.x += s * d;
+						b.x -= s * d;
+					}
+				}
+			for (const b of boxes)
+			{
+				b.x = Math.max(mx + b.half + 4, Math.min(mx + mw - b.half - 4, b.x));
+				b.y = Math.max(my + b.above + 4, Math.min(my + mh - b.below - 4, b.y));
+			}
+			if (!moved)
+				break;
+		}
+		for (const b of boxes)
+			this.anchors[b.pid] = b;
+	}
+
+	anchor(pid, viewW)
+	{
+		if (this.anchors[pid])
+			return this.anchors[pid];
+		const def = this.page.D.provinces[pid];
+		const { x: mx, y: my, w: mw, h: mh } = this.rect;
+		const n = Math.min(4, this.armyCount[pid] || 0);
+		const charW = mw < 900 ? 6.9 : 7.9;
+		const half = Math.max(40, tr(def.name).length * charW / 2 + 6, n * 46 / 2 + 4);
+		const above = 32;
+		const below = n ? 30 + 30 : 36;
+		const m = 4;
+		let x = Math.max(mx + half + m, Math.min(mx + mw - half - m, mx + def.label[0] * mw));
+		let y = Math.max(my + above + m, Math.min(my + mh - below - m, my + def.label[1] * mh));
+		// Botões "Mapa de ameaça"/"Desfazer" no canto superior direito da vista.
+		const btnBottom = gui("planetUndoBtn").hidden ? 70 : 102;
+		if (x + half > viewW - 184 && y - above < btnBottom)
+			y = Math.min(my + mh - below - m, btnBottom + above);
+		return this.anchors[pid] = { "x": x, "y": y, "half": half, "above": above, "below": below };
+	}
+
 	renderArmies(bodyId)
 	{
 		const page = this.page;
@@ -167,8 +256,11 @@ class WH40KPlanetView
 		armies.slice(0, 16).forEach((army, i) => {
 			const def = D.provinces[army.province];
 			const k = perProv[army.province] = (perProv[army.province] || 0) + 1;
-			const cx = mx + def.label[0] * mw + (k - 1) * 46 - (k > 1 ? 0 : 0);
-			const cy = my + def.label[1] * mh + 30;
+			const n = Math.min(4, this.armyCount[army.province] || 1);
+			const a = this.anchor(army.province, this.viewW);
+			// Exércitos lado a lado, centrados sob o nome (até 4 por província; o resto empilha).
+			const cx = a.x + ((k - 1) % 4 - (n - 1) / 2) * 46;
+			const cy = a.y + 30 + Math.floor((k - 1) / 4) * 6;
 			const r = 22;
 			const selected = page.sel && page.sel.type == "army" && page.sel.id == army.id;
 			const ring = gui("armyRing[" + i + "]");
@@ -219,9 +311,35 @@ class WH40KPlanetView
 			const fleet = own[i];
 			setSize(btn, 0, 3, 0, 31);
 			btn.size = rel(100, -410 + i * 102) + " 3 " + rel(100, -312 + i * 102) + " 31";
-			btn.caption = fleet.name.length > 12 ? fleet.name.slice(0, 11) + "." : fleet.name;
+			const nm = tr(fleet.name);
+			btn.caption = nm.length > 12 ? nm.slice(0, 11) + "." : nm;
 			btn.tooltip = page.system.fleetTooltip(fleet);
 			btn.onPress = () => page.select({ "type": "fleet", "id": fleet.id });
 		}
+	}
+
+	/** Ameaça da província para o jogador (0..1): suas, perigo de ataque; das outras, dificuldade de tomá-la. */
+	threat(pid)
+	{
+		const g = this.page.game;
+		const me = this.page.player;
+		const prov = g.province(pid);
+		const enemyNear = [pid].concat(g.pdef(pid).neighbors).flatMap(n => g.hostileArmiesAt(n, me)).reduce((s, a) => s + g.armyPower(a, "attack"), 0);
+		if (g.friendly(prov.owner, me))
+		{
+			const def = g.garrisonPower(pid) + g.armiesAt(pid).filter(a => g.friendly(a.faction, me)).reduce((s, a) => s + g.armyPower(a, "defense"), 0);
+			return Math.max(0, Math.min(1, enemyNear / Math.max(1, def * 2)));
+		}
+		const mine = [pid].concat(g.pdef(pid).neighbors).flatMap(n => g.armiesAt(n, me)).reduce((s, a) => Math.max(s, g.armyPower(a, "attack")), 0);
+		return Math.max(0, Math.min(1, g.defensePower(pid, me) / Math.max(1, mine * 1.5)));
+	}
+
+	threatText(pid)
+	{
+		const g = this.page.game;
+		const t = this.threat(pid);
+		const own = g.friendly(g.province(pid).owner, this.page.player);
+		const level = t > 0.66 ? "alta" : t > 0.33 ? "média" : "baixa";
+		return own ? "Ameaça " + level + " (" + percent(t) + ")" : "Dificuldade de tomar: " + level + " (" + percent(t) + ")";
 	}
 }

@@ -19,7 +19,15 @@
 				"Ordens, soldado? O inimigo não espera — e eu também não.",
 				"Armageddon não cairá enquanto eu respirar.",
 				"Coragem e fé. O resto é munição."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Olhar Malvado",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.35,
+				"radius": 0.05,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "creed",
@@ -38,7 +46,16 @@
 				"Cadia resiste. E nós também.",
 				"Artilharia primeiro, perguntas depois.",
 				"Cada batalha é um problema. Eu resolvo problemas."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Campo",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "straken",
@@ -57,7 +74,16 @@
 				"Já comi coisa pior que um Ork no café da manhã.",
 				"Faca na mão, coração firme. Vamos!",
 				"A selva me ensinou: quem hesita, morre."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "cain",
@@ -76,7 +102,15 @@
 				"Um bom comissário sabe onde fica a saída — para os outros, é claro.",
 				"Pelo Imperador! E, de preferência, de uma distância segura.",
 				"Jurgen, meu chá. E as ordens do dia."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "gaunt",
@@ -94,7 +128,15 @@
 				"Primeiro e Único, aguardando ordens.",
 				"Os Fantasmas andam onde os outros não ousam.",
 				"Façam silêncio. Deixem o inimigo nos procurar."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "sturnn",
@@ -112,7 +154,16 @@
 				"Linhas firmes, trincheiras fundas.",
 				"A paciência também é uma arma.",
 				"Que venham. As defesas estão prontas."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "ghazghkull",
@@ -132,7 +183,15 @@
 				"Esse planeta vai ser nosso. Esse, e o próximo.",
 				"Yarrick! Cadê você, velhote?",
 				"Dá as ordens logo que eu tô com pressa de bater."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "WAAAGH!",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.25,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "gorgutz",
@@ -151,7 +210,16 @@
 				"Mais cabeças pra minha coleção!",
 				"O Gorgutz chegou, e chegou com fome!",
 				"Cadê o próximo chefão humie?"
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "nazdreg",
@@ -170,7 +238,16 @@
 				"Dentes não faltam. Armas também não!",
 				"Os Bad Moons pagam bem e atiram mais.",
 				"Brilha, né? É dente de ouro."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "wazdakka",
@@ -188,7 +265,16 @@
 				"Vruuum! Vamo que vamo!",
 				"Ninguém pega o Wazdakka!",
 				"Acelera, rapaziada!"
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "zagstruk",
@@ -206,7 +292,16 @@
 				"Disciplina, seus vermes! E depois, WAAAGH!",
 				"Foguete nas costas e bota nos dentes do inimigo!",
 				"Caindo do céu em três, dois..."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "zogwort",
@@ -224,7 +319,16 @@
 				"A cabeça tá zumbindo... vai explodir alguma coisa!",
 				"Gork tá falando comigo. Ele quer briga.",
 				"Sai de perto que vai dar choque!"
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "tycho",
@@ -243,7 +347,16 @@
 				"Pelo sangue de Sanguinius!",
 				"Armageddon não cairá enquanto houver um Anjo de pé.",
 				"Ataquem agora, e ataquem com fúria."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "grimaldus",
@@ -262,7 +375,15 @@
 				"Helsreach não caiu enquanto eu respirei.",
 				"Sem piedade! Sem remorso! Sem medo!",
 				"A fé é mais dura que a ceramita."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "veridyan",
@@ -281,7 +402,16 @@
 				"O Imperador protege.",
 				"Queimem o herege, o xenos e o mutante.",
 				"Que a chama da fé nos guie."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "kord",
@@ -300,7 +430,16 @@
 				"Cálculo concluído: vitória provável.",
 				"Pelo Omnissiah.",
 				"A carne é fraca. O metal resiste."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Campo",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "buzzgob",
@@ -318,7 +457,16 @@
 				"Mais peças, mais dakka!",
 				"Funciona? Funciona!",
 				"Vô consertar essa lata."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Campo",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "grotsnik",
@@ -336,7 +484,15 @@
 				"Fica parado que dói menos.",
 				"Um cérebro novo? Tenho aqui!",
 				"Hehehe... próximo paciente!"
-			]
+			],
+			"ability": {
+				"type": "heal",
+				"name": "Cura de Campo",
+				"desc": "Os aliados perto do general recuperam 25% da força.",
+				"power": 0.25,
+				"radius": 0.18,
+				"cooldown": 55
+			}
 		},
 		{
 			"id": "hive_tyrant",
@@ -355,7 +511,15 @@
 				"(a Mente da Colmeia fala através dele)",
 				"...consumir...",
 				"Tudo será biomassa."
-			]
+			],
+			"ability": {
+				"type": "summon",
+				"name": "Ninhada Sináptica",
+				"desc": "Tropas temporárias surgem junto ao general.",
+				"power": 2,
+				"cooldown": 60,
+				"unit": "termagants"
+			}
 		},
 		{
 			"id": "old_one_eye",
@@ -374,7 +538,16 @@
 				"(rugido que faz tremer a terra)",
 				"...esmagar...",
 				"(o olho brilha)"
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "deathleaper",
@@ -392,7 +565,14 @@
 				"...eu vejo você...",
 				"(nada)",
 				"...o caçador espera..."
-			]
+			],
+			"ability": {
+				"type": "teleport",
+				"name": "Ataque Relâmpago",
+				"desc": "O general e os dois batalhões mais próximos saltam para o ponto escolhido.",
+				"radius": 0.35,
+				"cooldown": 55
+			}
 		},
 		{
 			"id": "broodlord",
@@ -410,7 +590,14 @@
 				"...meus filhos estão em toda parte...",
 				"A prole aguarda.",
 				"(sorriso de muitas presas)"
-			]
+			],
+			"ability": {
+				"type": "summon",
+				"name": "Invocação",
+				"desc": "Tropas temporárias surgem junto ao general.",
+				"power": 2,
+				"cooldown": 60
+			}
 		},
 		{
 			"id": "neurothrope",
@@ -428,7 +615,15 @@
 				"(pressão psíquica)",
 				"...silêncio...",
 				"A sombra cai."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade Psíquica",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "abaddon",
@@ -447,7 +642,16 @@
 				"Cadia cairá.",
 				"Dez mil anos esperei por isto.",
 				"Ajoelhem-se ou morram."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "A Garra de Horus",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.5,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "haarken",
@@ -465,7 +669,15 @@
 				"O Saqueador chega!",
 				"Eu proclamo o fim deste mundo.",
 				"Sangue e glória!"
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "zaraphiston",
@@ -483,7 +695,15 @@
 				"A disformidade sussurra.",
 				"Vejo seus medos.",
 				"O véu está fino."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade Psíquica",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "jarulek",
@@ -501,7 +721,15 @@
 				"A Palavra é verdade.",
 				"Ajoelhem-se perante os Deuses.",
 				"Queimem os falsos ídolos."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "vorkh",
@@ -519,7 +747,16 @@
 				"As máquinas têm fome.",
 				"Metal e demônio, unidos.",
 				"Forjamos o apocalipse."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Campo",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "eldrad",
@@ -538,7 +775,16 @@
 				"Eu vi este momento mil vezes.",
 				"O destino é um fio que eu puxo.",
 				"Sigam meus passos e vivam."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Destino Selado",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.5,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "taldeer",
@@ -556,7 +802,15 @@
 				"O futuro mostra perigo.",
 				"Não nesta noite.",
 				"As runas falam."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade Psíquica",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "jain_zar",
@@ -574,7 +828,16 @@
 				"Ouçam o grito.",
 				"Silêncio... e morte.",
 				"Eu fui a primeira."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "karandras",
@@ -592,7 +855,16 @@
 				"O escorpião não se apressa.",
 				"Das sombras.",
 				"Ferrão e lâmina."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "fuegan",
@@ -610,7 +882,16 @@
 				"Eu sou a chama.",
 				"Nada resiste ao fogo.",
 				"Cinzas."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "imotekh",
@@ -629,7 +910,15 @@
 				"Ajoelhem-se perante a dinastia.",
 				"Eu domino as tempestades.",
 				"Esta galáxia é minha."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade de Relâmpagos",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.1,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "trazyn",
@@ -647,7 +936,16 @@
 				"Que peça magnífica para a coleção!",
 				"Eu nunca morro de verdade.",
 				"Ah, um artefato!"
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "orikan",
@@ -665,7 +963,15 @@
 				"Eu já sei como isto termina.",
 				"As estrelas se alinham.",
 				"O tempo é meu instrumento."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade Psíquica",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "anrakyr",
@@ -683,7 +989,16 @@
 				"Despertem, irmãos.",
 				"A guerra nunca acabou.",
 				"Os vivos tomaram o que é nosso."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "farsight",
@@ -702,7 +1017,14 @@
 				"Pelo Bem Maior — à minha maneira.",
 				"Mont'ka: o golpe mortal.",
 				"A lâmina do alvorecer está pronta."
-			]
+			],
+			"ability": {
+				"type": "teleport",
+				"name": "Mont'ka",
+				"desc": "O general e os dois batalhões mais próximos saltam para o ponto escolhido.",
+				"radius": 0.35,
+				"cooldown": 55
+			}
 		},
 		{
 			"id": "shadowsun",
@@ -720,7 +1042,16 @@
 				"Kauyon: a paciência do caçador.",
 				"Eles virão até nós.",
 				"Em silêncio, vencemos."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "aunva",
@@ -738,7 +1069,15 @@
 				"O Bem Maior une todos.",
 				"Lutem pela harmonia.",
 				"Nossa causa é justa."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "anghkor",
@@ -756,7 +1095,16 @@
 				"A caça nos fortalece.",
 				"Comeremos os fortes.",
 				"Sigam a trilha."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "kharn",
@@ -775,7 +1123,16 @@
 				"SANGUE PARA O DEUS DO SANGUE! CRÂNIOS PARA O TRONO DE CRÂNIOS!",
 				"Mate! Mutile! Queime!",
 				"Não importa de quem é o sangue."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Sangue para o Deus do Sangue!",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.6,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "invocatus",
@@ -794,7 +1151,16 @@
 				"Angron quer crânios. Vamos buscá-los.",
 				"Avante, Devoradores!",
 				"A estratégia é matar mais rápido."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "executioner",
@@ -812,7 +1178,16 @@
 				"Seu crânio é meu.",
 				"A corrente pesa. Tem espaço para mais.",
 				"Ajoelhe-se."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "typhus",
@@ -831,7 +1206,15 @@
 				"Abracem a podridão.",
 				"O Avô é generoso.",
 				"Não há fim, só mudança de estação."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Enxame Destruidor",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.11,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "felthius",
@@ -850,7 +1233,16 @@
 				"Avancem. Devagar. Sempre.",
 				"Somos a doença do universo.",
 				"Nada morre de verdade."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "plaguecaster",
@@ -868,7 +1260,15 @@
 				"Uma névoa amarela... que linda.",
 				"O jardim cresce.",
 				"Sintam os presentes."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade Psíquica",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "ahriman",
@@ -887,7 +1287,15 @@
 				"O conhecimento é poder. Escondam-no bem.",
 				"Tudo segue o meu plano.",
 				"O Rubricae obedece."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Fogo de Tzeentch",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.3,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "amon",
@@ -906,7 +1314,15 @@
 				"Pelo Rei Carmesim.",
 				"A Rubrica nos protege.",
 				"Prospero lembra."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade Psíquica",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "ankhu",
@@ -924,7 +1340,15 @@
 				"Venham, filhos da disformidade.",
 				"Os nomes verdadeiros obedecem.",
 				"Mudança!"
-			]
+			],
+			"ability": {
+				"type": "summon",
+				"name": "Invocar Horrores",
+				"desc": "Tropas temporárias surgem junto ao general.",
+				"power": 1,
+				"cooldown": 60,
+				"unit": "ts_horrors"
+			}
 		},
 		{
 			"id": "lucius",
@@ -943,7 +1367,16 @@
 				"Finalmente, um adversário digno?",
 				"Que decepção.",
 				"Perfeição em cada golpe."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "xantine",
@@ -962,7 +1395,16 @@
 				"Eu os salvo... da mediocridade.",
 				"Que espetáculo!",
 				"O mundo será nosso palco."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "kakophonist",
@@ -980,7 +1422,16 @@
 				"Ouçam a sinfonia!",
 				"Mais alto!",
 				"(acorde ensurdecedor)"
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "calgar",
@@ -999,7 +1450,16 @@
 				"Coragem e honra!",
 				"Conforme o Codex.",
 				"Ultramar resistirá."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Macragge",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "tigurius",
@@ -1018,7 +1478,15 @@
 				"Eu vi este dia.",
 				"A disformidade se curva.",
 				"O futuro está turvo, mas não perdido."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade Psíquica",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "sicarius",
@@ -1036,7 +1504,16 @@
 				"Pela glória da 2ª!",
 				"Avançar! Agora!",
 				"Nenhum traidor sobrevive."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "ventris",
@@ -1054,7 +1531,16 @@
 				"Já atravessei o Olho. Isso não me assusta.",
 				"Pela 4ª!",
 				"Avante."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "dante",
@@ -1073,7 +1559,16 @@
 				"Pelo Anjo!",
 				"Já vi mil guerras. Esta será vencida.",
 				"Baal resiste."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "A Lança de Sanguinius",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.5,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "mephiston",
@@ -1092,7 +1587,15 @@
 				"Eu venci a escuridão. Vocês não vencerão.",
 				"Morra.",
 				"A disformidade é minha."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade de Sangue",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.3,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "lemartes",
@@ -1110,7 +1613,16 @@
 				"Pela memória de Sanguinius!",
 				"Irmãos perdidos, comigo!",
 				"Morte aos traidores!"
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "corbulo",
@@ -1128,7 +1640,15 @@
 				"Bebam e lembrem do Anjo.",
 				"Nenhum irmão cai sem bênção.",
 				"A sede está controlada."
-			]
+			],
+			"ability": {
+				"type": "heal",
+				"name": "Cura de Campo",
+				"desc": "Os aliados perto do general recuperam 25% da força.",
+				"power": 0.25,
+				"radius": 0.18,
+				"cooldown": 55
+			}
 		},
 		{
 			"id": "tushan",
@@ -1147,7 +1667,16 @@
 				"Para o fogo da batalha!",
 				"Na bigorna da guerra somos forjados.",
 				"Protejam os inocentes."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Bigorna de Nocturne",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "hestan",
@@ -1166,7 +1695,16 @@
 				"Vulkan vive!",
 				"A busca continua.",
 				"O fogo nos guia."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "elysius",
@@ -1184,7 +1722,15 @@
 				"A fé é nossa armadura.",
 				"Queimem os hereges!",
 				"O Imperador protege."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "ashmantle",
@@ -1202,7 +1748,16 @@
 				"Lutei na fundação deste capítulo.",
 				"Ainda queimo.",
 				"Avançar, filhos de Vulkan."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Campo",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "draigo",
@@ -1221,7 +1776,14 @@
 				"Eu gravei o meu nome no coração de Mortarion.",
 				"Somos o martelo.",
 				"A disformidade não me prende."
-			]
+			],
+			"ability": {
+				"type": "teleport",
+				"name": "Caminhante da Disformidade",
+				"desc": "O general e os dois batalhões mais próximos saltam para o ponto escolhido.",
+				"radius": 0.35,
+				"cooldown": 55
+			}
 		},
 		{
 			"id": "voldus",
@@ -1240,7 +1802,15 @@
 				"A mente é a arma mais afiada.",
 				"Abram o portal.",
 				"Pela pureza."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Martelo do Imperador",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.3,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "crowe",
@@ -1258,7 +1828,16 @@
 				"A espada sussurra. Eu não escuto.",
 				"Nada me corrompe.",
 				"Em guarda."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "stern",
@@ -1276,7 +1855,16 @@
 				"O nome do demônio é meu escudo.",
 				"Avançar.",
 				"Já matei pior."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "dominus_vantor",
@@ -1295,7 +1883,16 @@
 				"O Omnissiah calcula a vitória.",
 				"Carne é fraca.",
 				"Parâmetros de guerra aceitos."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Campo",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "manipulus_hexa",
@@ -1314,7 +1911,16 @@
 				"Avançar em formação Delta.",
 				"A vontade da forja guia.",
 				"Execução eficiente."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Campo",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "datasmith_kelvar",
@@ -1332,7 +1938,16 @@
 				"Protocolos carregados.",
 				"Os autômatos obedecem.",
 				"PROTOCOLO: FORTALEZA."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Campo",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "vahl",
@@ -1351,7 +1966,15 @@
 				"A fé é a nossa armadura.",
 				"Pelo Imperador e pela Santa!",
 				"Nenhum herege fica de pé."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "celestine",
@@ -1370,7 +1993,15 @@
 				"Eu fui enviada.",
 				"Levantem-se, irmãs!",
 				"A luz do Imperador está conosco."
-			]
+			],
+			"ability": {
+				"type": "heal",
+				"name": "Milagre da Viva Santa",
+				"desc": "Os aliados perto do general recuperam 25% da força.",
+				"power": 0.35,
+				"radius": 0.24,
+				"cooldown": 55
+			}
 		},
 		{
 			"id": "eruita",
@@ -1388,7 +2019,15 @@
 				"Ouçam a Palavra!",
 				"Queimem o herege!",
 				"O púlpito avança."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "trajann",
@@ -1407,7 +2046,16 @@
 				"Eu respondo ao Imperador.",
 				"Ninguém toca no Trono.",
 				"Avançar, Companheiros."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Juramento dos Dez Mil",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "valerian",
@@ -1426,7 +2074,16 @@
 				"Escudos dourados.",
 				"Eu guardo.",
 				"Firmes."
-			]
+			],
+			"ability": {
+				"type": "shield",
+				"name": "Escudo de Campo",
+				"desc": "Os aliados perto do general recebem 40% menos dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "ixion",
@@ -1444,7 +2101,16 @@
 				"Mostre-me o seu melhor.",
 				"Um golpe basta.",
 				"Duelo aceito."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "malidrach",
@@ -1463,7 +2129,15 @@
 				"Escravos. Muitos escravos.",
 				"A dor deles me rejuvenesce.",
 				"Que gritem."
-			]
+			],
+			"ability": {
+				"type": "summon",
+				"name": "Portal da Teia",
+				"desc": "Tropas temporárias surgem junto ao general.",
+				"power": 1,
+				"cooldown": 60,
+				"unit": "dk_incubi"
+			}
 		},
 		{
 			"id": "lelith",
@@ -1482,7 +2156,16 @@
 				"Vamos dançar?",
 				"Lento demais.",
 				"A plateia me adora."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Dança das Lâminas",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.5,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "rakarth",
@@ -1500,7 +2183,15 @@
 				"Que material interessante.",
 				"A dor é arte.",
 				"Nada morre de verdade comigo."
-			]
+			],
+			"ability": {
+				"type": "heal",
+				"name": "Cura de Campo",
+				"desc": "Os aliados perto do general recuperam 25% da força.",
+				"power": 0.25,
+				"radius": 0.18,
+				"cooldown": 55
+			}
 		},
 		{
 			"id": "huron",
@@ -1519,7 +2210,16 @@
 				"Terra esqueceu as Marcas de Badab. Eu não.",
 				"Sou o Tirano, e isto é meu.",
 				"Que venham os lealistas."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Fúria do Tirano",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "vharkus",
@@ -1538,7 +2238,16 @@
 				"O Tirano manda, eu cumpro.",
 				"Avançar, irmãos.",
 				"Nenhuma piedade."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "tarrek",
@@ -1556,7 +2265,16 @@
 				"Os homens lutam pelo soldo.",
 				"Firmes!",
 				"Linha de fogo!"
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "phoros",
@@ -1574,7 +2292,16 @@
 				"A honra nos trouxe até aqui.",
 				"Lamentamos, e lutamos.",
 				"Pelo Anjo."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "redth",
@@ -1592,7 +2319,15 @@
 				"Eu vejo a emboscada antes deles.",
 				"A mente é uma lâmina.",
 				"Paciência."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Tempestade Psíquica",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.25,
+				"radius": 0.08,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "kane",
@@ -1610,7 +2345,16 @@
 				"Mais uma cabeça para o salão.",
 				"Caçem o campeão deles.",
 				"Morte com honra."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "zuehlke",
@@ -1629,7 +2373,15 @@
 				"Vraks cairá. O tempo não importa.",
 				"Mais uma onda.",
 				"O Imperador conta os mortos."
-			]
+			],
+			"ability": {
+				"type": "smite",
+				"name": "Barragem de Krieg",
+				"desc": "Fere todos os inimigos numa área escolhida.",
+				"power": 0.2,
+				"radius": 0.12,
+				"cooldown": 45
+			}
 		},
 		{
 			"id": "vosk",
@@ -1648,7 +2400,15 @@
 				"Avancem.",
 				"A morte é dever.",
 				"Recuar é heresia."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Inflamado",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "kerrig",
@@ -1666,7 +2426,16 @@
 				"Lanças baixas!",
 				"Carga!",
 				"Pela glória da morte."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "xaphan",
@@ -1685,7 +2454,15 @@
 				"O Imperador é um cadáver.",
 				"Vraks é livre.",
 				"Ajoelhem-se perante a verdade."
-			]
+			],
+			"ability": {
+				"type": "inspire",
+				"name": "Sermão Apóstata",
+				"desc": "Todo o exército: sem pânico, +15% de velocidade e +15% de dano por 20 s.",
+				"power": 0.15,
+				"duration": 20,
+				"cooldown": 70
+			}
 		},
 		{
 			"id": "drax",
@@ -1704,7 +2481,16 @@
 				"Eu conheço as táticas deles.",
 				"Avançar!",
 				"Krieg sangrará."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		},
 		{
 			"id": "ugrak",
@@ -1722,7 +2508,16 @@
 				"Sangue para o Deus do Sangue!",
 				"Desafio!",
 				"Os Deuses me olham."
-			]
+			],
+			"ability": {
+				"type": "warcry",
+				"name": "Grito de Guerra",
+				"desc": "Os aliados perto do general causam +40% de dano por 15 s.",
+				"power": 0.4,
+				"radius": 0.18,
+				"duration": 15,
+				"cooldown": 50
+			}
 		}
 	]
 }

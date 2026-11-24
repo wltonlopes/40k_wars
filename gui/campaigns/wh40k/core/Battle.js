@@ -22,7 +22,16 @@ const WH40K_FEATURES = {
 };
 const WH40K_FEATURE_NAMES = {
 	"ruins": "Ruínas: cobertura e obstáculo", "crater": "Cratera", "rocks": "Rochedos", "hill": "Colina: vantagem de altura",
-	"forest": "Floresta: bloqueia a visão", "water": "Água rasa e lama: lenta"
+	"forest": "Floresta: bloqueia a visão", "water": "Água rasa e lama: lenta", "wall": "Muralha: cobertura forte para quem está nela; os tiros a derrubam",
+	"trench": "Trincheira: cavada na batalha; cobertura forte para a infantaria"
+};
+/** Clima possível por terreno (pesos). */
+const WH40K_WEATHER_BY_TERRAIN = {
+	"ash": { "clear": 3, "ash": 3, "night": 2, "acid": 1 }, "plains": { "clear": 4, "night": 2, "ash": 1, "acid": 1 },
+	"ice": { "clear": 3, "snow": 4, "night": 2 }, "industrial": { "clear": 3, "acid": 3, "night": 2, "ash": 1 },
+	"hive": { "clear": 3, "night": 3, "acid": 2 }, "warp": { "warpstorm": 4, "night": 2, "clear": 1 },
+	"jungle": { "clear": 3, "acid": 2, "night": 2 }, "mire": { "clear": 2, "acid": 3, "night": 2 }, "biomass": { "acid": 3, "clear": 2, "night": 2 },
+	"mountains": { "clear": 3, "snow": 2, "night": 2 }, "station": { "clear": 5, "night": 1 }, "rok": { "clear": 4, "night": 2 }, "tomb": { "clear": 3, "night": 3 }
 };
 const WH40K_PLANS = {
 	"assault": { "name": "Ataque Total", "desc": "Todos avançam juntos contra o inimigo." },
@@ -85,8 +94,35 @@ class WH40KBattleSetup
 				}
 				list.push(f);
 			}
+		// Muralhas do defensor com fortificações, na linha da infantaria dele.
+		const forts = this.g.province(this.battle.province).forts || 0;
+		if (forts > 0)
+		{
+			const n = 2 + 2 * forts;
+			const y = this.playerRole == "defender" ? 0.79 : 0.21;
+			for (let i = 0; i < n; ++i)
+				list.push({ "type": "wall", "x": 0.12 + 0.76 * (i + 0.5) / n, "y": y, "r": 0.045 });
+		}
 		this.cachedFeatures = list.map(f => ({ "type": f.type, "x": +f.x.toFixed(3), "y": +f.y.toFixed(3), "r": +f.r.toFixed(3) }));
 		return this.cachedFeatures;
+	}
+
+	/** Clima da batalha (mesma semente: igual na tela e no mapa). */
+	weather()
+	{
+		if (this.cachedWeather)
+			return this.cachedWeather;
+		const table = WH40K_WEATHER_BY_TERRAIN[this.pdef.terrain] || { "clear": 1 };
+		const rnd = WH40KBattleSetup.seeded(this.battle.id + ":weather")();
+		const total = Object.values(table).reduce((s, v) => s + v, 0);
+		let acc = 0;
+		for (const k in table)
+		{
+			acc += table[k] / total;
+			if (rnd <= acc)
+				return this.cachedWeather = k;
+		}
+		return this.cachedWeather = "clear";
 	}
 
 	entryOf(e, role)
@@ -116,7 +152,18 @@ class WH40KBattleSetup
 		if (!g)
 			return null;
 		const def = this.g.generalStats(g.id);
+		const faction = this.sides[role].faction;
+		let ability = def.ability ? Object.assign({}, def.ability) : null;
+		if (ability && ability.type == "summon")
+		{
+			// Invocação: a unidade dada, ou a infantaria mais barata da facção.
+			const units = this.D.unitsOf(faction).filter(u => !u.noRecruit);
+			const unit = this.D.unitById[ability.unit] || units.filter(u => u.category == "infantry").sort((a, b) => a.cost - b.cost)[0] || units[0];
+			if (unit)
+				ability.summon = { "name": unit.name, "unitName": unit.name, "unit": unit.id, "portrait": unit.portrait, "power": unit.power, "men": unit.men, "range": unit.range, "speed": unit.speed, "armor": unit.armor };
+		}
 		return {
+			"ability": ability,
 			"id": "general",
 			"general": true,
 			"gid": g.id,
@@ -138,7 +185,7 @@ class WH40KBattleSetup
 		const deploy = { "player": [], "enemy": [] };
 		for (const [key, role] of [["player", this.playerRole], ["enemy", this.enemyRole]])
 		{
-			const list = this.sides[role].entries.map(e => this.entryOf(e, role));
+			const list = this.sides[role].entries.filter(e => !e.reserve).map(e => this.entryOf(e, role));
 			const general = this.generalEntry(role);
 			if (general)
 				list.push(general);
@@ -229,7 +276,7 @@ class WH40KBattleSetup
 			if (e.general)
 				return { "power": 14, "men": 1 };
 			const unit = this.D.unitById[e.unit] || {};
-			return { "power": unit.power || 10, "men": unit.men || 1, "range": unit.range, "speed": unit.speed, "armor": unit.armor, "terrain": unit.terrain, "allTerrain": unit.allTerrain,
+			return { "power": unit.power || 10, "men": unit.men || 1, "range": unit.range, "speed": unit.speed, "armor": unit.armor, "terrain": unit.terrain, "allTerrain": unit.allTerrain, "entrench": unit.entrench,
 				"vsVehicle": unit.vsVehicle, "vsInfantry": unit.vsInfantry, "vsAir": unit.vsAir };
 		};
 		const prov = this.g.province(this.battle.province);
@@ -252,12 +299,15 @@ class WH40KBattleSetup
 					buffDef = Math.max(buffDef, this.g.buffBonus(army, "defense"));
 				}
 			}
-			armor = Math.max(0.5, armor + buffDef * 0.5);
+			armor = Math.max(0.5, armor + buffDef * 0.5 + (faction ? this.g.upgradeBonus(faction, "defense") : 0));
 			return {
-				"units": list.map(e => Object.assign({}, e, unitStats(e))),
+				"units": list.map(e => Object.assign({}, e, unitStats(e))).concat(
+					// Reforços: os do aliado chegam um pouco antes (aos 40 s), os próprios aos 50 s.
+					this.sides[role].entries.filter(e => e.reserve).map((e, i) => Object.assign(this.entryOf(e, role), unitStats(this.entryOf(e, role)),
+						{ "arrive": (e.ally ? 40 : 50) + 6 * i, "allyName": e.ally ? this.D.factionName(e.ally) : null }))),
 				"support": sup.powers.map(p => ({ "id": p.id, "type": p.type, "name": p.name, "icon": p.icon, "desc": p.desc, "kills": this.killsNeeded(p, role) })),
 				"ready": sup.ready,
-				"dps": Math.max(0.5, 1 + (this.D.factions[faction]?.attackBonus || 0) + (role == "attacker" && g ? g.attack * 0.5 : 0) + buffAtk * 0.5),
+				"dps": Math.max(0.5, 1 + (this.D.factions[faction]?.attackBonus || 0) + (role == "attacker" && g ? g.attack * 0.5 : 0) + buffAtk * 0.5 + (faction ? this.g.upgradeBonus(faction, "attack") : 0)),
 				"morale": this.D.factions[faction]?.morale ?? 1,
 				"armor": armor,
 				"regen": this.D.factions[faction]?.regen || 0,
@@ -268,6 +318,7 @@ class WH40KBattleSetup
 			"features": this.features(),
 			"aspect": aspect || 1,
 			"terrain": this.pdef.terrain,
+			"weather": this.weather(),
 			"defender": this.playerRole == "defender" ? 1 : 2,
 			"seed": Math.floor(this.rng() * 1e9) + 1,
 			"sides": {

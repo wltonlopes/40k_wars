@@ -43,6 +43,7 @@ class WH40KBattleView
 		this.panelTimer = 0;
 		this.endTimer = null;
 		this.lastTick = Date.now();
+		this.featuresVersion = 0;
 		this.seenMessages = 0;
 		const first = this.combat.alive(1).find(u => !u.general) || this.combat.alive(1)[0];
 		if (first)
@@ -89,7 +90,8 @@ class WH40KBattleView
 		gui("deployEnemyZone").hidden = true;
 		gui("deployOwnZone").hidden = true;
 		gui("deployHint").caption = "Clique: selecionar · botão direito: mover / atacar o inimigo · painel: ordens, apoio e velocidade.";
-		gui("deployTitle").caption = "Batalha — " + this.setup.pdef.name;
+		gui("deployTitle").caption = "Batalha — " + this.setup.pdef.name + " · " + WH40K_WEATHER[this.setup.weather()].name;
+		gui("deployTitle").size = "12 6 100%-444 34";
 		gui("battleHud").hidden = false;
 		gui("battleMsg").hidden = false;
 		this.drawUnits();
@@ -173,12 +175,7 @@ class WH40KBattleView
 				const px = u.x * r.s;
 				const py = u.y * r.s;
 				setSize(btn, px - t, py - t, px + t, py + t);
-				const sprite = portraitSprite(u.portrait);
-				if (btn.sprite != sprite)
-				{
-					btn.sprite = sprite;
-					btn.sprite_over = sprite;
-				}
+				setTokenSprite(prefix, i, u.portrait, side, side == 1 ? D.factionColor(this.page.player) : enemyColor);
 				const bar = gui(prefix + "Bar[" + i + "]");
 				bar.hidden = false;
 				const frac = Math.max(0, Math.min(1, u.hp));
@@ -253,8 +250,17 @@ class WH40KBattleView
 			cursor.hidden = true;
 			return;
 		}
-		const p = this.combat.sides[1].powers[this.targeting];
-		const radius = (p.type == "orbital_saturation" ? 0.16 : p.type == "strategic_bomber" ? 0.15 : 0.06) * r.s;
+		let radius;
+		if (this.targeting === "ability")
+		{
+			const g = this.combat.generalOf(1);
+			radius = (g && g.ability.type == "smite" ? g.ability.radius || 0.08 : 0.06) * r.s;
+		}
+		else
+		{
+			const p = this.combat.sides[1].powers[this.targeting];
+			radius = (p.type == "orbital_saturation" ? 0.16 : p.type == "strategic_bomber" ? 0.15 : 0.06) * r.s;
+		}
 		cursor.hidden = false;
 		setSize(cursor, x - radius, y - radius, x + radius, y + radius);
 		cursor.sprite = "color:255 70 50 255:textureAsMask:campaigns/wh40k/icons/ring.png";
@@ -272,6 +278,24 @@ class WH40KBattleView
 		}
 		const s = r.s;
 		let shots = 0;
+		// Muralhas que caíram viram ruínas na tela.
+		if (c.featuresVersion != this.featuresVersion)
+		{
+			this.featuresVersion = c.featuresVersion;
+			c.features.forEach((f, i) => {
+				if (i >= 48)
+					return;
+				const obj = gui("deployFeature[" + i + "]");
+				obj.sprite = "stretched:campaigns/wh40k/battle/" + f.type + ".png";
+				// Trincheiras cavadas durante a batalha: posição e dica.
+				if (f.dug && obj.hidden)
+				{
+					obj.hidden = false;
+					setSize(obj, (f.x - f.r) * s, (f.y - f.r) * s, (f.x + f.r) * s, (f.y + f.r) * s);
+					obj.tooltip = WH40K_FEATURE_NAMES.trench + "\n" + terrainTooltip(null, "", ["trench"]);
+				}
+			});
+		}
 		for (const ev of c.events)
 		{
 			this.page.sound.battleEvent(ev, this.page.D);
@@ -295,7 +319,28 @@ class WH40KBattleView
 					this.fx.play("blood", x, y, s * 0.06);
 				this.fx.play("smoke", x, y + s * 0.01, s * 0.07, { "loops": 2 });
 				break;
+			case "ability":
+			{
+				const tint = { "smite": [190, 120, 255], "warcry": [255, 120, 60], "shield": [120, 200, 255], "heal": [120, 255, 140], "inspire": [255, 220, 110], "teleport": [180, 220, 255] }[ev.kind] || [255, 255, 255];
+				const size = Math.max(0.08, (ev.radius || 0.1) * 2) * s;
+				this.fx.play("ring", x, y, size, { "tint": tint, "loops": 2 });
+				if (ev.kind == "smite")
+					this.fx.play("explosion", x, y, size * 0.6);
+				break;
+			}
+			case "entrench":
+				this.fx.play("smoke", x, y, s * 0.06, { "loops": 1 });
+				break;
+			case "wallbreak":
+				this.fx.play("explosion", x, y, s * 0.12);
+				this.fx.play("smoke", x, y, s * 0.1, { "loops": 3 });
+				break;
 			case "droppod":
+				if (ev.reinforce)
+				{
+					this.fx.play("ring", x, y, s * 0.08, { "tint": ev.side == 1 ? [120, 230, 120] : [240, 90, 70] });
+					break;
+				}
 				// Teleporta, teia e portais são um clarão na cor da facção (dropFx); os outros caem em cápsulas.
 				const dropFx = this.page.D.factions[this.setup.factionOf(ev.side == 1 ? this.setup.playerRole : this.setup.enemyRole)]?.dropFx;
 				if (dropFx)
@@ -379,6 +424,13 @@ class WH40KBattleView
 	{
 		const i = this.targeting;
 		this.targeting = null;
+		if (i === "ability")
+		{
+			if (this.combat.useAbility(1, x, y))
+				this.fx.play("ring", x * this.rect.s, y * this.rect.s, this.rect.s * 0.12, { "tint": [210, 170, 250] });
+			this.renderPanel();
+			return;
+		}
 		if (i !== null && this.combat.usePower(1, i, x, y))
 			this.fx.play("ring", x * this.rect.s, y * this.rect.s, this.rect.s * 0.12, { "tint": [255, 200, 90] });
 		this.renderPanel();
@@ -441,14 +493,14 @@ class WH40KBattleView
 		const lost2 = c.units.filter(u => u.side == 2 && !u.temp && u.state == "dead").length;
 		const hero = c.units.filter(u => u.side == 1 && !u.temp).sort((a, b) => b.kills - a.kills)[0];
 		this.page.dialog.open({
-			"title": won ? "VITÓRIA EM " + this.setup.pdef.name.toUpperCase() : "DERROTA EM " + this.setup.pdef.name.toUpperCase(),
+			"title": won ? "VITÓRIA EM " + tr(this.setup.pdef.name).toUpperCase() : "DERROTA EM " + tr(this.setup.pdef.name).toUpperCase(),
 			"text": colored(c.endText, won ? [150, 230, 120] : [240, 110, 90]) + "\n\n" +
 				"Baixas causadas: você " + res.kills[1] + " · inimigo " + res.kills[2] + "\n" +
 				"Batalhões perdidos: seus " + lost1 + " · do inimigo " + lost2 + "\n" +
 				(hero && hero.kills > 0 ? "Destaque: " + hero.name + " (" + hero.unitName + "), " + Math.round(hero.kills) + " baixas.\n" : "") +
 				"Poderes de apoio usados: " + (c.sides[1].powers.reduce((n, p) => n + p.uses, 0)) + ".",
 			"portrait": hero ? portraitSprite(hero.portrait) : null,
-			"buttons": [{ "caption": "Voltar à campanha", "onPress": () => this.page.finishBattle(this.finishNow()) }]
+			"buttons": [{ "caption": (this.page.skirmishMode ? "Continuar" : "Voltar à campanha"), "onPress": () => this.page.finishBattle(this.finishNow()) }]
 		});
 	}
 
@@ -462,6 +514,32 @@ class WH40KBattleView
 		const page = this.page;
 		const u = this.selectedUnit();
 		const rows = [];
+		// Poder do general (no topo da lista).
+		const gen = c.generalOf(1);
+		if (gen)
+		{
+			const a = gen.ability;
+			const ready = c.abilityReady(1);
+			const wait = Math.max(0, Math.ceil(gen.abilityReady - c.time));
+			const aimed = a.type == "smite" || a.type == "teleport";
+			rows.push({
+				"icon": portraitSprite(gen.portrait, !ready),
+				"bar": ready ? 1 : 1 - wait / (a.cooldown || 50),
+				"text": (this.targeting === "ability" ? colored("> ", [255, 220, 110]) : "") + colored(a.name, [210, 170, 250]) + "\n" +
+					colored(ready ? (this.targeting === "ability" ? "Clique no alvo (botão direito cancela)" : aimed ? "PRONTO — clique para mirar" : "PRONTO — clique para usar") : "Recarga: " + wait + " s", ready ? [255, 210, 100] : [190, 180, 160]),
+				"tooltip": gen.unitName + " — " + a.name + "\n" + a.desc + "\nRecarga: " + (a.cooldown || 50) + " s.",
+				"selected": this.targeting === "ability",
+				"onPress": () => {
+					if (!ready)
+						return;
+					if (aimed)
+						this.targeting = this.targeting === "ability" ? null : "ability";
+					else
+						c.useAbility(1);
+					this.renderPanel();
+				}
+			});
+		}
 		c.sides[1].powers.forEach((p, i) => {
 			const ready = p.charge >= p.kills;
 			rows.push({

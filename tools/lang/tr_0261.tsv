@@ -1,0 +1,300 @@
+261	reveal an ancient artefact. Studying it may yield	revelan un artefacto antiguo. Estudiarlo puede rendir
+262	joins	se une a
+263	joins you, grateful	se une a ti, agradecida
+264	rebels! The cultists take the province	¡se rebela! Los cultistas toman la provincia
+265	holds the plague back	contiene la plaga
+266	too late for	demasiado tarde para
+267	selling it, immediate resources	venderlo, recursos inmediatos
+268	To arms!	¡A las armas!
+269	15% strength, but the fight is bloodier for both sides (+25% losses	15% de fuerza, pero la lucha es más sangrienta para ambos bandos (+25% de pérdidas
+270	25% strength, but half the losses	25% de fuerza, pero la mitad de las pérdidas
+271	The fleet	La flota
+272	The fleet is full	La flota está llena
+273	The fleet is in transit	La flota está en tránsito
+274	The fleet has already acted this turn	La flota ya actuó en este turno
+275	The fleet has already acted this turn or is in transit	La flota ya actuó en este turno o está en tránsito
+276	The fleet must be in orbit of this body	La flota debe estar en la órbita de este cuerpo
+277	The garrison is full	La guarnición está llena
+278	The province is devastated for	La provincia queda devastada durante
+279	The province is not under this orbit	La provincia no está bajo esta órbita
+280	The province is not yours	La provincia no es tuya
+281	Boarding	Abordaje
+282	Space battle at	Batalla espacial en
+283	Battalion not found	Batallón no encontrado
+284	Orbital bombardment by	Bombardeo orbital de
+285	Destination out of reach	Destino fuera de alcance
+286	Balanced: normal strength and losses	Equilibrada: fuerza y pérdidas normales
+287	Requires a city or fortress	Requiere ciudad o fortaleza
+288	Requires a hive city	Requiere ciudad colmena
+289	Requires a shipyard or industrial zone (forge	Requiere astillero o zona industrial (forja
+290	Requires an army aboard: +30% strength; the embarked army suffers losses	Requiere un ejército a bordo: +30% de fuerza; el ejército embarcado sufre pérdidas
+291	Requires your own fleet in orbit (no enemies	Requiere flota propia en órbita (sin enemigos
+292	Focused fire	Fuego concentrado
+293	Invalid fleet	Flota no válida
+294	General unavailable	General no disponible
+295	There are enemy ships in orbit	Hay naves enemigas en órbita
+296	Already devastated	Ya está devastada
+297	Battle line	Línea de batalla
+298	Evasive manoeuvres	Maniobras evasivas
+299	There are no enemies there	No hay enemigos allí
+300	Cannot be recruited	No se recluta
+301	Not an enemy (ally or in truce	No es enemiga (aliada o en tregua
+302	Cannot land there (fleet in transit, enemies in orbit or the army has already moved	No se puede desembarcar allí (flota en tránsito, enemigos en órbita o el ejército ya se movió
+303	The target is out of reach	El objetivo está fuera de alcance
+304	The shipyard has already launched a ship this turn	El astillero ya lanzó una nave en este turno
+305	The attacking army was destroyed	El ejército atacante fue destruido
+306	The army of	El ejército de
+307	The army is full	El ejército está lleno
+308	The army is embarked	El ejército está embarcado
+309	The army has already sacked this turn	El ejército ya saqueó en este turno
+310	The army has already moved this turn	El ejército ya se movió en este turno
+311	The army already has	El ejército ya tiene
+312	The army is not in a province	El ejército no está en una provincia
+313	The army must be in a province	El ejército debe estar en una provincia
+314	The enemy gives up!	¡El enemigo se rinde!
+315	Requires your own shipyard	Requiere astillero propio
+316	Retreat at	Retirada en
+317	Plunder	Botín
+318	No battle: the fleet flees to a body of its own and loses a ship in the escape	Sin batalla: la flota huye a un cuerpo propio y pierde una nave en la huida
+319	With nowhere to retreat, the army of	Sin adónde retirarse, el ejército de
+320	No resources for upkeep: a battalion has deserted!	Sin recursos para el mantenimiento: ¡un batallón ha desertado!
+321	Your faction has been driven out of the system	Tu facción ha sido expulsada del sistema
+322	There can be only one in the crusade	Solo puede haber uno en la cruzada
+323	Only a freshly conquered province can be sacked (this turn or the previous one	Solo se saquea una provincia recién conquistada (en este turno o el anterior
+324	Warp storm: no fleet leaves	Tormenta de disformidad: ninguna flota sale de
+325	All enemies have been driven out	Todos los enemigos han sido expulsados
+326	Unit of another faction	Unidad de otra facción
+327	Victory of	Victoria de
+328	takes command of an army at	asume un ejército en
+329	strikes first (+15% strength	ataca primero (+15% de fuerza
+330	attacker) lost about	atacante) perdió cerca de
+331	battalions	batallones
+332	has arrived at	llegó a
+333	escapes wounded	escapa herido
+334	is lost	está perdido
+335	army per ship	ejército por nave
+336	flees to	huye a
+337	was annihilated	fue aniquilado
+338	was conquered	fue conquistada
+339	was destroyed	fue destruida
+340	was driven out of	fue expulsada del
+341	was gravely wounded and leaves command for	fue gravemente herido y deja el mando durante
+342	men/vehicles	hombres/vehículos
+343	or arrives there for	ni llega allí durante
+344	lost about	perdió cerca de
+345	lost a ship	perdió una nave
+346	let the war begin!	¡que comience la guerra!
+347	falls back to	retrocede a
+348	scatters	se dispersa
+349	has recovered and can be hired again	se ha recuperado y puede ser contratado de nuevo
+350	unopposed	sin resistencia
+351	under your control for	bajo tu control durante
+352	turns. The war is won!	turnos. ¡La guerra está ganada!
+353	victory of	victoria de
+354	you held out until turn	resististe hasta el turno
+355	is yours!	¡es tuyo!
+356	GUI page has space for	GUI page has space for
+357	MainMenuPanelRightBorderBottom	MainMenuPanelRightBorderBottom
+358	MainMenuPanelRightBorderTop	MainMenuPanelRightBorderTop
+359	Press	Press
+360	items are provided!	items are provided!
+361	menu buttons, but	menu buttons, but
+362	%(hotkey)s: video, sound, interface and hotkeys	%(hotkey)s: vídeo, sonido, interfaz y atajos
+363	40k Wars: 'wh40k' campaign not found	40k Wars: campaña 'wh40k' no encontrada
+364	Abandon the battlefield and close the game?	¿Abandonar el campo de batalla y cerrar el juego?
+365	Enables or disables mods (disable 40k Wars here to return to normal 0 A.D.	Activa o desactiva mods (desactiva 40k Wars aquí para volver al 0 A.D. normal
+366	Load Crusade	Cargar Cruzada
+367	Starts a new campaign: choose the scenario, the side and the difficulty	Comienza una nueva campaña: elige el escenario, el bando y la dificultad
+368	Continue Crusade	Continuar Cruzada
+369	Error opening the crusade	Error al abrir la cruzada
+370	Skirmish	Escaramuza
+371	Choose a saved crusade	Elige una cruzada guardada
+372	Closes the game	Cierra el juego
+373	START CRUSADE	INICIAR CRUZADA
+374	Mods	Mods
+375	No	No
+376	Options	Opciones
+377	Exit	Salir
+378	Yes	Sí
+379	All factions: units, generals, special resources and rituals	Todas las facciones: unidades, generales, recursos especiales y rituales
+380	A standalone battle, no campaign: choose the factions, the terrain and the size	Una batalla suelta, sin campaña: elige las facciones, el terreno y el tamaño
+381	Returns to the last crusade played	Vuelve a la última cruzada jugada
+382	! The truce ended with a knife in the back	! La tregua terminó con una puñalada por la espalda
+383	3% to attack and defence	3% en ataque y defensa
+384	The province already has the maximum fortifications	La provincia ya tiene el máximo de fortificaciones
+385	The warp storm over	La tormenta de disformidad sobre
+386	The betrayal is still recent (until turn	La traición aún es reciente (hasta el turno
+387	The truce between	La tregua entre
+388	Accept	Aceptar
+389	Warning	Atención
+390	Chaos Undivided	Caos Indiviso
+391	Understood	Entendido
+392	Choose one of your armies	Elige uno de tus ejércitos
+393	This army has already received a ritual this turn	Este ejército ya recibió un ritual en este turno
+394	Faction out of the war	Facción fuera de la guerra
+395	Missing	Faltan
+396	Already in truce	Ya están en tregua
+397	Already proposed this turn	Ya propuso en este turno
+398	Khorne	Khorne
+399	No neighbouring neutral province with a small garrison	Ninguna provincia neutral vecina con guarnición pequeña
+400	Nurgle	Nurgle
+401	There are no enemies in the neighbouring provinces	No hay enemigos en las provincias vecinas
+402	There is nothing to sanctify here	No hay nada que santificar aquí
+403	There is no truce to betray	No hay tregua que traicionar
+404	The army has no battalions	El ejército no tiene batallones
+405	The army has no losses	El ejército no tiene pérdidas
+406	The army needs a general	El ejército necesita un general
+407	The army must be in a province of yours	El ejército debe estar en una provincia tuya
+408	The general is already a Daemon Prince	El general ya es un Príncipe Demonio
+409	The gods reject	Los dioses rechazan a
+410	Truce proposal	Propuesta de tregua
+411	Daemon Prince	Príncipe Demonio
+412	Unknown ritual	Ritual desconocido
+413	Slaanesh	Slaanesh
+414	They are allies	Son aliados
+415	Betrayal	Traición
+416	Truce accepted	Tregua aceptada
+417	Truce between	Tregua entre
+418	Truce refused	Tregua rechazada
+419	Tzeentch	Tzeentch
+420	A truce can be betrayed at any time — with +20% attack that turn for the traitor, but nobody will trust them for a long while	Una tregua puede ser traicionada en cualquier momento — con +20% de ataque ese turno para el traidor, pero nadie confiará en él durante mucho tiempo
+421	You refuse the truce from	Rechazas la tregua de
+422	ascends! Now a Daemon Prince of	¡asciende! Ahora es un Príncipe Demonio de
+423	until turn	hasta el turno
+424	gains the trait	gana el rasgo
+425	gains a fortification	gana una fortificación
+426	gain experience	ganan experiencia
+427	has already betrayed	ya traicionó
+428	to defence	en defensa
+429	to attack	en ataque
+430	does not deal with	no trata con
+431	the attack	el ataque
+432	the body twists until it becomes a Chaos Spawn!	¡el cuerpo se retuerce hasta convertirse en un Engendro del Caos!
+433	the army of	el ejército de
+434	the army at	el ejército en
+435	what remains of	lo que queda de
+436	the battalions of	los batallones de
+437	can march again	puede marchar
+438	proposes a truce of	propone una tregua de
+439	claims the relic	reclama la reliquia
+440	refuses the truce	rechaza la tregua
+441	replenishes its losses	repone las pérdidas
+442	dissipates	se disipa
+443	without firing a shot	sin disparar un tiro
+444	rises to level	sube al nivel
+445	turns: neither attacks the other, and armies may cross each other's lands without taking them	turnos: ninguno ataca al otro, y los ejércitos pueden cruzar las tierras del otro sin tomarlas
+446	more time(s) this turn	vez(ces) más en este turno
+447	is sanctified	es santificada
+448	orbit	órbita
+449	40k Wars: the copy could not be saved	40k Wars: no se pudo guardar la copia
+450	The fleet leaves the warp at	La flota sale de la disformidad en
+451	The war in	La guerra en
+452	Allies	Aliados
+453	Campaign allies	Aliados de campaña
+454	Alliances	Alianzas
+455	When attacking, choose 'Command': place the battalions, give orders and watch the battle in real time on the tactical map, changing orders during the fight. Enemy casualties unlock support	Al atacar, elige 'Comandar': coloca los batallones, da órdenes y observa la batalla en tiempo real en el mapa táctico, cambiando las órdenes durante la lucha. Las bajas enemigas liberan el apoyo
+456	Attacked at	Atacado en
+457	Attacker	Atacante
+458	Battles	Batallas
+459	Campaigns won in this crusade	Campañas ganadas en esta cruzada
+460	Cancel	Cancelar
+461	Estimated chance in auto resolve	Probabilidad estimada en la resolución automática
+462	Undefended city	Ciudad indefensa
+463	Click: open the rituals (on the selected army	Clic: abrir los rituales (en el ejército seleccionado
+464	Start	Comenzar
+465	How to play	Cómo jugar
+466	War Council	Consejero de Guerra
+467	Continue	Continuar
+468	Crusade	Cruzada
+469	Codex	Códex
+470	Defender	Defensor
+471	Defeat	Derrota
+472	Deploy and Command	Desplegar y Comandar
+473	Undoes	Deshace
+474	Undone	Deshecho
+475	Difficulty	Dificultad
+476	Diplomacy: some factions accept truces — and may betray them. Events ask for decisions at the start of the turn	Diplomacia: algunas facciones aceptan treguas — y pueden traicionarlas. Los eventos piden decisiones al comienzo del turno
+477	Era	Era
+478	Choose the campaign	Elige la campaña
+479	Choose the tactic	Elige la táctica
+480	Choose side	Elegir bando
+481	Statistics	Estadísticas
+482	Factions	Facciones
+483	Close	Cerrar
+484	Stay	Quedarse
+485	Strength	Fuerza
+486	Enemy fleet incoming	Flota enemiga en camino
+487	Fleets carry armies (Embark) between planets and moons; with the orbit clear of enemies you can land in any province, bombard garrisons and get orbital support in battles	Las flotas llevan ejércitos (Embarcar) entre planetas y lunas; con la órbita libre de enemigos desembarcas en cualquier provincia, bombardeas guarniciones y obtienes apoyo orbital en las batallas
+488	Gained from	Se gana con
+489	Available generals	Generales disponibles
+490	Generals gain experience, levels, traits and relics (one of your generals in a province with a relic claims it). Click the portrait for the card	Los generales ganan experiencia, niveles, rasgos y reliquias (un general tuyo en una provincia con reliquia la reclama). Haz clic en el retrato para ver la ficha
+491	Group	Grupo
+492	War hero	Héroe de la guerra
+493	Playable	Jugable
+494	Sides	Bandos
+495	Takes your faction to another system, with the generals (levels, traits, relics), the upgrades and the special resource	Lleva tu facción a otro sistema, con los generales (niveles, rasgos, reliquias), las mejoras y el recurso especial
+496	Upkeep (armies, garrisons, fleets	Mantenimiento (ejércitos, guarniciones, flotas
+497	Threat map	Mapa de amenaza
+498	Map of the selected planet	Mapa del planeta seleccionado
+499	Main menu	Menú principal
+500	The result comes out at once, by the strength of the armies	El resultado sale al instante, por la fuerza de los ejércitos
+501	Objective	Objetivo
+502	Low order	Orden bajo
+503	Opening orders	Órdenes iniciales
+504	Generals keep their experience, traits and relics; the faction keeps its upgrades and special resource	Los generales conservan la experiencia, los rasgos y las reliquias; la facción conserva las mejoras y el recurso especial
+505	Others	Otros
+506	Planet: click an army (the general's portrait) and then right click a neighbouring province to march or attack	Planeta: haz clic en un ejército (retrato del general) y luego botón derecho en una provincia vecina para marchar o atacar
+507	Place the battalions, give orders and fight the battle in real time	Coloca los batallones, da las órdenes y libra la batalla en tiempo real
+508	Proposes	Propone
+509	Provinces	Provincias
+510	Crusade Log	Registro de la Cruzada
+511	Province income	Ingresos de las provincias
+512	Auto Resolve	Resolver Automáticamente
+513	Rituals available now	Rituales disponibles ahora
+514	Breaks the truce: +20% attack for your armies this turn, but nobody will trust you for a long while	Rompe la tregua: +20% de ataque para tus ejércitos en este turno, pero nadie confiará en ti durante mucho tiempo
+515	Warp Routes	Rutas de la Disformidad
+516	Saves the campaign and returns to the main menu	Guarda la campaña y vuelve al menú principal
+517	Exit from the Warp	Salida de la Disformidad
+518	Secessionists	Secesionistas
+519	Follow the warp	Seguir por la disformidad
+520	Without resources, battalions desert	Sin recursos, los batallones desertan
+521	Your support in battle	Tu apoyo en la batalla
+522	System: click a planet to select it, click again (or 'Planet') to open the map. Select a fleet and right click a body to travel	Sistema: haz clic en un planeta para seleccionarlo, otra vez (o 'Planeta') para abrir el mapa. Selecciona una flota y haz clic derecho en un cuerpo para viajar
+523	Resources to spare	Sobran recursos
+524	Ends the turn: the AI plays, fleets travel, the economy pays out and losses are replaced	Termina el turno: la IA juega, las flotas viajan, la economía rinde y las bajas se reponen
+525	Victory screen test	Prueba de la pantalla de victoria
+526	All recent events	Todos los eventos recientes
+527	Betray	Traicionar
+528	Truce	Tregua
+529	Turn	Turno
+530	A freshly conquered province can be sacked: lots of money at once, but it stays devastated for a few turns	Una provincia recién conquistada puede ser saqueada: mucho dinero al instante, pero queda devastada durante algunos turnos
+531	Star system view: planets, moons and fleets	Vista del sistema estelar: planetas, lunas y flotas
+532	Victory	Victoria
+533	You strike first: +15% strength	Atacas primero: +15% de fuerza
+534	You can keep playing to conquer the rest of the system	Puedes seguir jugando para conquistar el resto del sistema
+535	Back	Volver
+536	accepts the truce until turn	acepta la tregua hasta el turno
+537	automatic, turn	automático, turno
+538	celestial bodies	cuerpos celestes
+539	leave an army, a garrison or build a shrine	deja un ejército, una guarnición o construye un santuario
+540	at war	en guerra
+541	at war — willing to negotiate (chance	en guerra — acepta negociar (probabilidad
+542	in truce until turn	en tregua hasta el turno
+543	choose your side	elige tu bando
+544	is won. Where does the crusade go next?	está ganada. ¿Adónde sigue la cruzada?
+545	is on the frontier with no garrison or army	está en la frontera sin guarnición ni ejército
+546	army	ejército
+547	army at	ejército en
+548	army(ies) can still march	ejército(s) todavía pueden marchar
+549	factions	facciones
+550	fortifications level	fortificaciones nivel
+551	there are rituals or upgrades within reach	hay rituales o mejoras a tu alcance
+552	movement of	movimiento de
+553	ships) arrives at	naves) llega a
+554	level	nivel
+555	or drive the enemies out of the system	o expulsar a los enemigos del sistema
+556	sets out to attack	parte para atacar
+557	recruit, build or hire a general	recluta, construye o contrata un general
+558	refuses the proposal	rechaza la propuesta
+559	hold out until turn	resiste hasta el turno
+560	no fleet of your own in orbit: no drop pods or orbital strikes	sin flota propia en órbita: sin cápsulas ni ataques orbitales

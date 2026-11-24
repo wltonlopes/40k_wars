@@ -1,0 +1,83 @@
+{
+	"id": "terminus",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"tm_garden": {
+			"rect": [
+				0.32812,
+				0.0,
+				0.68359,
+				0.63125
+			],
+			"label": [
+				0.5117,
+				0.4281
+			],
+			"area": 92587,
+			"neighbors": [
+				"tm_decks",
+				"tm_foundry",
+				"tm_hold"
+			],
+			"coastal": false
+		},
+		"tm_hold": {
+			"rect": [
+				0.0,
+				0.0,
+				0.46777,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 203351,
+			"neighbors": [
+				"tm_decks",
+				"tm_garden"
+			],
+			"coastal": false
+		},
+		"tm_foundry": {
+			"rect": [
+				0.55957,
+				0.0,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 196983,
+			"neighbors": [
+				"tm_decks",
+				"tm_garden"
+			],
+			"coastal": false
+		},
+		"tm_decks": {
+			"rect": [
+				0.08008,
+				0.59844,
+				0.93066,
+				1.0
+			],
+			"label": [
+				0.3945,
+				0.9984
+			],
+			"area": 162439,
+			"neighbors": [
+				"tm_foundry",
+				"tm_garden",
+				"tm_hold"
+			],
+			"coastal": false
+		}
+	}
+}

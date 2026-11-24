@@ -35,6 +35,9 @@ const WH40K_DIFFICULTY = {
 	"hard": { "name": "Difícil", "desc": "A IA começa e rende mais, e ataca com menos vantagem.", "playerFunds": 0.9, "aiFunds": 1.3, "playerIncome": 1, "aiIncome": 1.25, "aiRatio": 1.1 }
 };
 
+/** Grupos que não são aliados de saída: se aliam quando têm um inimigo comum e rompem quando ele some. */
+var WH40K_INTEREST_GROUPS = ["chaos"];
+
 var WH40KData = {
 	"loaded": false,
 
@@ -87,6 +90,18 @@ var WH40KData = {
 		for (const pid in this.relics)
 			this.relicById[this.relics[pid].id] = Object.assign({ "province": pid }, this.relics[pid]);
 
+		// Miniaturas recortadas dos retratos (tools/art/gen_minis.py), opcionais.
+		this.minis = {};
+		try
+		{
+			for (const p of read("minis.json").minis || [])
+				this.minis[p] = true;
+		}
+		catch (e)
+		{
+			// sem miniaturas: a batalha usa os retratos
+		}
+
 		const support = read("support.json");
 		this.support = {};
 		for (const faction in support)
@@ -134,15 +149,31 @@ var WH40KData = {
 		return null;
 	},
 
-	/** Mesma facção ou aliadas na campanha: não se atacam e vencem juntas. */
+	/** Grupo da facção (pact.group: imperium, chaos, eldar...). */
+	"groupOf": function(faction)
+	{
+		return this.factions[faction]?.pact?.group || null;
+	},
+
+	/**
+	 * Mesma facção ou aliadas na campanha: não se atacam, se ajudam nas
+	 * batalhas e vencem juntas. Vale o time do cenário (scenario.teams) e,
+	 * sem ele, o grupo: as facções do Imperium são sempre aliadas. Grupos de
+	 * WH40K_INTEREST_GROUPS (o Caos) só se aliam por conveniência, durante
+	 * a campanha (Game.allied / core/Mechanics.js).
+	 */
 	"allied": function(a, b)
 	{
 		if (!a || !b)
 			return a == b && !!a;
 		if (a == b)
 			return true;
-		const t = this.teamOf(a);
-		return !!t && t == this.teamOf(b);
+		const ta = this.teamOf(a);
+		const tb = this.teamOf(b);
+		if (ta && tb)
+			return ta == tb;
+		const g = this.groupOf(a);
+		return !!g && g == this.groupOf(b) && WH40K_INTEREST_GROUPS.indexOf(g) == -1;
 	},
 
 	/** Facções em jogo nesta campanha (jogador e IA). */

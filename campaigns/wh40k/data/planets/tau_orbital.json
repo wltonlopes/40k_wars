@@ -1,0 +1,63 @@
+{
+	"id": "tau_orbital",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"tau_orbital_yards": {
+			"rect": [
+				0.11426,
+				0.16094,
+				0.47852,
+				0.84688
+			],
+			"label": [
+				0.2793,
+				0.5031
+			],
+			"area": 95673,
+			"neighbors": [
+				"tau_orbital_battery",
+				"tau_orbital_ring"
+			],
+			"coastal": false
+		},
+		"tau_orbital_ring": {
+			"rect": [
+				0.33984,
+				0.125,
+				0.80078,
+				0.85
+			],
+			"label": [
+				0.5498,
+				0.3734
+			],
+			"area": 112737,
+			"neighbors": [
+				"tau_orbital_battery",
+				"tau_orbital_yards"
+			],
+			"coastal": false
+		},
+		"tau_orbital_battery": {
+			"rect": [
+				0.49414,
+				0.22969,
+				0.84961,
+				0.91562
+			],
+			"label": [
+				0.7412,
+				0.5938
+			],
+			"area": 66213,
+			"neighbors": [
+				"tau_orbital_ring",
+				"tau_orbital_yards"
+			],
+			"coastal": false
+		}
+	}
+}

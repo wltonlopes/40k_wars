@@ -57,7 +57,118 @@ function evEliteUnit(game, f)
 	return list[Math.min(1, list.length - 1)] || null;
 }
 
+function evFlags(game, f)
+{
+	return game.s.factions[f].flags = game.s.factions[f].flags || {};
+}
+
 const WH40K_EVENTS = [
+	// ---------------- cadeia: o culto oculto (3 passos)
+	{
+		"id": "cult_whispers", "weight": 0.9, "cooldown": 20,
+		"factions": (game, f) => evGroup(game, f) != "chaos" && game.hasOrder(f) && !evFlags(game, f).cult,
+		"when": (game, f) => {
+			const pid = evOwnProvince(game, f, p => game.pdef(p).hive);
+			return pid ? { "pid": pid } : null;
+		},
+		"title": () => "Sussurros nos Subterrâneos",
+		"text": (game, f, ctx) => "Operários de " + evName(game, ctx.pid) + " falam de reuniões secretas e de símbolos de oito pontas riscados nas paredes. Pode não ser nada... ou o começo de um culto.",
+		"portrait": () => "chaos/r0c0.png",
+		"choices": (game, f, ctx) => [
+			{ "caption": "Investigar (100)", "can": (game, f) => game.s.factions[f].funds >= 100 ? "" : "Recursos insuficientes.",
+				"apply": (game, f) => { game.s.factions[f].funds -= 100; game.gainSpecial(f, "win", 1); return "os investigadores desmontam o culto antes que cresça."; } },
+			{ "caption": "Ignorar", "tooltip": "Economiza agora. O culto pode crescer.",
+				"apply": (game, f, ctx) => { evFlags(game, f).cult = { "pid": ctx.pid, "stage": 1, "turn": game.s.turn }; return "os rumores são ignorados."; } }
+		],
+		"ai": (game, f) => game.s.factions[f].funds > 500 ? 0 : 1
+	},
+	{
+		"id": "cult_grows", "weight": 4, "cooldown": 3,
+		"factions": (game, f) => { const c = evFlags(game, f).cult; return !!c && c.stage == 1 && game.s.turn - c.turn >= 3; },
+		"when": (game, f) => { const c = evFlags(game, f).cult; return game.province(c.pid).owner == f ? { "pid": c.pid } : (delete evFlags(game, f).cult, null); },
+		"title": () => "O Culto Cresce",
+		"text": (game, f, ctx) => "O culto de " + evName(game, ctx.pid) + " já recruta nas fábricas e nos quartéis. A ordem pública desaba. Ainda dá para esmagá-lo — custa caro.",
+		"portrait": () => "chaos/r1c3.png",
+		"choices": (game, f, ctx) => [
+			{ "caption": "Expurgo total (250)", "tooltip": "A província fica devastada por 2 turnos, mas o culto acaba.", "can": (game, f) => game.s.factions[f].funds >= 250 ? "" : "Recursos insuficientes.",
+				"apply": (game, f, ctx) => { game.s.factions[f].funds -= 250; game.province(ctx.pid).devastated = Math.max(2, game.province(ctx.pid).devastated || 0); delete evFlags(game, f).cult; return "o expurgo queima o culto de " + evName(game, ctx.pid) + "."; } },
+			{ "caption": "Ignorar de novo", "tooltip": "A ordem cai 30 agora; o culto vai se levantar.",
+				"apply": (game, f, ctx) => { game.province(ctx.pid).order = Math.max(0, game.orderOf(ctx.pid) - 30); evFlags(game, f).cult = { "pid": ctx.pid, "stage": 2, "turn": game.s.turn }; return "o culto cresce nas sombras de " + evName(game, ctx.pid) + "."; } }
+		],
+		"ai": (game, f) => game.s.factions[f].funds > 600 ? 0 : 1
+	},
+	{
+		"id": "cult_rises", "weight": 6, "cooldown": 3,
+		"factions": (game, f) => { const c = evFlags(game, f).cult; return !!c && c.stage == 2 && game.s.turn - c.turn >= 3; },
+		"when": (game, f) => { const c = evFlags(game, f).cult; return { "pid": c.pid }; },
+		"title": () => "Levante Herético!",
+		"text": (game, f, ctx) => "O culto de " + evName(game, ctx.pid) + " pega em armas. As fábricas viram fortalezas hereges e a revolta se espalha para as províncias vizinhas.",
+		"portrait": () => "chaos/r1c1.png",
+		"choices": (game, f, ctx) => [
+			{ "caption": "Às armas!", "apply": (game, f, ctx) => {
+				delete evFlags(game, f).cult;
+				const lost = [ctx.pid].concat(game.pdef(ctx.pid).neighbors.filter(p => game.province(p).owner == f && !game.armiesAt(p, f).length).slice(0, 1));
+				for (const pid of lost)
+				{
+					if (game.armiesAt(pid, f).length && pid != ctx.pid)
+						continue;
+					const prov = game.province(pid);
+					prov.owner = null;
+					prov.garrison = [game.newBattalion("cultists", "chaos"), game.newBattalion("cultists", "chaos"), game.newBattalion("chaos_marines", "chaos")];
+					prov.buildings = [];
+					game.event("sack", pid, f);
+				}
+				game.checkElimination();
+				return "o levante toma " + lost.map(p => evName(game, p)).join(" e ") + ".";
+			} }
+		]
+	},
+	// ---------------- cadeia: sinal de socorro (2 passos)
+	{
+		"id": "distress", "weight": 0.8, "cooldown": 15,
+		"factions": (game, f) => !evFlags(game, f).distress && f != "tyranids",
+		"when": (game, f) => {
+			const options = Object.keys(game.s.provinces).filter(p => !game.province(p).owner && game.pdef(p).neighbors.some(n => game.province(n).owner == f));
+			return options.length ? { "pid": pickFrom(options) } : null;
+		},
+		"title": () => "Sinal de Socorro",
+		"text": (game, f, ctx) => "Os sobreviventes de " + evName(game, ctx.pid) + " pedem ajuda: comida, munição, remédios. Prometem lealdade a quem os salvar.",
+		"portrait": () => "astra_inf/r0c0.png",
+		"choices": (game, f, ctx) => [
+			{ "caption": "Enviar ajuda (200)", "tooltip": "Em 2 turnos a província pode se juntar a você.", "can": (game, f) => game.s.factions[f].funds >= 200 ? "" : "Recursos insuficientes.",
+				"apply": (game, f, ctx) => { game.s.factions[f].funds -= 200; evFlags(game, f).distress = { "pid": ctx.pid, "turn": game.s.turn }; return "a ajuda parte para " + evName(game, ctx.pid) + "."; } },
+			{ "caption": "Ignorar", "apply": () => "o sinal se apaga." }
+		],
+		"ai": (game, f) => game.s.factions[f].funds > 700 ? 0 : 1
+	},
+	{
+		"id": "distress_answer", "weight": 6, "cooldown": 2,
+		"factions": (game, f) => { const d = evFlags(game, f).distress; return !!d && game.s.turn - d.turn >= 2; },
+		"when": (game, f) => ({ "pid": evFlags(game, f).distress.pid }),
+		"title": (game, f, ctx) => "A Resposta de " + evName(game, ctx.pid),
+		"text": (game, f, ctx) => game.province(ctx.pid).owner ? evName(game, ctx.pid) + " caiu nas mãos de outros antes que a ajuda chegasse." :
+			"A ajuda chegou a " + evName(game, ctx.pid) + ". Os sobreviventes cumprem a promessa — ou não.",
+		"choices": (game, f, ctx) => [
+			{ "caption": "Ver o resultado", "apply": (game, f, ctx) => {
+				delete evFlags(game, f).distress;
+				const prov = game.province(ctx.pid);
+				if (prov.owner)
+					return "tarde demais para " + evName(game, ctx.pid) + ".";
+				if (Math.random() < 0.7)
+				{
+					prov.owner = f;
+					prov.order = 80;
+					prov.capturedTurn = game.s.turn;
+					game.event("capture", ctx.pid, f);
+					return evName(game, ctx.pid) + " se junta a você, grata.";
+				}
+				for (const b of prov.garrison)
+					b.strength = 1;
+				prov.garrison.push(game.newBattalion(game.neutralUnit("guard_platoon", game.D.bodies[game.pdef(ctx.pid).body].neutralCiv || f), game.D.bodies[game.pdef(ctx.pid).body].neutralCiv || f));
+				return "era uma armadilha: a ajuda foi roubada e a guarnição de " + evName(game, ctx.pid) + " ficou mais forte.";
+			} }
+		]
+	},
 	{
 		"id": "warp_storm", "weight": 1.2, "cooldown": 10,
 		"when": (game, f) => {
@@ -274,6 +385,11 @@ const WH40K_EVENTS = [
 						return "a dádiva se perde.";
 					for (const b of army.battalions)
 						b.xp = (b.xp || 0) + 1;
+					if (army.general)
+					{
+						const st = game.s.generals[army.general].stats = game.s.generals[army.general].stats || {};
+						st.corrupted = (st.corrupted || 0) + 1;
+					}
 					if (Math.random() < 0.15)
 					{
 						for (const b of army.battalions)

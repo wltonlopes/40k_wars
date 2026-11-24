@@ -82,6 +82,36 @@
 			"count": 3,
 			"attack": 0.1,
 			"desc": "Os deuses notaram as suas vitórias: +10% no ataque."
+		},
+		{
+			"id": "coward",
+			"name": "Hesitante",
+			"when": "defeats",
+			"count": 3,
+			"attack": -0.08,
+			"defense": -0.04,
+			"negative": true,
+			"desc": "Três derrotas abalaram a confiança: -8% no ataque, -4% na defesa."
+		},
+		{
+			"id": "reckless",
+			"name": "Imprudente",
+			"when": "attackLosses",
+			"count": 2,
+			"defense": -0.08,
+			"attack": 0.03,
+			"negative": true,
+			"desc": "Ataca sem medir as forças: +3% no ataque, -8% na defesa."
+		},
+		{
+			"id": "corrupted",
+			"name": "Tocado pela Disformidade",
+			"when": "corrupted",
+			"count": 1,
+			"attack": 0.08,
+			"defense": -0.06,
+			"negative": true,
+			"desc": "Aceitou um presente que não devia: +8% no ataque, -6% na defesa."
 		}
 	],
 	"relics": {
@@ -238,6 +268,57 @@
 				"defense": 0.2,
 				"attack": 0.05,
 				"desc": "Um colar de Khorne que repele a feitiçaria: +20% na defesa, +5% no ataque."
+			}
+		},
+		"baal": {
+			"arx": {
+				"id": "blood_chalice",
+				"name": "Cálice Vermelho",
+				"defense": 0.15,
+				"support": 1,
+				"desc": "O cálice sagrado dos Sacerdotes Sanguinários: +15% na defesa e +1 carga de apoio."
+			},
+			"lv_heart": {
+				"id": "norn_queen",
+				"name": "Glândula da Rainha Norn",
+				"attack": 0.2,
+				"desc": "Um órgão da Mente da Colmeia: +20% no ataque."
+			}
+		},
+		"ultramar": {
+			"archive": {
+				"id": "guilliman_scroll",
+				"name": "Pergaminho de Guilliman",
+				"defense": 0.12,
+				"attack": 0.08,
+				"desc": "Notas do Primarca: +12% na defesa, +8% no ataque."
+			},
+			"tm_garden": {
+				"id": "plague_bell",
+				"name": "Sino da Praga",
+				"attack": 0.12,
+				"support": 1,
+				"desc": "O sino que anuncia a Death Guard: +12% no ataque e +1 carga."
+			}
+		},
+		"sautekh": {
+			"km_pyramid": {
+				"id": "sautekh_staff",
+				"name": "Cetro de Sautekh",
+				"support": 2,
+				"desc": "O cetro da dinastia: +2 cargas de apoio."
+			},
+			"sept_city": {
+				"id": "ethereal_honor",
+				"name": "Lâmina de Honra Etérea",
+				"defense": 0.15,
+				"desc": "A lâmina cerimonial da seita: +15% na defesa."
+			},
+			"or_fort": {
+				"id": "big_choppa",
+				"name": "Machadão do Kaudilho",
+				"attack": 0.2,
+				"desc": "O maior machado da Waaagh!: +20% no ataque."
 			}
 		},
 		"thaurus": {

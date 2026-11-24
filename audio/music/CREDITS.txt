@@ -5,7 +5,8 @@ Todas as faixas são de Kevin MacLeod (incompetech.com), licenciadas sob
 Creative Commons: By Attribution 4.0 (CC-BY 4.0)
 http://creativecommons.org/licenses/by/4.0/
 
-Convertidas de MP3 para Ogg Vorbis, sem outras alterações.
+Convertidas de MP3 para Ogg Vorbis, sem outras alterações. Os temas de
+facção tocam no mapa da campanha junto com as faixas gerais.
 
   wh40k_Crusade.ogg                 "Crusade"                  menu
   wh40k_Gregorian_Chant.ogg         "Gregorian Chant"          menu, campanha
@@ -16,6 +17,14 @@ Convertidas de MP3 para Ogg Vorbis, sem outras alterações.
   wh40k_Black_Vortex.ogg            "Black Vortex"             batalha
   wh40k_Volatile_Reaction.ogg       "Volatile Reaction"        batalha
   wh40k_Clash_Defiant.ogg           "Clash Defiant"            batalha
+  wh40k_Heroic_Age.ogg              "Heroic Age"               tema do Imperium
+  wh40k_Unholy_Knight.ogg           "Unholy Knight"            tema do Caos
+  wh40k_Darkest_Child.ogg           "Darkest Child"            tema do Caos
+  wh40k_Rites.ogg                   "Rites"                    tema dos Orks
+  wh40k_Mechanolith.ogg             "Mechanolith"              tema do Mechanicus
+  wh40k_Crypto.ogg                  "Crypto"                   tema dos Necrons
+  wh40k_Lightless_Dawn.ogg          "Lightless Dawn"           tema dos Tiranídeos e xenos
+  wh40k_Gathering_Darkness.ogg      "Gathering Darkness"       tema dos xenos
 
 Atribuição pedida pelo autor, por faixa:
   "<título>" Kevin MacLeod (incompetech.com)

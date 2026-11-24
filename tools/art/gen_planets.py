@@ -519,6 +519,58 @@ def gen_battle_art():
     blob("crater", (90, 75, 60), "crater")
     blob("water", (30, 60, 90), "water")
     blob("rocks", (100, 95, 90), "hill")
+    gen_wall(d, rng)
+    gen_trench(d, rng)
+
+
+def gen_trench(d, rng):
+    """Trincheira vista de cima (Krieg): terra revolvida, vala em ziguezague e sacos de areia."""
+    s = 128
+    yy, xx = np.mgrid[0:s, 0:s].astype(np.float32)
+    r = np.sqrt((xx - s / 2) ** 2 + (yy - s / 2) ** 2) / (s / 2)
+    n = fbm((s, s), rng, base=12, octaves=3)
+    edge = 0.86 + (n - 0.5) * 0.3
+    a = np.clip((edge - r) / 0.1, 0, 1) * 0.95
+    earth = np.array((92, 72, 50), np.float32)[None, None, :] * (0.65 + 0.6 * n)[..., None]
+    # Linha em ziguezague no meio (a vala), com pontas arredondadas.
+    zig = s / 2 + 14 * (2 * np.abs(((xx - 8) / 30) % 1 - 0.5) * 2 - 1) * 0.6
+    dist = np.abs(yy - zig)
+    inside = (xx > 14) & (xx < s - 14)
+    ditch = (dist < 7) & inside
+    rim = (dist >= 7) & (dist < 12) & inside
+    earth[ditch] = np.array((34, 26, 20), np.float32) * (0.8 + 0.4 * n[ditch])[..., None]
+    # Sacos de areia na borda de cima (do lado do inimigo) e na de baixo.
+    bags = rim & (((xx // 6) + (yy // 4)) % 2 == 0)
+    earth[rim] = np.array((150, 132, 96), np.float32) * (0.75 + 0.4 * n[rim])[..., None]
+    earth[bags] *= 0.78
+    # Pranchas no fundo da vala.
+    planks = ditch & (xx % 9 < 2)
+    earth[planks] = (70, 52, 34)
+    a[ditch | rim] = 1
+    out = np.dstack([np.clip(earth, 0, 255), a * 255]).astype(np.uint8)
+    Image.fromarray(out, "RGBA").save(os.path.join(d, "trench.png"))
+
+
+def gen_wall(d, rng):
+    """Bastião visto de cima (muralha do defensor com fortificações; vira ruína ao cair)."""
+    s = 128
+    yy, xx = np.mgrid[0:s, 0:s].astype(np.float32)
+    r = np.sqrt((xx - s / 2) ** 2 + (yy - s / 2) ** 2) / (s / 2)
+    ang = np.arctan2(yy - s / 2, xx - s / 2)
+    n = fbm((s, s), rng, base=10, octaves=3)
+    merlons = (np.cos(ang * 16) > 0.2)
+    outer = np.where(merlons, 0.92, 0.84)
+    a = (r < outer).astype(np.float32)
+    stone = np.array((120, 115, 108), np.float32)[None, None, :] * (0.7 + 0.5 * n)[..., None]
+    ring = (r > 0.62) & (r < outer)
+    stone[ring] *= 1.15
+    stone[(r > 0.55) & (r <= 0.62)] *= 0.45
+    stone[r <= 0.55] *= 0.8
+    blocks = ((xx // 9 + yy // 9) % 2 == 0) & (r <= 0.55)
+    stone[blocks] *= 0.9
+    stone *= np.clip(1.15 - (yy / s) * 0.4, 0.7, 1.2)[..., None]
+    out = np.dstack([np.clip(stone, 0, 255), a * 255]).astype(np.uint8)
+    Image.fromarray(out, "RGBA").save(os.path.join(d, "wall.png"))
 
 
 def gen_emblems_and_banner():

@@ -1,0 +1,249 @@
+{
+	"id": "baal_prime",
+	"mapSize": [
+		2048,
+		1280
+	],
+	"provinces": {
+		"arx": {
+			"rect": [
+				0.37061,
+				0.29063,
+				0.64258,
+				0.58281
+			],
+			"label": [
+				0.5327,
+				0.4406
+			],
+			"area": 161052,
+			"neighbors": [
+				"chalice",
+				"devoured_hills",
+				"leviathan_nest",
+				"red_dunes",
+				"reliquary_b",
+				"salt_wastes",
+				"sanctum",
+				"spore_field"
+			],
+			"coastal": false
+		},
+		"sanctum": {
+			"rect": [
+				0.18359,
+				0.40938,
+				0.42285,
+				1.0
+			],
+			"label": [
+				0.2939,
+				0.6258
+			],
+			"area": 205481,
+			"neighbors": [
+				"angel_peaks",
+				"arx",
+				"rad_plains",
+				"red_dunes",
+				"reliquary_b"
+			],
+			"coastal": false
+		},
+		"chalice": {
+			"rect": [
+				0.57617,
+				0.39531,
+				0.83838,
+				0.98516
+			],
+			"label": [
+				0.6968,
+				0.5961
+			],
+			"area": 209231,
+			"neighbors": [
+				"angel_peaks",
+				"arx",
+				"crystal_desert",
+				"reliquary_b",
+				"salt_wastes"
+			],
+			"coastal": false
+		},
+		"reliquary_b": {
+			"rect": [
+				0.37207,
+				0.55,
+				0.62988,
+				0.80391
+			],
+			"label": [
+				0.4595,
+				0.6695
+			],
+			"area": 128302,
+			"neighbors": [
+				"angel_peaks",
+				"arx",
+				"chalice",
+				"sanctum"
+			],
+			"coastal": false
+		},
+		"red_dunes": {
+			"rect": [
+				0.0,
+				0.0,
+				0.37549,
+				0.5
+			],
+			"label": [
+				0.0,
+				0.2
+			],
+			"area": 292090,
+			"neighbors": [
+				"arx",
+				"rad_plains",
+				"sanctum",
+				"spore_field"
+			],
+			"coastal": false
+		},
+		"salt_wastes": {
+			"rect": [
+				0.63086,
+				0.07891,
+				1.0,
+				0.55078
+			],
+			"label": [
+				0.8794,
+				0.3562
+			],
+			"area": 271381,
+			"neighbors": [
+				"arx",
+				"chalice",
+				"crystal_desert",
+				"devoured_hills"
+			],
+			"coastal": false
+		},
+		"angel_peaks": {
+			"rect": [
+				0.28711,
+				0.78125,
+				0.69629,
+				1.0
+			],
+			"label": [
+				0.478,
+				0.9992
+			],
+			"area": 185913,
+			"neighbors": [
+				"chalice",
+				"crystal_desert",
+				"reliquary_b",
+				"sanctum"
+			],
+			"coastal": false
+		},
+		"rad_plains": {
+			"rect": [
+				0.0,
+				0.38906,
+				0.27979,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.9992
+			],
+			"area": 314557,
+			"neighbors": [
+				"red_dunes",
+				"sanctum"
+			],
+			"coastal": false
+		},
+		"crystal_desert": {
+			"rect": [
+				0.69482,
+				0.48125,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.9995,
+				0.9992
+			],
+			"area": 287536,
+			"neighbors": [
+				"angel_peaks",
+				"chalice",
+				"salt_wastes"
+			],
+			"coastal": false
+		},
+		"leviathan_nest": {
+			"rect": [
+				0.38232,
+				0.0,
+				0.62598,
+				0.31172
+			],
+			"label": [
+				0.5039,
+				0.0
+			],
+			"area": 182530,
+			"neighbors": [
+				"arx",
+				"devoured_hills",
+				"spore_field"
+			],
+			"coastal": false
+		},
+		"spore_field": {
+			"rect": [
+				0.03174,
+				0.0,
+				0.40137,
+				0.32188
+			],
+			"label": [
+				0.2568,
+				0.0
+			],
+			"area": 172266,
+			"neighbors": [
+				"arx",
+				"leviathan_nest",
+				"red_dunes"
+			],
+			"coastal": false
+		},
+		"devoured_hills": {
+			"rect": [
+				0.61133,
+				0.0,
+				1.0,
+				0.34375
+			],
+			"label": [
+				0.7593,
+				0.0
+			],
+			"area": 211101,
+			"neighbors": [
+				"arx",
+				"leviathan_nest",
+				"salt_wastes"
+			],
+			"coastal": false
+		}
+	}
+}

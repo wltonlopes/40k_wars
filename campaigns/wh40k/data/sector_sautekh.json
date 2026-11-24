@@ -1,0 +1,449 @@
+{
+	"Description": "Sistema estelar e corpos celestes (mesmo formato do sector.json). Gerado por tools/data/build_more.py; mapas por tools/art/gen_planets.py.",
+	"start": {
+		"turn": 1,
+		"year": "014.M42",
+		"monthsPerTurn": 1
+	},
+	"system": {
+		"id": "sautekh",
+		"name": "Sistema Dal'ryn",
+		"star": {
+			"name": "Dal'ryn",
+			"color": [
+				255,
+				225,
+				180
+			]
+		},
+		"desc": "Uma colônia tau construída sobre um mundo-tumba adormecido. As tumbas despertam — e uma Waaagh! sente o cheiro da briga."
+	},
+	"bodies": [
+		{
+			"id": "dalryn",
+			"name": "Dal'ryn",
+			"kind": "planet",
+			"class": "Mundo-Seita Tau",
+			"orbit": 0.2,
+			"angle": 200,
+			"size": 1.0,
+			"mapSize": [
+				2048,
+				1280
+			],
+			"seed": 281,
+			"palette": "tau",
+			"desc": "Cidades-seita brancas sobre dunas douradas. Sob as dunas, pirâmides de metal vivo começam a brilhar.",
+			"neutralCiv": "tau",
+			"provinces": [
+				{
+					"id": "sept_city",
+					"name": "Cidade-Seita Dal'ryn",
+					"terrain": "hive",
+					"x": 0.5,
+					"y": 0.38,
+					"owner": "tau",
+					"hive": 2,
+					"forts": 3,
+					"shipyard": true,
+					"garrison": [
+						"fire_warriors",
+						"fire_warriors",
+						"pathfinders",
+						"broadsides"
+					]
+				},
+				{
+					"id": "domes",
+					"name": "Domos de Fio",
+					"terrain": "hive",
+					"x": 0.3,
+					"y": 0.24,
+					"owner": "tau",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"fire_warriors",
+						"fire_warriors",
+						"kroot"
+					]
+				},
+				{
+					"id": "sky_port",
+					"name": "Porto Celeste",
+					"terrain": "industrial",
+					"x": 0.7,
+					"y": 0.24,
+					"owner": "tau",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"fire_warriors"
+					]
+				},
+				{
+					"id": "kroot_camp",
+					"name": "Acampamento Kroot",
+					"terrain": "jungle",
+					"x": 0.2,
+					"y": 0.5,
+					"owner": "tau",
+					"garrison": [
+						"kroot"
+					]
+				},
+				{
+					"id": "golden_dunes",
+					"name": "Dunas Douradas",
+					"terrain": "plains",
+					"x": 0.5,
+					"y": 0.6,
+					"garrison": []
+				},
+				{
+					"id": "tomb_gate",
+					"name": "Portão da Tumba",
+					"terrain": "tomb",
+					"x": 0.3,
+					"y": 0.8,
+					"owner": "necrons",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"necron_warriors",
+						"necron_warriors",
+						"immortals"
+					]
+				},
+				{
+					"id": "pylons",
+					"name": "Pilones Despertos",
+					"terrain": "tomb",
+					"x": 0.12,
+					"y": 0.7,
+					"owner": "necrons",
+					"forts": 1,
+					"garrison": [
+						"necron_warriors"
+					]
+				},
+				{
+					"id": "buried_city",
+					"name": "Cidade Soterrada",
+					"terrain": "tomb",
+					"x": 0.5,
+					"y": 0.86,
+					"owner": "necrons",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "scrap_hill",
+					"name": "Colina de Sucata",
+					"terrain": "ash",
+					"x": 0.86,
+					"y": 0.66,
+					"owner": "orks",
+					"hive": 2,
+					"forts": 1,
+					"garrison": [
+						"boyz",
+						"boyz",
+						"shoota_boyz"
+					]
+				},
+				{
+					"id": "crash_site",
+					"name": "Destroços do Rok",
+					"terrain": "rok",
+					"x": 0.88,
+					"y": 0.4,
+					"owner": "orks",
+					"garrison": [
+						"boyz"
+					]
+				},
+				{
+					"id": "salt_flats_d",
+					"name": "Salinas",
+					"terrain": "plains",
+					"x": 0.7,
+					"y": 0.8,
+					"garrison": []
+				},
+				{
+					"id": "canyon",
+					"name": "Cânion Vermelho",
+					"terrain": "mountains",
+					"x": 0.7,
+					"y": 0.5,
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "tomb_moon",
+			"name": "Kheperah",
+			"kind": "planet",
+			"class": "Lua-Tumba",
+			"parent": "dalryn",
+			"orbit": 0.09,
+			"angle": 60,
+			"size": 0.45,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 283,
+			"palette": "tomb",
+			"desc": "Uma lua que é uma tumba inteira.",
+			"neutralCiv": "necrons",
+			"provinces": [
+				{
+					"id": "km_pyramid",
+					"name": "Pirâmide do Faraó",
+					"terrain": "tomb",
+					"x": 0.48,
+					"y": 0.45,
+					"owner": "necrons",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"immortals",
+						"lychguard"
+					]
+				},
+				{
+					"id": "km_halls",
+					"name": "Salões Estáticos",
+					"terrain": "tomb",
+					"x": 0.22,
+					"y": 0.32,
+					"owner": "necrons",
+					"garrison": []
+				},
+				{
+					"id": "km_vaults",
+					"name": "Cofres",
+					"terrain": "tomb",
+					"x": 0.75,
+					"y": 0.62,
+					"owner": "necrons",
+					"hive": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "tau_orbital",
+			"name": "Estação Orbital Kor'vattra",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "dalryn",
+			"orbit": 0.14,
+			"angle": 300,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 285,
+			"palette": "station",
+			"desc": "A estação da Casta do Ar sobre Dal'ryn.",
+			"neutralCiv": "tau",
+			"provinces": [
+				{
+					"id": "tau_orbital_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "tau",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"fire_warriors"
+					]
+				},
+				{
+					"id": "tau_orbital_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "tau",
+					"garrison": [
+						"fire_warriors"
+					]
+				},
+				{
+					"id": "tau_orbital_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "tau",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "ork_rok",
+			"name": "Rok Gorkamorka",
+			"kind": "planet",
+			"class": "Rok Ork",
+			"orbit": 0.4,
+			"angle": 100,
+			"size": 0.5,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 287,
+			"palette": "rok",
+			"desc": "Um asteroide cheio de dentes e motores, rumo a Dal'ryn.",
+			"neutralCiv": "orks",
+			"provinces": [
+				{
+					"id": "or_fort",
+					"name": "Forte do Kaudilho",
+					"terrain": "hive",
+					"x": 0.48,
+					"y": 0.45,
+					"owner": "orks",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"boyz",
+						"nobz"
+					]
+				},
+				{
+					"id": "or_engines",
+					"name": "Motores",
+					"terrain": "rok",
+					"x": 0.22,
+					"y": 0.35,
+					"owner": "orks",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "or_pits",
+					"name": "Fossos",
+					"terrain": "rok",
+					"x": 0.72,
+					"y": 0.62,
+					"owner": "orks",
+					"garrison": []
+				}
+			]
+		}
+	],
+	"startingArmies": [
+		{
+			"faction": "tau",
+			"general": "farsight",
+			"body": "dalryn",
+			"province": "sept_city",
+			"battalions": [
+				"fire_warriors",
+				"fire_warriors",
+				"pathfinders",
+				"crisis_suits",
+				"broadsides",
+				"hammerhead"
+			]
+		},
+		{
+			"faction": "tau",
+			"general": "shadowsun",
+			"body": "tau_orbital",
+			"province": "tau_orbital_yards",
+			"battalions": [
+				"fire_warriors",
+				"stealth_suits",
+				"devilfish"
+			]
+		},
+		{
+			"faction": "necrons",
+			"general": "imotekh",
+			"body": "dalryn",
+			"province": "tomb_gate",
+			"battalions": [
+				"necron_warriors",
+				"necron_warriors",
+				"necron_warriors",
+				"immortals",
+				"immortals",
+				"lychguard",
+				"canoptek_wraiths",
+				"destroyers",
+				"doomsday_ark"
+			]
+		},
+		{
+			"faction": "necrons",
+			"general": "trazyn",
+			"body": "tomb_moon",
+			"province": "km_pyramid",
+			"battalions": [
+				"necron_warriors",
+				"immortals",
+				"scarabs"
+			]
+		},
+		{
+			"faction": "orks",
+			"general": "ghazghkull",
+			"body": "dalryn",
+			"province": "scrap_hill",
+			"battalions": [
+				"boyz",
+				"boyz",
+				"boyz",
+				"shoota_boyz",
+				"nobz",
+				"lootas",
+				"trukk",
+				"battlewagon",
+				"deff_dread"
+			]
+		},
+		{
+			"faction": "orks",
+			"general": "gorgutz",
+			"body": "ork_rok",
+			"province": "or_fort",
+			"battalions": [
+				"boyz",
+				"boyz",
+				"nobz",
+				"trukk"
+			]
+		}
+	],
+	"startingFleets": [
+		{
+			"faction": "tau",
+			"body": "tau_orbital",
+			"ships": 3
+		},
+		{
+			"faction": "necrons",
+			"body": "tomb_moon",
+			"ships": 3
+		},
+		{
+			"faction": "orks",
+			"body": "ork_rok",
+			"ships": 3
+		}
+	]
+}

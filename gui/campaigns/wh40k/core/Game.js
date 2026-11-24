@@ -11,6 +11,7 @@
  *   factions[f]   também: special (recurso especial), battleTurn
  *   army.buffs    [{ name, attack, defense, turns }] (rituais)
  *   truces        { "a|b": { since, until } } tréguas (core/Mechanics.js)
+ *   alliances     { "a|b": { since, enemy } } alianças de conveniência do Caos (core/Mechanics.js)
  *   grudges       { "a|b": turno } traições recentes (sem trégua até lá)
  *   relics        { relíquia: general } relíquias já reclamadas
  *   pendingChoices eventos e propostas que esperam a decisão do jogador
@@ -32,6 +33,22 @@ const WH40K_WOUND_TURNS = 4;
 const WH40K_LANDING_PENALTY = 0.15;
 const WH40K_SACK_TURNS = 4;
 const WH40K_DEVASTATED_INCOME = 0.25;
+/**
+ * Táticas da batalha espacial (o jogador escolhe; a IA decide pela força):
+ * power multiplica a força; mine/theirs multiplicam as perdas próprias e do inimigo.
+ */
+const WH40K_SPACE_TACTICS = {
+	"line": { "name": "Linha de batalha", "desc": "Equilibrada: força e perdas normais.", "power": 1, "mine": 1, "theirs": 1 },
+	"focus": { "name": "Fogo concentrado", "desc": "+15% de força, mas a luta é mais sangrenta para os dois lados (+25% de perdas).", "power": 1.15, "mine": 1.25, "theirs": 1.25 },
+	"board": { "name": "Abordagem", "desc": "Exige exército a bordo: +30% de força; o exército embarcado sofre perdas.", "power": 1.3, "mine": 1, "theirs": 1.1, "cargo": true },
+	"evasive": { "name": "Manobras evasivas", "desc": "-25% de força, mas metade das perdas.", "power": 0.75, "mine": 0.5, "theirs": 0.7 },
+	"retreat": { "name": "Recuar", "desc": "Sem batalha: a frota foge para um corpo próprio e perde uma nave na fuga.", "retreat": true }
+};
+
+/** Turnos seguidos com todas as cidades do objetivo para vencer. */
+const WH40K_OBJECTIVE_TURNS = 3;
+/** Para quem começa com todas as cidades do objetivo: resistir até este turno. */
+const WH40K_HOLD_TURN = 30;
 
 class WH40KGame
 {
@@ -41,7 +58,7 @@ class WH40KGame
 		this.s = state;
 		this.s.events = this.s.events || [];
 		// Saves de versões anteriores à 0.6.
-		for (const k of ["truces", "grudges", "relics", "storms", "battleStats"])
+		for (const k of ["truces", "grudges", "relics", "storms", "battleStats", "alliances", "allyCooldown"])
 			this.s[k] = this.s[k] || {};
 		for (const k of ["pendingChoices", "stats"])
 			this.s[k] = this.s[k] || [];
@@ -106,6 +123,9 @@ class WH40KGame
 				game.createFleet(start.faction, start.body, start.ships);
 		game.log(D.scenario.name + " — " + D.sector.system.name + ". " + D.factionName(playerFaction) + ": que comece a guerra!", "info");
 		game.recordStats();
+		// Quem começa com todas as cidades do objetivo precisa resistir até o turno 30.
+		if (game.objectiveHeld())
+			s.holdUntil = WH40K_HOLD_TURN;
 		return s;
 	}
 
@@ -156,7 +176,7 @@ class WH40KGame
 		const group = unit && unit.group && fdata.allies && fdata.allies[unit.group];
 		const title = pickFrom(unit?.leaderTitles || group?.leaderTitles || fdata.leaderTitles);
 		const name = pickFrom(group?.leaderNames || fdata.leaderNames);
-		return { "id": this.nextId("b"), "unit": unitId, "strength": 1, "xp": 0, "leader": title + " " + name };
+		return { "id": this.nextId("b"), "unit": unitId, "strength": 1, "xp": this.s.factions[faction] ? this.upgradeBonus(faction, "xp") : 0, "leader": title + " " + name };
 	}
 
 	createArmy(faction, generalId, provinceId)
@@ -206,16 +226,22 @@ class WH40KGame
 		return army && army.general ? this.generalStats(army.general) : null;
 	}
 
-	/** Inimigos: nem a mesma facção, nem aliados da campanha, nem em trégua. */
+	/** Aliados agora: da campanha (time ou grupo) ou numa aliança de conveniência. */
+	allied(a, b)
+	{
+		return this.D.allied(a, b) || this.inAlliance(a, b);
+	}
+
+	/** Inimigos: nem a mesma facção, nem aliados, nem em trégua. */
 	hostile(a, b)
 	{
-		return a != b && !this.D.allied(a, b) && !this.inTruce(a, b);
+		return a != b && !this.allied(a, b) && !this.inTruce(a, b);
 	}
 
 	/** Aliados ou em trégua: não se atacam nem tomam as terras um do outro. */
 	friendly(a, b)
 	{
-		return this.D.allied(a, b) || this.inTruce(a, b);
+		return this.allied(a, b) || this.inTruce(a, b);
 	}
 
 	armiesAt(pid, faction)
@@ -273,11 +299,14 @@ class WH40KGame
 
 	armyPower(army, role)
 	{
-		const base = army.battalions.reduce((sum, bat) => sum + this.batPower(bat), 0);
+		// Na defesa, quem sabe se entrincheirar (Krieg) vale 25% a mais.
+		const dig = bat => role == "defense" && this.unit(bat)?.entrench ? 1.25 : 1;
+		const base = army.battalions.reduce((sum, bat) => sum + this.batPower(bat) * dig(bat), 0);
 		const general = this.general(army);
 		let bonus = general ? (role == "attack" ? general.attack : general.defense) || 0 : 0;
 		if (role == "attack")
 			bonus += this.D.factions[army.faction]?.attackBonus || 0;
+		bonus += this.upgradeBonus(army.faction, role == "attack" ? "attack" : "defense");
 		bonus += this.buffBonus(army, role == "attack" ? "attack" : "defense");
 		if (general)
 			bonus += 0.05;
@@ -286,7 +315,7 @@ class WH40KGame
 
 	garrisonPower(pid)
 	{
-		return this.province(pid).garrison.reduce((sum, bat) => sum + this.batPower(bat), 0);
+		return this.province(pid).garrison.reduce((sum, bat) => sum + this.batPower(bat) * (this.unit(bat)?.entrench ? 1.25 : 1), 0);
 	}
 
 	/** Força de defesa de uma província contra a facção atacante. */
@@ -300,22 +329,33 @@ class WH40KGame
 			power += this.garrisonPower(pid);
 		for (const army of this.hostileArmiesAt(pid, attackerFaction))
 			power += this.armyPower(army, "defense");
+		// Reforço provável: o maior exército do defensor numa província vizinha.
+		if (defender && this.hostile(defender, attackerFaction))
+		{
+			const helpers = def.neighbors.flatMap(n => this.armiesAt(n)).filter(a => this.allied(a.faction, defender) && a.battalions.length && a.reserveTurn != this.s.turn && !a.fleet);
+			if (helpers.length)
+				power += Math.max(...helpers.map(a => this.armyPower(a, "defense"))) * 0.35;
+		}
 		const mult = 1 + 0.15 * prov.forts + (def.hive == 2 ? 0.1 : 0) + (def.terrain == "mountains" ? 0.1 : 0);
 		return power * mult;
 	}
 
 	maxGarrison(pid)
 	{
-		return 2 + this.province(pid).forts + (this.pdef(pid).hive || 0);
+		return 2 + this.province(pid).forts + (this.pdef(pid).hive || 0) + (this.hasBuilding(pid, "barracks") ? 1 : 0);
 	}
 
 	provinceIncome(pid)
 	{
 		const def = this.pdef(pid);
 		let income = WH40K_TERRAIN_INCOME[def.terrain] || 15;
-		income += (def.hive || 0) * 20 + (def.shipyard ? 15 : 0);
+		income += (def.hive || 0) * 20 + (this.hasShipyard(pid) ? 15 : 0);
 		if (this.province(pid).devastated > 0)
 			income *= WH40K_DEVASTATED_INCOME;
+		if (this.hasBuilding(pid, "manufactorum"))
+			income *= 1.3;
+		if (this.orderOf(pid) < 40)
+			income *= 0.75;
 		return Math.round(income * (this.D.factions[this.province(pid).owner]?.incomeMult || 1));
 	}
 
@@ -336,7 +376,7 @@ class WH40KGame
 		for (const army of this.armiesOf(faction))
 		{
 			const mult = 1 + (this.general(army)?.upkeep || 0);
-			total += army.battalions.reduce((sum, bat) => sum + this.upkeepOf(bat, false), 0) * mult;
+			total += army.battalions.reduce((sum, bat) => sum + this.upkeepOf(bat, false), 0) * mult * (1 - this.upgradeBonus(faction, "upkeep"));
 			total += army.general ? 15 : 0;
 		}
 		for (const pid of this.provincesOf(faction))
@@ -363,7 +403,7 @@ class WH40KGame
 		const why = this.allyRequirement(faction, unit, pid);
 		if (why)
 			return why;
-		if (this.s.factions[faction].funds < unit.cost)
+		if (this.s.factions[faction].funds < this.recruitCost(faction, unit, pid))
 			return "Recursos insuficientes.";
 		return "";
 	}
@@ -384,7 +424,7 @@ class WH40KGame
 				return "Exige frota própria na órbita (sem inimigos).";
 			if (req == "hive" && def.hive != 2)
 				return "Exige cidade-colmeia.";
-			if (req == "forge" && !def.shipyard && def.terrain != "industrial")
+			if (req == "forge" && !this.hasShipyard(pid) && def.terrain != "industrial")
 				return "Exige estaleiro ou zona industrial (forja).";
 			if (req == "unique" && this.countUnit(faction, unit.id))
 				return "Só pode haver um na cruzada.";
@@ -425,7 +465,7 @@ class WH40KGame
 				return "A guarnição está cheia (" + this.maxGarrison(pid) + ").";
 			prov.garrison.push(this.newBattalion(unitId, faction));
 		}
-		this.s.factions[faction].funds -= unit.cost;
+		this.s.factions[faction].funds -= this.recruitCost(faction, unit, pid);
 		return "";
 	}
 
@@ -533,6 +573,7 @@ class WH40KGame
 		prov.owner = faction;
 		prov.garrison = [];
 		prov.capturedTurn = this.s.turn;
+		this.onCapture(pid);
 		this.event("capture", pid, faction);
 		this.log(this.D.factionName(faction) + " ocupa " + this.pdef(pid).name + (old ? "" : " sem resistência") + ".", "capture", faction);
 		this.gainSpecial(faction, "capture", 1);
@@ -546,15 +587,29 @@ class WH40KGame
 		const prov = this.province(pid);
 		const defenderArmies = this.hostileArmiesAt(pid, attackerFaction);
 		const defenderFaction = defenderArmies[0]?.faction || prov.owner;
+		// Os exércitos aliados do defensor na província lutam junto.
+		const defenders = defenderArmies.filter(a => a.faction == defenderFaction || this.allied(a.faction, defenderFaction)).map(a => a.id);
+		// Reforços (entram no meio da batalha): um exército da mesma facção numa
+		// província vizinha e, se houver, um de um aliado.
+		const reserve = (faction, exclude) => {
+			if (!faction)
+				return [];
+			const near = this.pdef(pid).neighbors.flatMap(n => this.armiesAt(n))
+				.filter(a => exclude.indexOf(a.id) == -1 && a.battalions.length && a.reserveTurn != this.s.turn && !a.fleet);
+			const own = near.filter(a => a.faction == faction).slice(0, 1);
+			const ally = near.filter(a => a.faction != faction && this.allied(a.faction, faction)).sort((x, y) => this.armyPower(y, "attack") - this.armyPower(x, "attack")).slice(0, 1);
+			return own.concat(ally).map(a => a.id);
+		};
 		return {
 			"id": this.nextId("bt"),
 			"province": pid,
 			"kind": kind,
 			"turn": this.s.turn,
-			"attacker": { "faction": attackerFaction, "armies": armyIds.slice() },
+			"attacker": { "faction": attackerFaction, "armies": armyIds.slice(), "reserves": reserve(attackerFaction, armyIds) },
 			"defender": {
 				"faction": defenderFaction,
-				"armies": defenderArmies.filter(a => a.faction == defenderFaction).map(a => a.id),
+				"armies": defenders,
+				"reserves": reserve(defenderFaction, defenders),
 				"garrison": prov.owner == defenderFaction || (!prov.owner && !defenderFaction)
 			}
 		};
@@ -615,9 +670,19 @@ class WH40KGame
 				if (!army)
 					continue;
 				for (const bat of army.battalions)
-					entries.push({ "bat": bat, "army": aid });
+					entries.push({ "bat": bat, "army": aid, "ally": army.faction != side.faction ? army.faction : null });
 				power += this.armyPower(army, role == "attacker" ? "attack" : "defense");
 				general = general || (army.general ? { "id": army.general, "army": aid } : null);
+			}
+			for (const aid of side.reserves || [])
+			{
+				const army = this.s.armies[aid];
+				if (!army)
+					continue;
+				for (const bat of army.battalions)
+					entries.push({ "bat": bat, "army": aid, "reserve": true, "ally": army.faction != side.faction ? army.faction : null });
+				// Chegam no meio da luta: um terço do peso na resolução automática.
+				power += this.armyPower(army, role == "attacker" ? "attack" : "defense") * 0.35;
 			}
 			if (role == "defender" && side.garrison)
 			{
@@ -695,9 +760,17 @@ class WH40KGame
 		// Batalhões destruídos.
 		for (const role of ["attacker", "defender"])
 		{
-			for (const aid of battle[role].armies)
+			for (const aid of battle[role].armies.concat(battle[role].reserves || []))
 				if (this.s.armies[aid])
 					this.s.armies[aid].battalions = this.s.armies[aid].battalions.filter(b => b.strength >= 0.1);
+			for (const aid of battle[role].reserves || [])
+			{
+				const army = this.s.armies[aid];
+				if (army)
+					army.reserveTurn = this.s.turn;
+				if (army && !army.battalions.length && !army.general)
+					this.disbandArmy(army, "");
+			}
 		}
 		prov.garrison = prov.garrison.filter(b => b.strength >= 0.1);
 
@@ -737,6 +810,7 @@ class WH40KGame
 				prov.owner = battle.attacker.faction;
 				prov.garrison = [];
 				prov.capturedTurn = this.s.turn;
+				this.onCapture(battle.province);
 				this.event("capture", battle.province, battle.attacker.faction);
 				prov.forts = Math.max(0, prov.forts - 1);
 				for (const army of attackers)
@@ -807,7 +881,7 @@ class WH40KGame
 	{
 		if (!army.battalions.length)
 			return this.disbandArmy(army, "O exército de " + this.D.factionName(army.faction) + " foi aniquilado.");
-		const options = this.pdef(fromPid).neighbors.filter(pid => this.D.allied(this.province(pid).owner, army.faction) && !this.hostileArmiesAt(pid, army.faction).length);
+		const options = this.pdef(fromPid).neighbors.filter(pid => this.allied(this.province(pid).owner, army.faction) && !this.hostileArmiesAt(pid, army.faction).length);
 		if (!options.length)
 			return this.disbandArmy(army, "Sem para onde recuar, o exército de " + this.D.factionName(army.faction) + " se dispersa.");
 		army.province = options[0];
@@ -907,12 +981,12 @@ class WH40KGame
 
 	shipyardsOf(faction, body)
 	{
-		return this.provincesOf(faction).filter(pid => this.pdef(pid).shipyard && (!body || this.pdef(pid).body == body));
+		return this.provincesOf(faction).filter(pid => this.hasShipyard(pid) && (!body || this.pdef(pid).body == body));
 	}
 
 	buildShip(faction, pid)
 	{
-		if (this.province(pid).owner != faction || !this.pdef(pid).shipyard)
+		if (this.province(pid).owner != faction || !this.hasShipyard(pid))
 			return "Precisa de um estaleiro próprio.";
 		if (this.s.factions[faction].funds < WH40K_SHIP_COST)
 			return "Recursos insuficientes.";
@@ -952,7 +1026,7 @@ class WH40KGame
 			return reason;
 		fleet.acted = this.s.turn;
 		const prov = this.province(pid);
-		const hit = Math.min(0.45, 0.12 + 0.06 * fleet.ships);
+		const hit = Math.min(0.45, 0.12 + 0.06 * fleet.ships) * (this.hasBuilding(pid, "battery") ? 0.5 : 1);
 		for (const bat of prov.garrison)
 			bat.strength = Math.max(0.1, bat.strength * (1 - hit * randRange(0.6, 1.2)));
 		for (const army of this.hostileArmiesAt(pid, fleet.faction))
@@ -1008,14 +1082,16 @@ class WH40KGame
 		const prov = this.province(pid);
 		const loot = this.sackValue(pid, army.faction);
 		this.s.factions[army.faction].funds += loot;
-		prov.devastated = WH40K_SACK_TURNS;
+		prov.devastated = WH40K_SACK_TURNS * (army.faction == "tyranids" ? 2 : 1);
 		prov.forts = 0;
+		prov.buildings = [];
+		prov.order = 25;
 		army.sackedTurn = this.s.turn;
 		for (const bat of army.battalions)
 			bat.xp = (bat.xp || 0) + (this.D.factions[army.faction]?.sackXp || 0);
 		this.event("sack", pid, army.faction);
 		this.gainSpecial(army.faction, "sack", 1);
-		this.log(this.D.factionName(army.faction) + " — " + (this.D.factions[army.faction]?.sackName || "Saquear").toLowerCase() + ": " + this.pdef(pid).name + ": +" + loot + " " + this.D.factions[army.faction].currencyShort +
+		this.log(this.D.factionName(army.faction) + " — " + (this.D.factions[army.faction]?.sackName || "Saquear") + ": " + this.pdef(pid).name + ": +" + loot + " " + this.D.factions[army.faction].currencyShort +
 			". A província fica devastada por " + WH40K_SACK_TURNS + " turnos.", "sack", army.faction);
 		return "";
 	}
@@ -1038,9 +1114,12 @@ class WH40KGame
 		this.spaceBattles(reports);
 		this.economy(reports);
 		this.specialEconomy();
+		this.tickRealm(reports);
 		this.tickBuffs();
 		this.tickDiplomacy();
 		this.claimRelics();
+		// Objetivo: conta os turnos seguidos com todas as cidades.
+		this.s.objectiveTurns = this.objectiveHeld() ? (this.s.objectiveTurns || 0) + 1 : 0;
 		this.checkElimination();
 		++this.s.turn;
 		this.rollEvents(reports);
@@ -1093,9 +1172,14 @@ class WH40KGame
 						[a, b] = [factions[i], factions[j]];
 			if (!b)
 				continue;
-			const report = this.spaceBattle(body, a, b);
-			if (report.fleetBattle)
-				reports.push(report);
+			if (a == this.player || b == this.player)
+			{
+				// O jogador escolhe a tática (Page: pendingSpace).
+				this.s.pendingSpace = (this.s.pendingSpace || []).filter(p => p.body != body);
+				this.s.pendingSpace.push({ "body": body, "a": a, "b": b });
+				continue;
+			}
+			this.spaceBattle(body, a, b);
 		}
 	}
 
@@ -1104,12 +1188,14 @@ class WH40KGame
 	 * attacker (opcional) ataca de surpresa: +15% de força. Devolve o
 	 * relatório (com fleetBattle se o jogador está envolvido).
 	 */
-	spaceBattle(body, a, b, attacker)
+	spaceBattle(body, a, b, attacker, tactics)
 	{
 		const fleets = this.fleetsAt(body).filter(f => f.faction == a || f.faction == b);
 		const power = f => fleets.filter(x => x.faction == f).reduce((sum, x) => sum + x.ships, 0);
-		const pa = power(a) * randRange(0.75, 1.35) * (attacker == a ? 1.15 : 1);
-		const pb = power(b) * randRange(0.75, 1.35) * (attacker == b ? 1.15 : 1);
+		tactics = tactics || {};
+		const T = f => WH40K_SPACE_TACTICS[tactics[f] || this.aiSpaceTactic(body, f, f == a ? b : a)] || WH40K_SPACE_TACTICS.line;
+		const pa = power(a) * randRange(0.75, 1.35) * (attacker == a ? 1.15 : 1) * T(a).power;
+		const pb = power(b) * randRange(0.75, 1.35) * (attacker == b ? 1.15 : 1) * T(b).power;
 		const winner = pa >= pb ? a : b;
 		const loser = winner == a ? b : a;
 		const lines = [];
@@ -1117,10 +1203,17 @@ class WH40KGame
 		for (const fleet of fleets)
 		{
 			let loss;
+			const other = fleet.faction == a ? b : a;
+			const mult = T(fleet.faction).mine * T(other).theirs;
 			if (fleet.faction == loser)
-				loss = Math.max(1, Math.ceil(fleet.ships * randRange(0.5, 1.0)));
+				loss = Math.max(1, Math.min(fleet.ships, Math.ceil(fleet.ships * randRange(0.5, 1.0) * mult)));
 			else
-				loss = Math.floor(before[loser] * 0.35 * Math.random());
+				loss = Math.min(fleet.ships, Math.floor(before[loser] * 0.35 * Math.random() * mult));
+			// Abordagem: o exército embarcado luta e perde gente.
+			if (T(fleet.faction).cargo)
+				for (const aid of fleet.cargo)
+					for (const bat of this.s.armies[aid]?.battalions || [])
+						bat.strength = Math.max(0.1, bat.strength * randRange(0.7, 0.9));
 			fleet.ships = Math.max(0, fleet.ships - loss);
 			if (!fleet.ships)
 			{
@@ -1145,6 +1238,9 @@ class WH40KGame
 		const title = "Batalha espacial em " + this.D.bodies[body].name + ": vitória de " + this.D.factionName(winner);
 		if (attacker)
 			lines.unshift(this.D.factionName(attacker) + " ataca primeiro (+15% de força).");
+		for (const f of [a, b])
+			if (tactics[f] || f == this.player)
+				lines.unshift(this.D.factionName(f) + ": " + T(f).name + ".");
 		this.event("space", body, winner);
 		this.log(title + ". " + lines.join(" "), "space", winner);
 		const report = { "title": title, "lines": lines, "space": true, "winner": winner };
@@ -1156,6 +1252,62 @@ class WH40KGame
 			report.fleetBattle = { "body": body, "sides": [{ "faction": mine, "before": before[mine], "after": after(mine) }, { "faction": other, "before": before[other], "after": after(other) }] };
 		}
 		return report;
+	}
+
+	/** Tática da IA: evasiva se muito mais fraca, fogo concentrado se mais forte. */
+	aiSpaceTactic(body, f, enemy)
+	{
+		const mine = this.fleetsAt(body, f).reduce((s, x) => s + x.ships, 0);
+		const theirs = this.fleetsAt(body, enemy).reduce((s, x) => s + x.ships, 0);
+		if (mine * 2 <= theirs)
+			return "evasive";
+		if (mine >= theirs * 1.5)
+			return "focus";
+		return "line";
+	}
+
+	/** Batalha espacial pendente do jogador (fim do turno) ainda válida? */
+	nextPendingSpace()
+	{
+		const list = this.s.pendingSpace || [];
+		while (list.length)
+		{
+			const p = list[0];
+			if (this.fleetsAt(p.body, p.a).length && this.fleetsAt(p.body, p.b).length && this.hostile(p.a, p.b))
+				return p;
+			list.shift();
+		}
+		return null;
+	}
+
+	/** O jogador escolheu a tática: resolve (ou foge). Devolve o relatório. */
+	resolveSpace(p, tactic, attacker)
+	{
+		const list = this.s.pendingSpace || [];
+		if (list.indexOf(p) != -1)
+			list.splice(list.indexOf(p), 1);
+		const me = this.player;
+		const enemy = p.a == me ? p.b : p.a;
+		if (WH40K_SPACE_TACTICS[tactic]?.retreat)
+		{
+			const lines = [];
+			for (const fleet of this.fleetsAt(p.body, me))
+			{
+				const home = this.homeBody(me, p.body) || fleet.from;
+				fleet.ships = Math.max(1, fleet.ships - 1);
+				if (home && home != p.body)
+				{
+					fleet.dest = home;
+					fleet.eta = this.D.travelTurns(p.body, home);
+					fleet.body = null;
+					fleet.from = p.body;
+					lines.push("A frota " + fleet.name + " foge para " + this.D.bodies[home].name + " (perdeu uma nave).");
+				}
+			}
+			this.log("Recuo em " + this.D.bodies[p.body].name + ": " + lines.join(" "), "space", me);
+			return { "title": "Recuo em " + this.D.bodies[p.body].name, "lines": lines, "space": true, "winner": enemy };
+		}
+		return this.spaceBattle(p.body, me, enemy, attacker, { [me]: tactic });
 	}
 
 	/** Pode a frota atacar a frota alvo? "" ou o motivo. */
@@ -1188,9 +1340,11 @@ class WH40KGame
 			return { "error": why };
 		if (target.body == fleet.body && !target.dest)
 		{
+			fleet.acted = this.s.turn;
+			// O jogador escolhe a tática antes (Page.showSpaceTactics); a IA resolve aqui.
+			if (fleet.faction == this.player)
+				return { "pending": { "body": fleet.body, "a": fleet.faction, "b": target.faction, "attacker": fleet.faction } };
 			const report = this.spaceBattle(fleet.body, fleet.faction, target.faction, fleet.faction);
-			if (this.s.fleets[fleetId])
-				fleet.acted = this.s.turn;
 			this.checkElimination();
 			return { "report": report };
 		}
@@ -1278,9 +1432,13 @@ class WH40KGame
 			this.s.gameOver = { "won": true, "text": "Todos os inimigos foram expulsos. " + this.D.sector.system.name + " é seu!" };
 		else
 		{
-			const hives = this.objectiveProvinces();
-			if (hives.length && hives.every(pid => this.D.allied(this.province(pid).owner, this.player)))
-				this.s.gameOver = { "won": true, "text": this.D.scenario.objective.label + ": todas sob seu controle. A guerra está ganha!" };
+			if (this.s.holdUntil)
+			{
+				if (this.s.turn >= this.s.holdUntil && this.objectiveHeld())
+					this.s.gameOver = { "won": true, "text": this.D.scenario.objective.label + ": você resistiu até o turno " + this.s.holdUntil + ". O inimigo desiste!" };
+			}
+			else if ((this.s.objectiveTurns || 0) >= WH40K_OBJECTIVE_TURNS && this.objectiveHeld())
+				this.s.gameOver = { "won": true, "text": this.D.scenario.objective.label + ": sob seu controle por " + WH40K_OBJECTIVE_TURNS + " turnos. A guerra está ganha!" };
 		}
 	}
 
@@ -1291,12 +1449,19 @@ class WH40KGame
 		return body ? body.landProvinces.filter(pid => this.pdef(pid).hive == 2) : [];
 	}
 
+	/** O lado do jogador tem todas as cidades do objetivo? */
+	objectiveHeld()
+	{
+		const hives = this.objectiveProvinces();
+		return hives.length > 0 && hives.every(pid => this.D.allied(this.province(pid).owner, this.player));
+	}
+
 	/** Objetivo de vitória (para a interface). */
 	objective()
 	{
 		const hives = this.objectiveProvinces();
 		const mine = hives.filter(pid => this.D.allied(this.province(pid).owner, this.player)).length;
-		return { "hives": hives.length, "mine": mine };
+		return { "hives": hives.length, "mine": mine, "held": this.objectiveHeld() ? this.s.objectiveTurns || 0 : 0, "need": WH40K_OBJECTIVE_TURNS, "holdUntil": this.s.holdUntil || 0 };
 	}
 }
 

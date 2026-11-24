@@ -80,6 +80,7 @@ class WH40KUnitCard
 			line("Alcance", rate(range, 0.06, 0.12) + " (" + Math.round(range * 1000) + ")") + " · " + line("Velocidade", rate(speed, 0.025, 0.04)),
 			line("Blindagem", "x" + ((unit.armor || 1) * cat.armor).toFixed(2)),
 			vs.length ? line("Especialista", vs.join(", ")) : "",
+			unit.entrench ? line("Entrincheirar", "parado por 6 s, cava uma trincheira (dano recebido -45%); com a ordem Segurar, começa entrincheirado") : "",
 			unitTerrainText(unit) ? line("Terreno", unitTerrainText(unit)) : "",
 			req.length ? line("Exige", req.join(", ")) : "",
 			unit.noRecruit ? colored("Não se recruta.", [230, 120, 120]) : ""
@@ -129,6 +130,7 @@ class WH40KUnitCard
 				st ? colored("Situação: ", gold) + (state[st.state] || st.state) : "",
 				gen.level !== undefined ? colored("Nível: ", gold) + gen.level + " · experiência " + (gen.xp || 0) + this.nextLevelText(gen) : "",
 				gen.ascended ? colored("Príncipe-Demônio de " + gen.ascended, [240, 120, 120]) + " (+20% ataque, +15% defesa, +1 carga)" : "",
+				gen.ability ? colored("Poder na batalha: ", gold) + colored(gen.ability.name, [210, 170, 250]) + " — " + gen.ability.desc + " (recarga " + (gen.ability.cooldown || 50) + " s)" : "",
 				(gen.traitList || []).length ? colored("Traços: ", gold) + gen.traitList.map(t => t.name).join(", ") : "",
 				(gen.relicList || []).length ? colored("Relíquias: ", gold) + gen.relicList.map(r => r.name).join(", ") : ""
 			].filter(Boolean).join("\n"),

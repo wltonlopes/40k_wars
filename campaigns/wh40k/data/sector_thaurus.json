@@ -198,11 +198,13 @@
 					"y": 0.18,
 					"owner": "death_guard",
 					"hive": 2,
-					"forts": 2,
+					"forts": 3,
 					"garrison": [
+						"dg_plague_marines",
+						"dg_plague_marines",
+						"dg_blightlords",
 						"dg_poxwalkers",
-						"dg_poxwalkers",
-						"dg_plague_marines"
+						"dg_poxwalkers"
 					]
 				},
 				{
@@ -213,11 +215,13 @@
 					"y": 0.16,
 					"owner": "thousand_sons",
 					"hive": 2,
-					"forts": 2,
+					"forts": 3,
 					"garrison": [
+						"ts_rubrics",
+						"ts_rubrics",
+						"ts_scarab_occult",
 						"ts_cultists",
-						"ts_cultists",
-						"ts_rubrics"
+						"ts_cultists"
 					]
 				},
 				{
@@ -228,11 +232,13 @@
 					"y": 0.66,
 					"owner": "drukhari",
 					"hive": 2,
-					"forts": 2,
+					"forts": 3,
 					"garrison": [
+						"dk_incubi",
+						"dk_trueborn",
 						"dk_kabalites",
-						"dk_wyches",
-						"dk_incubi"
+						"dk_kabalites",
+						"dk_wyches"
 					]
 				},
 				{
@@ -779,8 +785,8 @@
 		{
 			"faction": "death_guard",
 			"general": "felthius",
-			"body": "morbus",
-			"province": "mb_garden",
+			"body": "thaurus",
+			"province": "iron_peaks",
 			"battalions": [
 				"dg_poxwalkers",
 				"dg_plague_marines",
@@ -808,8 +814,8 @@
 		{
 			"faction": "thousand_sons",
 			"general": "amon",
-			"body": "sekhmet",
-			"province": "sv_tower",
+			"body": "thaurus",
+			"province": "slag",
 			"battalions": [
 				"ts_cultists",
 				"ts_rubrics",
@@ -837,8 +843,8 @@
 		{
 			"faction": "drukhari",
 			"general": "lelith",
-			"body": "velsharra",
-			"province": "vs_gate",
+			"body": "thaurus",
+			"province": "chem_marsh",
 			"battalions": [
 				"dk_wyches",
 				"dk_bloodbrides",

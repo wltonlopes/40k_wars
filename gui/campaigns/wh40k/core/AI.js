@@ -11,6 +11,9 @@
  *  - Os Orks saqueiam parte das províncias que tomam (menos as colmeias).
  *  - Frotas sem carga caçam frotas inimigas menores e bombardeiam províncias
  *    inimigas sob a sua órbita; estaleiros lançam naves.
+ *  - Junta exércitos na mesma província, reúne forças antes de um alvo forte,
+ *    defende cidades ameaçadas e corre para as cidades do objetivo quando o
+ *    jogador está perto de vencer.
  *  - Gasta o recurso especial em rituais (core/Mechanics.js) e, com pactos
  *    compatíveis, propõe tréguas — e às vezes trai quando está forte.
  * Batalhas contra o jogador vão para s.pendingBattles (ele decide como lutar).
@@ -36,6 +39,9 @@ class WH40KAI
 		this.hireGenerals();
 		this.recruit();
 		this.rituals();
+		this.buildAndUpgrade();
+		this.mergeArmies();
+		this.defendThreats();
 		this.armies(reports);
 		this.fleets(reports);
 	}
@@ -67,6 +73,88 @@ class WH40KAI
 		// Prefere o vizinho mais forte (para se livrar de uma frente).
 		candidates.sort((a, b) => this.g.factionPower(b) - this.g.factionPower(a));
 		this.g.proposeTruce(this.f, candidates[0]);
+	}
+
+	/** Cidades do objetivo da campanha. */
+	get objective()
+	{
+		return this._objective = this._objective || new Set(this.g.objectiveProvinces());
+	}
+
+	/** O jogador (inimigo desta IA) está perto de vencer pelo objetivo? */
+	get urgent()
+	{
+		return this.g.hostile(this.f, this.g.player) && this.g.objectiveHeld() && !this.s.holdUntil;
+	}
+
+	/** Exércitos na mesma província viram um só (o do general fica com os batalhões). */
+	mergeArmies()
+	{
+		const byProv = {};
+		for (const a of this.g.armiesOf(this.f))
+			if (a.province)
+				(byProv[a.province] = byProv[a.province] || []).push(a);
+		for (const pid in byProv)
+		{
+			const list = byProv[pid].sort((a, b) => (b.general ? 1 : 0) - (a.general ? 1 : 0) || b.battalions.length - a.battalions.length);
+			const main = list[0];
+			for (const other of list.slice(1))
+			{
+				while (other.battalions.length && main.battalions.length < WH40K_MAX_BATTALIONS)
+					main.battalions.push(other.battalions.shift());
+				if (!other.battalions.length && !other.general)
+					this.g.disbandArmy(other, "");
+			}
+		}
+	}
+
+	/** Cidades ameaçadas por um exército inimigo mais forte que a defesa: o exército próprio vizinho vai para lá. */
+	defendThreats()
+	{
+		for (const pid of this.g.provincesOf(this.f))
+		{
+			const def = this.D.provinces[pid];
+			if (!def.hive && !this.objective.has(pid))
+				continue;
+			const threat = def.neighbors.flatMap(n => this.g.hostileArmiesAt(n, this.f)).reduce((s, a) => Math.max(s, this.g.armyPower(a, "attack")), 0);
+			if (!threat)
+				continue;
+			const here = this.g.garrisonPower(pid) + this.g.armiesAt(pid, this.f).reduce((s, a) => s + this.g.armyPower(a, "defense"), 0);
+			if (here * (1 + 0.15 * this.s.provinces[pid].forts) >= threat)
+				continue;
+			const helper = def.neighbors.flatMap(n => this.g.armiesAt(n, this.f)).find(a => a.moves > 0 && a.battalions.length &&
+				!this.D.provinces[a.province].neighbors.some(n => this.g.isHostileTarget(n, this.f) && this.D.provinces[n].hive == 2));
+			if (helper)
+				this.g.moveArmy(helper.id, pid);
+		}
+	}
+
+	/** Construções (quando sobra dinheiro) e melhorias permanentes (com o recurso especial). */
+	buildAndUpgrade()
+	{
+		const up = WH40K_UPGRADES.find(u => !this.g.canUpgrade(this.f, u.id));
+		if (up && Math.random() < 0.3)
+			this.g.buyUpgrade(this.f, up.id);
+		if (this.funds < 900)
+			return;
+		for (const pid of this.g.provincesOf(this.f))
+		{
+			let want = null;
+			if (this.D.provinces[pid].hive && this.g.hostileFleetAt(this.D.provinces[pid].body, this.f))
+				want = "battery";
+			else if (this.g.hasOrder(this.f) && this.g.orderOf(pid) < 40)
+				want = "shrine";
+			else if (this.D.provinces[pid].hive == 2)
+				want = this.frontier(pid) ? "battery" : "manufactorum";
+			else if (this.D.provinces[pid].hive)
+				want = "barracks";
+			if (want && !this.g.canBuild(this.f, pid, want))
+			{
+				this.g.build(this.f, pid, want);
+				if (this.funds < 1100)
+					return;
+			}
+		}
 	}
 
 	/** Rituais: gasta quando sobra recurso especial, no exército que mais precisa. */
@@ -229,10 +317,11 @@ class WH40KAI
 					continue;
 				const defense = this.g.defensePower(pid, this.f);
 				const ratio = myPower / Math.max(1, defense);
-				if (ratio < this.attackRatio)
+				const goal = this.objective.has(pid);
+				if (ratio < (goal && this.urgent ? 0.95 : this.attackRatio))
 					continue;
 				const def = this.D.provinces[pid];
-				const score = ratio * (1 + 2 * (def.hive || 0) + (this.s.provinces[pid].owner ? 0.5 : 0));
+				const score = ratio * (1 + 2 * (def.hive || 0) + (this.s.provinces[pid].owner ? 0.5 : 0)) * (goal ? (this.urgent ? 4 : 1.5) : 1);
 				if (score > bestScore)
 				{
 					bestScore = score;
@@ -246,6 +335,13 @@ class WH40KAI
 					this.fight(res.battle, reports);
 				continue;
 			}
+			// Sem alvo: reúne forças com um exército vizinho que, junto, venceria um alvo forte.
+			const gather = this.gatherStep(army, myPower);
+			if (gather)
+			{
+				this.g.moveArmy(army.id, gather);
+				continue;
+			}
 			// Sem alvo: caminha pela própria terra rumo à fronteira mais próxima.
 			const step = this.stepTowardFrontier(army);
 			if (step)
@@ -253,6 +349,26 @@ class WH40KAI
 			else
 				this.considerEmbark(army);
 		}
+	}
+
+	/** Província vizinha (própria) com outro exército para juntar forças contra um alvo comum forte. */
+	gatherStep(army, myPower)
+	{
+		const here = this.D.provinces[army.province];
+		for (const n of here.neighbors)
+		{
+			if (this.s.provinces[n].owner != this.f)
+				continue;
+			const other = this.g.armiesAt(n, this.f).find(a => a.id != army.id && a.battalions.length);
+			if (!other || army.battalions.length + other.battalions.length > WH40K_MAX_BATTALIONS)
+				continue;
+			const combined = myPower + this.g.armyPower(other, "attack");
+			const target = this.D.provinces[n].neighbors.find(t => this.g.isHostileTarget(t, this.f) &&
+				combined >= this.g.defensePower(t, this.f) * this.attackRatio && Math.max(myPower, this.g.armyPower(other, "attack")) < this.g.defensePower(t, this.f) * this.attackRatio);
+			if (target)
+				return n;
+		}
+		return null;
 	}
 
 	stepTowardFrontier(army)

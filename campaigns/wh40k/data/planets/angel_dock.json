@@ -1,0 +1,63 @@
+{
+	"id": "angel_dock",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"angel_dock_yards": {
+			"rect": [
+				0.08887,
+				0.15937,
+				0.49805,
+				0.86562
+			],
+			"label": [
+				0.2773,
+				0.5109
+			],
+			"area": 92322,
+			"neighbors": [
+				"angel_dock_battery",
+				"angel_dock_ring"
+			],
+			"coastal": false
+		},
+		"angel_dock_ring": {
+			"rect": [
+				0.34082,
+				0.09844,
+				0.77051,
+				0.86094
+			],
+			"label": [
+				0.5312,
+				0.3641
+			],
+			"area": 112201,
+			"neighbors": [
+				"angel_dock_battery",
+				"angel_dock_yards"
+			],
+			"coastal": false
+		},
+		"angel_dock_battery": {
+			"rect": [
+				0.51758,
+				0.24844,
+				0.89453,
+				0.85156
+			],
+			"label": [
+				0.7139,
+				0.6656
+			],
+			"area": 77066,
+			"neighbors": [
+				"angel_dock_ring",
+				"angel_dock_yards"
+			],
+			"coastal": false
+		}
+	}
+}

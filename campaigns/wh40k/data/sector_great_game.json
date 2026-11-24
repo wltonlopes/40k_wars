@@ -186,8 +186,11 @@
 					"y": 0.22,
 					"owner": "world_eaters",
 					"hive": 2,
-					"forts": 1,
+					"forts": 3,
 					"garrison": [
+						"we_berzerkers",
+						"we_berzerkers",
+						"we_eightbound",
 						"we_jakhals",
 						"we_jakhals"
 					]
@@ -200,8 +203,11 @@
 					"y": 0.86,
 					"owner": "death_guard",
 					"hive": 2,
-					"forts": 1,
+					"forts": 3,
 					"garrison": [
+						"dg_plague_marines",
+						"dg_plague_marines",
+						"dg_blightlords",
 						"dg_poxwalkers",
 						"dg_poxwalkers"
 					]
@@ -214,9 +220,12 @@
 					"y": 0.22,
 					"owner": "thousand_sons",
 					"hive": 2,
-					"forts": 1,
+					"forts": 3,
 					"garrison": [
-						"ts_cultists",
+						"ts_rubrics",
+						"ts_rubrics",
+						"ts_scarab_occult",
+						"ts_tzaangors",
 						"ts_cultists"
 					]
 				},
@@ -228,8 +237,11 @@
 					"y": 0.88,
 					"owner": "emperors_children",
 					"hive": 2,
-					"forts": 1,
+					"forts": 3,
 					"garrison": [
+						"ec_infractors",
+						"ec_infractors",
+						"ec_terminators",
 						"ec_daemonettes",
 						"ec_daemonettes"
 					]

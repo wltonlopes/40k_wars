@@ -1,0 +1,61 @@
+{
+	"id": "baal_secundus",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"bs_pool": {
+			"rect": [
+				0.23926,
+				0.0,
+				0.74121,
+				1.0
+			],
+			"label": [
+				0.5625,
+				0.2141
+			],
+			"area": 192100,
+			"neighbors": [
+				"bs_ash",
+				"bs_spires"
+			],
+			"coastal": false
+		},
+		"bs_spires": {
+			"rect": [
+				0.0,
+				0.0,
+				0.46289,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 224695,
+			"neighbors": [
+				"bs_pool"
+			],
+			"coastal": false
+		},
+		"bs_ash": {
+			"rect": [
+				0.48633,
+				0.0,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.9984
+			],
+			"area": 238565,
+			"neighbors": [
+				"bs_pool"
+			],
+			"coastal": false
+		}
+	}
+}

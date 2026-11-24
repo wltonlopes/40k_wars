@@ -1,5 +1,6 @@
 """Arte do menu principal (art/textures/ui/pregame/):
 
+  backgrounds/wh40k_<nome>.png       fundos extras (tools/source/menu/<nome>.png)
   backgrounds/wh40k_armageddon.png  fundo (tools/source/menu_background.png
                                      esticado para 2048x1024; a proporção
                                      original vai em gui/pregame/backgrounds/background.js)
@@ -28,6 +29,11 @@ def background():
     src = Image.open(os.path.join(ROOT, "tools/source/menu_background.png")).convert("RGB")
     print("fundo original", src.size)
     src.resize((2048, 1024), Image.LANCZOS).save(os.path.join(d, "wh40k_armageddon.png"))
+    # Fundos extras (tools/source/menu/<nome>.png -> wh40k_<nome>.png); o menu sorteia um.
+    extra = os.path.join(ROOT, "tools/source/menu")
+    for f in sorted(os.listdir(extra)) if os.path.isdir(extra) else []:
+        if f.endswith(".png"):
+            Image.open(os.path.join(extra, f)).convert("RGB").resize((2048, 1024), Image.LANCZOS).save(os.path.join(d, "wh40k_" + f))
     with open(os.path.join(d, "textures.xml"), "w") as f:
         f.write(TEXTURES_XML)
     return src.size

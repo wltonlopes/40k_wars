@@ -1,0 +1,83 @@
+{
+	"id": "leviathan",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"lv_heart": {
+			"rect": [
+				0.30957,
+				0.0,
+				0.68457,
+				0.63906
+			],
+			"label": [
+				0.4893,
+				0.4031
+			],
+			"area": 98379,
+			"neighbors": [
+				"lv_brood",
+				"lv_gut",
+				"lv_spines"
+			],
+			"coastal": false
+		},
+		"lv_gut": {
+			"rect": [
+				0.0,
+				0.0,
+				0.41113,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 194235,
+			"neighbors": [
+				"lv_brood",
+				"lv_heart"
+			],
+			"coastal": false
+		},
+		"lv_spines": {
+			"rect": [
+				0.56445,
+				0.0,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 197534,
+			"neighbors": [
+				"lv_brood",
+				"lv_heart"
+			],
+			"coastal": false
+		},
+		"lv_brood": {
+			"rect": [
+				0.03027,
+				0.60312,
+				0.98145,
+				1.0
+			],
+			"label": [
+				0.4346,
+				0.9984
+			],
+			"area": 165212,
+			"neighbors": [
+				"lv_gut",
+				"lv_heart",
+				"lv_spines"
+			],
+			"coastal": false
+		}
+	}
+}

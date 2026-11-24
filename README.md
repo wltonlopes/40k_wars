@@ -8,7 +8,9 @@ mod public 40k_wars
 ```
 
 O mod troca o **menu principal** por um menu próprio no estilo gótico do
-warhr, com a batalha de Armageddon de fundo (zoom e pan lentos) e só os
+warhr, com um fundo sorteado a cada abertura — a batalha de Armageddon, a
+batalha gótica sob o céu infernal ou a vidente eldar (zoom e pan lentos;
+imagens em `tools/source/menu_background.png` e `tools/source/menu/`) — e só os
 botões essenciais: **Iniciar Cruzada** (campanha, lado e dificuldade),
 Continuar Cruzada, Carregar Cruzada, **Códex** (todas as facções, unidades,
 generais e rituais, com as fichas), Opções, Mods e Sair. Para
@@ -25,6 +27,9 @@ voltar ao menu normal do 0 A.D., desative o mod em "Mods".
 | A Profanação de Thaurus | Thaurus (Thaurus Prime, Santa Lucrécia, Bastião Áureo, Nau Negra Égide, Morbus, Sekhmet Vul, Âncora de Vel'Sharra) | Mechanicus, Sororitas, Custódios e Grey Knights aliados; Drukhari, Death Guard, Thousand Sons | Forjas de Thaurus |
 | A Guerra de Badab | Badab (Badab Primaris, Fortaleza Garra Astral, Carcharias, Frota Nocturne, Ancoradouro de Macragge, Doca do Segmentum, Rocha do Maelstrom) | Secessionistas de Badab (Astral Claws, Legião do Tirano, Lamenters, Mantis Warriors, Executioners); Salamandras, Ultramarines e Guarda Imperial aliados | Colmeias de Badab |
 | O Cerco de Vraks | Vraks (Vraks Prime, Vraks Menor, Doca de Krieg, Nau Negra Silêncio, Fenda de Sangue) | Death Korps of Krieg e Grey Knights aliados; Rebeldes de Vraks e World Eaters aliados | Cidadelas de Vraks |
+| O Cerco de Baal | Baal (Baal, Baal Primus, Baal Secundus, Navio-Colmeia Leviatã, Ancoradouro do Anjo) | Blood Angels; Frota-Colmeia Leviatã | Fortalezas de Baal |
+| A Guerra da Praga | Iax (Iax, Espandor, Frota de Macragge, Nau da Praga) | Ultramarines e Guarda Imperial aliados; Death Guard | Cidades de Iax |
+| O Despertar de Sautekh | Dal'ryn (Dal'ryn, Kheperah, Estação Kor'vattra, Rok Gorkamorka) | Império Tau, Necrons, Orks | Cidades de Dal'ryn |
 
 "Iniciar Cruzada" abre a escolha da campanha e depois a do lado. Em todas,
 vence quem controlar as cidades-colmeia do planeta principal ou expulsar os
@@ -103,6 +108,128 @@ províncias uns dos outros e vencem juntos.
 Unidades especialistas causam mais dano a veículos, infantaria ou aeronaves
 (`vsVehicle`, `vsInfantry`, `vsAir` em `units.json`). Terrenos novos:
 biomassa tiranídea, solo da disformidade e complexo tumular.
+
+## Novidades da versão 0.8
+
+- **Três idiomas: inglês (padrão), português e espanhol.** O botão
+  *Language* no menu principal alterna entre eles (opção
+  `wh40k.language`; sem ela, segue o idioma do jogo). Os textos do código
+  e dos dados continuam escritos em português, que serve de chave; as
+  traduções ficam em `campaigns/wh40k/lang/en.json` e `es.json` (4.387
+  textos, inclusive nomes de unidades, generais, frases, eventos e nomes de
+  naves). A tradução é feita na hora de mostrar (`core/0_Lang.js`): troca
+  as frases conhecidas, da mais longa para a mais curta, também dentro de
+  frases montadas com nomes e números, sem mexer nas marcações de cor.
+  Até o registro de saves antigos aparece no idioma escolhido.
+- **Poderes especiais dos generais** na batalha 2D (botão no painel, alvo
+  no mapa, recarga): golpe (dano em área), grito de guerra (ataque),
+  escudo (defesa), cura, inspiração (sem pânico, velocidade e dano),
+  invocação (traz um batalhão) e teleporte. Cada general tem o seu
+  (nome, descrição, raio, duração, recarga em `generals.json`); a IA
+  também usa os poderes dela.
+- **Cinemática de introdução:** ao começar uma campanha, seis quadros
+  (`tools/source/cinematic/`, gerados por `tools/art/gen_cinematic.py`)
+  com zoom e deslocamento lentos, passagem pelo preto, faixas de cinema e
+  narração escrita letra a letra, montada com a campanha (ano, abertura,
+  objetivo), a sua facção, os aliados, os inimigos e o seu general.
+  Clique completa o texto ou avança; "Pular"/Esc encerra. Para rever:
+  Ajuda → "Rever introdução". Capturas: `guishot.sh <pasta> cinema:<1-6>`.
+- **Alianças por grupo:** nas campanhas, as facções do mesmo grupo são
+  aliadas (todo o Imperium: Guarda, Astartes, Mechanicus, Sororitas,
+  Custódios, Grey Knights, Krieg) — não se atacam, passam pelas terras
+  umas das outras, vencem juntas e **se ajudam nas batalhas**: os
+  exércitos aliados na província defendem junto, e um exército aliado
+  numa província vizinha chega como reforço (aos 40 s na batalha 2D, com
+  o aviso "Mechanicus chega para ajudar!"). Os times de `scenarios.json`
+  continuam valendo por cima do grupo.
+- **Alianças de conveniência do Caos:** as legiões não são aliadas de
+  saída. Quando um inimigo comum (contando o bloco inteiro dele) fica mais
+  forte que cada uma, a IA propõe uma aliança — entre si ou ao jogador
+  (janela de proposta; também há o botão "Aliança" na Diplomacia). Ela
+  rompe quando o inimigo comum enfraquece, e o mais forte pode trair
+  (+20% no ataque naquele turno, rancor). World Eaters não se aliam a
+  ninguém (Khorne). A vitória ainda exige derrotar o antigo aliado.
+- **Krieg se entrincheira:** a infantaria de Krieg (e o Earthshaker, e
+  os Granadeiros de Krieg da Guarda) cava trincheiras na batalha 2D. Com
+  a ordem *Segurar* já começa entrincheirada; parada por 6 s, cava uma
+  trincheira onde está (dano recebido -45%, só para o lado que cavou: o
+  inimigo que chega ao corpo a corpo não ganha a cobertura). Na resolução
+  automática e nas guarnições, esses batalhões valem 25% a mais na defesa.
+- **IA mais esperta:** junta exércitos pequenos, volta para defender
+  províncias ameaçadas, reúne forças antes de atacar, corre atrás do
+  objetivo quando o jogador está perto de vencer, ergue baterias onde há
+  frotas inimigas na órbita e guarda dinheiro para construir.
+- **Equilíbrio:** os desembarques do Grande Jogo, os invasores de
+  Thaurus, os ninhos tiranídeos de Baal, a colmeia da praga de Ultramar,
+  as cidades Tau de Sautekh e Krieg em Vraks ficaram mais fortes ou mais
+  justos (fortes, guarnições de elite, exércitos extras, rendimento). Nas
+  simulações as campanhas duram de 20 a 60 turnos, com vencedores
+  variados.
+- **Nomes sem sobreposição** nos mapas pequenos (estações, luas): os
+  rótulos se afastam uns dos outros e ficam sempre dentro do mapa, com a
+  largura medida no idioma escolhido.
+
+## Novidades da versão 0.7
+
+- **Seletores em grade** (no estilo do mod civ_grid): a escolha da
+  campanha, do lado e das facções da escaramuça é uma grade de cartões
+  (globos dos planetas, emblemas das facções) com paginação, zoom (+/−) e
+  roda do mouse; à direita, busca, filtros (era e número de lados; grupo da
+  facção), a prévia grande com descrição, a dificuldade, "Aleatório",
+  "Códex", "Voltar" e "Escolher" (duplo clique também escolhe).
+
+- **Vitória**: controlar as cidades do objetivo por **3 turnos seguidos**
+  (o inimigo tem chance de contra-atacar). Quem já começa com todas as
+  cidades precisa **resistir até o turno 30**.
+- **Clima** em cada batalha, sorteado pelo terreno: noite (menos alcance),
+  tempestade de cinzas, chuva ácida (fere a infantaria sem cobertura),
+  nevasca, tempestade da disformidade. Aparece no título e tinge o campo.
+- **Cerco**: o defensor com fortificações luta atrás de **muralhas**
+  (cobertura forte); os tiros contra quem está nelas as derrubam, e viram
+  ruínas na tela.
+- **Reforços**: um exército da mesma facção numa província vizinha entra
+  pela borda no meio da batalha (uma vez por turno). A IA leva isso em conta.
+- **Batalha espacial jogável**: antes de cada batalha de frotas você escolhe
+  a tática — linha de batalha, fogo concentrado, abordagem (com exército a
+  bordo), manobras evasivas ou recuar.
+- **Construções** nas províncias (vagas: 1 + nível da cidade): santuário
+  (ordem e recurso especial), quartel (recrutar 20% mais barato, +1
+  guarnição), bateria antiorbital (meio dano de bombardeio, derruba naves),
+  manufactorum (+30% de rendimento), estaleiro.
+- **Ordem pública** (0–100): sobe com guarnição, exército e santuário; cai
+  com devastação, saque e conquista recente. Abaixo de 40 o rendimento cai;
+  abaixo de 15, sem exército, a província pode se **rebelar**. Tiranídeos e
+  Necrons não têm ordem.
+- **Melhorias permanentes** com o recurso especial (no painel de rituais):
+  armas, armaduras, logística, recrutamento e veteranos, com nomes de cada
+  facção.
+- **Inimigos lendários**: entre os turnos 10 e 25, uma facção recebe um
+  exército de elite (a Grande Waaagh!, um Navio-Colmeia, o Planeta
+  Assassino, a Fenda de Sangue...).
+- **Eventos encadeados**: o culto oculto (sussurros → o culto cresce →
+  levante) e o sinal de socorro (ajuda → a província se junta a você, ou
+  era uma armadilha).
+- **Mecânicas únicas**: os Necrons se reerguem depois da batalha, os Orks
+  crescem com as vitórias, a Devoração tiranídea devasta por mais tempo.
+- **Traços negativos**: Hesitante (três derrotas), Imprudente (ataques
+  fracassados), Tocado pela Disformidade (aceitou o presente dos deuses).
+- **Conselheiro de guerra**, **desfazer movimento** (no mapa do planeta),
+  **mapa de ameaça**, **salvamento automático** a cada turno e cópias
+  manuais ("Salvar cópia"; aparecem em "Carregar Cruzada").
+- **Escaramuça** no menu principal: só a batalha 2D, com as facções, o
+  terreno, o tamanho e as muralhas à sua escolha.
+- **Cruzada em sequência**: ao vencer, "Seguir pela disformidade" leva a
+  sua facção a outro sistema com os generais (níveis, traços, relíquias), as
+  melhorias e o recurso especial.
+- **Tela de vitória** com o retrato grande, o resumo da guerra e o herói.
+- **Miniaturas** no campo de batalha: as figuras recortadas dos retratos
+  (`tools/art/gen_minis.py`) sobre uma peanha na cor da facção; o lado
+  inimigo espelhado. Retratos que não recortam bem continuam redondos.
+- **Mapas animados**: chaminés nas zonas industriais, lava nos ermos
+  vulcânicos, clarões na disformidade.
+- **Temas musicais por facção** (Kevin MacLeod, CC-BY): Imperium, Caos,
+  Orks, Mechanicus, Necrons, Tiranídeos e xenos, tocados com as faixas da
+  campanha.
 
 ## Mecânicas da versão 0.6
 
@@ -327,6 +454,11 @@ para a raiz do mod, pôr `"warhr"` nas dependências do `mod.json`, trocar
 | `tools/data/build_mechanics.py` | Recursos especiais e rituais, pactos, moral, gritos de guerra, Crias do Caos e `progression.json` (níveis, traços, relíquias). Rodar por último. Ordem: build_factions, build_sectors, build_great_game, build_thaurus, build_badab_vraks, build_mechanics. |
 | `gui/campaigns/wh40k/core/Mechanics.js`, `Events.js` | Recurso especial, rituais, ascensão, progressão dos generais, relíquias, diplomacia, eventos, estatísticas. |
 | `gui/campaigns/wh40k/ui/Codex.js`, `Stats.js` | Códex e estatísticas. |
+| `gui/campaigns/wh40k/core/Realm.js` | Construções, ordem pública e revoltas, melhorias permanentes, inimigos lendários, mecânicas únicas. |
+| `gui/campaigns/wh40k/ui/Selector.js` | Seletor em grade (campanha, lado, escaramuça), inspirado no civ_grid. |
+| `gui/campaigns/wh40k/ui/Skirmish.js` | Escaramuça (batalha avulsa do menu principal). |
+| `tools/data/build_more.py` | O Cerco de Baal, A Guerra da Praga e O Despertar de Sautekh (rodar antes de build_mechanics). |
+| `tools/art/gen_minis.py` | Miniaturas recortadas dos retratos para o campo de batalha (OpenCV). |
 | `tools/audio/gen_sfx.py` | Efeitos sonoros da batalha, sintetizados (`audio/interface/wh40k/`). |
 | `audio/music/` | Músicas (Kevin MacLeod, CC-BY 4.0; créditos em `audio/music/CREDITS.txt`). `gui/common/music.js` troca as músicas do menu. |
 | `tools/data/build_factions.py` | Unidades, generais, apoios e dados das facções novas (e retratos novos da Guarda e dos Orks). |
@@ -339,23 +471,27 @@ para a raiz do mod, pôr `"warhr"` nas dependências do `mod.json`, trocar
 | `tools/art/slice_space.py` | Recorta `tools/source/space/` (cidades-colmeia e naves) em `art/textures/ui/campaigns/wh40k/cities/` e `ships/`. Rodar antes de `gen_planets.py`. |
 | `gui/campaigns/wh40k/ui/SpaceView.js` | Batalha espacial encenada (mapa de frotas). |
 | `tools/art/gen_planets.py` | Gera mapas dos corpos, máscaras das províncias, vizinhança, globos, fundo do sistema, ícones, fundos do desdobramento, emblemas e banner. Rode de novo depois de mudar `sector.json`. |
+| `gui/campaigns/wh40k/core/0_Lang.js`, `gui/pregame/Lang.js` | Idiomas (tradução na hora de mostrar; botão de idioma do menu). |
+| `gui/campaigns/wh40k/ui/Cinematic.js`, `tools/art/gen_cinematic.py` | Cinemática de introdução (quadros em `art/textures/ui/campaigns/wh40k/cinematic/`). |
+| `tools/lang/` | `extract.py` (textos em português → `catalog.tsv`, mantendo os ids), `tr_*.tsv` (id, inglês, espanhol), `extras.tsv` (pedaços montados em tempo de execução) e `build.py` (gera `campaigns/wh40k/lang/*.json` e diz quantos faltam). Depois de mudar textos: `python3 tools/lang/extract.py && python3 tools/lang/build.py`, traduza os ids novos num `tr_<id>.tsv` e rode `build.py` de novo. |
 | `legacy_3d/` | A batalha 3D guardada (não carregada). |
 
 ## Testes
 
 - `sh tools/test/campaign_sim.sh [turnos] [facção] [campanha]`: campanha inteira no `gjs`, as duas facções pela IA (economia, IA, frotas, batalhas, saque).
 - `SCENARIO=<campanha> sh tools/test/gui_sim.sh [facção]`: a interface com objetos de GUI falsos (escolha da facção, vistas, frases, recrutamento por força aliada, ataque, desdobramento, batalha 2D com ordens e apoio até o fim, relatório, saque e efeitos, 15 turnos).
+- `LANG_TEST=en` (ou `es`) no `gui_sim.sh`: a mesma interface em outro idioma; no fim lista os textos que ainda parecem português.
 - `sh tools/test/combat_sim.sh [batalhas]`: batalhas 2D aleatórias sem interface (duração, debandadas, se o mais forte vence).
-- `sh tools/test/guishot.sh <pasta> [new planet system army deploy battle sack]`: abre o jogo numa janela direto na campanha e tira capturas (`BURST=n` para uma sequência). Com a tela bloqueada, use um X aninhado: `Xephyr :5 -screen 1366x768 -ac -noreset &` e `DISPLAY=:5 IMPORT_ARGS="-display :5"`.
+- `sh tools/test/guishot.sh <pasta> [menu new planet system army deploy battle sack]`: abre o jogo numa janela direto na campanha e tira capturas (`BURST=n` para uma sequência; `LANG_SHOT=en|pt|es` para o idioma). Com a tela bloqueada, use um X aninhado: `Xephyr :5 -screen 1366x768 -ac -noreset &` e `DISPLAY=:5 IMPORT_ARGS="-display :5"`.
 
 ## Próximos passos
 
 - Eldar, Tau, Necrons e Tiranídeos também em Armageddon; capítulos Astartes aliados da Guarda nas outras campanhas.
-- Traços negativos e eventos encadeados; diplomacia com tributos e alianças completas.
+- Diplomacia com tributos e alianças completas.
+- Revisão das traduções por falantes nativos; mais idiomas (basta um `tr_*.tsv` com a coluna nova e o código em `0_Lang.js`).
 - Volta da batalha 3D (com modelos próprios dos Orks), mantendo a 2D como opção.
 - Mais sistemas estelares ligados por rotas de disformidade.
-- Reforços chegando de províncias vizinhas durante a batalha; batalhas
-  espaciais jogáveis; torres e fortificações no campo para o defensor.
+- Batalhas espaciais jogáveis em tempo real (hoje: táticas escolhidas antes da batalha encenada).
 
 ## Licença e direitos
 

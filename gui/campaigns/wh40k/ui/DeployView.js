@@ -66,8 +66,17 @@ class WH40KDeployView
 			city.sprite = citySprite(setup.pdef.id);
 			setSize(city, r.w / 2 - cs / 2, r.h / 2 - cs / 2, r.w / 2 + cs / 2, r.h / 2 + cs / 2);
 		}
-		gui("deployTitle").caption = "Desdobramento — " + setup.pdef.name + " (" + WH40K_TERRAIN_NAMES[setup.pdef.terrain] + ")";
-		gui("deployHint").caption = "Clique num batalhão e depois no campo (zona verde) para posicioná-lo. Escolha a ordem de cada um e o plano no painel.";
+		const weather = WH40K_WEATHER[setup.weather()];
+		gui("deployTitle").size = "12 6 100%-12 34";
+		gui("deployTitle").caption = "Desdobramento — " + setup.pdef.name + " (" + WH40K_TERRAIN_NAMES[setup.pdef.terrain] + ") · " + weather.name;
+		const tint = gui("deployWeather");
+		tint.hidden = !weather.tint;
+		if (weather.tint)
+			tint.sprite = "color:" + weather.tint.join(" ");
+		tint.tooltip = weather.name;
+		const diggers = this.deployment.player.some(e => !e.general && (D.unitById[e.unit] || {}).entrench);
+		gui("deployHint").caption = "Clique num batalhão e depois no campo (zona verde) para posicioná-lo. Escolha a ordem de cada um e o plano no painel." +
+			(diggers ? " Entrincheirar: com a ordem Segurar começam na trincheira; parados por 6 s, cavam uma." : "");
 
 		const features = setup.features();
 		for (let i = 0; i < 48; ++i)
@@ -99,8 +108,7 @@ class WH40KDeployView
 			gui("deployEnemyHit[" + i + "]").hidden = true;
 			const t = e.general ? 18 : 14;
 			setSize(obj, e.x * r.w - t, e.y * r.h - t, e.x * r.w + t, e.y * r.h + t);
-			obj.sprite = portraitSprite(e.portrait);
-			obj.sprite_over = obj.sprite;
+			setTokenSprite("deployEnemy", i, e.portrait, 2, enemyColor);
 			obj.tooltip = colored(e.general ? e.name : e.unitName, enemyColor) + "\n" + (e.general ? "General inimigo" : e.name) + " · " + percent(e.strength) +
 				"\nOrdem prevista: " + WH40K_ORDERS[e.order].name;
 		});
@@ -115,8 +123,7 @@ class WH40KDeployView
 			gui("deployTokenHit[" + i + "]").hidden = true;
 			const t = (e.general ? 20 : 15) + (i == this.selected ? 4 : 0);
 			setSize(btn, e.x * r.w - t, e.y * r.h - t, e.x * r.w + t, e.y * r.h + t);
-			btn.sprite = portraitSprite(e.portrait);
-			btn.sprite_over = btn.sprite;
+			setTokenSprite("deployToken", i, e.portrait, 1, D.factionColor(this.page.player));
 			btn.tooltip = (e.general ? e.name : e.unitName + "\n" + e.name) + " · " + percent(e.strength) + "\nOrdem: " + WH40K_ORDERS[e.order].name + "\n\nClique: selecionar.";
 			btn.onPress = () => {
 				this.selected = i;
@@ -206,16 +213,60 @@ class WH40KDeployView
 			"subtitle": e ? (e.general ? "General" : e.unitName) + " · " + percent(e.strength) : "",
 			"quote": e ? (this.quote || pickFrom(e.quotes || [""])) : null,
 			"text": (e ? colored("Terreno (" + WH40K_TERRAIN_NAMES[setup.pdef.terrain] + "): ", [235, 205, 125]) +
-					(WH40KCombat.terrainMods(e.general ? "general" : e.category, page.D.unitById[e.unit], setup.pdef.terrain, []).notes.join(", ") || "sem efeito") +
+					(WH40KCombat.terrainMods(e.general ? "general" : e.category, page.D.unitById[e.unit], setup.pdef.terrain, [], setup.weather()).notes.join(", ") || "sem efeito") +
 					(unitTerrainText(page.D.unitById[e.unit]) ? "\n" + colored("Afinidades: ", [235, 205, 125]) + unitTerrainText(page.D.unitById[e.unit]) : "") + "\n" : "") +
 				"Apoio: " + (support.powers.length ? support.powers.map(p => p.name + " (" + p.kills + ")").join(", ") : "nenhum") +
 				(support.ready ? " · " + support.ready + " pronto(s)" : "") +
+				this.reserveText() +
 				"\nPasse o mouse nas feições do campo para ver os efeitos.",
 			"textHeight": 96,
 			"rows": rows,
 			"actions": actions
 		});
 	}
+
+	/** Reforços dos exércitos vizinhos (entram no meio da batalha). */
+	reserveText()
+	{
+		const setup = this.setup;
+		const mine = setup.sides[setup.playerRole].entries.filter(e => e.reserve).length;
+		const theirs = setup.sides[setup.enemyRole].entries.filter(e => e.reserve).length;
+		return (mine ? "\n" + colored("Reforços: " + mine + " batalhão(ões) seus chegam aos 50 s.", [140, 220, 120]) : "") +
+			(theirs ? "\n" + colored("O inimigo tem " + theirs + " batalhão(ões) de reforço a caminho.", [240, 140, 90]) : "");
+	}
+}
+
+/**
+ * Marcador da batalha: miniatura recortada (gen_minis.py) sobre uma peanha na
+ * cor da facção; o lado inimigo usa a miniatura espelhada. Sem miniatura,
+ * o retrato redondo.
+ */
+function setTokenSprite(prefix, i, portrait, side, color)
+{
+	const btn = gui(prefix + "[" + i + "]");
+	const fig = gui(prefix + "Fig[" + i + "]");
+	const D = g_WH40KPage && g_WH40KPage.D;
+	if (D && D.minis && D.minis[portrait])
+	{
+		const base = "color:" + rgbStr(color, 200) + ":textureAsMask:campaigns/wh40k/icons/disc.png";
+		if (btn.sprite != base)
+		{
+			btn.sprite = base;
+			btn.sprite_over = "color:" + rgbStr(color.map(c => Math.min(255, c + 60)), 230) + ":textureAsMask:campaigns/wh40k/icons/disc.png";
+		}
+		const s = "stretched:campaigns/wh40k/minis/" + portrait.replace(/\.png$/, side == 2 ? "_m.png" : ".png");
+		if (fig.sprite != s)
+			fig.sprite = s;
+		fig.hidden = false;
+		return;
+	}
+	const s = portraitSprite(portrait);
+	if (btn.sprite != s)
+	{
+		btn.sprite = s;
+		btn.sprite_over = s;
+	}
+	fig.hidden = true;
 }
 
 /** Efeitos de terreno para dicas: infantaria e veículos (ou só a unidade). */
@@ -242,7 +293,7 @@ function unitTerrainText(unit)
 			const v = unit.terrain[key][st];
 			return WH40K_FX_NAMES[st] + " " + (v > 1 ? "+" : "") + Math.round((v - 1) * 100) + "%";
 		});
-		parts.push((fnames[key] || (WH40K_TERRAIN_NAMES[key] || key).toLowerCase()) + " (" + stats.join(", ") + ")");
+		parts.push((fnames[key] || tr(WH40K_TERRAIN_NAMES[key] || key).toLowerCase()) + " (" + stats.join(", ") + ")");
 	}
 	if (unit.allTerrain)
 		parts.push("ignora as penalidades de movimento do terreno");

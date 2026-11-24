@@ -1,0 +1,83 @@
+{
+	"id": "espandor",
+	"mapSize": [
+		1024,
+		640
+	],
+	"provinces": {
+		"es_hive": {
+			"rect": [
+				0.28711,
+				0.0,
+				0.66113,
+				0.65625
+			],
+			"label": [
+				0.4863,
+				0.425
+			],
+			"area": 96050,
+			"neighbors": [
+				"es_mines",
+				"es_peaks",
+				"es_plains"
+			],
+			"coastal": false
+		},
+		"es_mines": {
+			"rect": [
+				0.0,
+				0.0,
+				0.41504,
+				1.0
+			],
+			"label": [
+				0.0,
+				0.0
+			],
+			"area": 193805,
+			"neighbors": [
+				"es_hive",
+				"es_peaks"
+			],
+			"coastal": false
+		},
+		"es_plains": {
+			"rect": [
+				0.55664,
+				0.0,
+				1.0,
+				1.0
+			],
+			"label": [
+				0.999,
+				0.0
+			],
+			"area": 213438,
+			"neighbors": [
+				"es_hive",
+				"es_peaks"
+			],
+			"coastal": false
+		},
+		"es_peaks": {
+			"rect": [
+				0.06152,
+				0.60469,
+				0.9209,
+				1.0
+			],
+			"label": [
+				0.4395,
+				0.9984
+			],
+			"area": 152067,
+			"neighbors": [
+				"es_hive",
+				"es_mines",
+				"es_plains"
+			],
+			"coastal": false
+		}
+	}
+}

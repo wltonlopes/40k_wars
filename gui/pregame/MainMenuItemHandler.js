@@ -160,12 +160,12 @@ export class MainMenuItemHandler
 /**
  * Vertical size per button.
  */
-MainMenuItemHandler.prototype.ButtonHeight = 44; // 40k Wars: botões maiores
+MainMenuItemHandler.prototype.ButtonHeight = 38; // 40k Wars: botões maiores (9 itens cabem acima do texto)
 
 /**
  * Distance between consecutive buttons.
  */
-MainMenuItemHandler.prototype.Margin = 10;
+MainMenuItemHandler.prototype.Margin = 8;
 
 /**
  * Collapse / expansion speed in pixels per milliseconds used when animating the button menu size.

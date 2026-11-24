@@ -82,6 +82,8 @@
 					</repeat>
 				</object>
 				<object name="planetHint" type="text" ghost="true" size="12 100%-22 100%-12 100%-2" font="sans-stroke-13" textcolor="210 200 180"/>
+				<object name="planetThreatBtn" type="button" style="wh40kButton" size="100%-176 40 100%-8 68" font="sans-bold-12" tooltip="Mapa de ameaça: suas províncias em perigo (vermelho) e os alvos fáceis (verde).">Mapa de ameaça</object>
+				<object name="planetUndoBtn" type="button" style="wh40kButton" size="100%-176 72 100%-8 100" font="sans-bold-12" hidden="true">Desfazer movimento</object>
 			</object>
 
 			<!-- Batalha espacial (ui/SpaceView.js) -->
@@ -111,17 +113,20 @@
 					<repeat count="48" var="n">
 						<object name="deployFeature[n]" type="image" ghost="true" hidden="true"/>
 					</repeat>
+					<object name="deployWeather" type="image" ghost="true" hidden="true" size="0 0 100% 100%"/>
 					<object name="deployEnemyZone" type="image" sprite="wh40kEnemyZone" ghost="true" size="0 4% 100% 24%"/>
 					<object name="deployOwnZone" type="image" sprite="wh40kDeployZone" ghost="true" size="0 76% 100% 96%"/>
 					<object name="deploySelRing" type="image" ghost="true" hidden="true"/>
 					<repeat count="24" var="n">
 						<object name="deployEnemy[n]" type="button" hidden="true">
+							<object name="deployEnemyFig[n]" type="image" ghost="true" hidden="true" size="-7 -16 100%+7 100%-1"/>
 							<object name="deployEnemyHit[n]" type="image" ghost="true" hidden="true" size="0 0 100% 100%" sprite="color:255 40 20 110"/>
 							<object name="deployEnemyBar[n]" type="image" ghost="true" hidden="true" sprite="color:230 80 60 255"/>
 						</object>
 					</repeat>
 					<repeat count="24" var="n">
 						<object name="deployToken[n]" type="button" hidden="true">
+							<object name="deployTokenFig[n]" type="image" ghost="true" hidden="true" size="-7 -16 100%+7 100%-1"/>
 							<object name="deployTokenHit[n]" type="image" ghost="true" hidden="true" size="0 0 100% 100%" sprite="color:255 40 20 110"/>
 							<object name="deployTokenBar[n]" type="image" ghost="true" hidden="true" sprite="color:90 200 90 255"/>
 							<object name="deployTokenOrder[n]" type="text" ghost="true" size="-20 100% 100%+20 100%+16" font="sans-bold-stroke-12" textcolor="255 230 150" text_align="center"/>
@@ -192,6 +197,51 @@
 			<object name="logText" type="text" size="10 5 100%-10 100%-5" font="sans-13" textcolor="215 205 185"/>
 		</object>
 
+		<!-- ============================================== seletor em grade (ui/Selector.js, no estilo do civ_grid) -->
+		<object name="selDim" type="image" sprite="wh40kDim" size="0 0 100% 100%" hidden="true" z="180">
+			<object name="selPanel" type="image" sprite="wh40kPanel" size="3% 4% 97% 96%">
+				<object name="selTitle" type="text" size="20 10 100%-20 44" font="sans-bold-stroke-20" textcolor="235 205 125" text_align="center" text_valign="center"/>
+				<!-- grade -->
+				<object name="selGrid" size="16 52 100%-412 100%-52">
+					<repeat count="48" var="n">
+						<object name="selItem[n]" type="button" hidden="true" sprite="color:30 24 18 220" sprite_over="color:120 90 40 200">
+							<object name="selItemFrame[n]" type="image" ghost="true" size="0 0 100% 100%" sprite="wh40kPortraitFrame"/>
+							<object name="selItemImg[n]" type="image" ghost="true" size="8 6 100%-8 100%-26"/>
+							<object name="selItemName[n]" type="text" ghost="true" size="2 100%-26 100%-2 100%-2" font="sans-bold-stroke-13" textcolor="240 225 190" text_align="center" text_valign="center"/>
+						</object>
+					</repeat>
+				</object>
+				<!-- paginação e zoom -->
+				<object size="16 100%-46 100%-412 100%-12">
+					<object name="selPageStatus" type="text" size="0 0 220 100%" font="sans-bold-stroke-14" textcolor="230 210 160" text_valign="center"/>
+					<object name="selPrev" type="button" style="wh40kButton" size="230 0 330 100%">&lt; Anterior</object>
+					<object name="selNext" type="button" style="wh40kButton" size="336 0 436 100%">Próxima &gt;</object>
+					<object name="selZoomIn" type="button" style="wh40kButton" size="100%-80 0 100%-42 100%" tooltip="Cartões maiores">+</object>
+					<object name="selZoomOut" type="button" style="wh40kButton" size="100%-38 0 100% 100%" tooltip="Cartões menores">−</object>
+				</object>
+				<!-- painel direito -->
+				<object size="100%-400 52 100%-16 100%-12">
+					<object type="text" size="0 0 90 30" font="sans-bold-14" textcolor="230 210 160" text_valign="center">Buscar:</object>
+					<object name="selSearch" type="input" style="ModernInput" font="sans-16" size="92 2 100% 30"/>
+					<object name="selFilterLabel[0]" type="text" size="0 36 90 66" font="sans-bold-14" textcolor="230 210 160" text_valign="center"/>
+					<object name="selFilter[0]" type="dropdown" style="ModernDropDown" size="92 38 100% 64"/>
+					<object name="selFilterLabel[1]" type="text" size="0 70 90 100" font="sans-bold-14" textcolor="230 210 160" text_valign="center"/>
+					<object name="selFilter[1]" type="dropdown" style="ModernDropDown" size="92 72 100% 98"/>
+					<object name="selPreview" type="image" size="50%-110 108 50%+110 328"/>
+					<object name="selPreviewFrame" type="image" sprite="wh40kPortraitFrame" ghost="true" size="50%-112 106 50%+112 330"/>
+					<object name="selName" type="text" size="0 334 100% 364" font="sans-bold-stroke-20" textcolor="235 205 125" text_align="center" text_valign="center"/>
+					<object name="selInfo" type="text" size="0 366 100% 388" font="sans-bold-13" textcolor="200 190 170" text_align="center" text_valign="center"/>
+					<object name="selDesc" type="text" size="4 392 100%-4 100%-110" font="sans-13" textcolor="225 220 205" scrollbar="true" scrollbar_style="ModernScrollBar"/>
+					<object name="selExtraLabel" type="text" size="0 100%-104 90 100%-74" font="sans-bold-14" textcolor="230 210 160" text_valign="center"/>
+					<object name="selExtra" type="dropdown" style="ModernDropDown" size="92 100%-102 100% 100%-76"/>
+					<object name="selRandom" type="button" style="wh40kButton" size="0 100%-70 50%-3 100%-38">Aleatório</object>
+					<object name="selAux" type="button" style="wh40kButton" size="50%+3 100%-70 100% 100%-38"/>
+					<object name="selCancel" type="button" style="wh40kButton" size="0 100%-34 50%-3 100%">Voltar</object>
+					<object name="selOk" type="button" style="wh40kButton" size="50%+3 100%-34 100% 100%">Escolher</object>
+				</object>
+			</object>
+		</object>
+
 		<!-- ============================================== códex (ui/Codex.js) -->
 		<object name="codexDim" type="image" sprite="wh40kDim" size="0 0 100% 100%" hidden="true" z="190">
 			<object name="codexPanel" type="image" sprite="wh40kPanel" size="50%-570 50%-390 50%+570 50%+390">
@@ -253,6 +303,20 @@
 				<object name="cardQuote" type="text" ghost="true" size="520 424 100%-20 100%-20" font="sans-bold-stroke-14" textcolor="250 225 150"/>
 				<object name="cardClose" type="button" style="wh40kButton" size="100%-50 18 100%-18 50" tooltip="Fechar (Esc ou clique fora)">X</object>
 			</object>
+		</object>
+		<!-- ============================================== cinemática de introdução (ui/Cinematic.js) -->
+		<object name="cinema" type="button" sprite="wh40kBlack" size="0 0 100% 100%" hidden="true" z="300">
+			<object name="cinemaImg" type="image" ghost="true"/>
+			<object name="cinemaFade" type="image" ghost="true" size="0 0 100% 100%" sprite="color:0 0 0 255"/>
+			<object name="cinemaBarTop" type="image" ghost="true" sprite="color:0 0 0 255" size="0 0 100% 9%"/>
+			<object name="cinemaBarBottom" type="image" ghost="true" sprite="color:0 0 0 255" size="0 81% 100% 100%"/>
+			<object type="image" ghost="true" sprite="color:150 115 55 180" size="0 9% 100% 9%+1"/>
+			<object type="image" ghost="true" sprite="color:150 115 55 180" size="0 81%-1 100% 81%"/>
+			<object name="cinemaTitle" type="text" ghost="true" size="40 0 100%-40 9%" text_valign="center" font="sans-bold-stroke-20" textcolor="235 205 125"/>
+			<object name="cinemaText" type="text" ghost="true" size="12% 81%+14 88% 100%-30" text_align="center" text_valign="center" font="sans-bold-stroke-16" textcolor="235 228 210"/>
+			<object name="cinemaDots" type="text" ghost="true" size="40 100%-30 300 100%-8" font="sans-14" textcolor="150 130 90"/>
+			<object name="cinemaHint" type="text" ghost="true" size="50%-200 100%-30 50%+200 100%-8" text_align="center" font="sans-12" textcolor="150 140 120">Clique para avançar · Esc para pular</object>
+			<object name="cinemaSkip" type="button" style="wh40kButton" size="100%-160 100%-44 100%-20 100%-12">Pular</object>
 		</object>
 	</object>
 </objects>

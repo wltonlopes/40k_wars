@@ -2911,7 +2911,7 @@
 			"emblemSource": "krieg/r2c0.png",
 			"currency": "Suprimentos",
 			"currencyShort": "Supr",
-			"startingFunds": 1000,
+			"startingFunds": 1300,
 			"fleetName": "Frota de Desembarque",
 			"leaderTitles": [
 				"Watchmaster",
@@ -2937,7 +2937,7 @@
 				"Martírio"
 			],
 			"attackBonus": 0.0,
-			"incomeMult": 1.6,
+			"incomeMult": 2.0,
 			"dropFx": [
 				200,
 				200,

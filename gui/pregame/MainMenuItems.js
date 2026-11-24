@@ -1,3 +1,5 @@
+import { t, languageCode, languageNames, cycleLanguage } from "gui/pregame/Lang.js";
+
 /**
  * 40k Wars: só os botões essenciais. O primeiro começa uma cruzada nova
  * direto na campanha (sem passar pela lista de campanhas do jogo).
@@ -23,13 +25,13 @@ function startNewCrusade(closePageCallback)
 
 export const mainMenuItems = [
 	{
-		"caption": "INICIAR CRUZADA",
-		"tooltip": "Começa uma nova campanha: escolha o cenário, o lado e a dificuldade.",
+		"caption": t("INICIAR CRUZADA"),
+		"tooltip": t("Começa uma nova campanha: escolha o cenário, o lado e a dificuldade."),
 		"onPress": startNewCrusade
 	},
 	{
-		"caption": "Continuar Cruzada",
-		"tooltip": "Volta para a última cruzada jogada.",
+		"caption": t("Continuar Cruzada"),
+		"tooltip": t("Volta para a última cruzada jogada."),
 		"onPress": closePageCallback =>
 		{
 			try
@@ -46,8 +48,8 @@ export const mainMenuItems = [
 		"enabled": () => CampaignRun.hasCurrentRun()
 	},
 	{
-		"caption": "Carregar Cruzada",
-		"tooltip": "Escolhe uma cruzada salva.",
+		"caption": t("Carregar Cruzada"),
+		"tooltip": t("Escolhe uma cruzada salva."),
 		"onPress": closePageCallback =>
 		{
 			closePageCallback({ [Engine.openRequest]: {
@@ -56,8 +58,19 @@ export const mainMenuItems = [
 		}
 	},
 	{
-		"caption": "Códex",
-		"tooltip": "Todas as facções: unidades, generais, recursos especiais e rituais.",
+		"caption": t("Escaramuça"),
+		"tooltip": t("Uma batalha avulsa, sem campanha: escolha as facções, o terreno e o tamanho."),
+		"onPress": closePageCallback =>
+		{
+			closePageCallback({ [Engine.openRequest]: {
+				"page": "campaigns/wh40k/page.xml",
+				"argument": { "skirmish": true }
+			} });
+		}
+	},
+	{
+		"caption": t("Códex"),
+		"tooltip": t("Todas as facções: unidades, generais, recursos especiais e rituais."),
 		"onPress": closePageCallback =>
 		{
 			closePageCallback({ [Engine.openRequest]: {
@@ -67,8 +80,8 @@ export const mainMenuItems = [
 		}
 	},
 	{
-		"caption": "Opções",
-		"tooltip": colorizeHotkey("%(hotkey)s: vídeo, som, interface e atalhos.", "options"),
+		"caption": t("Opções"),
+		"tooltip": colorizeHotkey(t("%(hotkey)s: vídeo, som, interface e atalhos."), "options"),
 		"hotkey": "options",
 		"onPress": async() =>
 		{
@@ -76,8 +89,8 @@ export const mainMenuItems = [
 		}
 	},
 	{
-		"caption": "Mods",
-		"tooltip": "Ativa ou desativa mods (desative o 40k Wars aqui para voltar ao 0 A.D. normal).",
+		"caption": t("Mods"),
+		"tooltip": t("Ativa ou desativa mods (desative o 40k Wars aqui para voltar ao 0 A.D. normal)."),
 		"onPress": closePageCallback =>
 		{
 			closePageCallback({ [Engine.openRequest]: {
@@ -86,11 +99,16 @@ export const mainMenuItems = [
 		}
 	},
 	{
-		"caption": "Sair",
-		"tooltip": "Fecha o jogo.",
+		"caption": t("Idioma") + ": " + languageNames[languageCode()],
+		"tooltip": "Language / Idioma: English · Português · Español",
+		"onPress": cycleLanguage
+	},
+	{
+		"caption": t("Sair"),
+		"tooltip": t("Fecha o jogo."),
 		"onPress": async(closePageCallback) =>
 		{
-			const buttonIndex = await messageBox(400, 200, "Abandonar o campo de batalha e fechar o jogo?", "Sair", ["Não", "Sim"]);
+			const buttonIndex = await messageBox(400, 200, t("Abandonar o campo de batalha e fechar o jogo?"), t("Sair"), [t("Não"), t("Sim")]);
 			if (buttonIndex === 1)
 				closePageCallback();
 		}

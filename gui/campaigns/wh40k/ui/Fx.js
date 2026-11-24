@@ -173,7 +173,9 @@ class WH40KCampaignFx
 		const D = page.D;
 		const { x: mx, y: my, w: mw, h: mh } = view.rect;
 		const S = Math.max(60, Math.min(150, mw / 7));
-		const at = pid => ({ "x": mx + D.provinces[pid].label[0] * mw, "y": my + D.provinces[pid].label[1] * mh });
+		// Mesma âncora dos rótulos (presa dentro do mapa, PlanetView.anchor).
+		const at = pid => view.anchors && view.anchors[pid] ? { "x": view.anchors[pid].x, "y": view.anchors[pid].y } :
+			{ "x": mx + D.provinces[pid].label[0] * mw, "y": my + D.provinces[pid].label[1] * mh };
 		if (this.body != bodyId || this.mapKey != mw + "x" + mh)
 		{
 			// Corpo ou tamanho mudou: os efeitos antigos ficariam fora do lugar.
@@ -189,8 +191,28 @@ class WH40KCampaignFx
 		for (let i = 0; i < this.planet.count; ++i)
 		{
 			const s = this.planet.slots[i];
-			if (s && s.key && !burning[s.key.split(":")[1]])
+			if (s && s.key && !s.key.startsWith("amb:") && !burning[s.key.split(":")[1]])
 				this.planet.stop(i);
+		}
+		// Ambiente animado: chaminés nas zonas industriais, lava nos ermos vulcânicos,
+		// clarões na disformidade (no máximo 8 por mapa).
+		const palette = D.bodies[bodyId].palette;
+		let amb = 0;
+		for (const pid of D.bodies[bodyId].landProvinces)
+		{
+			if (amb >= 8 || burning[pid])
+				continue;
+			const t = D.provinces[pid].terrain;
+			const p = at(pid);
+			if (t == "industrial")
+				this.planet.loop("amb:" + pid, "smoke", p.x + S * 0.45, p.y + S * 0.1, S * 0.6, { "fps": 5 });
+			else if (t == "ash" && ["volcanic", "forge", "khorne"].indexOf(palette) != -1)
+				this.planet.loop("amb:" + pid, "fire", p.x + S * 0.4, p.y + S * 0.35, S * 0.45, { "fps": 7 });
+			else if (t == "warp")
+				this.planet.loop("amb:" + pid, "ring", p.x + S * 0.4, p.y + S * 0.2, S * 0.55, { "fps": 5, "tint": [220, 70, 170] });
+			else
+				continue;
+			++amb;
 		}
 		for (const pid in burning)
 		{

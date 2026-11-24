@@ -1,0 +1,496 @@
+{
+	"Description": "Sistema estelar e corpos celestes (mesmo formato do sector.json). Gerado por tools/data/build_more.py; mapas por tools/art/gen_planets.py.",
+	"start": {
+		"turn": 1,
+		"year": "999.M41",
+		"monthsPerTurn": 1
+	},
+	"system": {
+		"id": "baal",
+		"name": "Sistema Baal",
+		"star": {
+			"name": "Baal",
+			"color": [
+				255,
+				200,
+				150
+			]
+		},
+		"desc": "O mundo natal dos Blood Angels e as suas luas radioativas. A Frota-Colmeia Leviatã veio devorar o sangue de Sanguinius."
+	},
+	"bodies": [
+		{
+			"id": "baal_prime",
+			"name": "Baal",
+			"kind": "planet",
+			"class": "Mundo-Fortaleza",
+			"orbit": 0.2,
+			"angle": 200,
+			"size": 1.0,
+			"mapSize": [
+				2048,
+				1280
+			],
+			"seed": 241,
+			"palette": "fortress",
+			"desc": "O planeta da Fortaleza-Mosteiro, a Arx Angelicum. Os esporos tiranídeos já caíram nas planícies do norte.",
+			"neutralCiv": "blood_angels",
+			"provinces": [
+				{
+					"id": "arx",
+					"name": "Arx Angelicum",
+					"terrain": "hive",
+					"x": 0.5,
+					"y": 0.42,
+					"owner": "blood_angels",
+					"hive": 2,
+					"forts": 3,
+					"shipyard": true,
+					"garrison": [
+						"ba_intercessors",
+						"ba_sanguinary_guard"
+					]
+				},
+				{
+					"id": "sanctum",
+					"name": "Santuário do Anjo",
+					"terrain": "hive",
+					"x": 0.3,
+					"y": 0.62,
+					"owner": "blood_angels",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"ba_intercessors"
+					]
+				},
+				{
+					"id": "chalice",
+					"name": "Torre do Cálice",
+					"terrain": "hive",
+					"x": 0.72,
+					"y": 0.62,
+					"owner": "blood_angels",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"ba_intercessors"
+					]
+				},
+				{
+					"id": "reliquary_b",
+					"name": "Relicário Vermelho",
+					"terrain": "industrial",
+					"x": 0.5,
+					"y": 0.7,
+					"owner": "blood_angels",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"ba_scouts"
+					]
+				},
+				{
+					"id": "red_dunes",
+					"name": "Dunas Vermelhas",
+					"terrain": "ash",
+					"x": 0.22,
+					"y": 0.32,
+					"garrison": []
+				},
+				{
+					"id": "salt_wastes",
+					"name": "Ermos de Sal",
+					"terrain": "plains",
+					"x": 0.8,
+					"y": 0.34,
+					"garrison": []
+				},
+				{
+					"id": "angel_peaks",
+					"name": "Picos do Anjo",
+					"terrain": "mountains",
+					"x": 0.5,
+					"y": 0.88,
+					"owner": "blood_angels",
+					"forts": 1,
+					"garrison": []
+				},
+				{
+					"id": "rad_plains",
+					"name": "Planícies Radioativas",
+					"terrain": "ash",
+					"x": 0.12,
+					"y": 0.7,
+					"garrison": []
+				},
+				{
+					"id": "crystal_desert",
+					"name": "Deserto de Cristal",
+					"terrain": "plains",
+					"x": 0.88,
+					"y": 0.76,
+					"garrison": []
+				},
+				{
+					"id": "leviathan_nest",
+					"name": "Ninho da Leviatã",
+					"terrain": "biomass",
+					"x": 0.5,
+					"y": 0.12,
+					"owner": "tyranids",
+					"hive": 2,
+					"forts": 3,
+					"garrison": [
+						"warriors",
+						"hive_guard",
+						"genestealers",
+						"termagants",
+						"termagants"
+					]
+				},
+				{
+					"id": "spore_field",
+					"name": "Ninho dos Esporos",
+					"terrain": "biomass",
+					"x": 0.28,
+					"y": 0.12,
+					"owner": "tyranids",
+					"hive": 2,
+					"forts": 3,
+					"garrison": [
+						"warriors",
+						"zoanthropes",
+						"genestealers",
+						"termagants",
+						"termagants"
+					]
+				},
+				{
+					"id": "devoured_hills",
+					"name": "Colinas Devoradas",
+					"terrain": "biomass",
+					"x": 0.74,
+					"y": 0.14,
+					"owner": "tyranids",
+					"forts": 1,
+					"garrison": [
+						"hormagaunts",
+						"termagants"
+					]
+				}
+			]
+		},
+		{
+			"id": "baal_primus",
+			"name": "Baal Primus",
+			"kind": "planet",
+			"class": "Lua Desértica",
+			"parent": "baal_prime",
+			"orbit": 0.085,
+			"angle": 60,
+			"size": 0.42,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 243,
+			"palette": "volcanic",
+			"desc": "Uma lua de desertos vermelhos onde vivem as tribos que dão aspirantes aos Blood Angels.",
+			"neutralCiv": "blood_angels",
+			"provinces": [
+				{
+					"id": "bp_tribes",
+					"name": "Tendas das Tribos",
+					"terrain": "hive",
+					"x": 0.48,
+					"y": 0.45,
+					"owner": "blood_angels",
+					"hive": 2,
+					"forts": 1,
+					"shipyard": true,
+					"garrison": [
+						"ba_scouts",
+						"ba_intercessors"
+					]
+				},
+				{
+					"id": "bp_dunes",
+					"name": "Mar de Dunas",
+					"terrain": "ash",
+					"x": 0.22,
+					"y": 0.32,
+					"owner": "blood_angels",
+					"garrison": []
+				},
+				{
+					"id": "bp_ruins",
+					"name": "Ruínas da Era de Ouro",
+					"terrain": "industrial",
+					"x": 0.75,
+					"y": 0.62,
+					"owner": "blood_angels",
+					"hive": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "baal_secundus",
+			"name": "Baal Secundus",
+			"kind": "planet",
+			"class": "Lua Radioativa",
+			"parent": "baal_prime",
+			"orbit": 0.13,
+			"angle": 250,
+			"size": 0.45,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 245,
+			"palette": "volcanic",
+			"desc": "A outra lua, já coberta de biomassa. Os navios-colmeia pousaram aqui primeiro.",
+			"neutralCiv": "tyranids",
+			"provinces": [
+				{
+					"id": "bs_pool",
+					"name": "Poça Digestiva",
+					"terrain": "biomass",
+					"x": 0.48,
+					"y": 0.45,
+					"owner": "tyranids",
+					"hive": 2,
+					"forts": 1,
+					"shipyard": true,
+					"garrison": [
+						"termagants",
+						"carnifex"
+					]
+				},
+				{
+					"id": "bs_spires",
+					"name": "Agulhas Capilares",
+					"terrain": "biomass",
+					"x": 0.22,
+					"y": 0.32,
+					"owner": "tyranids",
+					"garrison": []
+				},
+				{
+					"id": "bs_ash",
+					"name": "Ermos Calcinados",
+					"terrain": "ash",
+					"x": 0.75,
+					"y": 0.62,
+					"owner": "tyranids",
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "leviathan",
+			"name": "Navio-Colmeia Leviatã",
+			"kind": "planet",
+			"class": "Navio-Colmeia",
+			"orbit": 0.42,
+			"angle": 140,
+			"size": 0.6,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 247,
+			"palette": "bio",
+			"desc": "Uma frota-colmeia inteira presa à órbita alta: carne, ossos e fome.",
+			"neutralCiv": "tyranids",
+			"provinces": [
+				{
+					"id": "lv_heart",
+					"name": "Coração Sináptico",
+					"terrain": "biomass",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "tyranids",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"warriors",
+						"zoanthropes"
+					]
+				},
+				{
+					"id": "lv_gut",
+					"name": "Câmaras Digestivas",
+					"terrain": "biomass",
+					"x": 0.22,
+					"y": 0.32,
+					"owner": "tyranids",
+					"garrison": []
+				},
+				{
+					"id": "lv_spines",
+					"name": "Espinhos Dorsais",
+					"terrain": "biomass",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "tyranids",
+					"garrison": []
+				},
+				{
+					"id": "lv_brood",
+					"name": "Câmaras de Ninhada",
+					"terrain": "biomass",
+					"x": 0.5,
+					"y": 0.78,
+					"owner": "tyranids",
+					"hive": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "angel_dock",
+			"name": "Ancoradouro do Anjo",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "baal_prime",
+			"orbit": 0.17,
+			"angle": 330,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 249,
+			"palette": "station",
+			"desc": "Os estaleiros orbitais dos Blood Angels.",
+			"neutralCiv": "blood_angels",
+			"provinces": [
+				{
+					"id": "angel_dock_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "blood_angels",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"ba_intercessors"
+					]
+				},
+				{
+					"id": "angel_dock_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "blood_angels",
+					"garrison": [
+						"ba_intercessors"
+					]
+				},
+				{
+					"id": "angel_dock_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "blood_angels",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		}
+	],
+	"startingArmies": [
+		{
+			"faction": "blood_angels",
+			"general": "dante",
+			"body": "baal_prime",
+			"province": "arx",
+			"battalions": [
+				"ba_intercessors",
+				"ba_intercessors",
+				"ba_assault",
+				"ba_death_company",
+				"ba_sanguinary_guard",
+				"ba_baal_predator"
+			]
+		},
+		{
+			"faction": "blood_angels",
+			"general": "mephiston",
+			"body": "baal_prime",
+			"province": "chalice",
+			"battalions": [
+				"ba_intercessors",
+				"ba_assault",
+				"ba_inceptors"
+			]
+		},
+		{
+			"faction": "tyranids",
+			"general": "hive_tyrant",
+			"body": "baal_prime",
+			"province": "leviathan_nest",
+			"battalions": [
+				"termagants",
+				"termagants",
+				"termagants",
+				"hormagaunts",
+				"hormagaunts",
+				"genestealers",
+				"warriors",
+				"carnifex",
+				"hive_guard",
+				"gargoyles"
+			]
+		},
+		{
+			"faction": "tyranids",
+			"general": "broodlord",
+			"body": "baal_prime",
+			"province": "spore_field",
+			"battalions": [
+				"termagants",
+				"termagants",
+				"hormagaunts",
+				"hormagaunts",
+				"genestealers",
+				"genestealers",
+				"warriors",
+				"carnifex"
+			]
+		},
+		{
+			"faction": "tyranids",
+			"general": "old_one_eye",
+			"body": "baal_secundus",
+			"province": "bs_pool",
+			"battalions": [
+				"termagants",
+				"hormagaunts",
+				"carnifex",
+				"warriors",
+				"genestealers",
+				"termagants"
+			]
+		}
+	],
+	"startingFleets": [
+		{
+			"faction": "blood_angels",
+			"body": "baal_prime",
+			"ships": 3
+		},
+		{
+			"faction": "tyranids",
+			"body": "leviathan",
+			"ships": 5
+		}
+	]
+}

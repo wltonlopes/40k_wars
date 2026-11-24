@@ -1,0 +1,442 @@
+{
+	"Description": "Sistema estelar e corpos celestes (mesmo formato do sector.json). Gerado por tools/data/build_more.py; mapas por tools/art/gen_planets.py.",
+	"start": {
+		"turn": 1,
+		"year": "111.M42",
+		"monthsPerTurn": 1
+	},
+	"system": {
+		"id": "ultramar",
+		"name": "Sistema Iax (Ultramar)",
+		"star": {
+			"name": "Iax",
+			"color": [
+				255,
+				240,
+				210
+			]
+		},
+		"desc": "Iax, o mundo-jardim de Ultramar, recebe as bênçãos de Nurgle. A Death Guard quer apodrecer o coração do reino de Guilliman."
+	},
+	"bodies": [
+		{
+			"id": "iax",
+			"name": "Iax",
+			"kind": "planet",
+			"class": "Mundo-Jardim",
+			"orbit": 0.2,
+			"angle": 200,
+			"size": 1.0,
+			"mapSize": [
+				2048,
+				1280
+			],
+			"seed": 261,
+			"palette": "agri",
+			"desc": "Campos férteis, cidades de mármore e arquivos antigos. A praga já brota nos pântanos do leste.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "iax_city",
+					"name": "Cidade de Iax",
+					"terrain": "hive",
+					"x": 0.48,
+					"y": 0.4,
+					"owner": "ultramarines",
+					"hive": 2,
+					"forts": 3,
+					"shipyard": true,
+					"garrison": [
+						"um_intercessors",
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "archive",
+					"name": "Grande Arquivo",
+					"terrain": "hive",
+					"x": 0.3,
+					"y": 0.24,
+					"owner": "ultramarines",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "gardens",
+					"name": "Jardins de Iax",
+					"terrain": "plains",
+					"x": 0.3,
+					"y": 0.58,
+					"owner": "imperial",
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "granary",
+					"name": "Celeiros Imperiais",
+					"terrain": "industrial",
+					"x": 0.62,
+					"y": 0.6,
+					"owner": "imperial",
+					"hive": 1,
+					"forts": 1,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "marble_hive",
+					"name": "Colmeia de Mármore",
+					"terrain": "hive",
+					"x": 0.68,
+					"y": 0.24,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"guard_platoon",
+						"heavy_weapons"
+					]
+				},
+				{
+					"id": "olive_hills",
+					"name": "Colinas das Oliveiras",
+					"terrain": "mountains",
+					"x": 0.14,
+					"y": 0.4,
+					"forts": 1,
+					"garrison": [
+						"guard_platoon"
+					]
+				},
+				{
+					"id": "river_delta",
+					"name": "Delta do Rio",
+					"terrain": "jungle",
+					"x": 0.48,
+					"y": 0.8,
+					"garrison": []
+				},
+				{
+					"id": "rotting_fields",
+					"name": "Campos Apodrecidos",
+					"terrain": "mire",
+					"x": 0.86,
+					"y": 0.46,
+					"owner": "death_guard",
+					"garrison": [
+						"dg_poxwalkers"
+					]
+				},
+				{
+					"id": "plague_hive",
+					"name": "Colmeia da Praga (caída)",
+					"terrain": "hive",
+					"x": 0.88,
+					"y": 0.8,
+					"owner": "death_guard",
+					"hive": 2,
+					"forts": 2,
+					"garrison": [
+						"dg_plague_marines",
+						"dg_poxwalkers",
+						"dg_poxwalkers",
+						"dg_poxwalkers"
+					]
+				},
+				{
+					"id": "fly_marsh",
+					"name": "Pântano das Moscas",
+					"terrain": "mire",
+					"x": 0.7,
+					"y": 0.88,
+					"owner": "death_guard",
+					"garrison": []
+				},
+				{
+					"id": "north_woods",
+					"name": "Bosques do Norte",
+					"terrain": "jungle",
+					"x": 0.5,
+					"y": 0.08,
+					"garrison": []
+				},
+				{
+					"id": "iax_sea",
+					"name": "Mar",
+					"terrain": "sea",
+					"x": 0.08,
+					"y": 0.86
+				}
+			]
+		},
+		{
+			"id": "espandor",
+			"name": "Espandor",
+			"kind": "planet",
+			"class": "Mundo-Colmeia",
+			"orbit": 0.34,
+			"angle": 120,
+			"size": 0.6,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 263,
+			"palette": "hive",
+			"desc": "Mundo-colmeia de Ultramar que manda regimentos para Iax.",
+			"neutralCiv": "imperial",
+			"provinces": [
+				{
+					"id": "es_hive",
+					"name": "Colmeia de Espandor",
+					"terrain": "hive",
+					"x": 0.48,
+					"y": 0.45,
+					"owner": "imperial",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"guard_platoon",
+						"leman_russ"
+					]
+				},
+				{
+					"id": "es_mines",
+					"name": "Minas",
+					"terrain": "industrial",
+					"x": 0.22,
+					"y": 0.32,
+					"owner": "imperial",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "es_plains",
+					"name": "Planícies",
+					"terrain": "plains",
+					"x": 0.75,
+					"y": 0.32,
+					"owner": "imperial",
+					"garrison": []
+				},
+				{
+					"id": "es_peaks",
+					"name": "Montes",
+					"terrain": "mountains",
+					"x": 0.5,
+					"y": 0.78,
+					"owner": "imperial",
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "macragge_fleet",
+			"name": "Frota de Macragge",
+			"kind": "station",
+			"class": "Estação Orbital",
+			"parent": "iax",
+			"orbit": 0.09,
+			"angle": 300,
+			"size": 0.32,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 265,
+			"palette": "station",
+			"desc": "A frota dos Ultramarines em órbita de Iax.",
+			"neutralCiv": "ultramarines",
+			"provinces": [
+				{
+					"id": "macragge_fleet_yards",
+					"name": "Estaleiros",
+					"terrain": "station",
+					"x": 0.25,
+					"y": 0.5,
+					"owner": "ultramarines",
+					"hive": 1,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"um_intercessors"
+					]
+				},
+				{
+					"id": "macragge_fleet_ring",
+					"name": "Anel de Atracação",
+					"terrain": "station",
+					"x": 0.55,
+					"y": 0.35,
+					"owner": "ultramarines",
+					"garrison": [
+						"um_intercessors"
+					]
+				},
+				{
+					"id": "macragge_fleet_battery",
+					"name": "Bateria de Defesa",
+					"terrain": "station",
+					"x": 0.78,
+					"y": 0.62,
+					"owner": "ultramarines",
+					"forts": 1,
+					"garrison": []
+				}
+			]
+		},
+		{
+			"id": "terminus",
+			"name": "Nau da Praga",
+			"kind": "planet",
+			"class": "Nau da Praga",
+			"orbit": 0.42,
+			"angle": 30,
+			"size": 0.55,
+			"mapSize": [
+				1024,
+				640
+			],
+			"seed": 267,
+			"palette": "nurgle",
+			"desc": "Uma nau de batalha da Death Guard, tão podre que virou um pequeno mundo.",
+			"neutralCiv": "death_guard",
+			"provinces": [
+				{
+					"id": "tm_garden",
+					"name": "Jardim da Nau",
+					"terrain": "warp",
+					"x": 0.5,
+					"y": 0.45,
+					"owner": "death_guard",
+					"hive": 2,
+					"forts": 2,
+					"shipyard": true,
+					"garrison": [
+						"dg_plague_marines",
+						"dg_poxwalkers"
+					]
+				},
+				{
+					"id": "tm_hold",
+					"name": "Porões Fétidos",
+					"terrain": "mire",
+					"x": 0.22,
+					"y": 0.32,
+					"owner": "death_guard",
+					"garrison": []
+				},
+				{
+					"id": "tm_foundry",
+					"name": "Fundição",
+					"terrain": "industrial",
+					"x": 0.78,
+					"y": 0.3,
+					"owner": "death_guard",
+					"hive": 1,
+					"garrison": []
+				},
+				{
+					"id": "tm_decks",
+					"name": "Conveses Podres",
+					"terrain": "mire",
+					"x": 0.5,
+					"y": 0.78,
+					"owner": "death_guard",
+					"garrison": []
+				}
+			]
+		}
+	],
+	"startingArmies": [
+		{
+			"faction": "ultramarines",
+			"general": "calgar",
+			"body": "iax",
+			"province": "iax_city",
+			"battalions": [
+				"um_intercessors",
+				"um_intercessors",
+				"um_hellblasters",
+				"um_aggressors",
+				"um_redemptor"
+			]
+		},
+		{
+			"faction": "ultramarines",
+			"general": "tigurius",
+			"body": "macragge_fleet",
+			"province": "macragge_fleet_yards",
+			"battalions": [
+				"um_intercessors",
+				"um_inceptors",
+				"um_scouts"
+			]
+		},
+		{
+			"faction": "imperial",
+			"general": "yarrick",
+			"body": "iax",
+			"province": "marble_hive",
+			"battalions": [
+				"guard_platoon",
+				"guard_platoon",
+				"heavy_weapons",
+				"leman_russ",
+				"chimera"
+			]
+		},
+		{
+			"faction": "death_guard",
+			"general": "typhus",
+			"body": "iax",
+			"province": "plague_hive",
+			"battalions": [
+				"dg_poxwalkers",
+				"dg_poxwalkers",
+				"dg_poxwalkers",
+				"dg_plague_marines",
+				"dg_plague_marines",
+				"dg_plague_marines",
+				"dg_blight_launchers",
+				"dg_blightspawn",
+				"dg_plagueburst",
+				"dg_deathshroud"
+			]
+		},
+		{
+			"faction": "death_guard",
+			"general": "felthius",
+			"body": "iax",
+			"province": "rotting_fields",
+			"battalions": [
+				"dg_poxwalkers",
+				"dg_poxwalkers",
+				"dg_plague_marines"
+			]
+		}
+	],
+	"startingFleets": [
+		{
+			"faction": "ultramarines",
+			"body": "macragge_fleet",
+			"ships": 3
+		},
+		{
+			"faction": "imperial",
+			"body": "espandor",
+			"ships": 2
+		},
+		{
+			"faction": "death_guard",
+			"body": "terminus",
+			"ships": 4
+		}
+	]
+}

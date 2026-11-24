@@ -478,6 +478,21 @@
 			]
 		},
 		{
+			"faction": "krieg",
+			"general": "kerrig",
+			"body": "vraks_prime",
+			"province": "east_camp",
+			"battalions": [
+				"kr_rifles",
+				"kr_rifles",
+				"kr_rifles",
+				"kr_grenadiers",
+				"kr_riders",
+				"kr_heavy",
+				"kr_earthshaker"
+			]
+		},
+		{
 			"faction": "vraks",
 			"general": "xaphan",
 			"body": "vraks_prime",

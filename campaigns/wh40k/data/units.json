@@ -52,7 +52,8 @@
 				"water": {
 					"speed": 1.3
 				}
-			}
+			},
+			"entrench": true
 		},
 		{
 			"id": "sentinel",
@@ -7966,7 +7967,8 @@
 				"Pelo Imperador, a morte.",
 				"Avançar.",
 				"Nossas vidas não importam."
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_watchmaster",
@@ -7986,7 +7988,8 @@
 				"Por cima da trincheira!",
 				"Sigam-me.",
 				"Sem medo."
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_grenadiers",
@@ -8011,7 +8014,8 @@
 				"Granadeiros, avante!",
 				"Limpar a trincheira.",
 				"Pelo Trono."
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_engineers",
@@ -8039,7 +8043,8 @@
 				"Carga colocada.",
 				"Cavar.",
 				"Abrir caminho."
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_plasma",
@@ -8059,7 +8064,8 @@
 				"Plasma carregado.",
 				"Derreter.",
 				"Cuidado com o calor."
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_flamers",
@@ -8084,7 +8090,8 @@
 				"Queimar a trincheira.",
 				"Fogo!",
 				"Nada sai vivo."
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_heavy",
@@ -8105,7 +8112,8 @@
 				"Suprimir!",
 				"Varrer.",
 				"Munição!"
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_riders",
@@ -8146,7 +8154,8 @@
 				"Ainda serve.",
 				"O Imperador o recebe.",
 				"Próximo."
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_vox",
@@ -8166,7 +8175,8 @@
 				"Coordenadas enviadas.",
 				"Barragem a caminho.",
 				"Câmbio."
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_centaur",
@@ -8235,7 +8245,8 @@
 				"Carregar!",
 				"Fogo!",
 				"Mais um mês de barragem."
-			]
+			],
+			"entrench": true
 		},
 		{
 			"id": "kr_hades",

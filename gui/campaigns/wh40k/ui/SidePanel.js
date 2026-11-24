@@ -27,7 +27,7 @@ function specialGainText(sp)
 		if (k == "decay")
 			continue;
 		if (k == "hold")
-			parts.push(Object.keys(sp.gain.hold).map(t => (WH40K_TERRAIN_NAMES[t] || t).toLowerCase()).join(", ") + " sob seu controle (por turno)");
+			parts.push(Object.keys(sp.gain.hold).map(t => tr(WH40K_TERRAIN_NAMES[t] || t).toLowerCase()).join(", ") + " sob seu controle (por turno)");
 		else if (WH40K_GAIN_NAMES[k])
 			parts.push(WH40K_GAIN_NAMES[k]);
 	}
@@ -149,6 +149,8 @@ class WH40KSidePanel
 			return this.renderHire();
 		if (this.mode == "ritual")
 			return this.renderRitual();
+		if (this.mode == "build")
+			return this.renderBuild();
 		if (!sel)
 			return this.renderOverview();
 		if (sel.type == "province" && this.g.province(sel.id))
@@ -248,15 +250,52 @@ class WH40KSidePanel
 			"title": D.factions[f].name,
 			"subtitle": "Seus exércitos",
 			"text": "Províncias: " + g.provincesOf(f).length + " · Frotas: " + Object.values(g.s.fleets).filter(x => x.faction == f).length +
-				"\nRendimento " + g.income(f) + " · Manutenção " + g.upkeep(f) + "\n\nSelecione algo no mapa, ou um exército abaixo.",
+				"\nRendimento " + g.income(f) + " · Manutenção " + g.upkeep(f) + "\n" + colored("Conselheiro: " + (this.page.advice().length - 1) + " aviso(s).", [235, 205, 125]) + "\n\nSelecione algo no mapa, ou um exército abaixo.",
 			"rows": rows,
 			"actions": [
 				D.factions[f].special ? { "caption": "Rituais (" + D.factions[f].special.short + ")", "tooltip": "Gaste " + D.factions[f].special.name + ". Os rituais de exército precisam de um exército selecionado.", "onPress": () => this.page.openRituals() } : null,
 				{ "caption": "Diplomacia", "tooltip": "Tréguas e traições.", "onPress": () => this.page.showDiplomacy() },
+				{ "caption": "Conselheiro", "tooltip": "O que pede atenção neste turno.", "onPress": () => this.page.showAdvice() },
+				{ "caption": "Salvar cópia", "tooltip": "Guarda uma cópia desta cruzada (aparece em 'Carregar Cruzada'). Um salvamento automático é feito a cada turno.",
+					"onPress": () => { if (this.page.saveCopy("t" + this.g.s.turn, "cópia do turno " + this.g.s.turn)) this.page.flash("Cópia salva (turno " + this.g.s.turn + ")."); } },
 				{ "caption": "Códex", "tooltip": "Todas as unidades e generais das facções, com as fichas.", "onPress": () => this.page.codex.open(f) },
 				{ "caption": "Estatísticas", "tooltip": "Territórios por turno, batalhas e baixas.", "onPress": () => this.page.stats.open() },
-				{ "caption": "Ajuda", "onPress": () => this.page.dialog.open({ "title": "Como jogar", "text": this.page.tutorialText() }) }
+				{ "caption": "Ajuda", "onPress": () => this.page.dialog.open({ "title": "Como jogar", "text": this.page.tutorialText(),
+					"buttons": [{ "caption": "Rever introdução", "onPress": () => this.page.cinema.open(null) }, { "caption": "Fechar" }] }) }
 			]
+		});
+	}
+
+	// ------------------------------------------------------------ construções
+
+	renderBuild()
+	{
+		const g = this.g;
+		const f = this.page.player;
+		const pid = this.buildProvince;
+		if (!pid || g.province(pid).owner != f)
+		{
+			this.mode = null;
+			return this.render();
+		}
+		const rows = Object.keys(WH40K_BUILDINGS).map(id => {
+			const b = WH40K_BUILDINGS[id];
+			const built = g.hasBuilding(pid, id) || id == "shipyard" && g.pdef(pid).shipyard;
+			const why = built ? "Já existe." : g.canBuild(f, pid, id);
+			return {
+				"icon": "color:" + (built ? "150 220 120" : why ? "120 110 100" : "235 205 125") + " 255:textureAsMask:campaigns/wh40k/icons/" + b.icon + ".png",
+				"text": b.name + (built ? " ✓" : "") + "\n" + colored(built ? "construído" : b.cost + " " + this.D.factions[f].currencyShort, why && !built ? [200, 110, 90] : [190, 180, 160]),
+				"tooltip": b.name + " — " + b.desc + (why ? "\n\n" + colored(why, built ? [150, 220, 120] : [250, 120, 90]) : "\n\nClique: construir."),
+				"onPress": () => this.report(g.build(f, pid, id))
+			};
+		});
+		this.show({
+			"title": "Construir — " + this.D.provinces[pid].name,
+			"subtitle": "Vagas: " + g.buildingsOf(pid).length + "/" + g.buildingSlots(pid) + " · " + this.D.factions[f].currency + ": " + g.s.factions[f].funds,
+			"text": "Cidades têm mais vagas (1 + nível da cidade). Uma construção por turno em cada província. Ao ser conquistada, a província perde metade das construções; o saque destrói todas.",
+			"textHeight": 70,
+			"rows": rows,
+			"actions": [{ "caption": "Voltar", "onPress": () => { this.mode = null; this.render(); } }]
 		});
 	}
 
@@ -294,6 +333,22 @@ class WH40KSidePanel
 				}
 			};
 		});
+		for (const up of WH40K_UPGRADES)
+		{
+			const owned = g.upgradesOf(f).indexOf(up.id) != -1;
+			const why = owned ? "" : g.canUpgrade(f, up.id);
+			rows.push({
+				"icon": "color:" + (owned ? "150 220 120" : why ? "120 110 100" : "210 170 250") + " 255:textureAsMask:campaigns/wh40k/icons/shield.png",
+				"text": "Melhoria: " + g.upgradeName(f, up.id) + (owned ? " ✓" : "") + "\n" + colored(owned ? "permanente" : up.cost + " " + sp.short + " · permanente", why ? [200, 110, 90] : [190, 180, 160]),
+				"tooltip": g.upgradeName(f, up.id) + " — " + up.desc + (owned ? "\n\nJá adquirida." : why ? "\n\n" + colored(why, [250, 120, 90]) : "\n\nClique: adquirir (vale para sempre)."),
+				"onPress": () => {
+					const err = owned ? "" : g.buyUpgrade(f, up.id);
+					if (err)
+						this.page.flash(err);
+					this.refresh();
+				}
+			});
+		}
 		const buffs = army ? (army.buffs || []).map(b => b.name + " (" + g.buffText(b) + ", " + b.turns + " t)").join(", ") : "";
 		this.show({
 			"portrait": portraitSprite(sp.icon),
@@ -339,7 +394,8 @@ class WH40KSidePanel
 		{
 			actions.push({ "caption": "Recrutar guarnição", "tooltip": "Batalhões que ficam na província e a defendem (manutenção pela metade).", "onPress": () => { this.mode = "recruit"; this.recruitTarget = { "province": pid }; this.render(); } });
 			actions.push({ "caption": "Contratar general", "enabled": g.hireableGenerals(this.page.player).length > 0, "tooltip": "Um novo general assume um exército nesta província.", "onPress": () => { this.mode = "hire"; this.hireProvince = pid; this.render(); } });
-			if (def.shipyard)
+			actions.push({ "caption": "Construir (" + g.buildingsOf(pid).length + "/" + g.buildingSlots(pid) + ")", "tooltip": "Santuário, quartel, bateria antiorbital, manufactorum, estaleiro.", "onPress": () => { this.mode = "build"; this.buildProvince = pid; this.render(); } });
+			if (g.hasShipyard(pid))
 				actions.push({ "caption": "Lançar nave (" + WH40K_SHIP_COST + ")", "tooltip": "O estaleiro lança uma nave de guerra na órbita deste corpo (uma por turno).", "onPress": () => this.report(g.buildShip(this.page.player, pid)) });
 		}
 		else if (fleet && !g.canBombard(fleet, pid))
@@ -348,7 +404,11 @@ class WH40KSidePanel
 			"title": def.name,
 			"subtitle": WH40K_TERRAIN_NAMES[def.terrain] + " · " + colored(D.factionName(st.owner), D.factionColor(st.owner))
 		});
+		const order = g.orderOf(pid);
+		const orderColor = order < 15 ? [250, 90, 70] : order < 40 ? [240, 180, 80] : [150, 220, 120];
 		header.text = (st.devastated > 0 ? colored("Devastada por mais " + st.devastated + " turno(s): rendimento reduzido.", [240, 140, 60]) + "\n" : "") +
+			(st.owner && g.hasOrder(st.owner) ? colored("Ordem: " + order + " (" + (g.orderDelta(pid) >= 0 ? "+" : "") + g.orderDelta(pid) + "/turno)" + (order < 40 ? " — rendimento -25%" : "") + (order < 15 ? " — risco de revolta!" : ""), orderColor) + "\n" : "") +
+			(g.buildingsOf(pid).length ? "Construções: " + g.buildingsOf(pid).map(b => WH40K_BUILDINGS[b].name).join(", ") + "\n" : "") +
 			"Rendimento: " + g.provinceIncome(pid) + (def.hive == 2 ? " · Cidade-colmeia" : def.hive ? " · Cidade" : "") + (def.shipyard ? " · Estaleiro" : "") +
 			"\nFortificações: " + st.forts + " · Guarnição: " + st.garrison.length + "/" + g.maxGarrison(pid) +
 			"\nDefesa contra você: " + (own ? "-" : Math.round(g.defensePower(pid, this.page.player))) +
@@ -443,7 +503,7 @@ class WH40KSidePanel
 			const reason = g.canRecruit(f, unit.id, pid);
 			return {
 				"icon": portraitSprite(unit.icon || unit.portrait, !!reason),
-				"text": unit.name + "\n" + colored(unit.cost + " " + D.factions[f].currencyShort + " · manutenção " + unit.upkeep + " · poder " + unit.power, reason ? [200, 110, 90] : [190, 180, 160]),
+				"text": unit.name + "\n" + colored(g.recruitCost(f, unit, pid) + " " + D.factions[f].currencyShort + " · manutenção " + unit.upkeep + " · poder " + unit.power, reason ? [200, 110, 90] : [190, 180, 160]),
 				"tooltip": unit.name + " — " + unit.desc + (unit.needsHive ? "\nExige cidade ou fortaleza." : "") + this.requiresText(unit) + (unitTerrainText(unit) ? "\nTerreno: " + unitTerrainText(unit) + "." : "") + (reason ? "\n\n" + colored(reason, [250, 120, 90]) : "\n\nClique: recrutar.") + "\nBotão direito: ficha da unidade.",
 				"card": { "unit": unit.id },
 				"onPress": () => {

@@ -241,6 +241,91 @@
 			],
 			"intro": "813.M41. O Cardeal Xaphan proclamou Vraks livre do Imperador e entregou o arsenal ao Caos. Os Death Korps of Krieg cavam trincheiras ao redor da Cidadela: o cerco vai durar anos. Nas sombras, a Alpha Legion arma os rebeldes, uma fenda de sangue se abre para Khorne — e os Cavaleiros Cinzentos vigiam.",
 			"summary": "Krieg e os Grey Knights contra os rebeldes de Xaphan e os demônios de Khorne, numa guerra de trincheiras."
+		},
+		{
+			"id": "baal",
+			"name": "O Cerco de Baal",
+			"sector": "sector_baal.json",
+			"factions": [
+				"blood_angels",
+				"tyranids"
+			],
+			"playable": [
+				"blood_angels",
+				"tyranids"
+			],
+			"neutralName": "Tribos de Baal",
+			"objective": {
+				"body": "baal_prime",
+				"label": "Fortalezas de Baal",
+				"text": "controlar todas as cidades de Baal"
+			},
+			"portraits": [
+				"blood_angels/r2c0.png",
+				"tyranids/r2c3.png"
+			],
+			"intro": "999.M41. A Frota-Colmeia Leviatã cerca Baal, o mundo natal dos Blood Angels. Dante reúne o que resta do Capítulo na Arx Angelicum. Os esporos já caem nas planícies do norte — e a fome do enxame não tem fim.",
+			"summary": "Os Blood Angels defendem o seu mundo natal contra a Frota-Colmeia Leviatã."
+		},
+		{
+			"id": "ultramar",
+			"name": "A Guerra da Praga",
+			"sector": "sector_ultramar.json",
+			"factions": [
+				"ultramarines",
+				"imperial",
+				"death_guard"
+			],
+			"playable": [
+				"ultramarines",
+				"imperial",
+				"death_guard"
+			],
+			"teams": {
+				"ultramar": [
+					"ultramarines",
+					"imperial"
+				]
+			},
+			"neutralName": "Defesa de Ultramar",
+			"objective": {
+				"body": "iax",
+				"label": "Cidades de Iax",
+				"text": "controlar todas as cidades de Iax (Ultramarines e Guarda vencem juntos)"
+			},
+			"portraits": [
+				"ultramarines/r2c0.png",
+				"nurgle/r1c2.png"
+			],
+			"intro": "111.M42. A Death Guard invade Ultramar. Typhus semeia a praga em Iax, o mundo-jardim. Marneus Calgar e os regimentos de Espandor juram queimar cada mosca do planeta.",
+			"summary": "Ultramarines e a Guarda Imperial contra a Death Guard no mundo-jardim de Iax."
+		},
+		{
+			"id": "sautekh",
+			"name": "O Despertar de Sautekh",
+			"sector": "sector_sautekh.json",
+			"factions": [
+				"tau",
+				"necrons",
+				"orks"
+			],
+			"playable": [
+				"tau",
+				"necrons",
+				"orks"
+			],
+			"neutralName": "Colonos de Dal'ryn",
+			"objective": {
+				"body": "dalryn",
+				"label": "Cidades de Dal'ryn",
+				"text": "controlar todas as cidades de Dal'ryn"
+			},
+			"portraits": [
+				"tau/r1c2.png",
+				"necrons/r1c3.png"
+			],
+			"intro": "014.M42. O Império Tau ergueu a colônia Dal'ryn sobre dunas douradas — sem saber que dormia ali uma tumba da Dinastia Sautekh. Imotekh desperta, furioso. E no céu, um Rok cheio de Orks já sentiu o cheiro da maior briga do setor.",
+			"summary": "Três lados num mundo-tumba: o Império Tau, os Necrons que despertam e uma Waaagh! de Orks."
 		}
 	]
 }

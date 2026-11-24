@@ -15,17 +15,21 @@ CFG="$HOME/snap/0ad/$REV/.config/0ad/config/user.cfg"
 # A página marca o save de teste como "campanha atual": guarda e devolve.
 CUR=$(grep '^currentcampaign = ' "$CFG" 2>/dev/null)
 mkdir -p "$SAVES" "$OUTDIR" "$MOD/autostart"
-trap 'rm -rf "$MOD/autostart" "$SAVES/wh40ktest.0adcampaign"; sed -i "/^currentcampaign = /d" "$CFG"; [ -n "$CUR" ] && echo "$CUR" >> "$CFG"' EXIT
+# LANG_SHOT=en|pt|es: idioma das capturas (devolve a opção no fim).
+OLDLANG=$(grep '^wh40k.language = ' "$CFG" 2>/dev/null)
+if [ -n "${LANG_SHOT:-}" ]; then sed -i "/^wh40k.language = /d" "$CFG"; echo "wh40k.language = \"$LANG_SHOT\"" >> "$CFG"; fi
+trap 'rm -rf "$MOD/autostart" "$SAVES/wh40ktest.0adcampaign"; sed -i "/^currentcampaign = /d" "$CFG"; [ -n "$CUR" ] && echo "$CUR" >> "$CFG"; if [ -n "${LANG_SHOT:-}" ]; then sed -i "/^wh40k.language = /d" "$CFG"; [ -n "$OLDLANG" ] && echo "$OLDLANG" >> "$CFG"; fi' EXIT
 for VIEW in $VIEWS; do
 	if [ "$VIEW" = new ]; then
 		echo '{"data":{},"meta":{"userDescription":"teste"},"template_identifier":"wh40k"}' > "$SAVES/wh40ktest.0adcampaign"
 	else
 		sh "$MOD/tools/test/make_state.sh" > "$SAVES/wh40ktest.0adcampaign"
 	fi
+	if [ "$VIEW" = menu ]; then PAGE='"page_pregame.xml", {}'; else PAGE='"campaigns/wh40k/page.xml", { "filename": "wh40ktest", "debugView": "'$VIEW'" }'; fi
 	cat > "$MOD/autostart/autostart.js" <<JS
 async function autoStart(cmdLineArgs)
 {
-	return ["campaigns/wh40k/page.xml", { "filename": "wh40ktest", "debugView": "$VIEW" }];
+	return [$PAGE];
 }
 JS
 	(cd /tmp && timeout ${TIMEOUT:-45} snap run 0ad -mod=public -mod=40k_wars -autostart=x -xres=${XRES:-1366} -yres=${YRES:-768} > /dev/null 2>&1) &
