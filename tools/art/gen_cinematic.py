@@ -4,6 +4,9 @@ Lê tools/source/cinematic/NN.png (16:9) e grava
 art/textures/ui/campaigns/wh40k/cinematic/NN.png em 2048x1024 (potência de
 dois; a interface estica de volta para 16:9), com vinheta e um leve tom de
 cinema (sombras frias, luzes quentes).
+
+Subpastas (tools/source/cinematic/<campanha>/NN.png) são os conjuntos próprios
+de cada campanha e vão para cinematic/<campanha>/. "antigas" é ignorada.
 """
 import glob
 import os
@@ -30,12 +33,16 @@ def grade(img):
 
 
 def main():
-    os.makedirs(OUT, exist_ok=True)
-    files = sorted(glob.glob(os.path.join(SRC, "*.png")))
+    files = sorted(glob.glob(os.path.join(SRC, "*.png")) + glob.glob(os.path.join(SRC, "*", "*.png")))
     for f in files:
+        rel = os.path.relpath(f, SRC)
+        if rel.startswith("antigas" + os.sep):
+            continue
+        out = os.path.join(OUT, rel)
+        os.makedirs(os.path.dirname(out), exist_ok=True)
         img = grade(Image.open(f)).resize((2048, 1024), Image.LANCZOS)
-        img.save(os.path.join(OUT, os.path.basename(f)), optimize=True)
-        print("cinemática:", os.path.basename(f))
+        img.save(out, optimize=True)
+        print("cinemática:", rel)
 
 
 if __name__ == "__main__":

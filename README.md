@@ -128,7 +128,9 @@ biomassa tiranídea, solo da disformidade e complexo tumular.
   (nome, descrição, raio, duração, recarga em `generals.json`); a IA
   também usa os poderes dela.
 - **Cinemática de introdução:** ao começar uma campanha, seis quadros
-  (`tools/source/cinematic/`, gerados por `tools/art/gen_cinematic.py`)
+  (`tools/source/cinematic/`, gerados por `tools/art/gen_cinematic.py`;
+  Badab e Vraks têm quadros, câmera e narração próprios em
+  `tools/source/cinematic/<campanha>/` e `WH40K_CINEMAS` no Cinematic.js)
   com zoom e deslocamento lentos, passagem pelo preto, faixas de cinema e
   narração escrita letra a letra, montada com a campanha (ano, abertura,
   objetivo), a sua facção, os aliados, os inimigos e o seu general.
