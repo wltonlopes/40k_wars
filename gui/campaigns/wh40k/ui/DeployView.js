@@ -108,7 +108,9 @@ class WH40KDeployView
 			gui("deployEnemyHit[" + i + "]").hidden = true;
 			const t = e.general ? 18 : 14;
 			setSize(obj, e.x * r.w - t, e.y * r.h - t, e.x * r.w + t, e.y * r.h + t);
-			setTokenSprite("deployEnemy", i, e.portrait, 2, enemyColor);
+			drawFigures("deployEnemy", i, this.figureOpts(e, 2, enemyColor, i));
+			obj.onMouseEnter = () => this.showRange("battleRangeEnemy", e, [255, 80, 60]);
+			obj.onMouseLeave = () => gui("battleRangeEnemy").hidden = true;
 			obj.tooltip = colored(e.general ? e.name : e.unitName, enemyColor) + "\n" + (e.general ? "General inimigo" : e.name) + " · " + percent(e.strength) +
 				"\nOrdem prevista: " + WH40K_ORDERS[e.order].name;
 		});
@@ -123,7 +125,9 @@ class WH40KDeployView
 			gui("deployTokenHit[" + i + "]").hidden = true;
 			const t = (e.general ? 20 : 15) + (i == this.selected ? 4 : 0);
 			setSize(btn, e.x * r.w - t, e.y * r.h - t, e.x * r.w + t, e.y * r.h + t);
-			setTokenSprite("deployToken", i, e.portrait, 1, D.factionColor(this.page.player));
+			drawFigures("deployToken", i, this.figureOpts(e, 1, D.factionColor(this.page.player), i));
+			btn.onMouseEnter = () => {};
+			btn.onMouseLeave = () => {};
 			btn.tooltip = (e.general ? e.name : e.unitName + "\n" + e.name) + " · " + percent(e.strength) + "\nOrdem: " + WH40K_ORDERS[e.order].name + "\n\nClique: selecionar.";
 			btn.onPress = () => {
 				this.selected = i;
@@ -137,8 +141,46 @@ class WH40KDeployView
 			gui("deployToken[" + i + "]").hidden = true;
 		for (let i = 0; i < 20; ++i)
 			gui("deployArrow[" + i + "]").hidden = true;
+		gui("battleRangeEnemy").hidden = true;
+		gui("battleRange").hidden = true;
+		const sel = this.deployment.player[this.selected];
+		if (sel)
+			this.showRange("battleRange", sel, [255, 215, 90]);
 
 		this.renderPanel();
+	}
+
+	/** Opções de drawFigures para uma entrada do desdobramento (parada, de frente para o inimigo). */
+	figureOpts(e, side, color, i)
+	{
+		const unit = this.page.D.unitById[e.unit] || {};
+		return {
+			"unit": e.general ? null : e.unit, "portrait": e.portrait, "side": side, "color": color,
+			"category": e.general ? "general" : e.category, "men": unit.men || 1, "strength": e.strength,
+			"face": side == 1 ? 1 : -1, "seed": i
+		};
+	}
+
+	/** Alcance da entrada no terreno da província (unidades da batalha: altura do campo = 1). */
+	rangeOf(e)
+	{
+		const cat = e.general ? "general" : e.category;
+		const unit = this.page.D.unitById[e.unit];
+		const base = (unit && unit.range) || WH40K_COMBAT.category[cat].range;
+		return base * WH40KCombat.terrainMods(cat, unit, this.setup.pdef.terrain, [], this.setup.weather()).range;
+	}
+
+	/** Anel de alcance para artilharia (alcance longo); some para as outras. */
+	showRange(name, e, color)
+	{
+		const obj = gui(name);
+		const unit = this.page.D.unitById[e.unit];
+		if (e.general || !unit || !this.rect || (unit.range || 0) < WH40K_ARTILLERY_RANGE)
+		{
+			obj.hidden = true;
+			return;
+		}
+		placeRange(obj, e.x * this.rect.w, e.y * this.rect.h, this.rangeOf(e) * this.rect.h, color);
 	}
 
 	onFieldClick()
@@ -234,39 +276,6 @@ class WH40KDeployView
 		return (mine ? "\n" + colored("Reforços: " + mine + " batalhão(ões) seus chegam aos 50 s.", [140, 220, 120]) : "") +
 			(theirs ? "\n" + colored("O inimigo tem " + theirs + " batalhão(ões) de reforço a caminho.", [240, 140, 90]) : "");
 	}
-}
-
-/**
- * Marcador da batalha: miniatura recortada (gen_minis.py) sobre uma peanha na
- * cor da facção; o lado inimigo usa a miniatura espelhada. Sem miniatura,
- * o retrato redondo.
- */
-function setTokenSprite(prefix, i, portrait, side, color)
-{
-	const btn = gui(prefix + "[" + i + "]");
-	const fig = gui(prefix + "Fig[" + i + "]");
-	const D = g_WH40KPage && g_WH40KPage.D;
-	if (D && D.minis && D.minis[portrait])
-	{
-		const base = "color:" + rgbStr(color, 200) + ":textureAsMask:campaigns/wh40k/icons/disc.png";
-		if (btn.sprite != base)
-		{
-			btn.sprite = base;
-			btn.sprite_over = "color:" + rgbStr(color.map(c => Math.min(255, c + 60)), 230) + ":textureAsMask:campaigns/wh40k/icons/disc.png";
-		}
-		const s = "stretched:campaigns/wh40k/minis/" + portrait.replace(/\.png$/, side == 2 ? "_m.png" : ".png");
-		if (fig.sprite != s)
-			fig.sprite = s;
-		fig.hidden = false;
-		return;
-	}
-	const s = portraitSprite(portrait);
-	if (btn.sprite != s)
-	{
-		btn.sprite = s;
-		btn.sprite_over = s;
-	}
-	fig.hidden = true;
 }
 
 /** Efeitos de terreno para dicas: infantaria e veículos (ou só a unidade). */

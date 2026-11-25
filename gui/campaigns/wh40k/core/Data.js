@@ -101,6 +101,19 @@ var WH40KData = {
 		{
 			// sem miniaturas: a batalha usa os retratos
 		}
+		// Sprites de batalha por unidade (tools/art/gen_sprites.py): têm prioridade.
+		// sprites: { unidade: [quadros de marcha, quadros de tiro] }.
+		this.sprites = {};
+		try
+		{
+			const sp = read("sprites.json").sprites || {};
+			for (const id in sp)
+				this.sprites[Array.isArray(sp) ? sp[id] : id] = Array.isArray(sp) ? [1, 0] : sp[id];
+		}
+		catch (e)
+		{
+			// sem sprites: miniatura ou retrato
+		}
 
 		const support = read("support.json");
 		this.support = {};

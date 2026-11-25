@@ -452,6 +452,7 @@ class WH40KCombat
 			dmg *= 1.25;
 		this.damage(target, dmg, u.side, u);
 		u.lastFire = this.time;
+		u.aimX = target.x;
 		u.shotTimer -= dt;
 		if (u.shotTimer <= 0)
 		{

@@ -4,7 +4,7 @@
 # Uso (na pasta do mod): sh tools/test/guishot.sh <pasta de saída> [vistas...]
 # Com a tela bloqueada (ou sem tela), use um X aninhado:
 #   Xephyr :5 -screen 1366x768 -ac & DISPLAY=:5 IMPORT_ARGS="-display :5" sh tools/test/guishot.sh ...
-#   vistas: new (escolha de facção), planet, system, army, deploy, battle (batalha 2D), sack (efeitos nas províncias)
+#   vistas: new (escolha de facção), planet, system, army, deploy, battle (batalha 2D), battle@<s> (batalha já adiantada <s> segundos), sack (efeitos nas províncias)
 MOD=$(cd "$(dirname "$0")/../.." && pwd)
 REV=$(echo "$MOD" | sed -n 's|.*/snap/0ad/\([0-9]*\)/.*|\1|p')
 SAVES="$HOME/snap/0ad/$REV/.local/share/0ad/saves/campaigns"

@@ -116,21 +116,32 @@
 					<object name="deployWeather" type="image" ghost="true" hidden="true" size="0 0 100% 100%"/>
 					<object name="deployEnemyZone" type="image" sprite="wh40kEnemyZone" ghost="true" size="0 4% 100% 24%"/>
 					<object name="deployOwnZone" type="image" sprite="wh40kDeployZone" ghost="true" size="0 76% 100% 96%"/>
+					<!-- Anéis de alcance da artilharia: a selecionada (dourado) e a inimiga sob o mouse (vermelho). -->
+					<object name="battleRange" type="image" ghost="true" hidden="true"/>
+					<object name="battleRangeEnemy" type="image" ghost="true" hidden="true"/>
 					<object name="deploySelRing" type="image" ghost="true" hidden="true"/>
 					<repeat count="24" var="n">
 						<object name="deployEnemy[n]" type="button" hidden="true">
-							<object name="deployEnemyFig[n]" type="image" ghost="true" hidden="true" size="-7 -16 100%+7 100%-1"/>
-							<object name="deployEnemyHit[n]" type="image" ghost="true" hidden="true" size="0 0 100% 100%" sprite="color:255 40 20 110"/>
+							<object name="deployEnemyHit[n]" type="image" ghost="true" hidden="true" size="-4 -4 100%+4 100%+4" sprite="color:255 50 20 210:textureAsMask:campaigns/wh40k/icons/disc.png"/>
+							<repeat count="6" var="k">
+								<object name="deployEnemyFig[n][k]" type="image" ghost="true" hidden="true"/>
+							</repeat>
 							<object name="deployEnemyBar[n]" type="image" ghost="true" hidden="true" sprite="color:230 80 60 255"/>
 						</object>
 					</repeat>
 					<repeat count="24" var="n">
 						<object name="deployToken[n]" type="button" hidden="true">
-							<object name="deployTokenFig[n]" type="image" ghost="true" hidden="true" size="-7 -16 100%+7 100%-1"/>
-							<object name="deployTokenHit[n]" type="image" ghost="true" hidden="true" size="0 0 100% 100%" sprite="color:255 40 20 110"/>
+							<object name="deployTokenHit[n]" type="image" ghost="true" hidden="true" size="-4 -4 100%+4 100%+4" sprite="color:255 50 20 210:textureAsMask:campaigns/wh40k/icons/disc.png"/>
+							<repeat count="6" var="k">
+								<object name="deployTokenFig[n][k]" type="image" ghost="true" hidden="true"/>
+							</repeat>
 							<object name="deployTokenBar[n]" type="image" ghost="true" hidden="true" sprite="color:90 200 90 255"/>
 							<object name="deployTokenOrder[n]" type="text" ghost="true" size="-20 100% 100%+20 100%+16" font="sans-bold-stroke-12" textcolor="255 230 150" text_align="center"/>
 						</object>
+					</repeat>
+					<!-- Projéteis: traçantes orientados (ui/Shots.js). -->
+					<repeat count="64" var="n">
+						<object name="battleShot[n]" type="image" ghost="true" hidden="true"/>
 					</repeat>
 					<repeat count="40" var="n">
 						<object name="battleFx[n]" type="image" ghost="true" hidden="true"/>

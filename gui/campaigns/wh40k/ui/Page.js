@@ -113,6 +113,8 @@ class WH40KPage
 {
 	constructor(initData, closePageCallback)
 	{
+		// Já disponível para quem desenha durante o construtor (vistas de depuração).
+		g_WH40KPage = this;
 		this.closePageCallback = closePageCallback;
 		if (initData?.codex)
 		{
@@ -219,11 +221,20 @@ class WH40KPage
 			if (pid)
 				this.openDeploy(this.game.makeBattle(pid, this.player, [army.id], "assault"));
 		}
-		else if ((view == "battle" || view == "launch") && army)
+		else if ((view == "battle" || view == "launch" || view.startsWith("battle@")) && army)
 		{
 			this.debug("deploy");
 			if (this.deploy.setup)
 				this.startBattle(this.deploy.setup, this.deploy.deployment);
+			// battle@<s>: a batalha já começa adiantada (capturas no meio do tiroteio).
+			const ahead = view.startsWith("battle@") ? +view.split("@")[1] : 0;
+			const c = this.battle.combat;
+			for (let k = 0; c && k < ahead * 20 && !c.over; ++k)
+			{
+				c.step(0.05);
+				if (k < ahead * 20 - 10)
+					c.events = [];
+			}
 		}
 		else if (view == "card" && army)
 		{

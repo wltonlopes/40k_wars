@@ -102,7 +102,17 @@ if (attack)
 	print("batalha: vista " + page.view + " | unidades " + bv.combat.alive(1).length + " x " + bv.combat.alive(2).length + " | apoio " + bv.combat.sides[1].powers.map(p => p.name + " " + p.charge + "/" + p.kills).join(", "));
 	let now = Date.now();
 	const tickN = n => { for (let i = 0; i < n; ++i) { now += 100; bv.tick(now); page.fx.tick(now); } };
-	tickN(30);
+	const figs = () => [...Array(24).keys()].reduce((n, i) => n + [...Array(6).keys()].filter(k => !gui("deployTokenFig[" + i + "][" + k + "]").hidden).length, 0);
+	const figs0 = figs();
+	let maxLive = 0;
+	let movingTicks = 0;
+	for (let i = 0; i < 30; ++i)
+	{
+		tickN(1);
+		maxLive = Math.max(maxLive, bv.shots.live.length);
+		movingTicks += Object.values(bv.motion).some(m => m.moving) ? 1 : 0;
+	}
+	print("animação: figuras " + figs0 + " | tiques andando " + movingTicks + "/30 | tiros " + bv.shots.fired + " (no ar até " + maxLive + ")");
 	const sel = bv.selectedUnit();
 	print("selecionado: " + (sel && sel.name) + " / " + gui("sideTitle").caption + " / frase: " + gui("sideQuote").caption);
 	g_MouseX = page.deploy.rect.absX + page.deploy.rect.s * 0.3; g_MouseY = page.deploy.rect.absY + page.deploy.rect.s * 0.6;
@@ -130,6 +140,18 @@ if (attack)
 		}
 		if (k == 20)
 			press("sideAction[9]"); // velocidade x2
+	}
+	{
+		const art = bv.combat.alive(1).find(u => u.range >= WH40K_ARTILLERY_RANGE) || bv.combat.alive(1).find(u => !u.general);
+		if (art)
+		{
+			const old = art.range;
+			art.range = Math.max(art.range, WH40K_ARTILLERY_RANGE);
+			bv.select(art);
+			bv.drawUnits();
+			print("anel de alcance: " + art.unit + " visível " + !gui("battleRange").hidden + " | tiros no total " + bv.shots.fired + " | figuras agora " + figs());
+			art.range = old;
+		}
 	}
 	const fxVisible = [...Array(40).keys()].filter(i => !gui("battleFx[" + i + "]").hidden).length;
 	print("fim da batalha: over " + bv.combat.over + " vencedor " + bv.combat.winner + " tempo " + Math.round(bv.combat.time) + "s apoios usados " + used + " efeitos visíveis " + fxVisible);

@@ -22,6 +22,7 @@ class WH40KBattleView
 	{
 		this.page = page;
 		this.fx = new WH40KFxPool("battleFx", 40);
+		this.shots = new WH40KShots("battleShot", 64);
 	}
 
 	get active()
@@ -34,6 +35,9 @@ class WH40KBattleView
 		this.setup = setup;
 		this.combat = new WH40KCombat(setup.combatOptions(deployment, this.page.deploy.rect ? this.page.deploy.rect.aspect : 1.6));
 		this.fx.clear();
+		this.shots.clear();
+		this.motion = {};
+		this.hoverEnemy = null;
 		this.speedIndex = 0;
 		this.paused = false;
 		this.targeting = null;
@@ -55,6 +59,9 @@ class WH40KBattleView
 	{
 		this.combat = null;
 		this.fx.clear();
+		this.shots.clear();
+		gui("battleRange").hidden = true;
+		gui("battleRangeEnemy").hidden = true;
 		gui("battleHud").hidden = true;
 		gui("battleMsg").hidden = true;
 		gui("battleCursor").hidden = true;
@@ -124,6 +131,7 @@ class WH40KBattleView
 		}
 		this.consumeEvents();
 		this.fx.tick(now);
+		this.shots.tick(now);
 		this.drawUnits();
 		this.drawHud();
 		this.drawCursor();
@@ -175,7 +183,13 @@ class WH40KBattleView
 				const px = u.x * r.s;
 				const py = u.y * r.s;
 				setSize(btn, px - t, py - t, px + t, py + t);
-				setTokenSprite(prefix, i, u.portrait, side, side == 1 ? D.factionColor(this.page.player) : enemyColor);
+				const m = this.motionOf(u);
+				drawFigures(prefix, i, {
+					"unit": u.general ? null : u.unit, "portrait": u.portrait, "side": side,
+					"color": side == 1 ? D.factionColor(this.page.player) : enemyColor,
+					"category": u.category, "men": u.men, "strength": u.hp, "face": m.face,
+					"moving": m.moving, "firing": c.time - u.lastFire < 0.35, "time": Date.now() / 1000, "seed": i + side * 7
+				});
 				const bar = gui(prefix + "Bar[" + i + "]");
 				bar.hidden = false;
 				const frac = Math.max(0, Math.min(1, u.hp));
@@ -204,6 +218,8 @@ class WH40KBattleView
 							this.firePower(u.x, u.y);
 					};
 					btn.onPressRight = () => this.attackTarget(u);
+					btn.onMouseEnter = () => { this.hoverEnemy = u.id; };
+					btn.onMouseLeave = () => { this.hoverEnemy = null; };
 				}
 			}
 		}
@@ -216,6 +232,44 @@ class WH40KBattleView
 			setSize(ring, sel.x * r.s - t, sel.y * r.s - t, sel.x * r.s + t, sel.y * r.s + t);
 			ring.sprite = "color:255 215 90 255:textureAsMask:campaigns/wh40k/icons/ring.png";
 		}
+		// Anel de alcance: artilharia selecionada (dourado) e inimiga sob o mouse (vermelho).
+		const showRange = (name, u, color) => {
+			const obj = gui(name);
+			if (!u || u.general || u.range < WH40K_ARTILLERY_RANGE)
+				obj.hidden = true;
+			else
+				placeRange(obj, u.x * r.s, u.y * r.s, c.rangeOf(u) * r.s, color);
+		};
+		showRange("battleRange", sel, [255, 215, 90]);
+		const hover = this.hoverEnemy && c.unit(this.hoverEnemy, 2);
+		showRange("battleRangeEnemy", hover && hover.state == "alive" ? hover : null, [255, 80, 60]);
+	}
+
+	/**
+	 * Movimento visto na tela: anda (posição mudou há pouco) e para que lado
+	 * olha (para onde anda; atirando, para o alvo).
+	 */
+	motionOf(u)
+	{
+		const now = Date.now();
+		let m = this.motion[u.id + "/" + u.side];
+		if (!m)
+			m = this.motion[u.id + "/" + u.side] = { "x": u.x, "y": u.y, "until": 0, "face": u.side == 1 ? 1 : -1 };
+		const dx = u.x - m.x;
+		const dy = u.y - m.y;
+		if (Math.hypot(dx, dy) > 1e-4)
+		{
+			m.until = now + 160;
+			if (Math.abs(dx) > 2e-4)
+				m.face = dx > 0 ? 1 : -1;
+			m.x = u.x;
+			m.y = u.y;
+		}
+		const firing = this.combat.time - u.lastFire < 0.35;
+		if (firing && u.aimX !== undefined && Math.abs(u.aimX - u.x) > 0.01)
+			m.face = u.aimX > u.x ? 1 : -1;
+		m.moving = now < m.until && !firing;
+		return m;
 	}
 
 	drawHud()
@@ -267,6 +321,15 @@ class WH40KBattleView
 	}
 
 	/** Eventos da simulação -> efeitos. */
+	/** Cor do rastro: a da facção do atirador, clareada (laser, bólter, gauss...). */
+	tracerColor(u)
+	{
+		const D = this.page.D;
+		const faction = u && u.side == 1 ? this.page.player : this.setup.factionOf(this.setup.enemyRole);
+		const c = D.factionColor(faction) || [255, 200, 80];
+		return c.map((v, i) => Math.round(v * 0.45 + [255, 225, 140][i] * 0.55));
+	}
+
 	consumeEvents()
 	{
 		const c = this.combat;
@@ -305,9 +368,31 @@ class WH40KBattleView
 			switch (ev.type)
 			{
 			case "shot":
-				if (shots++ < 6)
-					this.fx.play("impact", x + jitter(), y + jitter(), s * (ev.category == "vehicle" ? 0.045 : 0.03));
+			{
+				// Projétil do atirador ao alvo (mostra a direção); o clarão no alvo vem na chegada.
+				const from = ev.from;
+				const big = from && from.range >= WH40K_ARTILLERY_RANGE && from.category != "infantry";
+				const tracer = this.tracerColor(from);
+				const ix = x + jitter();
+				const iy = y + jitter();
+				const impact = shots++ < 8 ? () => this.fx.play(big ? "explosion" : "impact", ix, iy, s * (big ? 0.06 : ev.category == "vehicle" ? 0.045 : 0.03)) : null;
+				if (from)
+				{
+					// Rajada: até 3 traçantes saindo de figuras diferentes da esquadra.
+					const volley = big ? 1 : Math.min(3, figureCount(from.category, from.men, from.hp));
+					const t = this.tokenSize(from);
+					for (let v = 0; v < volley; ++v)
+						this.shots.fire(from.x * s + (volley > 1 ? (v - (volley - 1) / 2) * t * 0.9 : 0), (from.y - 0.012) * s - (v % 2) * t * 0.3,
+							ix + jitter() * 0.6, iy + jitter() * 0.6, {
+								"kind": big ? "shell" : from.category == "vehicle" || from.category == "air" ? "heavy" : "bullet",
+								"color": tracer, "speed": WH40K_SPEEDS[this.speedIndex], "delay": v * 0.07 + Math.random() * 0.05,
+								"onHit": v == 0 ? impact : null
+							});
+				}
+				else if (impact)
+					impact();
 				break;
+			}
 			case "melee":
 				if (shots++ < 6)
 					this.fx.play("clash", x + jitter(), y + jitter(), s * 0.06);

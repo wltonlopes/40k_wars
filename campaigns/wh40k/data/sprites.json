@@ -1,0 +1,1329 @@
+{
+	"Description": "Sprites de batalha por unidade: [quadros de marcha, quadros de tiro] (tools/art/gen_sprites.py). Arquivos: <id>.png, <id>_w<i>.png (i>=1), <id>_f<i>.png e as vers\u00f5es _m espelhadas.",
+	"sprites": {
+		"ac_apothecary": [
+			1,
+			0
+		],
+		"ac_assault": [
+			1,
+			0
+		],
+		"ac_devastators": [
+			1,
+			0
+		],
+		"ac_dreadnought": [
+			1,
+			0
+		],
+		"ac_predator": [
+			1,
+			0
+		],
+		"ac_rhino": [
+			1,
+			0
+		],
+		"ac_tactical": [
+			1,
+			0
+		],
+		"ac_terminators": [
+			1,
+			0
+		],
+		"assault_marines": [
+			1,
+			0
+		],
+		"ba_assault": [
+			1,
+			0
+		],
+		"ba_assault_terminators": [
+			1,
+			0
+		],
+		"ba_baal_predator": [
+			1,
+			0
+		],
+		"ba_bladeguard": [
+			1,
+			0
+		],
+		"ba_dc_dreadnought": [
+			1,
+			0
+		],
+		"ba_death_company": [
+			1,
+			0
+		],
+		"ba_furioso": [
+			1,
+			0
+		],
+		"ba_inceptors": [
+			1,
+			0
+		],
+		"ba_intercessors": [
+			1,
+			0
+		],
+		"ba_sanguinary_guard": [
+			1,
+			0
+		],
+		"ba_scouts": [
+			1,
+			0
+		],
+		"ba_stormraven": [
+			1,
+			0
+		],
+		"baneblade": [
+			1,
+			0
+		],
+		"battle_sisters": [
+			1,
+			0
+		],
+		"battlewagon": [
+			1,
+			0
+		],
+		"big_gunz": [
+			1,
+			0
+		],
+		"boyz": [
+			1,
+			0
+		],
+		"breachers": [
+			3,
+			3
+		],
+		"broadsides": [
+			3,
+			2
+		],
+		"bullgryns": [
+			1,
+			0
+		],
+		"burna_bommer": [
+			1,
+			0
+		],
+		"burna_boyz": [
+			1,
+			0
+		],
+		"carnifex": [
+			3,
+			3
+		],
+		"chaos_marines": [
+			1,
+			0
+		],
+		"chaos_rhino": [
+			1,
+			0
+		],
+		"chaos_spawn": [
+			1,
+			0
+		],
+		"chaos_terminators": [
+			1,
+			0
+		],
+		"chimera": [
+			1,
+			0
+		],
+		"chosen": [
+			1,
+			0
+		],
+		"commissar": [
+			1,
+			0
+		],
+		"crisis_suits": [
+			3,
+			2
+		],
+		"cu_achillus": [
+			1,
+			0
+		],
+		"cu_allarus": [
+			1,
+			0
+		],
+		"cu_aquilon": [
+			1,
+			0
+		],
+		"cu_caladius": [
+			1,
+			0
+		],
+		"cu_galatus": [
+			1,
+			0
+		],
+		"cu_shields": [
+			1,
+			0
+		],
+		"cu_spears": [
+			1,
+			0
+		],
+		"cu_telemon": [
+			1,
+			0
+		],
+		"cu_venatari": [
+			1,
+			0
+		],
+		"cu_vertus": [
+			1,
+			0
+		],
+		"cu_vexilus": [
+			1,
+			0
+		],
+		"cu_wardens": [
+			1,
+			0
+		],
+		"cu_witchseekers": [
+			1,
+			0
+		],
+		"cultists": [
+			12,
+			3
+		],
+		"custodes": [
+			1,
+			0
+		],
+		"dakkajet": [
+			1,
+			0
+		],
+		"dark_reapers": [
+			1,
+			0
+		],
+		"deathmarks": [
+			3,
+			3
+		],
+		"deathwatch": [
+			1,
+			0
+		],
+		"deff_dread": [
+			1,
+			0
+		],
+		"deffkoptas": [
+			1,
+			0
+		],
+		"defiler": [
+			1,
+			0
+		],
+		"destroyers": [
+			3,
+			3
+		],
+		"devastators": [
+			1,
+			0
+		],
+		"devilfish": [
+			2,
+			1
+		],
+		"dg_blight_hauler": [
+			1,
+			0
+		],
+		"dg_blight_launchers": [
+			1,
+			0
+		],
+		"dg_blightbringer": [
+			1,
+			0
+		],
+		"dg_blightlords": [
+			1,
+			0
+		],
+		"dg_blightspawn": [
+			1,
+			0
+		],
+		"dg_bloat_drone": [
+			1,
+			0
+		],
+		"dg_deathshroud": [
+			1,
+			0
+		],
+		"dg_plague_marines": [
+			1,
+			0
+		],
+		"dg_plagueburst": [
+			1,
+			0
+		],
+		"dg_poxwalkers": [
+			5,
+			0
+		],
+		"dg_putrifier": [
+			1,
+			0
+		],
+		"dg_rhino": [
+			1,
+			0
+		],
+		"dg_spawn": [
+			1,
+			0
+		],
+		"dg_tallyman": [
+			1,
+			0
+		],
+		"dire_avengers": [
+			1,
+			0
+		],
+		"dk_bloodbrides": [
+			3,
+			3
+		],
+		"dk_hellions": [
+			1,
+			0
+		],
+		"dk_incubi": [
+			3,
+			3
+		],
+		"dk_kabalites": [
+			3,
+			3
+		],
+		"dk_mandrakes": [
+			1,
+			0
+		],
+		"dk_raider": [
+			2,
+			1
+		],
+		"dk_ravager": [
+			2,
+			1
+		],
+		"dk_reavers": [
+			1,
+			0
+		],
+		"dk_scourges": [
+			1,
+			0
+		],
+		"dk_talos": [
+			1,
+			0
+		],
+		"dk_trueborn": [
+			3,
+			3
+		],
+		"dk_wracks": [
+			3,
+			3
+		],
+		"dk_wyches": [
+			3,
+			3
+		],
+		"doomsday_ark": [
+			2,
+			1
+		],
+		"dreadnought": [
+			1,
+			0
+		],
+		"ec_blastmaster": [
+			1,
+			0
+		],
+		"ec_daemonettes": [
+			1,
+			0
+		],
+		"ec_fiends": [
+			1,
+			0
+		],
+		"ec_infractors": [
+			1,
+			0
+		],
+		"ec_keeper": [
+			1,
+			0
+		],
+		"ec_land_raider": [
+			1,
+			0
+		],
+		"ec_maulerfiend": [
+			1,
+			0
+		],
+		"ec_noise_marines": [
+			1,
+			0
+		],
+		"ec_predator": [
+			1,
+			0
+		],
+		"ec_rhino": [
+			1,
+			0
+		],
+		"ec_seekers": [
+			1,
+			0
+		],
+		"ec_spawn": [
+			1,
+			0
+		],
+		"ec_terminators": [
+			1,
+			0
+		],
+		"ec_tormentors": [
+			1,
+			0
+		],
+		"eversor": [
+			1,
+			0
+		],
+		"ex_land_raider": [
+			1,
+			0
+		],
+		"ex_tactical": [
+			1,
+			0
+		],
+		"ex_terminators": [
+			1,
+			0
+		],
+		"ex_vanguard": [
+			1,
+			0
+		],
+		"exorcist": [
+			1,
+			0
+		],
+		"falcon": [
+			1,
+			0
+		],
+		"field_artillery": [
+			1,
+			0
+		],
+		"fire_dragons": [
+			1,
+			0
+		],
+		"fire_warriors": [
+			3,
+			3
+		],
+		"flamers": [
+			1,
+			0
+		],
+		"flayed_ones": [
+			3,
+			3
+		],
+		"gargoyles": [
+			3,
+			0
+		],
+		"genestealers": [
+			6,
+			0
+		],
+		"gk_chaplain": [
+			1,
+			0
+		],
+		"gk_dreadknight": [
+			1,
+			0
+		],
+		"gk_dreadnought": [
+			1,
+			0
+		],
+		"gk_interceptors": [
+			1,
+			0
+		],
+		"gk_land_raider": [
+			1,
+			0
+		],
+		"gk_librarian": [
+			1,
+			0
+		],
+		"gk_paladins": [
+			1,
+			0
+		],
+		"gk_purgators": [
+			1,
+			0
+		],
+		"gk_purifiers": [
+			1,
+			0
+		],
+		"gk_stormraven": [
+			1,
+			0
+		],
+		"gk_strike": [
+			1,
+			0
+		],
+		"gk_terminators": [
+			1,
+			0
+		],
+		"gorkanaut": [
+			1,
+			0
+		],
+		"gretchin": [
+			1,
+			0
+		],
+		"grey_knights": [
+			1,
+			0
+		],
+		"guard_grenadiers": [
+			1,
+			0
+		],
+		"guard_platoon": [
+			1,
+			0
+		],
+		"guardians": [
+			1,
+			0
+		],
+		"hammerhead": [
+			2,
+			1
+		],
+		"haruspex": [
+			3,
+			3
+		],
+		"havocs": [
+			1,
+			0
+		],
+		"heavy_weapons": [
+			1,
+			0
+		],
+		"hellhound": [
+			1,
+			0
+		],
+		"hive_guard": [
+			3,
+			3
+		],
+		"hormagaunts": [
+			6,
+			0
+		],
+		"howling_banshees": [
+			1,
+			0
+		],
+		"hydra": [
+			1,
+			0
+		],
+		"immortals": [
+			3,
+			3
+		],
+		"inquisitor": [
+			1,
+			0
+		],
+		"intercessors": [
+			1,
+			0
+		],
+		"jetbikes": [
+			1,
+			0
+		],
+		"kataphron": [
+			1,
+			0
+		],
+		"killa_kans": [
+			1,
+			0
+		],
+		"kommandos": [
+			1,
+			0
+		],
+		"kr_centaur": [
+			1,
+			0
+		],
+		"kr_demolisher": [
+			1,
+			0
+		],
+		"kr_earthshaker": [
+			1,
+			0
+		],
+		"kr_engineers": [
+			2,
+			0
+		],
+		"kr_flamers": [
+			2,
+			1
+		],
+		"kr_grenadiers": [
+			4,
+			0
+		],
+		"kr_hades": [
+			1,
+			0
+		],
+		"kr_heavy": [
+			1,
+			0
+		],
+		"kr_plasma": [
+			3,
+			0
+		],
+		"kr_quartermaster": [
+			1,
+			0
+		],
+		"kr_riders": [
+			1,
+			0
+		],
+		"kr_rifles": [
+			3,
+			1
+		],
+		"kr_vox": [
+			1,
+			0
+		],
+		"kr_watchmaster": [
+			1,
+			0
+		],
+		"leman_russ": [
+			1,
+			0
+		],
+		"lictor": [
+			6,
+			0
+		],
+		"lm_assault": [
+			1,
+			0
+		],
+		"lm_baal": [
+			1,
+			0
+		],
+		"lm_dreadnought": [
+			1,
+			0
+		],
+		"lm_priest": [
+			1,
+			0
+		],
+		"lm_tactical": [
+			1,
+			0
+		],
+		"lootas": [
+			1,
+			0
+		],
+		"looted_wagon": [
+			1,
+			0
+		],
+		"lychguard": [
+			3,
+			3
+		],
+		"manticore": [
+			1,
+			0
+		],
+		"mawloc": [
+			3,
+			3
+		],
+		"mc_corpuscarii": [
+			1,
+			0
+		],
+		"mc_fulgurites": [
+			1,
+			0
+		],
+		"mc_infiltrators": [
+			1,
+			0
+		],
+		"mc_ironstrider": [
+			1,
+			0
+		],
+		"mc_kastelan": [
+			1,
+			0
+		],
+		"mc_kataphron": [
+			1,
+			0
+		],
+		"mc_onager": [
+			1,
+			0
+		],
+		"mc_pteraxii": [
+			1,
+			0
+		],
+		"mc_rangers": [
+			1,
+			0
+		],
+		"mc_ruststalkers": [
+			1,
+			0
+		],
+		"mc_serberys": [
+			1,
+			0
+		],
+		"mc_skorpius": [
+			1,
+			0
+		],
+		"mc_vanguard": [
+			1,
+			0
+		],
+		"meganobz": [
+			1,
+			0
+		],
+		"monolith": [
+			2,
+			1
+		],
+		"mw_scouts": [
+			1,
+			0
+		],
+		"mw_snipers": [
+			1,
+			0
+		],
+		"mw_speeder": [
+			1,
+			0
+		],
+		"mw_tactical": [
+			1,
+			0
+		],
+		"necron_warriors": [
+			3,
+			3
+		],
+		"nobz": [
+			1,
+			0
+		],
+		"obliterators": [
+			1,
+			0
+		],
+		"ogryns": [
+			1,
+			0
+		],
+		"onager": [
+			1,
+			0
+		],
+		"pathfinders": [
+			3,
+			3
+		],
+		"piranha": [
+			2,
+			1
+		],
+		"possessed": [
+			1,
+			0
+		],
+		"praetorians": [
+			3,
+			3
+		],
+		"predator": [
+			1,
+			0
+		],
+		"rangers": [
+			1,
+			0
+		],
+		"raptors": [
+			1,
+			0
+		],
+		"ratlings": [
+			1,
+			0
+		],
+		"raveners": [
+			6,
+			0
+		],
+		"retributors": [
+			1,
+			0
+		],
+		"riptide": [
+			3,
+			2
+		],
+		"sal_apothecary": [
+			1,
+			0
+		],
+		"sal_assault": [
+			1,
+			0
+		],
+		"sal_bladeguard": [
+			1,
+			0
+		],
+		"sal_eradicators": [
+			1,
+			0
+		],
+		"sal_gladiator": [
+			1,
+			0
+		],
+		"sal_infernus": [
+			1,
+			0
+		],
+		"sal_intercessors": [
+			1,
+			0
+		],
+		"sal_invictor": [
+			1,
+			0
+		],
+		"sal_redeemer": [
+			1,
+			0
+		],
+		"sal_redemptor": [
+			1,
+			0
+		],
+		"sal_scouts": [
+			1,
+			0
+		],
+		"sal_techmarine": [
+			1,
+			0
+		],
+		"sal_terminators": [
+			1,
+			0
+		],
+		"sal_vanguard": [
+			1,
+			0
+		],
+		"sentinel": [
+			1,
+			0
+		],
+		"seraphim": [
+			1,
+			0
+		],
+		"shoota_boyz": [
+			1,
+			0
+		],
+		"sicarians": [
+			1,
+			0
+		],
+		"skitarii_rangers": [
+			1,
+			0
+		],
+		"skorpekh": [
+			3,
+			3
+		],
+		"skorpius": [
+			1,
+			0
+		],
+		"sky_ray": [
+			2,
+			1
+		],
+		"special_weapons": [
+			1,
+			0
+		],
+		"sr_arco": [
+			1,
+			0
+		],
+		"sr_battle_sisters": [
+			1,
+			0
+		],
+		"sr_castigator": [
+			1,
+			0
+		],
+		"sr_celestians": [
+			1,
+			0
+		],
+		"sr_crusaders": [
+			1,
+			0
+		],
+		"sr_dominions": [
+			1,
+			0
+		],
+		"sr_geminae": [
+			1,
+			0
+		],
+		"sr_militants": [
+			1,
+			0
+		],
+		"sr_mortifier": [
+			1,
+			0
+		],
+		"sr_novitiates": [
+			1,
+			0
+		],
+		"sr_penitent": [
+			1,
+			0
+		],
+		"sr_repentia": [
+			1,
+			0
+		],
+		"sr_veterans": [
+			1,
+			0
+		],
+		"stealth_suits": [
+			3,
+			2
+		],
+		"stompa": [
+			1,
+			0
+		],
+		"stormboyz": [
+			1,
+			0
+		],
+		"striking_scorpions": [
+			1,
+			0
+		],
+		"swooping_hawks": [
+			1,
+			0
+		],
+		"tankbustas": [
+			1,
+			0
+		],
+		"termagants": [
+			3,
+			3
+		],
+		"terminators": [
+			1,
+			0
+		],
+		"tervigon": [
+			3,
+			0
+		],
+		"tl_chimera": [
+			1,
+			0
+		],
+		"tl_heavy": [
+			1,
+			0
+		],
+		"tl_rifles": [
+			1,
+			0
+		],
+		"tl_russ": [
+			1,
+			0
+		],
+		"tl_veterans": [
+			1,
+			0
+		],
+		"trukk": [
+			1,
+			0
+		],
+		"ts_cultists": [
+			12,
+			3
+		],
+		"ts_defiler": [
+			1,
+			0
+		],
+		"ts_enlightened": [
+			1,
+			0
+		],
+		"ts_helbrute": [
+			1,
+			0
+		],
+		"ts_horrors": [
+			1,
+			0
+		],
+		"ts_mutalith": [
+			1,
+			0
+		],
+		"ts_rhino": [
+			1,
+			0
+		],
+		"ts_rubrics": [
+			1,
+			0
+		],
+		"ts_scarab_occult": [
+			1,
+			0
+		],
+		"ts_screamers": [
+			1,
+			0
+		],
+		"ts_shaman": [
+			1,
+			0
+		],
+		"ts_spawn": [
+			1,
+			0
+		],
+		"ts_tzaangors": [
+			1,
+			0
+		],
+		"ts_warpflamers": [
+			1,
+			0
+		],
+		"tyrant_guard": [
+			3,
+			3
+		],
+		"um_aggressors": [
+			1,
+			0
+		],
+		"um_apothecary": [
+			1,
+			0
+		],
+		"um_assault_intercessors": [
+			1,
+			0
+		],
+		"um_eradicators": [
+			1,
+			0
+		],
+		"um_hellblasters": [
+			1,
+			0
+		],
+		"um_inceptors": [
+			1,
+			0
+		],
+		"um_intercessors": [
+			1,
+			0
+		],
+		"um_predator": [
+			1,
+			0
+		],
+		"um_redemptor": [
+			1,
+			0
+		],
+		"um_repulsor": [
+			1,
+			0
+		],
+		"um_scouts": [
+			1,
+			0
+		],
+		"um_snipers": [
+			1,
+			0
+		],
+		"um_sternguard": [
+			1,
+			0
+		],
+		"valkyrie": [
+			1,
+			0
+		],
+		"vendetta": [
+			1,
+			0
+		],
+		"vr_alpha": [
+			1,
+			0
+		],
+		"vr_basilisk": [
+			1,
+			0
+		],
+		"vr_chimera": [
+			1,
+			0
+		],
+		"vr_cultists": [
+			12,
+			3
+		],
+		"vr_disciplinarians": [
+			1,
+			0
+		],
+		"vr_grenadiers": [
+			1,
+			0
+		],
+		"vr_heretek": [
+			1,
+			0
+		],
+		"vr_hmg": [
+			1,
+			1
+		],
+		"vr_preachers": [
+			1,
+			0
+		],
+		"vr_raiders": [
+			1,
+			0
+		],
+		"vr_rifles": [
+			1,
+			0
+		],
+		"vr_russ": [
+			1,
+			0
+		],
+		"vr_truck": [
+			1,
+			0
+		],
+		"warbikers": [
+			1,
+			0
+		],
+		"warp_spiders": [
+			1,
+			0
+		],
+		"warp_talons": [
+			1,
+			0
+		],
+		"warriors": [
+			3,
+			3
+		],
+		"we_berzerkers": [
+			1,
+			0
+		],
+		"we_bloodcrushers": [
+			1,
+			0
+		],
+		"we_bloodletters": [
+			1,
+			0
+		],
+		"we_eightbound": [
+			1,
+			0
+		],
+		"we_exalted": [
+			1,
+			0
+		],
+		"we_flesh_hounds": [
+			1,
+			0
+		],
+		"we_forgefiend": [
+			1,
+			0
+		],
+		"we_helbrute": [
+			1,
+			0
+		],
+		"we_jakhals": [
+			12,
+			5
+		],
+		"we_maulerfiend": [
+			1,
+			0
+		],
+		"we_rhino": [
+			1,
+			0
+		],
+		"we_skull_cannon": [
+			1,
+			0
+		],
+		"we_spawn": [
+			1,
+			0
+		],
+		"we_terminators": [
+			1,
+			0
+		],
+		"wraithguard": [
+			1,
+			0
+		]
+	}
+}
